@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 24106278181a424f841ae1390bcacf57
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bunnyPrefab: {fileID: 4387605395167567884, guid: b3f5227760ea72f42809d34da38151a1,
+      type: 3}
+  - foxPrefab: {fileID: 4387605395167567884, guid: 542487f495ff58d44b7bc1ba983b9f05,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
