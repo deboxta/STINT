@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,13 +9,15 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class MainController : MonoBehaviour
     {
-        private bool first;
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private string currentScene;
+        private string sceneToLoad;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            first = true;
+            currentScene = SceneManager.GetActiveScene().name;
+            sceneToLoad = "Game";
         }
 
         private void OnEnable()
@@ -34,17 +37,21 @@ namespace Game
 
         private void Start()
         {
-            if (!SceneManager.GetSceneByName(R.S.Scene.Sebas).isLoaded)
+            if (!SceneManager.GetSceneByName(sceneToLoad).isLoaded)
                 StartCoroutine(LoadGame());
             else
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(R.S.Scene.Sebas));
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
+                currentScene = sceneToLoad;
+            }
         }
 
         private IEnumerator LoadGame()
         {
-            yield return SceneManager.LoadSceneAsync(R.S.Scene.Sebas, LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(R.S.Scene.Sebas));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
+            currentScene = sceneToLoad;
         }
 
         private IEnumerator ReloadGame()
@@ -55,7 +62,7 @@ namespace Game
         
         private IEnumerator UnloadGame()
         {
-            yield return SceneManager.UnloadSceneAsync(R.S.Scene.Sebas);
+            yield return SceneManager.UnloadSceneAsync(currentScene);
         }
     }
 }
