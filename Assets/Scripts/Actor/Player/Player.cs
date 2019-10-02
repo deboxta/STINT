@@ -25,6 +25,12 @@ namespace Game
                 gamePad.ThumbSticks.Left.X < 0)
                 direction += Vector2.left;
             mover.Move(direction);
+            
+            if (Input.GetKeyDown(KeyCode.Space) || 
+                 gamePad.Buttons.A == ButtonState.Pressed)
+            {
+                mover.Jump();
+            }
         }
     }
 }
