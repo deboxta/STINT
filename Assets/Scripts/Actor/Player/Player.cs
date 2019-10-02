@@ -8,13 +8,11 @@ namespace Game
     {
         private PlayerMover mover;
         static private GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
-        private bool isGrounded;
 
 
         private void Awake()
         {
             mover = GetComponent<PlayerMover>();
-            isGrounded = true;
         }
 
         private void Update()
