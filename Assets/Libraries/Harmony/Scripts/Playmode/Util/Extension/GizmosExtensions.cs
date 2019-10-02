@@ -208,19 +208,5 @@ namespace Harmony
             Gizmos.DrawLine(to, to + right);
             Gizmos.color = colorBackup;
         }
-
-        /// <summary>
-        /// Draw a list of nodes in the scene with arrows.
-        /// </summary>
-        /// <param name="path">List of nodes.</param>
-        public static void DrawPath(IReadOnlyList<Node> path)
-        {
-            for (var i = 1; i < path.Count; i++)
-            {
-                var previousPosition = path[i - 1].Position3D;
-                var currentPosition = path[i].Position3D;
-                DrawArrow(previousPosition, currentPosition, Color.cyan);
-            }
-        }
     }
 }
