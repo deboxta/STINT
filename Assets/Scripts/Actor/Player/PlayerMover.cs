@@ -1,4 +1,4 @@
-﻿namespace Actor
+﻿namespace Game
 {
     public class PlayerMover
     {
