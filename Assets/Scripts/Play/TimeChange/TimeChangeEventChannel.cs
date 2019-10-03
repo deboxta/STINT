@@ -4,15 +4,15 @@ using UnityEngine;
 namespace Game
 {
     [Findable(R.S.Tag.TimeController)]
-    public class TimeChangeEventHandler : MonoBehaviour
+    public class TimeChangeEventChannel : MonoBehaviour
     {
-        public event TimelineChangeEventHandler OnTimelineChange;
+        public event TimelineChangeEventChannel OnTimelineChange;
 
         public void NotifyTimelineChanged()
         {
             if (OnTimelineChange != null) OnTimelineChange();
         }
         
-        public delegate void TimelineChangeEventHandler();
+        public delegate void TimelineChangeEventChannel();
     }
 }

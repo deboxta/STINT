@@ -5,25 +5,25 @@ namespace Game
 {
     public class TimeChangeableObject : MonoBehaviour
     {
-        private TimeChangeEventHandler timeChangeEventHandler;
+        private TimeChangeEventChannel timeChangeEventChannel;
 
         private GameObject mainTimelineObject;
         private GameObject secondaryTimelineObject;
 
         private void Awake()
         {
-            timeChangeEventHandler = Finder.TimeChangeEventHandler;
+            timeChangeEventChannel = Finder.TimeChangeEventChannel;
             
             GameObject[] childrens = this.Children();
 
             foreach (var children in childrens)
             {
-                if (children.layer.ToString() == R.S.Layer.MainTimeline)
+                if (children.CompareTag(R.S.Layer.MainTimeline))
                 {
                     mainTimelineObject = children;
                 }
 
-                if (children.layer.ToString() == R.S.Layer.SecondaryTimeline)
+                if (children.CompareTag(R.S.Layer.SecondaryTimeline))
                 {
                     secondaryTimelineObject = children;
                 }
@@ -32,12 +32,12 @@ namespace Game
 
         private void OnEnable()
         {
-            timeChangeEventHandler.OnTimelineChange += TimelineChanged;
+            timeChangeEventChannel.OnTimelineChange += TimelineChanged;
         }
 
         private void OnDisable()
         {
-            timeChangeEventHandler.OnTimelineChange -= TimelineChanged;
+            timeChangeEventChannel.OnTimelineChange -= TimelineChanged;
         }
 
         private void TimelineChanged()

@@ -10,7 +10,7 @@ namespace Game
         [SerializeField] private KeyCode changeTimeKey = KeyCode.LeftShift;
         
         private TimelineEnum currentTimeline;
-        private TimeChangeEventHandler timeChangeEventHandler;
+        private TimeChangeEventChannel timeChangeEventChannel;
         
         public TimelineEnum CurrentTimeline
         {
@@ -18,18 +18,18 @@ namespace Game
             private set
             {
                 currentTimeline = value;
-                timeChangeEventHandler.NotifyTimelineChanged();
+                timeChangeEventChannel.NotifyTimelineChanged();
             }
         }
 
         private void Awake()
         {
-            timeChangeEventHandler = Finder.TimeChangeEventHandler;
+            timeChangeEventChannel = Finder.TimeChangeEventChannel;
         }
 
         private void Start()
         {
-            currentTimeline = TimelineEnum.Main;
+            CurrentTimeline = TimelineEnum.Main;
         }
 
         private void Update()
