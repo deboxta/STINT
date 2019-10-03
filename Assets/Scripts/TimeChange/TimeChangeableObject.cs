@@ -14,18 +14,18 @@ namespace Game
         {
             timeChangeEventChannel = Finder.TimeChangeEventChannel;
             
-            GameObject[] childrens = this.Children();
+            GameObject[] children = this.Children();
 
-            foreach (var children in childrens)
+            foreach (var child in children)
             {
-                if (children.CompareTag(R.S.Tag.MainTimeline))
+                if (child.CompareTag(R.S.Tag.MainTimeline))
                 {
-                    mainTimelineObject = children;
+                    mainTimelineObject = child;
                 }
 
-                if (children.CompareTag(R.S.Tag.SecondaryTimeline))
+                if (child.CompareTag(R.S.Tag.SecondaryTimeline))
                 {
-                    secondaryTimelineObject = children;
+                    secondaryTimelineObject = child;
                 }
             }
         }
