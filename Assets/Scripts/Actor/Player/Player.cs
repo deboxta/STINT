@@ -5,15 +5,20 @@ namespace Game
 {
     public class Player : MonoBehaviour
     {
+        private const int MAX_MENTAL_HEALTH = 100;
+        
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private PlayerMover mover;
+        private int mentalHealth;
 
         private void Awake()
         {
             playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             mover = GetComponent<PlayerMover>();
+
+            mentalHealth = MAX_MENTAL_HEALTH;
         }
         
         private void OnEnable()
@@ -28,6 +33,12 @@ namespace Game
 
         private void Update()
         {
+            if (mentalHealth <= 0)
+            {
+                Die();
+                return;
+            }
+            
             var direction = Vector2.zero;
             if (Input.GetKey(KeyCode.D) ||
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
