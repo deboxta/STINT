@@ -18,12 +18,12 @@ namespace Game
 
             foreach (var children in childrens)
             {
-                if (children.CompareTag(R.S.Layer.MainTimeline))
+                if (children.CompareTag(R.S.Tag.MainTimeline))
                 {
                     mainTimelineObject = children;
                 }
 
-                if (children.CompareTag(R.S.Layer.SecondaryTimeline))
+                if (children.CompareTag(R.S.Tag.SecondaryTimeline))
                 {
                     secondaryTimelineObject = children;
                 }

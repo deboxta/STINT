@@ -7,7 +7,6 @@ namespace Game
     {
         [SerializeField] private int horizontalSpeed = 5;
         [SerializeField] private int jumpForce = 10;
-        private bool jump;
 
 
         private Rigidbody2D rigidBody2D;
@@ -15,7 +14,6 @@ namespace Game
         private void Awake()
         {
             rigidBody2D = GetComponent<Rigidbody2D>();
-            jump = false;
         }
 
         public void Move(Vector2 direction)
@@ -27,13 +25,9 @@ namespace Game
 
         public void Jump()
         {
-            if (jump == false)
-            {
-                jump = true;
-                var velocity = rigidBody2D.velocity;
-                velocity.y = jumpForce;
-                rigidBody2D.velocity = velocity;
-            }
+            var velocity = rigidBody2D.velocity;
+            velocity.y = jumpForce;
+            rigidBody2D.velocity = velocity;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class MainController : MonoBehaviour
     {
+        [SerializeField] private string sceneNameToLoad = "Game";
         private PlayerDeathEventChannel playerDeathEventChannel;
         private string currentScene;
         private string sceneToLoad;
@@ -17,7 +18,7 @@ namespace Game
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             currentScene = SceneManager.GetActiveScene().name;
-            sceneToLoad = "Game";
+            sceneToLoad = sceneNameToLoad;
         }
 
         private void OnEnable()
