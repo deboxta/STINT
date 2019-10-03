@@ -5,12 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainController
-  - Terrain
-  - NavigationMesh
-  - Flora
-  - Water
-  - Fauna
-  - Database
+  - TimeController
+  - MainTimeline
+  - SecondaryTimeline
   layers:
   - Default
   - TransparentFX
