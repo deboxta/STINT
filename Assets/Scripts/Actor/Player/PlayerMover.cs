@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 namespace Game
 {
     public class PlayerMover : MonoBehaviour
