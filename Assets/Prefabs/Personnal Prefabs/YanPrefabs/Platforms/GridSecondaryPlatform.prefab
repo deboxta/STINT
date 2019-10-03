@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6126559282262199171}
   m_Layer: 0
   m_Name: Primary
-  m_TagString: Untagged
+  m_TagString: MainTimeline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6126559282915719364}
   m_Layer: 0
   m_Name: Secondary
-  m_TagString: Untagged
+  m_TagString: SecondaryTimeline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -469,8 +469,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6126559283939175076}
   - component: {fileID: 6126559283939175079}
+  - component: {fileID: 840214107644770865}
   m_Layer: 0
-  m_Name: GridSecondaryPlateform
+  m_Name: GridSecondaryPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,3 +505,15 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &840214107644770865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6126559283939175078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984a400329b1479ea7e76ac99f4f4105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

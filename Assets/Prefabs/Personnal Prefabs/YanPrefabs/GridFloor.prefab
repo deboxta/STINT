@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5847422018002315408}
   - component: {fileID: 5847422018002315409}
   - component: {fileID: 5847422018002315411}
+  - component: {fileID: 898269633429490655}
   m_Layer: 0
   m_Name: GridFloor
   m_TagString: Untagged
@@ -83,6 +84,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &898269633429490655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847422018002315415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984a400329b1479ea7e76ac99f4f4105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5847422018098351894
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +112,7 @@ GameObject:
   - component: {fileID: 5847422018098351981}
   m_Layer: 0
   m_Name: Secondary
-  m_TagString: Untagged
+  m_TagString: SecondaryTimeline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -913,7 +926,7 @@ GameObject:
   - component: {fileID: 5847422018509755309}
   m_Layer: 0
   m_Name: Primary
-  m_TagString: Untagged
+  m_TagString: MainTimeline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
