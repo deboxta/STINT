@@ -1,14 +1,10 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
+﻿using UnityEngine;
 using XInputDotNetPure;
 namespace Game
 {
     public class Player : MonoBehaviour
     {
         private PlayerMover mover;
-        static private GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
-
 
         private void Awake()
         {
@@ -19,12 +15,17 @@ namespace Game
         {
             var direction = Vector2.zero;
             if (Input.GetKey(KeyCode.D) ||
-                gamePad.ThumbSticks.Left.X > 0)
+                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
                 direction += Vector2.right;
             if (Input.GetKey(KeyCode.A) ||
-                gamePad.ThumbSticks.Left.X < 0)
+               GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0)
                 direction += Vector2.left;
             mover.Move(direction);
+            
+            if (Input.GetKeyDown(KeyCode.Space) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            {
+                mover.Jump();
+            }
         }
     }
 }
