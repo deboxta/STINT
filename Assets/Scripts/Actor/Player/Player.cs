@@ -1,14 +1,29 @@
-﻿using UnityEngine;
+﻿using Harmony;
+using UnityEngine;
 using XInputDotNetPure;
 namespace Game
 {
     public class Player : MonoBehaviour
     {
+        private PlayerHitEventChannel playerHitEventChannel;
+        private PlayerDeathEventChannel playerDeathEventChannel;
         private PlayerMover mover;
 
         private void Awake()
         {
+            playerHitEventChannel = Finder.PlayerHitEventChannel;
+            playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             mover = GetComponent<PlayerMover>();
+        }
+        
+        private void OnEnable()
+        {
+            playerHitEventChannel.OnPlayerHit += Hit;
+        }
+
+        private void OnDisable()
+        {
+            playerHitEventChannel.OnPlayerHit -= Hit;
         }
 
         private void Update()
@@ -26,6 +41,16 @@ namespace Game
             {
                 mover.Jump();
             }
+        }
+        
+        private void Hit()
+        {
+            Die();
+        }
+
+        private void Die()
+        {
+            playerDeathEventChannel.NotifyPlayerDeath();
         }
     }
 }
