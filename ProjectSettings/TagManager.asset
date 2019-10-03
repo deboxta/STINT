@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MainController
   - TimeController
+  - MainTimeline
+  - SecondaryTimeline
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - 
   - 
   - Sensor
-  - MainTimeline
-  - SecondaryTimeline
+  - 
+  - 
   - 
   - 
   - 

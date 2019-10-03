@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using UnityEngine;
+using XInputDotNetPure;
 
 
 namespace Game
@@ -7,7 +8,9 @@ namespace Game
     [Findable(R.S.Tag.TimeController)]
     public class TimeController : MonoBehaviour
     {
-        [SerializeField] private KeyCode changeTimeKey = KeyCode.LeftShift;
+        [SerializeField] private KeyCode changeTimeKeyboardKey = KeyCode.LeftShift;
+        [SerializeField] private ButtonState changeTimeGamePadButton = GamePad.GetState(PlayerIndex.One).Buttons.X;
+        [SerializeField] private ButtonState secondaryChangeTimeGamePadButton = GamePad.GetState(PlayerIndex.One).Buttons.Y;
         
         private TimelineEnum currentTimeline;
         private TimeChangeEventChannel timeChangeEventChannel;
@@ -34,7 +37,9 @@ namespace Game
 
         private void Update()
         {
-            if (Input.GetKeyDown(changeTimeKey))
+            if (Input.GetKeyDown(changeTimeKeyboardKey) 
+                || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed 
+                || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
             {
                 //FlashEffect
                 switch (CurrentTimeline)
