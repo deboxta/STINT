@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Game
 {
-    public class TimeChangeableObject : MonoBehaviour
+    public class TimelineChangeableObject : MonoBehaviour
     {
-        private TimeChangeEventChannel timeChangeEventChannel;
+        private TimelineChangedEventChannel timelineChangedEventChannel;
 
         private GameObject mainTimelineObject;
         private GameObject secondaryTimelineObject;
 
         private void Awake()
         {
-            timeChangeEventChannel = Finder.TimeChangeEventChannel;
+            timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             
             GameObject[] children = this.Children();
 
@@ -32,23 +32,23 @@ namespace Game
 
         private void OnEnable()
         {
-            timeChangeEventChannel.OnTimelineChange += TimelineChanged;
+            timelineChangedEventChannel.OnTimelineChanged += TimelineChanged;
         }
 
         private void OnDisable()
         {
-            timeChangeEventChannel.OnTimelineChange -= TimelineChanged;
+            timelineChangedEventChannel.OnTimelineChanged -= TimelineChanged;
         }
 
         private void TimelineChanged()
         {
-            switch (Finder.TimeController.CurrentTimeline)
+            switch (Finder.TimelineController.CurrentTimeline)
             {
-                case TimelineEnum.Main:
+                case Timeline.Main:
                     mainTimelineObject.SetActive(true);
                     secondaryTimelineObject.SetActive(false);
                     break;
-                case TimelineEnum.Secondary:
+                case Timeline.Secondary:
                     mainTimelineObject.SetActive(false);
                     secondaryTimelineObject.SetActive(true);
                     break;
