@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    [Findable(R.S.Tag.TimeController)]
+    [Findable(R.S.Tag.MainController)]
     public class TimelineChangedEventChannel : MonoBehaviour
     {
         public event TimelineChangedEventHandler OnTimelineChanged;
