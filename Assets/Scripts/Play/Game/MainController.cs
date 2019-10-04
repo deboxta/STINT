@@ -11,12 +11,15 @@ namespace Game
     {
         [SerializeField] private string sceneNameToLoad = "Game";
         private PlayerDeathEventChannel playerDeathEventChannel;
+        //TODO check if this is really needed
+        private PlayerHitEventChannel playerHitEventChannel;
         private string currentScene;
         private string sceneToLoad;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            playerHitEventChannel = Finder.PlayerHitEventChannel;
             currentScene = SceneManager.GetActiveScene().name;
             sceneToLoad = sceneNameToLoad;
         }

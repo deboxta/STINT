@@ -58,7 +58,7 @@ namespace Game
             ClearSensedObjects();
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             var otherParentTransform = other.transform.parent;
             if (!IsSelf(otherParentTransform))
@@ -72,7 +72,7 @@ namespace Game
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             var otherParentTransform = other.transform.parent;
             if (!IsSelf(otherParentTransform))
@@ -140,12 +140,12 @@ namespace Game
             }
 
             //Needed to be able to detect something when moved. DO NOT REMOVE THIS!!!!!!!!
-            gameObject.AddComponent<Rigidbody>().isKinematic = true;
+            gameObject.AddComponent<Rigidbody2D>().isKinematic = true;
         }
 
         private void SetSensorLayer()
         {
-            gameObject.layer = (int) R.E.Layer.Sensor;
+            gameObject.layer = LayerMask.NameToLayer("Sensor");
         }
 
         private void ClearSensedObjects()
