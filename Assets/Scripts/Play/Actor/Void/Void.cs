@@ -6,23 +6,26 @@ namespace Game
 {
     public class Void : MonoBehaviour
     {
-        private PlayerHitEventChannel playerHitEventChannel;
-        private Sensor sensor;
+        private ISensor<Player> playerSensor;
 
         private void Awake()
         {
-            playerHitEventChannel = Finder.PlayerHitEventChannel;
-            sensor = GetComponent<Sensor>();
+            playerSensor = GetComponent<Sensor>().For<Player>();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            var playerSensor = sensor.For<Player>();
+            playerSensor.OnSensedObject += OnPlayerSensed;
+        }
 
-            if (playerSensor != null && playerSensor.SensedObjects.Count >= 1)
-            {
-                playerSensor.SensedObjects[0].Die();
-            }
+        private void OnDisable()
+        {
+            playerSensor.OnSensedObject -= OnPlayerSensed;
+        }
+
+        private void OnPlayerSensed(Player otherObject)
+        {
+            otherObject.Die();
         }
     }
 }
