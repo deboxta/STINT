@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public enum TimelineEnum
+    public enum Timeline
     {
         Main,
         Secondary

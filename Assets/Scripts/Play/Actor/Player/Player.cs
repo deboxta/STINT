@@ -12,14 +12,12 @@ namespace Game
         
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
-        private PlayerMover mover;
         private int mentalHealth;
 
         private void Awake()
         {
             playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            mover = GetComponent<PlayerMover>();
 
             mentalHealth = MAX_MENTAL_HEALTH;
         }
@@ -39,23 +37,6 @@ namespace Game
             if (mentalHealth <= 0)
             {
                 Die();
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            var direction = Vector2.zero;
-            if (Input.GetKey(KeyCode.D) ||
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
-                direction += Vector2.right;
-            if (Input.GetKey(KeyCode.A) ||
-               GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0)
-                direction += Vector2.left;
-            mover.Move(direction);
-            
-            if (Input.GetKeyDown(KeyCode.Space) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
-            {
-                mover.Jump();
             }
         }
         
