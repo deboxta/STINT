@@ -44,7 +44,6 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            //TODO verify the cast
             gameObject.layer = LayerMask.NameToLayer("Sensor");
         }
 
