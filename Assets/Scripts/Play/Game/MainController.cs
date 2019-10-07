@@ -56,6 +56,7 @@ namespace Game
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
             currentScene = sceneToLoad;
+            Finder.TimelineController.CurrentTimeline = Timeline.Main;
         }
 
         private IEnumerator ReloadGame()

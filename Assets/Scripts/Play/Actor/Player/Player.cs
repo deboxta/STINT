@@ -5,16 +5,19 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
+    [RequireComponent(typeof(PlayerMover),
+        typeof(PlayerJumpGravity),
+        typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
-        
+
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Hands hands;
         private Sensor sensor;
         private int mentalHealth;
+        
         private bool holdingBox;
 
         private void Awake()
@@ -37,7 +40,7 @@ namespace Game
         {
             playerHitEventChannel.OnPlayerHit -= Hit;
         }
-
+        
         private void Update()
         {
             if (mentalHealth <= 0)

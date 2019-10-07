@@ -15,7 +15,7 @@ namespace Game
         public Timeline CurrentTimeline
         {
             get => currentTimeline;
-            private set
+            set
             {
                 currentTimeline = value;
                 timelineChangedEventChannel.NotifyTimelineChanged();
