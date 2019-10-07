@@ -47,7 +47,7 @@ namespace Game
         private void LevelCompleted()
         {
             sceneToLoad = nextSceneToLoad;
-            ReloadGame();
+            StartCoroutine(ReloadGame());
         }
 
         private void Start()
