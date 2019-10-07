@@ -5,6 +5,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    [Findable(R.S.Tag.Player)]
     [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
     public class Player : MonoBehaviour
     {

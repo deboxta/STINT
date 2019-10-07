@@ -8,20 +8,20 @@ namespace Game
 {
     public class HudController : MonoBehaviour
     {
-        [SerializeField] private Image damageImage;
-        [SerializeField] private Slider sanitySlider;
-        [SerializeField] private int travelMaxTime;
+        [SerializeField] private Image damageImage = null;
+        [SerializeField] private Slider sanitySlider = null;
+        [SerializeField] private int travelMaxTime = 0;
+        [SerializeField] private int timeToWait = 0;
     
         private Player player;
         private TimelineChangedEventChannel timelineChangedEventChannel;
-
-        private bool damageTreshold;
-    
+        private bool isActiveSanity;
+        
         void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
-            sanitySlider.value = travelMaxTime;
-            player = GetComponent<Player>();
+            player = Finder.Player;
+            DecreaseSanityByTime();
         }
 
         public void DecreaseSanityByTime()
@@ -33,14 +33,18 @@ namespace Game
         {
             if(sanitySlider != null)
             {
-                float timeSlice = (sanitySlider.value / 10);
+                float timeBySection = (sanitySlider.value / travelMaxTime);
                 while (sanitySlider.value >= 0)
                 {
-                    sanitySlider.value -= timeSlice;
+                    if (isActiveSanity)
+                        sanitySlider.value -= 1;
+                    else
+                        sanitySlider.value += 1;
                     yield return new WaitForSeconds(1);
                     if (sanitySlider.value <= 0)
                         break;
                 }
+                player.Die();
             }
             yield return null;
         }
@@ -60,10 +64,10 @@ namespace Game
             switch (Finder.TimelineController.CurrentTimeline)
             {
                 case Timeline.Main:
-
+                    isActiveSanity = false;
                 break;
                 case Timeline.Secondary:
-                    DecreaseSanityByTime();
+                    isActiveSanity = true;
                 break;
             }
         }
@@ -71,6 +75,7 @@ namespace Game
 
         void Update()
         {
+            
         }
     }
 }

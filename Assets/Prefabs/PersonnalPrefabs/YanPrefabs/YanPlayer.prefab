@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7337344454999836705}
   m_Layer: 0
   m_Name: YanPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eb51b0463e4e0ab29111f8de1a3ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 5
-  jumpForce: 10
+  horizontalSpeed: 15
+  jumpForce: 8
 --- !u!114 &1367754340456412805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,5 +232,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a82a70a493f4c2d8c2de282016fcbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallGravity: 1
+  fallGravity: 8
   tinyJumpGravity: 5
