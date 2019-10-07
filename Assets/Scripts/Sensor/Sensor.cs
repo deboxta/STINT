@@ -127,7 +127,7 @@ namespace Game
             {
                 case Shape.Square:
                     var squareCollider = gameObject.AddComponent<BoxCollider2D>();
-                    squareCollider.size.Set(xSize, ySize);
+                    squareCollider.size = new Vector2(xSize, ySize);
                     collider2D = squareCollider;
                     break;
                 case Shape.Circle:
