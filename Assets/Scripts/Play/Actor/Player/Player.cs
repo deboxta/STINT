@@ -12,13 +12,19 @@ namespace Game
         
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private Hands hands;
+        private Sensor sensor;
         private int mentalHealth;
+        private bool holdingBox;
 
         private void Awake()
         {
             playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
 
+            hands = GetComponentInChildren<Hands>();
+            sensor = GetComponentInChildren<Sensor>();
+            
             mentalHealth = MAX_MENTAL_HEALTH;
         }
         
@@ -40,14 +46,36 @@ namespace Game
             }
         }
         
-        private void Hit()
+        public void Hit()
         {
             Die();
         }
 
-        private void Die()
+        public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
+        }
+
+        public void GrabBox()
+        {
+            var boxSensor = sensor.For<Box>();
+            if (boxSensor.SensedObjects.Count > 0)
+            {
+                Box box = boxSensor.SensedObjects[0];
+
+                box.transform.SetParent(hands.transform);
+                box.GetRigidBody2D().simulated = false;
+                if (box.transform.position.x < transform.position.x)
+                {
+                     box.transform.localPosition = new Vector3(-2, 0);
+                }
+                else
+                {
+                    box.transform.localPosition = new Vector3(2, 0);
+                }
+                
+                holdingBox = true;
+            }
         }
     }
 }
