@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 4557560132981167141}
   - component: {fileID: 4557560132981167140}
   - component: {fileID: 4557560132981167138}
-  - component: {fileID: 1634070973225017690}
   - component: {fileID: 2833005276144807696}
   - component: {fileID: 924828642513731405}
   m_Layer: 0
@@ -119,20 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 5
   jumpForce: 10
---- !u!114 &1634070973225017690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4557560132981167142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a82a70a493f4c2d8c2de282016fcbc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallGravity: 1
-  tinyJumpGravity: 5
+  gravityMultiplier: 1
+  fallGravityMultiplier: 5
 --- !u!114 &2833005276144807696
 MonoBehaviour:
   m_ObjectHideFlags: 0
