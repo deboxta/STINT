@@ -26,15 +26,15 @@ namespace Game
 
         private void OnEnable()
         {
-            playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
+            playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
         }
 
         private void OnDisable()
         {
-            playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
+            playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
         }
 
-        private void OnPlayerDeath()
+        private void PlayerDeath()
         {
             StartCoroutine(ReloadGame());
         }
@@ -56,7 +56,6 @@ namespace Game
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
             currentScene = sceneToLoad;
-            Finder.TimelineController.CurrentTimeline = Timeline.Main;
         }
 
         private IEnumerator ReloadGame()

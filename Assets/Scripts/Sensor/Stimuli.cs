@@ -44,7 +44,7 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Sensor);
+            gameObject.layer = LayerMask.NameToLayer("Sensor");
         }
 
         private void NotifyDestroyed()
