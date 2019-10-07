@@ -64,7 +64,6 @@ namespace Game
                 Box box = boxSensor.SensedObjects[0];
 
                 box.transform.SetParent(hands.transform);
-                box.GetRigidBody2D().isKinematic = true;
                 box.GetRigidBody2D().simulated = false;
                 if (box.transform.position.x < transform.position.x)
                 {
