@@ -38,7 +38,7 @@ namespace Game
                 || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed 
                 || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
             {
-                //FlashEffect
+                Finder.FlashEffect.Flash();
                 switch (CurrentTimeline)
                 {
                     case Timeline.Main:
