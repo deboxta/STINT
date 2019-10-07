@@ -11,27 +11,30 @@ namespace Game
     {
         [SerializeField] private string sceneNameToLoad = "Game";
         private PlayerDeathEventChannel playerDeathEventChannel;
+        //TODO check if this is really needed
+        private PlayerHitEventChannel playerHitEventChannel;
         private string currentScene;
         private string sceneToLoad;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            playerHitEventChannel = Finder.PlayerHitEventChannel;
             currentScene = SceneManager.GetActiveScene().name;
             sceneToLoad = sceneNameToLoad;
         }
 
         private void OnEnable()
         {
-            playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
+            playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
-            playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
+            playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
         }
 
-        private void PlayerDeath()
+        private void OnPlayerDeath()
         {
             StartCoroutine(ReloadGame());
         }
@@ -53,6 +56,7 @@ namespace Game
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
             currentScene = sceneToLoad;
+            Finder.TimelineController.CurrentTimeline = Timeline.Main;
         }
 
         private IEnumerator ReloadGame()
