@@ -68,11 +68,11 @@ namespace Game
                 box.GetRigidBody2D().simulated = false;
                 if (box.transform.position.x < transform.position.x)
                 {
-                     box.transform.localPosition = new Vector3(-2, transform.localPosition.y - 2);
+                     box.transform.localPosition = new Vector3(-2, 0);
                 }
                 else
                 {
-                    box.transform.localPosition = new Vector3(2, transform.localPosition.y - 2);
+                    box.transform.localPosition = new Vector3(2, 0);
                 }
                 
                 holdingBox = true;
