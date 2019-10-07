@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6126559282262199171}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Primary
   m_TagString: MainTimeline
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6126559282915719370}
   - component: {fileID: 6126559282915719365}
   - component: {fileID: 6126559282915719364}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Secondary
   m_TagString: SecondaryTimeline
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 6126559283939175076}
   - component: {fileID: 6126559283939175079}
   - component: {fileID: 840214107644770865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GridSecondaryPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
