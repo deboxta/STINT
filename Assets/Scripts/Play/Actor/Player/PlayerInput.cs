@@ -1,4 +1,5 @@
 ﻿using System;
+using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -11,12 +12,16 @@ namespace Game
         private PlayerMover playerMover;
         private PlayerJumpGravity playerJumpGravity;
 
+        private LevelCompletedEventChannel levelCompletedEventChannel;
+
         private bool isGrounded;
 
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
             playerJumpGravity = GetComponent<PlayerJumpGravity>();
+
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
 
             isGrounded = true;
         }
@@ -44,6 +49,11 @@ namespace Game
             {
                 isGrounded = false;
                 playerMover.Jump();
+            }
+
+            if (Input.GetKey(KeyCode.K))
+            {
+                levelCompletedEventChannel.NotifyLevelCompleted();
             }
             
             //Affected gravity in the air if jump button is pressed or not

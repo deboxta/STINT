@@ -10,13 +10,16 @@ namespace Game
     public class MainController : MonoBehaviour
     {
         [SerializeField] private string sceneNameToLoad = "Game";
+        [SerializeField] private string nextSceneToLoad;
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private LevelCompletedEventChannel levelCompletedEventChannel;
         private string currentScene;
         private string sceneToLoad;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             currentScene = SceneManager.GetActiveScene().name;
             sceneToLoad = sceneNameToLoad;
         }
@@ -24,16 +27,24 @@ namespace Game
         private void OnEnable()
         {
             playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
+            levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
         }
 
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
+            levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
         }
 
         private void PlayerDeath()
         {
             StartCoroutine(ReloadGame());
+        }
+
+        private void LevelCompleted()
+        {
+            sceneToLoad = nextSceneToLoad;
+            ReloadGame();
         }
 
         private void Start()
