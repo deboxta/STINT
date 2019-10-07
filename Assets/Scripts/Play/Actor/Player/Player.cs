@@ -1,19 +1,25 @@
-﻿using Harmony;
+﻿using System;
+using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
+
 namespace Game
 {
+    [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
     public class Player : MonoBehaviour
     {
+        private const int MAX_MENTAL_HEALTH = 100;
+        
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
-        private PlayerMover mover;
+        private int mentalHealth;
 
         private void Awake()
         {
             playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            mover = GetComponent<PlayerMover>();
+
+            mentalHealth = MAX_MENTAL_HEALTH;
         }
         
         private void OnEnable()
@@ -28,27 +34,18 @@ namespace Game
 
         private void Update()
         {
-            var direction = Vector2.zero;
-            if (Input.GetKey(KeyCode.D) ||
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
-                direction += Vector2.right;
-            if (Input.GetKey(KeyCode.A) ||
-               GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0)
-                direction += Vector2.left;
-            mover.Move(direction);
-            
-            if (Input.GetKeyDown(KeyCode.Space) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            if (mentalHealth <= 0)
             {
-                mover.Jump();
+                Die();
             }
         }
         
-        private void Hit()
+        public void Hit()
         {
             Die();
         }
 
-        private void Die()
+        public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
         }
