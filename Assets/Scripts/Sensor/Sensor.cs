@@ -95,7 +95,8 @@ namespace Game
         }
 #endif
 
-        private void AddSensedObject(GameObject otherObject)
+        private void 
+            AddSensedObject(GameObject otherObject)
         {
             if (!sensedObjects.Contains(otherObject))
             {
@@ -144,7 +145,7 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Sensor);
+            gameObject.layer = LayerMask.NameToLayer("Sensor");
         }
 
         private void ClearSensedObjects()
