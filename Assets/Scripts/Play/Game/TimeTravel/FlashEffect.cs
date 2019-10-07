@@ -7,11 +7,11 @@ namespace Game
     public class FlashEffect : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        private static readonly int FADE_OUT = Animator.StringToHash("Fade-out");
+        private static readonly int FLASH = Animator.StringToHash("Flash");
 
         public void Flash()
         {
-            animator.SetTrigger(FADE_OUT);
+            animator.SetTrigger(FLASH);
         }
     }
 }
