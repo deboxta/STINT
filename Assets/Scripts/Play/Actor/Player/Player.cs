@@ -40,12 +40,12 @@ namespace Game
             }
         }
         
-        private void Hit()
+        public void Hit()
         {
             Die();
         }
 
-        private void Die()
+        public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
         }
