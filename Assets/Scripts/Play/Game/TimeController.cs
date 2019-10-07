@@ -35,23 +35,36 @@ namespace Game
             CurrentTimeline = TimelineEnum.Main;
         }
 
+        public void ResetTimeline()
+        {
+            CurrentTimeline = TimelineEnum.Main;
+        }
+
         private void Update()
         {
+            /*TODO : for now input is checked in the TimeController update function,
+            this will be changed by a GameController class that will trigger the SwitchTimeline Function. */
             if (Input.GetKeyDown(changeTimeKeyboardKey) 
                 || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed 
                 || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
             {
-                //FlashEffect
-                switch (CurrentTimeline)
-                {
-                    case TimelineEnum.Main:
-                        CurrentTimeline = TimelineEnum.Secondary;
-                        break;
-                    case TimelineEnum.Secondary:
-                        CurrentTimeline = TimelineEnum.Main;
-                        break;
-                }
+                SwitchTimeline();
             }
         }
+
+        public void SwitchTimeline()
+        {
+            //FlashEffect
+            switch (CurrentTimeline)
+            {
+                case TimelineEnum.Main:
+                    CurrentTimeline = TimelineEnum.Secondary;
+                    break;
+                case TimelineEnum.Secondary:
+                    CurrentTimeline = TimelineEnum.Main;
+                    break;
+            }
+        }
+
     }
 }

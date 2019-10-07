@@ -6,6 +6,8 @@ using XInputDotNetPure;
 namespace Game
 {
     [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
+    [Findable(R.S.Tag.Player)]
+
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
@@ -59,12 +61,12 @@ namespace Game
             }
         }
         
-        private void Hit()
+        public void Hit()
         {
             Die();
         }
 
-        private void Die()
+        public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
         }

@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneNameToLoad: Jeammy
 --- !u!1 &1277313893
 GameObject:
   m_ObjectHideFlags: 0

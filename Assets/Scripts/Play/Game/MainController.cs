@@ -57,8 +57,11 @@ namespace Game
 
         private IEnumerator ReloadGame()
         {
+            Finder.Player.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
             yield return UnloadGame();
             yield return LoadGame();
+            Finder.TimeController.ResetTimeline();
         }
         
         private IEnumerator UnloadGame()
