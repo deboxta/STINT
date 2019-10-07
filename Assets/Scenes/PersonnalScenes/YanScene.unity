@@ -995,6 +995,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GravityAttractor
       objectReference: {fileID: 0}
+    - target: {fileID: 1184345451735542023, guid: 6e9415f37fa32644cbeb2071da100882,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1184345451735542018, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
       propertyPath: m_LocalPosition.x
