@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using System;
+using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -15,7 +16,7 @@ namespace Game
         public Timeline CurrentTimeline
         {
             get => currentTimeline;
-            private set
+            set
             {
                 currentTimeline = value;
                 timelineChangedEventChannel.NotifyTimelineChanged();
@@ -45,6 +46,9 @@ namespace Game
                         CurrentTimeline = Timeline.Secondary;
                         break;
                     case Timeline.Secondary:
+                        CurrentTimeline = Timeline.Main;
+                        break;
+                    default:
                         CurrentTimeline = Timeline.Main;
                         break;
                 }
