@@ -30,7 +30,7 @@ namespace Game
                 case Shape.Square:
                     var squareCollider = gameObject.AddComponent<BoxCollider2D>();
                     squareCollider.isTrigger = true;
-                    squareCollider.size.Set(xSize, ySize);
+                    squareCollider.size = new Vector2(xSize, ySize);
                     break;
                 case Shape.Circle:
                     var circleCollider = gameObject.AddComponent<CircleCollider2D>();
