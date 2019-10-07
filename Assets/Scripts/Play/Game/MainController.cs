@@ -12,6 +12,8 @@ namespace Game
         [SerializeField] private string sceneNameToLoad = "Game";
         [SerializeField] private string nextSceneToLoad;
         private PlayerDeathEventChannel playerDeathEventChannel;
+        //TODO check if this is really needed
+        private PlayerHitEventChannel playerHitEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private string currentScene;
         private string sceneToLoad;
@@ -20,6 +22,7 @@ namespace Game
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            playerHitEventChannel = Finder.PlayerHitEventChannel;
             currentScene = SceneManager.GetActiveScene().name;
             sceneToLoad = sceneNameToLoad;
         }

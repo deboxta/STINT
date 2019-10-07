@@ -8,6 +8,7 @@ TagManager:
   - TimeController
   - MainTimeline
   - SecondaryTimeline
+  - Kill
   layers:
   - Default
   - TransparentFX
