@@ -5,7 +5,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
+    [RequireComponent(typeof(PlayerMover))]
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
@@ -67,7 +67,7 @@ namespace Game
                 box.GetRigidBody2D().simulated = false;
                 if (box.transform.position.x < transform.position.x)
                 {
-                     box.transform.localPosition = new Vector3(-2, 0);
+                    box.transform.localPosition = new Vector3(-2, 0);
                 }
                 else
                 {

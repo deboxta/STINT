@@ -9,7 +9,6 @@ namespace Game
         private const string FLOOR_LAYER_ID = "Floor";
         private GamePadState gamePadState;
         private PlayerMover playerMover;
-        private PlayerJumpGravity playerJumpGravity;
         private Player player;
         private bool viewingRight;
 
@@ -20,7 +19,6 @@ namespace Game
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
-            playerJumpGravity = GetComponent<PlayerJumpGravity>();
             player = GetComponent<Player>();
 
             isGrounded = true;
@@ -41,7 +39,6 @@ namespace Game
                 viewingRight = true;
             }
 
-
             //Left
             if (Input.GetKey(KeyCode.A) ||
                 gamePadState.ThumbSticks.Left.X < 0)
@@ -60,9 +57,12 @@ namespace Game
                 isGrounded = false;
                 playerMover.Jump();
             }
-
-            //Affected gravity in the air if jump button is pressed or not
-            playerJumpGravity.PlayerJumpGravityUpdate(gamePadState);
+            
+            //Fall
+            if (gamePadState.Buttons.A == ButtonState.Released)
+            {
+                playerMover.Fall();
+            }
 
             if ((Input.GetKeyDown(KeyCode.C) ||
                  GamePad.GetState(PlayerIndex.One).Triggers.Right > 0) && !holdingBox)
