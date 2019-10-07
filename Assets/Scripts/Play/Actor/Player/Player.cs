@@ -5,44 +5,37 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    [RequireComponent(typeof(PlayerMover),
-        typeof(PlayerJumpGravity),
-        typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
-
+        
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private Hands hands;
+        private Sensor sensor;
         private int mentalHealth;
-        private Sensor Sensor { get; set; }
-        public ISensor<SpikesTrap> SpikesTrapSensor { get; private set; }
+        private bool holdingBox;
 
         private void Awake()
         {
             playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            mentalHealth = MAX_MENTAL_HEALTH;
-            Sensor = GetComponentInChildren<Sensor>();
-            SpikesTrapSensor = Sensor.For<SpikesTrap>();
-        }
 
+            hands = GetComponentInChildren<Hands>();
+            sensor = GetComponentInChildren<Sensor>();
+            
+            mentalHealth = MAX_MENTAL_HEALTH;
+        }
+        
         private void OnEnable()
         {
             playerHitEventChannel.OnPlayerHit += Hit;
-            SpikesTrapSensor.OnSensedObject += OnSpikesTrapSensed;
         }
 
         private void OnDisable()
         {
             playerHitEventChannel.OnPlayerHit -= Hit;
-            SpikesTrapSensor.OnSensedObject -= OnSpikesTrapSensed;
-        }
-
-        private void OnSpikesTrapSensed(SpikesTrap otherObject)
-        {
-            Debug.Log("SpikesTrap sensed");
-            Die();
         }
 
         private void Update()
@@ -52,15 +45,37 @@ namespace Game
                 Die();
             }
         }
-
-        private void Hit()
+        
+        public void Hit()
         {
             Die();
         }
 
-        private void Die()
+        public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
+        }
+
+        public void GrabBox()
+        {
+            var boxSensor = sensor.For<Box>();
+            if (boxSensor.SensedObjects.Count > 0)
+            {
+                Box box = boxSensor.SensedObjects[0];
+
+                box.transform.SetParent(hands.transform);
+                box.GetRigidBody2D().simulated = false;
+                if (box.transform.position.x < transform.position.x)
+                {
+                     box.transform.localPosition = new Vector3(-2, 0);
+                }
+                else
+                {
+                    box.transform.localPosition = new Vector3(2, 0);
+                }
+                
+                holdingBox = true;
+            }
         }
     }
 }
