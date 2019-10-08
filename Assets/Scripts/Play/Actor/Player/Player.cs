@@ -15,7 +15,21 @@ namespace Game
         private Hands hands;
         private Sensor sensor;
         private int mentalHealth;
-        private bool holdingBox;
+        private Box inHandBox;
+        
+        private bool isHoldingBox;
+        public bool IsHoldingBox 
+        {
+            get => isHoldingBox;
+            set => isHoldingBox = value;
+        }
+        
+        private bool isLookingRight;
+        public bool IsLookingRight 
+        {
+            set => isLookingRight = value;
+        }
+
 
         private void Awake()
         {
@@ -26,16 +40,19 @@ namespace Game
             sensor = GetComponentInChildren<Sensor>();
             
             mentalHealth = MAX_MENTAL_HEALTH;
+
+            isLookingRight = true;
+            isHoldingBox = false;
         }
         
         private void OnEnable()
         {
-            playerHitEventChannel.OnPlayerHit += Hit;
+          //  playerHitEventChannel.OnPlayerHit += Hit;
         }
 
         private void OnDisable()
         {
-            playerHitEventChannel.OnPlayerHit -= Hit;
+            //playerHitEventChannel.OnPlayerHit -= Hit;
         }
 
         private void Update()
@@ -45,10 +62,13 @@ namespace Game
                 Die();
             }
         }
-        
-        public void Hit()
+
+        private void FixedUpdate()
         {
-            Die();
+            if (!isLookingRight)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
         }
 
         public void Die()
@@ -61,21 +81,28 @@ namespace Game
             var boxSensor = sensor.For<Box>();
             if (boxSensor.SensedObjects.Count > 0)
             {
-                Box box = boxSensor.SensedObjects[0];
+                inHandBox = boxSensor.SensedObjects[0];
 
-                box.transform.SetParent(hands.transform);
-                box.GetRigidBody2D().simulated = false;
-                if (box.transform.position.x < transform.position.x)
-                {
-                    box.transform.localPosition = new Vector3(-2, 0);
-                }
-                else
-                {
-                    box.transform.localPosition = new Vector3(2, 0);
-                }
-                
-                holdingBox = true;
+                inHandBox.transform.SetParent(hands.transform);
+                inHandBox.GetRigidBody2D().simulated = false;
+                inHandBox.transform.localPosition = Vector3.zero;
+
+                isHoldingBox = true;
             }
+        }
+        
+        public void ThrowBox()
+        {
+            if (isHoldingBox)
+            {
+                  inHandBox.transform.parent = null;
+                  inHandBox.GetRigidBody2D().simulated = true;
+
+                  inHandBox.GetRigidBody2D().velocity = new Vector2(25, 30);
+                  
+                  isHoldingBox = false;
+            }
+          
         }
     }
 }

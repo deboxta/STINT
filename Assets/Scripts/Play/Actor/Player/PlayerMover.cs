@@ -42,5 +42,6 @@ namespace Game
         {
             rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
+        
     }
 }
