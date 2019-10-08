@@ -1,4 +1,5 @@
 ﻿using System;
+using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -6,13 +7,15 @@ namespace Game
 {
     public class PlayerInput : MonoBehaviour
     {
+        [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
+
         private const string FLOOR_LAYER_ID = "Floor";
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private PlayerJumpGravity playerJumpGravity;
         private Player player;
         private bool viewingRight;
-
+        private bool TimeChangeIsClicked;
 
         private bool holdingBox;
         private bool isGrounded;
@@ -25,6 +28,7 @@ namespace Game
 
             isGrounded = true;
             viewingRight = false;
+            TimeChangeIsClicked = false;
         }
 
         private void Update()
@@ -61,6 +65,20 @@ namespace Game
                 playerMover.Jump();
             }
 
+            //Switch timeline
+            if (gamePadState.Buttons.X == ButtonState.Pressed || 
+                gamePadState.Buttons.Y == ButtonState.Pressed)
+            {
+                TimeChangeIsClicked = true;
+            } 
+            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) || 
+                gamePadState.Buttons.X == ButtonState.Released && TimeChangeIsClicked || 
+                gamePadState.Buttons.Y == ButtonState.Released && TimeChangeIsClicked)
+            {
+                Finder.TimelineController.SwitchTimeline();
+                TimeChangeIsClicked = false;
+            }
+            
             //Affected gravity in the air if jump button is pressed or not
             playerJumpGravity.PlayerJumpGravityUpdate(gamePadState);
 
