@@ -10,7 +10,7 @@ namespace Game
 
         private void Awake()
         {
-            playerSensor = GetComponent<Sensor>().For<Player>();
+            playerSensor = GetComponentInChildren<Sensor>().For<Player>();
         }
 
         private void OnEnable()

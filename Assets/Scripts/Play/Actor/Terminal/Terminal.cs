@@ -42,6 +42,8 @@ namespace Game
         private void OnPlayerSensed(Player otherObject)
         {
             spriteRenderer.sprite = spriteOpen;
+            
+            levelCompletedEventChannel.NotifyLevelCompleted();
         }
     }
 }

@@ -9,37 +9,37 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class MainController : MonoBehaviour
     {
-        [SerializeField] private string sceneNameToLoad = "Game";
-        [SerializeField] private string nextSceneToLoad;
+        //[SerializeField] private string sceneNameToLoad = "Game";
+        //[SerializeField] private string nextSceneToLoad;
         private PlayerDeathEventChannel playerDeathEventChannel;
         //TODO check if this is really needed
         private PlayerHitEventChannel playerHitEventChannel;
-        private LevelCompletedEventChannel levelCompletedEventChannel;
-        private string currentScene;
-        private string sceneToLoad;
+        //private LevelCompletedEventChannel levelCompletedEventChannel;
+        //private string currentScene;
+        //private string sceneToLoad;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            //levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             playerHitEventChannel = Finder.PlayerHitEventChannel;
-            currentScene = SceneManager.GetActiveScene().name;
-            sceneToLoad = sceneNameToLoad;
+            //currentScene = SceneManager.GetActiveScene().name;
+            //sceneToLoad = sceneNameToLoad;
         }
 
-        private void OnEnable()
+        /*private void OnEnable()
         {
             playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
-            levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
+            //levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
         }
 
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
-            levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
-        }
+            //levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
+        }*/
 
-        private void PlayerDeath()
+        /*private void PlayerDeath()
         {
             StartCoroutine(ReloadGame());
         }
@@ -78,6 +78,6 @@ namespace Game
         private IEnumerator UnloadGame()
         {
             yield return SceneManager.UnloadSceneAsync(currentScene);
-        }
+        }*/
     }
 }

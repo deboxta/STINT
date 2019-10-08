@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
-  xSize: 10
-  ySize: 10
+  xSize: 5
+  ySize: 5
 --- !u!1 &6478389215059897090
 GameObject:
   m_ObjectHideFlags: 0
