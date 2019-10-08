@@ -12,14 +12,14 @@ namespace Game
         
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
-        private LevelArray levelArray;
+        private LevelScenes levelScenes;
         private int currentLevel;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
-            levelArray = GetComponentInChildren<LevelArray>();
+            levelScenes = GetComponentInChildren<LevelScenes>();
             
             currentLevel = STARTING_LEVEL;
         }
@@ -55,19 +55,19 @@ namespace Game
 
         private void Start()
         {
-            if (!SceneManager.GetSceneByName(levelArray.GetSceneName(currentLevel)).isLoaded)
+            if (!SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)).isLoaded)
                 StartCoroutine(LoadGame());
             else
             {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelArray.GetSceneName(currentLevel)));
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
             }
         }
 
         private IEnumerator LoadGame()
         {
-            yield return SceneManager.LoadSceneAsync(levelArray.GetSceneName(currentLevel), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(levelScenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelArray.GetSceneName(currentLevel)));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
         }
 
         private IEnumerator RestartLevel()
@@ -78,7 +78,7 @@ namespace Game
         
         private IEnumerator UnloadGame()
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelArray.GetSceneName(currentLevel)));
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
         }
     }
 }
