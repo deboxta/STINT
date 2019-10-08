@@ -1,10 +1,8 @@
-﻿using System;
-using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
-    public class Void : MonoBehaviour
+    public class DeadlyTrap : MonoBehaviour
     {
         private ISensor<Player> playerSensor;
 

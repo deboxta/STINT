@@ -5,7 +5,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    [RequireComponent(typeof(PlayerMover))]
+    [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
