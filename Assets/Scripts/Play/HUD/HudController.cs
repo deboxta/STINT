@@ -10,43 +10,23 @@ namespace Game
     {
         [SerializeField] private Image damageImage = null;
         [SerializeField] private Slider sanitySlider = null;
-        [SerializeField] private int travelMaxTime = 0;
-        [SerializeField] private int timeToWait = 0;
+        [SerializeField] private float travelMaxTime = 0;
+        
+        [SerializeField] private Text primary;
+        [SerializeField] private Text secondary;
     
         private Player player;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private bool isActiveSanity;
+        private float timeLeft;
+
         
         void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             player = Finder.Player;
-            DecreaseSanityByTime();
-        }
-
-        public void DecreaseSanityByTime()
-        {
-            StartCoroutine(DecreaseSlider());
-        }
-
-        IEnumerator DecreaseSlider()
-        {
-            if(sanitySlider != null)
-            {
-                float timeBySection = (sanitySlider.value / travelMaxTime);
-                while (sanitySlider.value >= 0)
-                {
-                    if (isActiveSanity)
-                        sanitySlider.value -= 1;
-                    else
-                        sanitySlider.value += 1;
-                    yield return new WaitForSeconds(1);
-                    if (sanitySlider.value <= 0)
-                        break;
-                }
-                player.Die();
-            }
-            yield return null;
+            isActiveSanity = false;
+            timeLeft = travelMaxTime;
         }
 
         private void OnEnable()
@@ -65,9 +45,19 @@ namespace Game
             {
                 case Timeline.Main:
                     isActiveSanity = false;
+                    
+                    primary.text = "1984";
+                    primary.fontSize = 32;
+                    secondary.text = "3024";
+                    secondary.fontSize = 16;
                 break;
                 case Timeline.Secondary:
                     isActiveSanity = true;
+                    
+                    primary.text = "3024";
+                    primary.fontSize = 16;
+                    secondary.text = "1984";
+                    secondary.fontSize = 32;
                 break;
             }
         }
@@ -75,7 +65,24 @@ namespace Game
 
         void Update()
         {
-            
+            sanitySlider.value = CalculateSliderValue();
+            if (timeLeft <= 0)
+            {
+                player.Die();
+                //Time.timeScale = travelMaxTime;
+            }
+            else if (timeLeft > 0)
+            {
+                if (isActiveSanity)
+                    timeLeft -= Time.deltaTime;
+                else
+                    timeLeft += Time.deltaTime;
+            }
+        }
+
+        private float CalculateSliderValue()
+        {
+            return ((timeLeft*100) / travelMaxTime);
         }
     }
 }
