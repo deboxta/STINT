@@ -5,16 +5,25 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerMover))]
     public class Player : MonoBehaviour
     {
         private const int MAX_MENTAL_HEALTH = 100;
         
         private PlayerDeathEventChannel playerDeathEventChannel;
-        private Hands hands;
         private Sensor sensor;
         private int mentalHealth;
-        private bool holdingBox;
+        private ISensor<Box> boxSensor;
+        
+        private Hands hands;
+        public Hands Hands => hands;
+
+        private bool isLookingRight;
+        public bool IsLookingRight 
+        { 
+            set => isLookingRight = value;
+        }
+
 
         private void Awake()
         {
@@ -24,6 +33,10 @@ namespace Game
             sensor = GetComponentInChildren<Sensor>();
             
             mentalHealth = MAX_MENTAL_HEALTH;
+
+            isLookingRight = true;
+            
+            boxSensor = sensor.For<Box>();
         }
 
         private void Update()
@@ -34,31 +47,40 @@ namespace Game
             }
         }
 
+        private void FixedUpdate()
+        {
+            FlipPlayer();
+        }
+
+        //Turn the player in the right direction (and the box in his hand technicly)
+        private void FlipPlayer()
+        {
+            if (!isLookingRight)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
+        }
+
         public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
         }
 
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
+        //Grabs the box
         public void GrabBox()
         {
-            var boxSensor = sensor.For<Box>();
-            if (boxSensor.SensedObjects.Count > 0)
+            //If the player isn't holding a box and if there is a box in his sensor
+            if (!hands.IsHoldingBox && boxSensor.SensedObjects.Count > 0)
             {
-                Box box = boxSensor.SensedObjects[0];
-
-                box.transform.SetParent(hands.transform);
-                box.GetRigidBody2D().simulated = false;
-                if (box.transform.position.x < transform.position.x)
-                {
-                    box.transform.localPosition = new Vector3(-2, 0);
-                }
-                else
-                {
-                    box.transform.localPosition = new Vector3(2, 0);
-                }
-                
-                holdingBox = true;
+                //Grabs the box
+                hands.Grab(boxSensor.SensedObjects[0]);
             }
+        }
+        
+        public void ThrowBox()
+        {
+            hands.Throw(isLookingRight);
         }
     }
 }
