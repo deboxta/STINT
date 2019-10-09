@@ -24,8 +24,11 @@ namespace Game
         {
             transform.parent = null;
             rigidbody2D.simulated = true;
-            rigidbody2D.velocity = new Vector2(throwedForceX, throwedForceUp);
-            if (!isLookingRight)
+            if (isLookingRight)
+            {
+                rigidbody2D.velocity = new Vector2(throwedForceX, throwedForceUp);
+            }
+            else
             {
                 rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
             }
