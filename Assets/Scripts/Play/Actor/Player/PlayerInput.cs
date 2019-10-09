@@ -1,4 +1,3 @@
-﻿using System;
 using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
@@ -12,7 +11,6 @@ namespace Game
         private const string FLOOR_LAYER_ID = "Floor";
         private GamePadState gamePadState;
         private PlayerMover playerMover;
-        private PlayerJumpGravity playerJumpGravity;
         private Player player;
         private bool viewingRight;
         private bool TimeChangeIsClicked;
@@ -23,7 +21,6 @@ namespace Game
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
-            playerJumpGravity = GetComponent<PlayerJumpGravity>();
             player = GetComponent<Player>();
 
             isGrounded = true;
@@ -44,7 +41,6 @@ namespace Game
                 direction += Vector2.right;
                 viewingRight = true;
             }
-
 
             //Left
             if (Input.GetKey(KeyCode.A) ||
@@ -78,9 +74,12 @@ namespace Game
                 Finder.TimelineController.SwitchTimeline();
                 TimeChangeIsClicked = false;
             }
-            
-            //Affected gravity in the air if jump button is pressed or not
-            playerJumpGravity.PlayerJumpGravityUpdate(gamePadState);
+
+            //Fall
+            if (gamePadState.Buttons.A == ButtonState.Released)
+            {
+                playerMover.Fall();
+            }
 
             if ((Input.GetKeyDown(KeyCode.C) ||
                  GamePad.GetState(PlayerIndex.One).Triggers.Right > 0) && !holdingBox)

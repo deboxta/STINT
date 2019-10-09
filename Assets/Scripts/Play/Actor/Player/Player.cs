@@ -5,6 +5,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     [RequireComponent(typeof(PlayerMover), typeof(PlayerJumpGravity))]
     [Findable(R.S.Tag.Player)]
 
@@ -12,7 +13,6 @@ namespace Game
     {
         private const int MAX_MENTAL_HEALTH = 100;
         
-        private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Hands hands;
         private Sensor sensor;
@@ -21,23 +21,12 @@ namespace Game
 
         private void Awake()
         {
-            playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             
             mentalHealth = MAX_MENTAL_HEALTH;
-        }
-        
-        private void OnEnable()
-        {
-            playerHitEventChannel.OnPlayerHit += Hit;
-        }
-
-        private void OnDisable()
-        {
-            playerHitEventChannel.OnPlayerHit -= Hit;
         }
 
         private void Update()
@@ -46,11 +35,6 @@ namespace Game
             {
                 Die();
             }
-        }
-        
-        public void Hit()
-        {
-            Die();
         }
 
         public void Die()
@@ -69,7 +53,7 @@ namespace Game
                 box.GetRigidBody2D().simulated = false;
                 if (box.transform.position.x < transform.position.x)
                 {
-                     box.transform.localPosition = new Vector3(-2, 0);
+                    box.transform.localPosition = new Vector3(-2, 0);
                 }
                 else
                 {
