@@ -130,10 +130,11 @@ GameObject:
   m_Component:
   - component: {fileID: 127248964}
   - component: {fileID: 127248967}
-  - component: {fileID: 127248966}
   - component: {fileID: 127248965}
   - component: {fileID: 127248969}
   - component: {fileID: 127248968}
+  - component: {fileID: 127248970}
+  - component: {fileID: 127248966}
   m_Layer: 0
   m_Name: MainController
   m_TagString: MainController
@@ -151,7 +152,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 623056863}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -176,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 127248963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d463a6063f42b6925832e328d344ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 589976d2cd6843c5aa0bc79d127599f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &127248967
@@ -191,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameToLoad: Jeammy
 --- !u!114 &127248968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c95c7030cd4bfcb19884c618c70a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CHANGE_TIMELINE_KEYBOARD_KEY: 304
 --- !u!114 &127248969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +217,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63bd06468664055b4d5454906ec0677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &127248970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127248963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a505c39b85d41f2a64e6d526a233280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &623056862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623056863}
+  - component: {fileID: 623056864}
+  m_Layer: 0
+  m_Name: LevelChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623056863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623056862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 127248964}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623056864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623056862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e6e0e1a29543bfa275096316b6b25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelScenes:
+  - Jeammy
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!1 &1973034250
 GameObject:
   m_ObjectHideFlags: 0
