@@ -6,26 +6,26 @@ using XInputDotNetPure;
 namespace Game
 {
     [Findable(R.S.Tag.Player)]
-    [RequireComponent(typeof(PlayerMover))]
     
+    [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
-        private const int MAX_MENTAL_HEALTH = 100;
-        
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Sensor sensor;
-        private int mentalHealth;
         private ISensor<Box> boxSensor;
-        
         private Hands hands;
-        public Hands Hands => hands;
-
         private bool isLookingRight;
+        private Vitals vitals;
+        
+        public Hands Hands => hands;
+        public Vitals Vitals
+        {
+            get => vitals;
+        }
         public bool IsLookingRight 
         { 
             set => isLookingRight = value;
         }
-
 
         private void Awake()
         {
@@ -33,20 +33,11 @@ namespace Game
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
+            vitals = GetComponent<Vitals>();
             
-            mentalHealth = MAX_MENTAL_HEALTH;
-
             isLookingRight = true;
             
             boxSensor = sensor.For<Box>();
-        }
-
-        private void Update()
-        {
-            if (mentalHealth <= 0)
-            {
-                Die();
-            }
         }
 
         private void FixedUpdate()
