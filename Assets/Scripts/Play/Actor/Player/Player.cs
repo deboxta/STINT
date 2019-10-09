@@ -10,13 +10,16 @@ namespace Game
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
-        private const int MAX_MENTAL_HEALTH = 100;
-        
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Hands hands;
         private Sensor sensor;
-        private int mentalHealth;
         private bool holdingBox;
+        private Vitals vitals;
+
+        public Vitals Vitals
+        {
+            get => vitals;
+        }
 
         private void Awake()
         {
@@ -24,16 +27,7 @@ namespace Game
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
-            
-            mentalHealth = MAX_MENTAL_HEALTH;
-        }
-
-        private void Update()
-        {
-            if (mentalHealth <= 0)
-            {
-                Die();
-            }
+            vitals = GetComponent<Vitals>();
         }
 
         public void Die()

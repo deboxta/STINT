@@ -10,15 +10,12 @@ namespace Game
     public class HudController : MonoBehaviour
     {
         [SerializeField] private Slider sanitySlider = null;
-        [SerializeField] private float travelMaxTime = 0;
-        
         [SerializeField] private Text primary = null;
         [SerializeField] private Text secondary = null;
     
-        private Player player;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private bool isActiveSanity;
-        private float timeLeft;
+        private Player player;
 
         private void Start()
         {
@@ -29,7 +26,6 @@ namespace Game
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             isActiveSanity = false;
-            timeLeft = travelMaxTime;
         }
 
         private void OnEnable()
@@ -65,27 +61,14 @@ namespace Game
             }
         }
 
-
-        void Update()
+        private void Update()
         {
-            sanitySlider.value = CalculateSliderValue();
-            if (timeLeft <= 0)
-            {
-                Time.timeScale = travelMaxTime;
-                player.Die();
-            }
-            else if (timeLeft > 0)
-            {
-                if (isActiveSanity)
-                    timeLeft -= Time.deltaTime;
-                else
-                    timeLeft += Time.deltaTime;
-            }
+            SetSanitySlider(player.Vitals.CalculateSliderValue());
         }
 
-        private float CalculateSliderValue()
+        public void SetSanitySlider(float position)
         {
-            return ((timeLeft*100) / travelMaxTime);
+            sanitySlider.value = position;
         }
     }
 }

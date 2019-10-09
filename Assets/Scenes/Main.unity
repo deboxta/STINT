@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameToLoad: YanScene
 --- !u!114 &222186334
 MonoBehaviour:
   m_ObjectHideFlags: 0
