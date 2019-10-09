@@ -40,7 +40,7 @@ namespace Game
         {
             switch (Finder.TimelineController.CurrentTimeline)
             {
-                case Timeline.Main:
+                case Timeline.Primary:
                     
                     primary.text = "1984";
                     primary.fontSize = 32;

@@ -44,7 +44,7 @@ namespace Game
         {
             switch (Finder.TimelineController.CurrentTimeline)
             {
-                case Timeline.Main:
+                case Timeline.Primary:
                     mainTimelineObject.SetActive(true);
                     secondaryTimelineObject.SetActive(false);
                     break;
