@@ -4,8 +4,9 @@ using Boo.Lang;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
 //Inspired by https://stackoverflow.com/questions/51499554/using-a-tilemap-composite-collider-as-a-trigger-what-is-the-best-approach-for-g
-namespace Play.Utils
+namespace Game
 {
     [RequireComponent(typeof(Tilemap))]
     public class TilemapCollider : MonoBehaviour
