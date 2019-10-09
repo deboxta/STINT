@@ -18,6 +18,7 @@ namespace Game
         private bool holdingBox;
         private bool isGrounded;
 
+
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
@@ -39,7 +40,7 @@ namespace Game
                 gamePadState.ThumbSticks.Left.X > 0)
             {
                 direction += Vector2.right;
-                viewingRight = true;
+                player.IsLookingRight = true;
             }
 
             //Left
@@ -48,16 +49,15 @@ namespace Game
             {
                 {
                     direction += Vector2.left;
-                    viewingRight = false;
+                    player.IsLookingRight = false;
                 }
             }
 
             playerMover.Move(direction);
 
             //Jump
-            if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed))
+            if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                isGrounded = false;
                 playerMover.Jump();
             }
 
@@ -81,15 +81,14 @@ namespace Game
                 playerMover.Fall();
             }
 
-            if ((Input.GetKeyDown(KeyCode.C) ||
-                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0) && !holdingBox)
+            //Grab
+            if (Input.GetKeyDown(KeyCode.C) ||
+                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
                 player.GrabBox();
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.collider.gameObject.layer == LayerMask.NameToLayer(FLOOR_LAYER_ID))
-                isGrounded = true;
+            
+            //Throw
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false  && player.Hands.IsHoldingBox)
+                player.ThrowBox();
         }
     }
 }
