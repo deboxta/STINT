@@ -12,21 +12,16 @@ namespace Game
         
         private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
-        private Hands hands;
         private Sensor sensor;
         private int mentalHealth;
-        private Box inHandBox;
+        private ISensor<Box> boxSensor;
         
-        private bool isHoldingBox;
-        public bool IsHoldingBox 
-        {
-            get => isHoldingBox;
-            set => isHoldingBox = value;
-        }
-        
+        private Hands hands;
+        public Hands Hands => hands;
+
         private bool isLookingRight;
         public bool IsLookingRight 
-        {
+        { 
             set => isLookingRight = value;
         }
 
@@ -42,7 +37,8 @@ namespace Game
             mentalHealth = MAX_MENTAL_HEALTH;
 
             isLookingRight = true;
-            isHoldingBox = false;
+            
+            boxSensor = sensor.For<Box>();
         }
         
         private void OnEnable()
@@ -65,6 +61,12 @@ namespace Game
 
         private void FixedUpdate()
         {
+            FlipPlayer();
+        }
+
+        //Turn the player in the right direction (and the box in his hand technicly)
+        private void FlipPlayer()
+        {
             if (!isLookingRight)
                 transform.localScale = new Vector3(-1, 1, 1);
             else
@@ -76,33 +78,21 @@ namespace Game
             playerDeathEventChannel.NotifyPlayerDeath();
         }
 
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
+        //Grabs the box
         public void GrabBox()
         {
-            var boxSensor = sensor.For<Box>();
-            if (boxSensor.SensedObjects.Count > 0)
+            //If the player isn't holding a box and if there is a box in his sensor
+            if (!hands.IsHoldingBox && boxSensor.SensedObjects.Count > 0)
             {
-                inHandBox = boxSensor.SensedObjects[0];
-
-                inHandBox.transform.SetParent(hands.transform);
-                inHandBox.GetRigidBody2D().simulated = false;
-                inHandBox.transform.localPosition = Vector3.zero;
-
-                isHoldingBox = true;
+                //Grabs the box
+                hands.Grab(boxSensor.SensedObjects[0]);
             }
         }
         
         public void ThrowBox()
         {
-            if (isHoldingBox)
-            {
-                  inHandBox.transform.parent = null;
-                  inHandBox.GetRigidBody2D().simulated = true;
-
-                  inHandBox.GetRigidBody2D().velocity = new Vector2(25, 30);
-                  
-                  isHoldingBox = false;
-            }
-          
+            hands.Throw(isLookingRight);
         }
     }
 }

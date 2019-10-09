@@ -4,22 +4,32 @@ namespace Game
 {
     public class Box : MonoBehaviour
     {
-        protected Rigidbody2D rigidBody2D;
-        protected Collider2D boxCollider2D;
-        protected SpriteRenderer spriteRenderer;
-        protected Stimuli stimuli;
-        
+        [SerializeField] private int throwedForceUp = 40;
+        [SerializeField] private int throwedForceX = 25;
+
+    private Rigidbody2D rigidbody2D;
+
         private void Awake()
         {
-            rigidBody2D = GetComponent<Rigidbody2D>();
-            boxCollider2D = GetComponent<Collider2D>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            stimuli = GetComponentInChildren<Stimuli>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
         }
-        
-        public Rigidbody2D GetRigidBody2D()
+
+        public void Grabbed()
         {
-            return rigidBody2D;
+            rigidbody2D.simulated = false;
+            transform.localPosition = Vector3.zero;
+        }
+
+        public void Throwed(bool isLookingRight)
+        {
+            transform.parent = null;
+            rigidbody2D.simulated = true;
+            rigidbody2D.velocity = new Vector2(throwedForceX, throwedForceUp);
+            if (!isLookingRight)
+            {
+                rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
+            }
         }
     }
 }
+

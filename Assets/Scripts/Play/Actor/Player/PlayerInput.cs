@@ -6,20 +6,15 @@ namespace Game
 {
     public class PlayerInput : MonoBehaviour
     {
-        private const string FLOOR_LAYER_ID = "Floor";
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
-        
-        private bool isGrounded;
 
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
-
-            isGrounded = true;
         }
 
         private void Update()
@@ -49,9 +44,8 @@ namespace Game
             playerMover.Move(direction);
 
             //Jump
-            if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed))
+            if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                isGrounded = false;
                 playerMover.Jump();
             }
             
@@ -67,15 +61,8 @@ namespace Game
                 player.GrabBox();
             
             //Throw
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false  && player.IsHoldingBox)
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false  && player.Hands.IsHoldingBox)
                 player.ThrowBox();
-        }
-
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.collider.gameObject.layer == LayerMask.NameToLayer(FLOOR_LAYER_ID))
-                isGrounded = true;
         }
     }
 }
