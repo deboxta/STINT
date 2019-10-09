@@ -8,23 +8,17 @@ namespace Game
     {
         [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
 
-        private const string FLOOR_LAYER_ID = "Floor";
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
         private bool TimeChangeIsClicked;
 
-        private bool holdingBox;
-        private bool isGrounded;
-
-
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
-            isGrounded = true;
             viewingRight = false;
             TimeChangeIsClicked = false;
         }
