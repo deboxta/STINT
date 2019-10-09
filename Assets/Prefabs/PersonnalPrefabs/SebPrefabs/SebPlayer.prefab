@@ -68,8 +68,8 @@ GameObject:
   - component: {fileID: 8863931111216472590}
   - component: {fileID: 4733093369260273670}
   - component: {fileID: 8858274576189870238}
+  - component: {fileID: 6217557828119522906}
   - component: {fileID: 8756377808903477641}
-  - component: {fileID: 8315670579306964253}
   m_Layer: 0
   m_Name: SebPlayer
   m_TagString: Player
@@ -127,6 +127,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098af6e10a04d6b47879e1778467064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6217557828119522906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028534708943117043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f9615fffed414493319da7ba245efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8756377808903477641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,20 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 5
   jumpForce: 10
---- !u!114 &8315670579306964253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6028534708943117043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a82a70a493f4c2d8c2de282016fcbc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallGravity: 1
-  tinyJumpGravity: 5
+  gravityMultiplier: 1
+  fallGravityMultiplier: 5
 --- !u!1 &6246031958632873018
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
-  xSize: 10
-  ySize: 10
+  xSize: 5
+  ySize: 5
 --- !u!1 &6478389215059897090
 GameObject:
   m_ObjectHideFlags: 0
