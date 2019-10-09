@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -19,11 +20,14 @@ namespace Game
         private bool isActiveSanity;
         private float timeLeft;
 
-        
+        private void Start()
+        {
+            player = Finder.Player;
+        }
+
         void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
-            player = Finder.Player;
             isActiveSanity = false;
             timeLeft = travelMaxTime;
         }
