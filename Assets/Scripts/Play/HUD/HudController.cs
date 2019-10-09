@@ -14,7 +14,6 @@ namespace Game
         [SerializeField] private Text secondary = null;
     
         private TimelineChangedEventChannel timelineChangedEventChannel;
-        private bool isActiveSanity;
         private Player player;
 
         private void Start()
@@ -25,7 +24,6 @@ namespace Game
         void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
-            isActiveSanity = false;
         }
 
         private void OnEnable()
@@ -43,7 +41,6 @@ namespace Game
             switch (Finder.TimelineController.CurrentTimeline)
             {
                 case Timeline.Main:
-                    isActiveSanity = false;
                     
                     primary.text = "1984";
                     primary.fontSize = 32;
@@ -51,7 +48,6 @@ namespace Game
                     secondary.fontSize = 16;
                 break;
                 case Timeline.Secondary:
-                    isActiveSanity = true;
                     
                     primary.text = "3024";
                     primary.fontSize = 16;
