@@ -10,7 +10,6 @@ namespace Game
     {
         private const int MAX_MENTAL_HEALTH = 100;
         
-        private PlayerHitEventChannel playerHitEventChannel;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Sensor sensor;
         private int mentalHealth;
@@ -28,7 +27,6 @@ namespace Game
 
         private void Awake()
         {
-            playerHitEventChannel = Finder.PlayerHitEventChannel;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
 
             hands = GetComponentInChildren<Hands>();
@@ -39,16 +37,6 @@ namespace Game
             isLookingRight = true;
             
             boxSensor = sensor.For<Box>();
-        }
-        
-        private void OnEnable()
-        {
-          //  playerHitEventChannel.OnPlayerHit += Hit;
-        }
-
-        private void OnDisable()
-        {
-            //playerHitEventChannel.OnPlayerHit -= Hit;
         }
 
         private void Update()
