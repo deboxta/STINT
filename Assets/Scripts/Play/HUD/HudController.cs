@@ -68,8 +68,8 @@ namespace Game
             sanitySlider.value = CalculateSliderValue();
             if (timeLeft <= 0)
             {
+                Time.timeScale = travelMaxTime;
                 player.Die();
-                //Time.timeScale = travelMaxTime;
             }
             else if (timeLeft > 0)
             {
