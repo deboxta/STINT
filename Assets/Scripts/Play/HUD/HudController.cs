@@ -8,12 +8,11 @@ namespace Game
 {
     public class HudController : MonoBehaviour
     {
-        [SerializeField] private Image damageImage = null;
         [SerializeField] private Slider sanitySlider = null;
         [SerializeField] private float travelMaxTime = 0;
         
-        [SerializeField] private Text primary;
-        [SerializeField] private Text secondary;
+        [SerializeField] private Text primary = null;
+        [SerializeField] private Text secondary = null;
     
         private Player player;
         private TimelineChangedEventChannel timelineChangedEventChannel;

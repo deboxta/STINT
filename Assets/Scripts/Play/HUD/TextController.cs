@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class TextController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI primary;
-    [SerializeField] private TextMeshProUGUI secondary;
+    [SerializeField] private TextMeshProUGUI primary = null;
+    [SerializeField] private TextMeshProUGUI secondary = null;
 
     private float primaryPositionY;
     private float secondaryPositionY;
