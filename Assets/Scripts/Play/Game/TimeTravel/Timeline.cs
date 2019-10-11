@@ -2,7 +2,7 @@
 {
     public enum Timeline
     {
-        Main,
+        Primary,
         Secondary
     }
 }
