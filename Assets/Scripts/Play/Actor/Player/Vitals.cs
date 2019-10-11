@@ -26,6 +26,7 @@ namespace Game
         private void Start()
         {
             player = Finder.Player;
+            
         }
 
         private void OnEnable()
