@@ -7,7 +7,7 @@ namespace Game
 {
     public class Vitals : MonoBehaviour
     {
-        [SerializeField] private float maxMentalHealth = 0;
+        [SerializeField] private float maxMentalHealth = 10;
         
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private bool isActiveSanity;
