@@ -10,17 +10,14 @@ namespace Game
         [SerializeField] private float maxMentalHealth = 10;
         
         private TimelineChangedEventChannel timelineChangedEventChannel;
+        private PlayerDeathEventChannel deathEventChannel;
         private bool isActiveSanity;
         private float healthLeft;
         private Player player;
 
-        public float HealthLeft
-        {
-            get => healthLeft;
-        }
-
         private void Awake()
         {
+            deathEventChannel = Finder.PlayerDeathEventChannel;
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             isActiveSanity = false;
             healthLeft = maxMentalHealth;
@@ -28,17 +25,26 @@ namespace Game
 
         private void Start()
         {
-            player = GetComponent<Player>();
+            player = Finder.Player;
+            
         }
 
         private void OnEnable()
         {
             timelineChangedEventChannel.OnTimelineChanged += TimelineChange;
+            deathEventChannel.OnPlayerDeath += PlayerDeath;
         }
+
 
         private void OnDisable()
         {
             timelineChangedEventChannel.OnTimelineChanged -= TimelineChange;
+            deathEventChannel.OnPlayerDeath -= PlayerDeath;
+        }
+        
+        private void PlayerDeath()
+        {
+            healthLeft = maxMentalHealth;
         }
         
         private void TimelineChange()

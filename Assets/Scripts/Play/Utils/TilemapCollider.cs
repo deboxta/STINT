@@ -40,7 +40,7 @@ namespace Game
                         paradoxCollisionObject.transform.localPosition = tilemap.CellToLocal(localPlace) + cellSize;
                         paradoxCollisionObject.tag = R.S.Tag.DeathZone;
                         
-                        Debug.Log("x:" + i + "y:" + j + "Tile:" + tile.name );
+                        //Debug.Log("x:" + i + "y:" + j + "Tile:" + tile.name );
                     }
                 }
             }
