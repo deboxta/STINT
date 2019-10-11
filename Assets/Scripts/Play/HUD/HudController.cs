@@ -11,6 +11,8 @@ namespace Game
     {
         [SerializeField] private Slider sanitySlider = null;
         [SerializeField] private Text primary = null;
+        [SerializeField] private string primaryYear = "1990";
+        [SerializeField] private string secondaryYear = "1990";
         [SerializeField] private Text secondary = null;
     
         private TimelineChangedEventChannel timelineChangedEventChannel;
@@ -42,16 +44,16 @@ namespace Game
             {
                 case Timeline.Main:
                     
-                    primary.text = "1984";
+                    primary.text = primaryYear;
                     primary.fontSize = 32;
-                    secondary.text = "3024";
+                    secondary.text = secondaryYear;
                     secondary.fontSize = 16;
                 break;
                 case Timeline.Secondary:
                     
-                    primary.text = "3024";
+                    primary.text = secondaryYear;
                     primary.fontSize = 16;
-                    secondary.text = "1984";
+                    secondary.text = primaryYear;
                     secondary.fontSize = 32;
                 break;
             }
