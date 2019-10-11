@@ -36,7 +36,6 @@ namespace Game
 
         public void SwitchTimeline()
         {
-            //FlashEffect
             switch (CurrentTimeline)
             {
                 case Timeline.Primary:
