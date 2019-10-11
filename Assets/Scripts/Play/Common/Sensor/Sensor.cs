@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Harmony;
@@ -16,11 +16,12 @@ namespace Game
 
     public sealed class Sensor : MonoBehaviour, ISensor<GameObject>
     {
-        [SerializeField] private Shape shape = Shape.Sphere;
-        [SerializeField] [Range(1, 100)] private float size = 10;
+        [SerializeField] private Shape shape = Shape.Circle;
+        [SerializeField] [Range(1, 100)] private float xSize = 10;
+        [SerializeField] [Range(1, 100)] private float ySize = 10;
 
         private Transform parentTransform;
-        private new Collider collider;
+        private new Collider2D collider2D;
         private readonly List<GameObject> sensedObjects;
         private ulong dirtyFlag;
 
@@ -46,18 +47,18 @@ namespace Game
 
         private void OnEnable()
         {
-            collider.enabled = true;
-            collider.isTrigger = true;
+            collider2D.enabled = true;
+            collider2D.isTrigger = true;
         }
 
         private void OnDisable()
         {
-            collider.enabled = false;
-            collider.isTrigger = false;
+            collider2D.enabled = false;
+            collider2D.isTrigger = false;
             ClearSensedObjects();
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             var otherParentTransform = other.transform.parent;
             if (!IsSelf(otherParentTransform))
@@ -71,7 +72,7 @@ namespace Game
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             var otherParentTransform = other.transform.parent;
             if (!IsSelf(otherParentTransform))
@@ -86,14 +87,12 @@ namespace Game
         }
 
 #if UNITY_EDITOR
-
         private void OnDrawGizmosSelected()
         {
             if (SensedObjects != null)
                 foreach (var sensedObject in SensedObjects)
                     GizmosExtensions.DrawPoint(sensedObject.transform.position);
         }
-
 #endif
 
         private void AddSensedObject(GameObject otherObject)
@@ -121,31 +120,26 @@ namespace Game
             return new Sensor<T>(this);
         }
 
-        public ISensor<T> ForNothing<T>()
-        {
-            return new EmptySensor<T>();
-        }
-
         private void CreateCollider()
         {
             switch (shape)
             {
-                case Shape.Cube:
-                    var cubeCollider = gameObject.AddComponent<BoxCollider>();
-                    cubeCollider.size = Vector3.one * size;
-                    collider = cubeCollider;
+                case Shape.Square:
+                    var squareCollider = gameObject.AddComponent<BoxCollider2D>();
+                    squareCollider.size = new Vector2(xSize, ySize);
+                    collider2D = squareCollider;
                     break;
-                case Shape.Sphere:
-                    var sphereCollider = gameObject.AddComponent<SphereCollider>();
-                    sphereCollider.radius = size / 2;
-                    collider = sphereCollider;
+                case Shape.Circle:
+                    var circleCollider = gameObject.AddComponent<CircleCollider2D>();
+                    circleCollider.radius = xSize / 2;
+                    collider2D = circleCollider;
                     break;
                 default:
                     throw new Exception("Unknown shape named \"" + shape + "\".");
             }
 
             //Needed to be able to detect something when moved. DO NOT REMOVE THIS!!!!!!!!
-            gameObject.AddComponent<Rigidbody>().isKinematic = true;
+            gameObject.AddComponent<Rigidbody2D>().isKinematic = true;
         }
 
         private void SetSensorLayer()
@@ -176,13 +170,13 @@ namespace Game
 
         private enum Shape
         {
-            Cube,
-            Sphere
+            Square,
+            Circle
         }
     }
 
     [SuppressMessage("ReSharper", "DelegateSubtraction")]
-    sealed class Sensor<T> : ISensor<T>
+    public sealed class Sensor<T> : ISensor<T>
     {
         private readonly Sensor sensor;
         private SensorEventHandler<T> onSensedObject;
@@ -292,21 +286,6 @@ namespace Game
         private void NotifyUnsensedObject(T otherObject)
         {
             if (onUnsensedObject != null) onUnsensedObject(otherObject);
-        }
-    }
-
-    sealed class EmptySensor<T> : ISensor<T>
-    {
-        private readonly List<T> sensedObjects;
-
-        public IReadOnlyList<T> SensedObjects => sensedObjects;
-
-        public event SensorEventHandler<T> OnSensedObject;
-        public event SensorEventHandler<T> OnUnsensedObject;
-
-        public EmptySensor()
-        {
-            sensedObjects = new List<T>();
         }
     }
 

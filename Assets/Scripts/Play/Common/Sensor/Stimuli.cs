@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Harmony;
 using UnityEngine;
 
@@ -6,8 +6,9 @@ namespace Game
 {
     public sealed class Stimuli : MonoBehaviour
     {
-        [SerializeField] private Shape shape = Shape.Sphere;
-        [SerializeField] [Range(1, 100)] private float size = 1f;
+        [SerializeField] private Shape shape = Shape.Circle;
+        [SerializeField] [Range(1, 100)] private float xSize = 10;
+        [SerializeField] [Range(1, 100)] private float ySize = 10;
 
         public event StimuliEventHandler OnDestroyed;
 
@@ -26,15 +27,15 @@ namespace Game
         {
             switch (shape)
             {
-                case Shape.Cube:
-                    var cubeCollider = gameObject.AddComponent<BoxCollider>();
-                    cubeCollider.isTrigger = true;
-                    cubeCollider.size = Vector3.one * size;
+                case Shape.Square:
+                    var squareCollider = gameObject.AddComponent<BoxCollider2D>();
+                    squareCollider.isTrigger = true;
+                    squareCollider.size = new Vector2(xSize, ySize);
                     break;
-                case Shape.Sphere:
-                    var sphereCollider = gameObject.AddComponent<SphereCollider>();
-                    sphereCollider.isTrigger = true;
-                    sphereCollider.radius = size / 2;
+                case Shape.Circle:
+                    var circleCollider = gameObject.AddComponent<CircleCollider2D>();
+                    circleCollider.isTrigger = true;
+                    circleCollider.radius = xSize / 2;
                     break;
                 default:
                     throw new Exception("Unknown shape named \"" + shape + "\".");
@@ -43,7 +44,7 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Sensor);
+            gameObject.layer = LayerMask.NameToLayer("Sensor");
         }
 
         private void NotifyDestroyed()
@@ -53,8 +54,8 @@ namespace Game
 
         private enum Shape
         {
-            Cube,
-            Sphere
+            Square,
+            Circle
         }
     }
 
