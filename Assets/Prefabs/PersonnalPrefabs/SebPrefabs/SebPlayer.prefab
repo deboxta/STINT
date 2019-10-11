@@ -40,7 +40,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 728145456217403415}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: dde9de5d8b766eb4f999142619d67a37, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 8858274576189870238}
   - component: {fileID: 6217557828119522906}
   - component: {fileID: 8756377808903477641}
+  - component: {fileID: 3135437010232377396}
   m_Layer: 0
   m_Name: SebPlayer
   m_TagString: Player
@@ -155,7 +156,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: dde9de5d8b766eb4f999142619d67a37, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -184,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f9615fffed414493319da7ba245efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CHANGE_TIMELINE_KEYBOARD_KEY: 304
 --- !u!114 &8756377808903477641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +202,18 @@ MonoBehaviour:
   jumpForce: 10
   gravityMultiplier: 1
   fallGravityMultiplier: 5
+--- !u!114 &3135437010232377396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028534708943117043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba3e435f5884ec8bcf029e88c9c633a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6246031958632873018
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8329144086559827366}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8863931111216472590}
