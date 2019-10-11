@@ -35,7 +35,7 @@ namespace Game
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
-            vitals = GetComponent<Vitals>();
+            vitals = GetComponentInChildren<Vitals>();
             
             isLookingRight = true;
             IsDead = false;
