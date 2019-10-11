@@ -1,4 +1,4 @@
-﻿using System;
+using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -6,25 +6,21 @@ namespace Game
 {
     public class PlayerInput : MonoBehaviour
     {
-        private const string FLOOR_LAYER_ID = "Floor";
+        [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
+
         private GamePadState gamePadState;
         private PlayerMover playerMover;
-        private PlayerJumpGravity playerJumpGravity;
         private Player player;
         private bool viewingRight;
-
-
-        private bool holdingBox;
-        private bool isGrounded;
+        private bool TimeChangeIsClicked;
 
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
-            playerJumpGravity = GetComponent<PlayerJumpGravity>();
             player = GetComponent<Player>();
 
-            isGrounded = true;
             viewingRight = false;
+            TimeChangeIsClicked = false;
         }
 
         private void Update()
@@ -38,9 +34,8 @@ namespace Game
                 gamePadState.ThumbSticks.Left.X > 0)
             {
                 direction += Vector2.right;
-                viewingRight = true;
+                player.IsLookingRight = true;
             }
-
 
             //Left
             if (Input.GetKey(KeyCode.A) ||
@@ -48,31 +43,46 @@ namespace Game
             {
                 {
                     direction += Vector2.left;
-                    viewingRight = false;
+                    player.IsLookingRight = false;
                 }
             }
 
             playerMover.Move(direction);
 
             //Jump
-            if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed))
+            if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                isGrounded = false;
                 playerMover.Jump();
             }
 
-            //Affected gravity in the air if jump button is pressed or not
-            playerJumpGravity.PlayerJumpGravityUpdate(gamePadState);
+            //Switch timeline
+            if (gamePadState.Buttons.X == ButtonState.Pressed || 
+                gamePadState.Buttons.Y == ButtonState.Pressed)
+            {
+                TimeChangeIsClicked = true;
+            } 
+            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) || 
+                gamePadState.Buttons.X == ButtonState.Released && TimeChangeIsClicked || 
+                gamePadState.Buttons.Y == ButtonState.Released && TimeChangeIsClicked)
+            {
+                Finder.TimelineController.SwitchTimeline();
+                TimeChangeIsClicked = false;
+            }
 
-            if ((Input.GetKeyDown(KeyCode.C) ||
-                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0) && !holdingBox)
+            //Fall
+            if (gamePadState.Buttons.A == ButtonState.Released)
+            {
+                playerMover.Fall();
+            }
+
+            //Grab
+            if (Input.GetKeyDown(KeyCode.C) ||
+                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
                 player.GrabBox();
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.collider.gameObject.layer == LayerMask.NameToLayer(FLOOR_LAYER_ID))
-                isGrounded = true;
+            
+            //Throw
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false  && player.Hands.IsHoldingBox)
+                player.ThrowBox();
         }
     }
 }
