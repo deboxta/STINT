@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PersonnalScenes/Sebastien/Sebastien.unity
     guid: 23b849e9d954d2841a890b76e0cfbeb4
   - enabled: 1
-    path: Assets/Scenes/PersonnalScenes/Yannick/YanScene.unity
+    path: Assets/Scenes/PersonnalScenes/YanScene.unity
     guid: 91042d485b38f7b458a1d6b4146f7d72
+  - enabled: 1
+    path: Assets/Scenes/PersonnalScenes/Jeammy/Jeammy.unity
+    guid: fd94e84b0c89f0546bf5bd75a3bea8f7
   m_configObjects: {}

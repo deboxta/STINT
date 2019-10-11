@@ -16,12 +16,14 @@ namespace Game
         private Hands hands;
         private bool isLookingRight;
         private Vitals vitals;
-        
+
         public Hands Hands => hands;
         public Vitals Vitals
         {
             get => vitals;
         }
+        public bool IsDead { get; set; }
+
         public bool IsLookingRight 
         { 
             set => isLookingRight = value;
@@ -36,6 +38,7 @@ namespace Game
             vitals = GetComponent<Vitals>();
             
             isLookingRight = true;
+            IsDead = false;
             
             boxSensor = sensor.For<Box>();
         }
@@ -56,7 +59,12 @@ namespace Game
 
         public void Die()
         {
-            playerDeathEventChannel.NotifyPlayerDeath();
+            if (!IsDead)
+            {
+                IsDead = true;
+                playerDeathEventChannel.NotifyPlayerDeath();
+            }
+            
         }
 
         //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
