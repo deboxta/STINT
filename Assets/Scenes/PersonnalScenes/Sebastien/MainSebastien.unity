@@ -370,5 +370,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
+        type: 3}
+      propertyPath: levelScenes.Array.data[1]
+      value: Jeammy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ac12f576bf6ed4e986b55351eba786, type: 3}
