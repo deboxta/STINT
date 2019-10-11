@@ -15,12 +15,9 @@ namespace Game
         private void Start()
         {
             tilemap = GetComponent<Tilemap>();
-            BoundsInt bounds = tilemap.cellBounds;
-            TileBase[] alltiles = tilemap.GetTilesBlock(bounds);
-
             var cellSize = tilemap.layoutGrid.cellSize / 2;
-            
             var availablePlaces = new List<Vector3>();
+            
             for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.yMax; i++)
             {
                 for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; j++)
@@ -39,8 +36,6 @@ namespace Game
                         paradoxCollisionObject.transform.parent = tilemap.transform;
                         paradoxCollisionObject.transform.localPosition = tilemap.CellToLocal(localPlace) + cellSize;
                         paradoxCollisionObject.tag = R.S.Tag.DeathZone;
-                        
-                        Debug.Log("x:" + i + "y:" + j + "Tile:" + tile.name );
                     }
                 }
             }
