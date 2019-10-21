@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 2479419860141482015}
   - component: {fileID: 9207983087794864986}
   m_Layer: 0
-  m_Name: FallingBlock
+  m_Name: PrimaryFallingBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
