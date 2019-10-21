@@ -13,7 +13,7 @@ namespace Game
         public Timeline CurrentTimeline
         {
             get => currentTimeline;
-            set
+            private set
             {
                 currentTimeline = value;
                 timelineChangedEventChannel.NotifyTimelineChanged();
@@ -36,7 +36,6 @@ namespace Game
 
         public void SwitchTimeline()
         {
-            //FlashEffect
             switch (CurrentTimeline)
             {
                 case Timeline.Primary:
