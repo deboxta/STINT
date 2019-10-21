@@ -35,11 +35,6 @@ namespace Game
             boxCollider2D = GetComponent<BoxCollider2D>();
             stimuli = GetComponentInChildren<Stimuli>();
             timelineController = Finder.TimelineController;
-            
-            if (timelineController.CurrentTimeline == Timeline.Secondary)
-            {
-                DeActivateComponents();
-            }
         }
 
         private void OnEnable()
@@ -52,7 +47,7 @@ namespace Game
             timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChange;
         }
 
-        protected void DeActivateComponents()
+        private void DeActivateComponents()
         {
             rigidbody2D.simulated = false;
             boxCollider2D.enabled = false;
@@ -60,7 +55,7 @@ namespace Game
             stimuli.enabled = false;
         }
 
-        protected void ActivateComponents()
+        private void ActivateComponents()
         {
             rigidbody2D.simulated = true;
             boxCollider2D.enabled = true;
@@ -68,7 +63,7 @@ namespace Game
             stimuli.enabled = true;
         }
 
-        virtual protected void OnTimeLineChange()
+        private void OnTimeLineChange()
         {
             if (timelineController.CurrentTimeline != timeOfBox)
             {
