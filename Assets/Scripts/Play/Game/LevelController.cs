@@ -9,9 +9,11 @@ namespace Game
     public class LevelController : MonoBehaviour
     {
         private const int STARTING_LEVEL = 0;
+        private const int MENU_INDEX_NUMBER = 0;
         
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
+        private ExitGameEventChannel exitGameEventChannel;
         private LevelScenes levelScenes;
         private int currentLevel;
 
@@ -28,12 +30,20 @@ namespace Game
         {
             playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
+            exitGameEventChannel.OnExitGame += ExitGame;
+
         }
 
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
+            exitGameEventChannel.OnExitGame -= ExitGame;
+        }
+
+        private void ExitGame()
+        {
+            StartCoroutine(ReturnMenu());
         }
 
         private void PlayerDeath()
@@ -46,6 +56,13 @@ namespace Game
             StartCoroutine(NextLevel());
         }
 
+        private IEnumerator ReturnMenu()
+        {
+            yield return UnloadGame();
+            currentLevel = MENU_INDEX_NUMBER;
+            yield return LoadGame();
+        }
+        
         private IEnumerator NextLevel()
         {
             yield return UnloadGame();
