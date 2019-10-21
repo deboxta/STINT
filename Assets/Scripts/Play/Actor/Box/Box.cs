@@ -4,31 +4,28 @@ using UnityEngine;
 
 namespace Game
 {
-     public class Box : MonoBehaviour
+    public class Box : MonoBehaviour
     {
-        public enum TimeOfBox
-        {
-            past,
-            future
-        }
 
-        public TimeOfBox timeOfBox;
-
-        public Timeline boxTimeline;
-        
+        [SerializeField] private Timeline timeOfBox;
         [SerializeField] private Box boxFutureReference;
         [SerializeField] private int throwedForceUp = 40;
         [SerializeField] private int throwedForceX = 25;
-        
-        
+
+
         private Rigidbody2D rigidbody2D;
         private Collider2D boxCollider2D;
         private SpriteRenderer spriteRenderer;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Stimuli stimuli;
-        private Vector2 positionFutureBox;
-        public Vector3 Position => transform.position;
-        
+        private Vector3 positionPastBox;
+        private TimelineController timelineController;
+        public Vector3 Position
+        {
+            get => transform.position;
+            set => transform.position = value;
+        }
+
 
         private void Awake()
         {
@@ -37,9 +34,11 @@ namespace Game
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             boxCollider2D = GetComponent<BoxCollider2D>();
             stimuli = GetComponentInChildren<Stimuli>();
-            if (boxTimeline == Timeline.Secondary)
+            timelineController = Finder.TimelineController;
+            
+            if (timelineController.CurrentTimeline == Timeline.Secondary)
             {
-               DeActivateComponents();
+                DeActivateComponents();
             }
         }
 
@@ -52,7 +51,7 @@ namespace Game
         {
             timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChange;
         }
-        
+
         protected void DeActivateComponents()
         {
             rigidbody2D.simulated = false;
@@ -71,20 +70,7 @@ namespace Game
 
         virtual protected void OnTimeLineChange()
         {
-            switch (Finder.TimelineController.CurrentTimeline)
-            {
-                case Timeline.Primary:
-                    TimePrimary();
-                    break;
-                case Timeline.Secondary:
-                    TimeSecondary();
-                    break;
-            }
-        }
-
-        private void TimePrimary()
-        {
-            if (boxTimeline == Timeline.Secondary)
+            if (timelineController.CurrentTimeline != timeOfBox)
             {
                 DeActivateComponents();
             }
@@ -92,30 +78,23 @@ namespace Game
             {
                 ActivateComponents();
             }
-            if (timeOfBox == TimeOfBox.future)
+
             BoxParadoxRelationPosition();
         }
-        
-        private void TimeSecondary()
-        {
-            if (boxTimeline == Timeline.Primary)
-            {
-                DeActivateComponents();
-            }
-            else
-            {
-                ActivateComponents();
-            }
-        }
-        
+
         private void BoxParadoxRelationPosition()
         {
-            /*if (Math.Abs(Position.x - positionFutureBox.x) >= 0.5f || 
-                Math.Abs(Position.y - positionFutureBox.y) >= 0.5f)
+            if (boxFutureReference != null)
             {
-                boxFutureReference.transform.position = Position;
-                boxFutureReference.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            }      */  }
+                if (Math.Abs(Position.x - positionPastBox.x) >= 0.1 || 
+                    Math.Abs(Position.y - positionPastBox.y) >= 0.1)
+                {
+                    boxFutureReference.Position = Position;
+                }
+                
+                positionPastBox = Position;
+            }
+        }
 
         public void Grabbed()
         {
