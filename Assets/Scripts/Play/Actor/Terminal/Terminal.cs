@@ -34,7 +34,7 @@ namespace Game
             playerSensor.OnUnsensedObject -= OnPlayerUnSensed;
         }
 
-        private void OnPlayerUnSensed(Player otherobject)
+        private void OnPlayerUnSensed(Player otherObject)
         {
             spriteRenderer.sprite = spriteDenied;
         }

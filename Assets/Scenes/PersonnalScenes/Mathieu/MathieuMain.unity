@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 1809300211}
   - component: {fileID: 1809300210}
   - component: {fileID: 1809300209}
-  - component: {fileID: 1809300208}
   - component: {fileID: 1809300207}
   - component: {fileID: 1809300206}
   m_Layer: 0
@@ -256,7 +255,7 @@ GameObject:
   m_TagString: MainController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1809300206
 MonoBehaviour:
@@ -280,18 +279,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b63bd06468664055b4d5454906ec0677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1809300208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809300205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d463a6063f42b6925832e328d344ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1809300209
@@ -318,7 +305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameToLoad: MathieuGame
 --- !u!4 &1809300211
 Transform:
   m_ObjectHideFlags: 0
