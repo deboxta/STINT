@@ -5,6 +5,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    [Findable(R.S.Tag.Player)]
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
@@ -34,6 +35,7 @@ namespace Game
             }
         }
 
+        [ContextMenu("Die")]
         public void Die()
         {
             playerDeathEventChannel.NotifyPlayerDeath();
