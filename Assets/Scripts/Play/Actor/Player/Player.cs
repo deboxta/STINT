@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
@@ -16,6 +17,7 @@ namespace Game
         private Hands hands;
         private bool isLookingRight;
         private Vitals vitals;
+        private bool isCrouched;
 
         public Hands Hands => hands;
         public Vitals Vitals
@@ -39,6 +41,7 @@ namespace Game
             
             isLookingRight = true;
             IsDead = false;
+            isCrouched = false;
             
             boxSensor = sensor.For<Box>();
         }
@@ -67,7 +70,7 @@ namespace Game
             
         }
 
-        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
         //Grabs the box
         public void GrabBox()
         {
@@ -79,9 +82,12 @@ namespace Game
             }
         }
         
-        public void ThrowBox()
+        public void ThrowBox(bool crouching)
         {
-            hands.Throw(isLookingRight);
+            if (crouching)
+                hands.Drop();
+            else
+                hands.Throw(isLookingRight);
         }
     }
 }
