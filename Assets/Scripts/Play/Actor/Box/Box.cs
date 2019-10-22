@@ -6,7 +6,6 @@ namespace Game
 {
     public class Box : MonoBehaviour
     {
-
         [SerializeField] private Timeline timeOfBox;
         [SerializeField] private Box boxFutureReference;
         [SerializeField] private int throwedForceUp = 40;
@@ -20,6 +19,7 @@ namespace Game
         private Stimuli stimuli;
         private Vector3 positionPastBox;
         private TimelineController timelineController;
+
         public Vector3 Position
         {
             get => transform.position;
@@ -81,12 +81,10 @@ namespace Game
         {
             if (boxFutureReference != null)
             {
-                if (Math.Abs(Position.x - positionPastBox.x) >= 0.1 || 
+                if (Math.Abs(Position.x - positionPastBox.x) >= 0.1 ||
                     Math.Abs(Position.y - positionPastBox.y) >= 0.1)
-                {
                     boxFutureReference.Position = Position;
-                }
-                
+
                 positionPastBox = Position;
             }
         }
@@ -109,6 +107,12 @@ namespace Game
             {
                 rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
             }
+        }
+
+        public void Dropped()
+        {
+            transform.parent = null;
+            rigidbody2D.simulated = true;
         }
     }
 }
