@@ -66,7 +66,6 @@ namespace Game
                 IsDead = true;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
-            
         }
 
         //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
