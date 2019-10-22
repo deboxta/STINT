@@ -1,15 +1,14 @@
 using Harmony;
-using UnityEditor;
 using UnityEngine;
 
 namespace Game
 {
     public class PlayerMover : MonoBehaviour
     {
-        [SerializeField] private int horizontalSpeed = 5;
-        [SerializeField] private int jumpForce = 10;
-        [SerializeField] private int gravityMultiplier = 1;
-        [SerializeField] private int fallGravityMultiplier = 5;
+        [SerializeField] private int XSpeed = 10;
+        [SerializeField] private int YForce = 15;
+        [SerializeField] private int gravityMultiplier = 5;
+        [SerializeField] private int fallGravityMultiplier = 10;
 
         private Rigidbody2D rigidBody2D;
         private bool isGrounded;
@@ -29,7 +28,7 @@ namespace Game
         public void Move(Vector2 direction)
         {
             var velocity = rigidBody2D.velocity;
-            velocity.x = direction.x * horizontalSpeed;
+            velocity.x = direction.x * XSpeed;
             rigidBody2D.velocity = velocity;
         }
 
@@ -38,7 +37,7 @@ namespace Game
             if (isGrounded)
             {
                 var velocity = rigidBody2D.velocity;
-                velocity.y = jumpForce;
+                velocity.y = YForce;
                 rigidBody2D.velocity = velocity;
                 isGrounded = false;
             }
@@ -53,6 +52,18 @@ namespace Game
         {
             if (collision.collider.gameObject.layer == LayerMask.NameToLayer(R.S.Layer.Floor))
                 isGrounded = true;
+        }
+
+        public void Slowed()
+        {
+            XSpeed /= 2;
+            YForce /= 2;
+        }
+        
+        public void ResetSpeed()
+        {
+            XSpeed *= 2;
+            YForce *= 2;
         }
     }
 }
