@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelScenes:
-  - YanScene
+  - Main_menu
 --- !u!1 &1553605310
 GameObject:
   m_ObjectHideFlags: 0
