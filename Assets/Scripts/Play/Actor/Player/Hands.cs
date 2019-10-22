@@ -29,5 +29,12 @@ namespace Game
             box = null;
             isHoldingBox = false;
         }
+
+        public void Drop()
+        {
+            box.Dropped();
+             box = null;
+             isHoldingBox = false;
+        }
     }
 }
