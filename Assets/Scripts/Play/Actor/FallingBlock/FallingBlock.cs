@@ -45,7 +45,6 @@ namespace Game
 
         private void Fall()
         {
-            //rigidBody2D.velocity = Vector2.down * fallSpeed;
             rigidBody2D.isKinematic = false;
         }
 
