@@ -14,7 +14,7 @@ namespace Game
 
         private Rigidbody2D rigidbody2D;
         private Collider2D boxCollider2D;
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer[] spriteRenderers;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Stimuli stimuli;
         private Vector3 positionPastBox;
@@ -26,12 +26,11 @@ namespace Game
             set => transform.position = value;
         }
 
-
         private void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             rigidbody2D = GetComponent<Rigidbody2D>();
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
             boxCollider2D = GetComponent<BoxCollider2D>();
             stimuli = GetComponentInChildren<Stimuli>();
             timelineController = Finder.TimelineController;
@@ -51,7 +50,7 @@ namespace Game
         {
             rigidbody2D.simulated = false;
             boxCollider2D.enabled = false;
-            spriteRenderer.enabled = false;
+            spriteRenderers[0].enabled = false;
             stimuli.enabled = false;
         }
 
@@ -59,7 +58,7 @@ namespace Game
         {
             rigidbody2D.simulated = true;
             boxCollider2D.enabled = true;
-            spriteRenderer.enabled = true;
+            spriteRenderers[0].enabled = true;
             stimuli.enabled = true;
         }
 
