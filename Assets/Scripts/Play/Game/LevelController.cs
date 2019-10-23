@@ -21,6 +21,7 @@ namespace Game
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            exitGameEventChannel = Finder.ExitGameEventChannel;
             levelScenes = GetComponentInChildren<LevelScenes>();
             
             currentLevel = STARTING_LEVEL;
