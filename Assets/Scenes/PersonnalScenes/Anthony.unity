@@ -622,6 +622,11 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 2800000, guid: 8afd73b29f8e34c70b0db80184b8cc7f, type: 3}
+    - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: XSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a5f552daa52af408daf10f9dc619b6, type: 3}
 --- !u!1001 &2541765568961193044
