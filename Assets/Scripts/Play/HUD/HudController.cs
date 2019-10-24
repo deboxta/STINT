@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Collections;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 
