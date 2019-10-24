@@ -6865,6 +6865,46 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].x
       value: -18.999994
       objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
+      value: -190000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
+      value: 160000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
+      value: 159999971
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
+      value: -190000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].y
+      value: -19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].y
+      value: 15.999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936514, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].y
+      value: -19
+      objectReference: {fileID: 0}
     - target: {fileID: 4790341854366936512, guid: 36c0df5b276216040bb172c05bc28c39,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6920,6 +6960,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936519, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790341854366936519, guid: 36c0df5b276216040bb172c05bc28c39,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c0df5b276216040bb172c05bc28c39, type: 3}
 --- !u!1001 &8511104569487824403
@@ -6929,16 +6979,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3552086376140926695, guid: 3142017de2b47904aa089b54d50e7468,
-        type: 3}
-      propertyPath: m_textAlignment
-      value: 264
-      objectReference: {fileID: 0}
-    - target: {fileID: 3552086376140926695, guid: 3142017de2b47904aa089b54d50e7468,
-        type: 3}
-      propertyPath: m_isRichText
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
@@ -6947,6 +6987,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552086376140926695, guid: 3142017de2b47904aa089b54d50e7468,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8511104570287701129, guid: 3142017de2b47904aa089b54d50e7468,
         type: 3}
