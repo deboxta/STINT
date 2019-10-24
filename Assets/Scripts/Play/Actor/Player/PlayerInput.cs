@@ -13,9 +13,11 @@ namespace Game
         private Player player;
         private bool viewingRight;
         private bool TimeChangeIsClicked;
-
+        private WallJump wallJump;
+        
         private void Awake()
         {
+            wallJump = GetComponent<WallJump>();
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
@@ -23,7 +25,7 @@ namespace Game
             TimeChangeIsClicked = false;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
@@ -52,7 +54,10 @@ namespace Game
             //Jump
             if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                playerMover.Jump();
+                if (playerMover.IsGrounded || playerMover.IsTouchingWall)
+                {
+                    playerMover.Jump();
+                }
             }
 
             //Switch timeline
@@ -70,10 +75,10 @@ namespace Game
             }
 
             //Fall
-            if (gamePadState.Buttons.A == ButtonState.Released)
-            {
-                playerMover.Fall();
-            }
+//            if (gamePadState.Buttons.A == ButtonState.Released)
+//            {
+//                playerMover.Fall();
+//            }
 
             //Grab
             if (Input.GetKeyDown(KeyCode.C) ||
