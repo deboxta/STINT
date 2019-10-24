@@ -11,20 +11,19 @@ namespace Game
         [SerializeField] private int jumpForce = 10;
         [SerializeField] private int gravityMultiplier = 1;
         [SerializeField] private int fallGravityMultiplier = 5;
+        [SerializeField] private bool canJump;
         [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
+        [SerializeField] private bool isWallSliding;
         [SerializeField] private int numberOfJumps = 3;
+        [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce;
         [SerializeField] private float wallDistance = 1f;
         [SerializeField] private float groundDistance = 1f;
+        [SerializeField] private float groundCheckRadius; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
-        [SerializeField] private float groundCheckRadius; 
         [SerializeField] private LayerMask floorLayer;
-        [SerializeField] private LayerMask wallLayer;
-        [SerializeField] private bool canJump;
-        [SerializeField] private int numberOfJumpsLeft;
-        [SerializeField]private bool isWallSliding;
         
         private Rigidbody2D rigidBody2D;
         
@@ -37,8 +36,6 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            wallLayer = LayerMask.NameToLayer(R.S.Layer.Wall);
-            //floorLayer = LayerMask.NameToLayer(R.S.Layer.Floor);
         }
 
         private void Update()
