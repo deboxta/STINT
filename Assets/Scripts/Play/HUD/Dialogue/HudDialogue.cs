@@ -1,44 +1,63 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using Harmony;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game
 {
+    [Findable(R.S.Tag.HudController)]
     public class HudDialogue : MonoBehaviour
     {
-        [SerializeField] private string[] fullText;
         [SerializeField] private float delayBetweenCharacters = 0.1f;
         [SerializeField] private float delayBetweenTexts = 3f;
-        private TextMeshProUGUI text;
+        
+        private string[] texts;
+        private TextMeshProUGUI textMesh;
         private int characterIndex;
         private int textIndex;
         private string displayedText;
 
+        public string[] Texts
+        {
+            get => texts;
+            set => texts = value;
+        }
+
         private void Awake()
         {
-            text = GetComponent<TextMeshProUGUI>();
+            textMesh = GetComponentInChildren<TextMeshProUGUI>();
             displayedText = "";
             characterIndex = 0;
             textIndex = 0;
+        }
 
+        public void StartDisplaying(string[] textsToDisplay)
+        {
+            //All coroutine needs to stop or it create
+            StopAllCoroutines();
+
+            texts = textsToDisplay;
+            
+            displayedText = "";
+            textIndex = 0;
+            characterIndex = 0;
+                
             StartCoroutine(DisplayOneCharacter());
         }
 
         private IEnumerator DisplayOneCharacter()
         {
-            displayedText = fullText[textIndex].Substring(0, characterIndex);
-            text.text = displayedText;
+            displayedText = Texts[textIndex].Substring(0, characterIndex);
+            textMesh.text = displayedText;
             characterIndex++;
             
             yield return new WaitForSeconds(delayBetweenCharacters);
 
-            if (characterIndex > fullText[textIndex].Length)
+            if (characterIndex >= Texts[textIndex].Length)
             {
-                if (textIndex >= fullText.Length - 1)
+                if (textIndex >= Texts.Length - 1)
                 {
-                    text.enabled = false;
+                    textMesh.text = "";
                     yield break;
                 }
                 textIndex++;

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    [Findable(R.S.Tag.HudController)]
     public class HudController : MonoBehaviour
     {
         [SerializeField] private Slider sanitySlider = null;
