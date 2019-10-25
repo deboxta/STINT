@@ -17,17 +17,17 @@ namespace Game
         [SerializeField] private bool isWallSliding;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private int numberOfJumpsLeft;
-        [SerializeField] private float wallJumpForce;
+        [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallDistance = 1f;
         [SerializeField] private float groundDistance = 1f;
         [SerializeField] private float groundCheckRadius; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
         [SerializeField] private LayerMask floorLayer;
+        [SerializeField] private float wallSlideSpeed;
+        [SerializeField] private Vector2 wallJumpDirection;
         
         private Rigidbody2D rigidBody2D;
-        
-        private Vector2 wallJumpDirection;
 
         public bool IsGrounded => isGrounded;
         public bool IsTouchingWall => isTouchingWall;
@@ -36,6 +36,7 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
+            wallSlideSpeed = 2f;
         }
 
         private void Update()
@@ -54,7 +55,16 @@ namespace Game
         private void CheckSurroundings()
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
-            isTouchingWall = Physics2D.Raycast(wallCheck.position, Vector2.right * transform.localScale.x, wallDistance, floorLayer);
+            RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.right * transform.localScale.x, wallDistance, floorLayer);
+            if (hit)
+            {
+                isTouchingWall = true;
+                wallJumpDirection = hit.normal;
+            }
+            else
+            {
+                isTouchingWall = false;
+            }
         }
 
         public void Move(Vector2 direction)
@@ -62,21 +72,29 @@ namespace Game
             var velocity = rigidBody2D.velocity;
             velocity.x = direction.x * horizontalSpeed;
             rigidBody2D.velocity = velocity;
+            if (isWallSliding)
+            {
+                if(rigidBody2D.velocity.y < -wallSlideSpeed)
+                {
+                    rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
+                }
+            }
         }
 
         public void Jump()
         {
-            if (canJump && !isWallSliding)
+            if (canJump && !isWallSliding && isGrounded)
             {
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, jumpForce);
                 numberOfJumpsLeft--;
             }
-            else if (canJump && (isWallSliding || isTouchingWall))
+            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
             {
                 isWallSliding = false;
                 numberOfJumpsLeft--;
-                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x , wallJumpForce * wallJumpDirection.y);
-                rigidBody2D.AddForce(forceToAdd,ForceMode2D.Impulse);
+                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x , wallJumpForce );
+                //rigidBody2D.AddForce(forceToAdd,ForceMode2D.Impulse);
+                rigidBody2D.velocity = new Vector2(wallJumpForce * wallJumpDirection.x , wallJumpForce);
             }
         }
 
@@ -85,6 +103,7 @@ namespace Game
             if (isTouchingWall && !isGrounded)
             {
                 isWallSliding = true;
+                transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
             }
             else
             {
@@ -114,12 +133,6 @@ namespace Game
             rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            //if (collision.collider.gameObject.layer == LayerMask.NameToLayer(R.S.Layer.Floor))
-               // isGrounded = true;
-        }
-        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
