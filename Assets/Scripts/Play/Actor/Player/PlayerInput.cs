@@ -12,7 +12,8 @@ namespace Game
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
-        private bool TimeChangeIsClicked;
+        private bool crouching;
+        private bool timeChangeIsClicked;
 
         private void Awake()
         {
@@ -20,12 +21,19 @@ namespace Game
             player = GetComponent<Player>();
 
             viewingRight = false;
-            TimeChangeIsClicked = false;
+            crouching = false;
+            timeChangeIsClicked = false;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            //Crouch
+            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
+                crouching = true;
+            else
+                crouching = false;
 
             var direction = Vector2.zero;
 
@@ -41,10 +49,8 @@ namespace Game
             if (Input.GetKey(KeyCode.A) ||
                 gamePadState.ThumbSticks.Left.X < 0)
             {
-                {
-                    direction += Vector2.left;
-                    player.IsLookingRight = false;
-                }
+                direction += Vector2.left;
+                player.IsLookingRight = false;
             }
 
             playerMover.Move(direction);
@@ -52,37 +58,36 @@ namespace Game
             //Jump
             if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                playerMover.Jump();
+                if (playerMover.IsGrounded || playerMover.IsTouchingWall)
+                {
+                    playerMover.Jump();
+                }
             }
 
             //Switch timeline
-            if (gamePadState.Buttons.X == ButtonState.Pressed || 
+            if (gamePadState.Buttons.X == ButtonState.Pressed ||
                 gamePadState.Buttons.Y == ButtonState.Pressed)
-            {
-                TimeChangeIsClicked = true;
-            } 
-            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) || 
-                gamePadState.Buttons.X == ButtonState.Released && TimeChangeIsClicked || 
-                gamePadState.Buttons.Y == ButtonState.Released && TimeChangeIsClicked)
+                timeChangeIsClicked = true;
+            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) ||
+                     gamePadState.Buttons.X == ButtonState.Released && timeChangeIsClicked ||
+                     gamePadState.Buttons.Y == ButtonState.Released && timeChangeIsClicked)
             {
                 Finder.TimelineController.SwitchTimeline();
-                TimeChangeIsClicked = false;
+                timeChangeIsClicked = false;
             }
 
             //Fall
             if (gamePadState.Buttons.A == ButtonState.Released)
-            {
                 playerMover.Fall();
-            }
 
             //Grab
             if (Input.GetKeyDown(KeyCode.C) ||
-                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
+                GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
                 player.GrabBox();
-            
+
             //Throw
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false  && player.Hands.IsHoldingBox)
-                player.ThrowBox();
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
+                player.ThrowBox(crouching);
         }
     }
 }

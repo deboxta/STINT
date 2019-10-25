@@ -1,7 +1,5 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
-using XInputDotNetPure;
 
 namespace Game
 {
@@ -16,6 +14,8 @@ namespace Game
         private Hands hands;
         private bool isLookingRight;
         private Vitals vitals;
+        private bool isCrouched;
+        private PlayerMover playerMover;
 
         public Hands Hands => hands;
         public Vitals Vitals
@@ -36,9 +36,11 @@ namespace Game
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
+            playerMover = GetComponent<PlayerMover>();
             
             isLookingRight = true;
             IsDead = false;
+            isCrouched = false;
             
             boxSensor = sensor.For<Box>();
         }
@@ -64,10 +66,9 @@ namespace Game
                 IsDead = true;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
-            
         }
 
-        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
         //Grabs the box
         public void GrabBox()
         {
@@ -76,12 +77,18 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
+                playerMover.Slowed();
             }
         }
         
-        public void ThrowBox()
+        public void ThrowBox(bool crouching)
         {
-            hands.Throw(isLookingRight);
+            if (crouching)
+                hands.Drop();
+            else
+                hands.Throw(isLookingRight);
+            
+            playerMover.ResetSpeed();
         }
     }
 }

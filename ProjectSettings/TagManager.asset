@@ -22,8 +22,8 @@ TagManager:
   - 
   - Sensor
   - Floor
-  - Background
-  - Player
+  - Wall
+  - 
   - 
   - 
   - 
@@ -47,22 +47,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Background
-    uniqueID: 192553731
-    locked: 0
-  - name: Player
-    uniqueID: 1796791381
-    locked: 0
-  - name: Floor
-    uniqueID: 863289723
-    locked: 0
-  - name: Wall
-    uniqueID: 435076709
-    locked: 0
-  - name: Plateform
-    uniqueID: 1730027981
-    locked: 0
-  - name: Box
-    uniqueID: 2701795089
     locked: 0
