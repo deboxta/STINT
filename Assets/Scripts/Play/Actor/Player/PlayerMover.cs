@@ -92,8 +92,7 @@ namespace Game
                 isWallSliding = false;
                 numberOfJumpsLeft--;
                 Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x , wallJumpForce );
-                //rigidBody2D.AddForce(forceToAdd,ForceMode2D.Impulse);
-                rigidBody2D.velocity = new Vector2(wallJumpForce * wallJumpDirection.x , wallJumpForce);
+                rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
             }
         }
 
