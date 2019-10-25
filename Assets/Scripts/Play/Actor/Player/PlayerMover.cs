@@ -1,16 +1,11 @@
-using System;
-using Harmony;
-using UnityEditor;
 using UnityEngine;
 
 namespace Game
 {
     public class PlayerMover : MonoBehaviour
     {
-        [SerializeField] private int horizontalSpeed = 5;
-        [SerializeField] private int jumpForce = 10;
-        [SerializeField] private int gravityMultiplier = 1;
-        [SerializeField] private int fallGravityMultiplier = 5;
+        [SerializeField] private float gravityMultiplier = 5f;
+        [SerializeField] private int fallGravityMultiplier = 10;
         [SerializeField] private bool canJump;
         [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
@@ -19,7 +14,6 @@ namespace Game
         [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallDistance = 1f;
-        [SerializeField] private float groundDistance = 1f;
         [SerializeField] private float groundCheckRadius; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
@@ -27,6 +21,10 @@ namespace Game
         [SerializeField] private float wallSlideSpeed;
         [SerializeField] private Vector2 wallJumpDirection;
         
+        [SerializeField] private float xSpeed = 10f;
+        [SerializeField] private float yForce = 15f;
+        [SerializeField] private float movementPenality = 2;
+
         private Rigidbody2D rigidBody2D;
 
         public bool IsGrounded => isGrounded;
@@ -70,8 +68,9 @@ namespace Game
         public void Move(Vector2 direction)
         {
             var velocity = rigidBody2D.velocity;
-            velocity.x = direction.x * horizontalSpeed;
+            velocity.x = direction.x * xSpeed;
             rigidBody2D.velocity = velocity;
+            
             if (isWallSliding)
             {
                 if(rigidBody2D.velocity.y < -wallSlideSpeed)
@@ -85,7 +84,7 @@ namespace Game
         {
             if (canJump && !isWallSliding && isGrounded)
             {
-                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, jumpForce);
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
                 numberOfJumpsLeft--;
             }
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
@@ -138,6 +137,18 @@ namespace Game
             Gizmos.color = Color.red;
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * transform.localScale.x  * wallDistance);
             Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
+        }
+
+        public void Slowed()
+        {
+            xSpeed /= movementPenality;
+            yForce /= movementPenality;
+        }
+        
+        public void ResetSpeed()
+        {
+            xSpeed *= movementPenality;
+            yForce *= movementPenality;
         }
     }
 }
