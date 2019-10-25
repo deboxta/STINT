@@ -25,7 +25,7 @@ namespace Game
             timeChangeIsClicked = false;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
