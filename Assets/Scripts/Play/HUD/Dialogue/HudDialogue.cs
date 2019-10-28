@@ -17,11 +17,7 @@ namespace Game
         private int textIndex;
         private string displayedText;
 
-        public string[] Texts
-        {
-            get => texts;
-            set => texts = value;
-        }
+        //private string[] Texts => texts;
 
         private void Awake()
         {
@@ -47,23 +43,28 @@ namespace Game
 
         private IEnumerator DisplayOneCharacter()
         {
-            displayedText = Texts[textIndex].Substring(0, characterIndex);
-            textMesh.text = displayedText;
-            characterIndex++;
-            
-            yield return new WaitForSeconds(delayBetweenCharacters);
-
-            if (characterIndex >= Texts[textIndex].Length)
+            if (textIndex < texts.Length)
             {
-                if (textIndex >= Texts.Length - 1)
+                if (characterIndex < texts[textIndex].Length + 1)
                 {
-                    textMesh.text = "";
-                    yield break;
+                    displayedText = texts[textIndex].Substring(0, characterIndex);
+                    textMesh.text = displayedText;
+                    characterIndex++;
+                    
+                    yield return new WaitForSeconds(delayBetweenCharacters);
                 }
-                textIndex++;
-                characterIndex = 0;
-                
-                yield return new WaitForSeconds(delayBetweenTexts);
+                else
+                {
+                    textIndex++;
+                    characterIndex = 0;
+                    
+                    yield return new WaitForSeconds(delayBetweenTexts);
+                }
+            }
+            else
+            {
+                textMesh.text = "";
+                yield break;
             }
             yield return DisplayOneCharacter();
         }
