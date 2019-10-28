@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eb51b0463e4e0ab29111f8de1a3ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 10
-  jumpForce: 15
+  XSpeed: 10
+  YForce: 15
   gravityMultiplier: 5
   fallGravityMultiplier: 10
 --- !u!114 &3136050746928664667
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f9615fffed414493319da7ba245efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CHANGE_TIMELINE_KEYBOARD_KEY: 304
 --- !u!1 &3740822281028299589
 GameObject:
   m_ObjectHideFlags: 0

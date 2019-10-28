@@ -1,8 +1,5 @@
-﻿using System;
-using DG.Tweening;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
-using XInputDotNetPure;
 
 namespace Game
 {
@@ -18,6 +15,7 @@ namespace Game
         private bool isLookingRight;
         private Vitals vitals;
         private bool isCrouched;
+        private PlayerMover playerMover;
 
         public Hands Hands => hands;
         public Vitals Vitals
@@ -38,6 +36,7 @@ namespace Game
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
+            playerMover = GetComponent<PlayerMover>();
             
             isLookingRight = true;
             IsDead = false;
@@ -78,6 +77,7 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
+                playerMover.Slowed();
             }
         }
         
@@ -87,6 +87,8 @@ namespace Game
                 hands.Drop();
             else
                 hands.Throw(isLookingRight);
+            
+            playerMover.ResetSpeed();
         }
     }
 }

@@ -57,7 +57,12 @@ namespace Game
 
             //Jump
             if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
-                playerMover.Jump();
+            {
+                if (playerMover.IsGrounded || playerMover.IsTouchingWall)
+                {
+                    playerMover.Jump();
+                }
+            }
 
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
