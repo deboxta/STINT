@@ -1,5 +1,7 @@
+using System;
 using Harmony;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using XInputDotNetPure;
 
 namespace Game
@@ -27,16 +29,7 @@ namespace Game
 
         private void FixedUpdate()
         {
-            gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            //Crouch
-            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
-                crouching = true;
-            else
-                crouching = false;
-
             var direction = Vector2.zero;
-
             //Right
             if (Input.GetKey(KeyCode.D) ||
                 gamePadState.ThumbSticks.Left.X > 0)
@@ -58,11 +51,21 @@ namespace Game
             //Jump
             if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
             {
-                if (playerMover.IsGrounded || playerMover.IsTouchingWall)
-                {
-                    playerMover.Jump();
-                }
+                playerMover.Jump();
             }
+        }
+
+        private void Update()
+        {
+            gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            //Crouch
+            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
+                crouching = true;
+            else
+                crouching = false;
+
+
 
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
