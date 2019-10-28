@@ -11,6 +11,7 @@ TagManager:
   - DeathZone
   - Kill
   - PrimaryTimeline
+  - HudController
   layers:
   - Default
   - TransparentFX
