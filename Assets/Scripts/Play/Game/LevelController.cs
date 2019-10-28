@@ -41,6 +41,19 @@ namespace Game
             StartCoroutine(RestartLevel());
         }
 
+        public void ReturnToMainMenu()
+        {
+            StartCoroutine(MenuReturn());
+        }
+
+        private IEnumerator MenuReturn()
+        {
+            yield return UnloadGame();
+            currentLevel = 0;
+            yield return LoadGame();
+            Finder.TimelineController.ResetTimeline();
+        }
+
         private void LevelCompleted()
         {
             StartCoroutine(NextLevel());
@@ -51,6 +64,7 @@ namespace Game
             yield return UnloadGame();
             currentLevel++;
             yield return LoadGame();
+            Finder.TimelineController.ResetTimeline();
         }
 
         private void Start()
