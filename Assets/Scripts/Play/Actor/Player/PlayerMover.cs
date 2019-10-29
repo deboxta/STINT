@@ -1,3 +1,4 @@
+using System;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -145,7 +146,7 @@ namespace Game
         
         private void CheckIfCanJump()
         {
-            if (isGrounded && rigidBody2D.velocity.y <= 0)
+            if (isGrounded && !isTouchingWall && !isWallSliding)
             {
                 numberOfJumpsLeft = numberOfJumps;
             }
