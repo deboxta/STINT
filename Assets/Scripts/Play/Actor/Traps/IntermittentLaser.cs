@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using Harmony;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -13,10 +10,7 @@ namespace Game
 
         private void Start()
         {
-            if (!SceneManager.GetSceneByName(R.S.Scene.Game).isLoaded)
-                StartCoroutine(SwitchLaserOnOff());
-            else
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(R.S.Scene.Game));
+            StartCoroutine(SwitchLaserOnOff());
         }
 
         private IEnumerator SwitchLaserOnOff()
