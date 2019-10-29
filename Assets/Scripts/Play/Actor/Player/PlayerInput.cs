@@ -27,8 +27,16 @@ namespace Game
             timeChangeIsClicked = false;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
+            gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            //Crouch
+            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
+                crouching = true;
+            else
+                crouching = false;
+
             var direction = Vector2.zero;
             //Right
             if (Input.GetKey(KeyCode.D) ||
@@ -49,24 +57,12 @@ namespace Game
             playerMover.Move(direction);
 
             //Jump
-            if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
+            //Using Input.GetKeyDown for joystick because gamePadState doesn't have GetKeyDown option and jump is then called multiples time.
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
             {
                 playerMover.Jump();
             }
-        }
-
-        private void Update()
-        {
-            gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            //Crouch
-            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
-                crouching = true;
-            else
-                crouching = false;
-
-
-
+            
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
                 gamePadState.Buttons.Y == ButtonState.Pressed)

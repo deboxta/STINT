@@ -7,9 +7,6 @@ namespace Game
 {
     public class PlayerMover : MonoBehaviour
     {
-        [SerializeField] private float gravityMultiplier = 5f;
-        [SerializeField] private int fallGravityMultiplier = 10;
-        [SerializeField] private bool canJump;
         [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
@@ -17,17 +14,21 @@ namespace Game
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
-        [SerializeField] private float wallDistance = 1f;
-        [SerializeField] private float groundCheckRadius; 
-        [SerializeField] private Transform groundCheck; 
-        [SerializeField] private Transform wallCheck; 
-        [SerializeField] private LayerMask floorLayer;
         [SerializeField] private float wallSlideSpeed = 2f;
-        [SerializeField] private Vector2 wallJumpDirection;
-        private GamePadState gamePadState;
-
+        [SerializeField] private float gravityMultiplier = 5f;
+        [SerializeField] private int fallGravityMultiplier = 10;
         [SerializeField] private float xSpeed = 10f;
         [SerializeField] private float yForce = 15f;
+        [SerializeField] private float groundCheckRadius = 1.11f; 
+        [SerializeField] private Transform groundCheck; 
+        [SerializeField] private Transform wallCheck; 
+        
+        private bool canJump;
+        private float wallDistance = 1.11f;
+        private LayerMask floorLayer;
+        private Vector2 wallJumpDirection;
+        private GamePadState gamePadState;
+
         [FormerlySerializedAs("movementPenality")] [SerializeField] private float movementPenalty = 2;
 
         private Rigidbody2D rigidBody2D;
@@ -36,6 +37,7 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
+            floorLayer = LayerMask.GetMask(R.S.Layer.Floor);
         }
 
         private void FixedUpdate()
@@ -51,14 +53,12 @@ namespace Game
         {
             //TODO : Change with cube raycast
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
-
             if (isGrounded)
             {
                 isWallJumping = false;
             }
             
             RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.right * transform.localScale.x, wallDistance, floorLayer);
-            
             if (hit)
             {
                 isTouchingWall = true;
@@ -78,14 +78,14 @@ namespace Game
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
             
-            if (!isWallSliding && !isWallJumping)
+            if (!isWallSliding && !isWallJumping && numberOfJumpsLeft > 0)
             {
                 var velocity = rigidBody2D.velocity;
                 velocity.x = direction.x * xSpeed;
                 rigidBody2D.velocity = velocity;
             }
 
-            if (isWallJumping && canJump && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
+            if ((isWallJumping || numberOfJumpsLeft <= 0) && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
             {
                 if (wallJumpDirection == new Vector2(transform.localScale.x,transform.localScale.y))
                 {
@@ -117,6 +117,16 @@ namespace Game
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;
                 Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
+                rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+            }
+            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded) //Wall hop
+            {
+                isWallSliding = false;
+                isWallJumping = false;
+                
+                //Add pushing force for wall hop
+                rigidBody2D.velocity = Vector2.zero;
+                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y );
                 rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
             }
         }
