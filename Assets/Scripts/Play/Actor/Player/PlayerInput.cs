@@ -1,5 +1,7 @@
+using System;
 using Harmony;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using XInputDotNetPure;
 
 namespace Game
@@ -36,7 +38,6 @@ namespace Game
                 crouching = false;
 
             var direction = Vector2.zero;
-
             //Right
             if (Input.GetKey(KeyCode.D) ||
                 gamePadState.ThumbSticks.Left.X > 0)
@@ -56,14 +57,12 @@ namespace Game
             playerMover.Move(direction);
 
             //Jump
-            if (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed)
+            //Using Input.GetKeyDown for joystick because gamePadState doesn't have GetKeyDown option and jump is then called multiples time.
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
             {
-                if (playerMover.IsGrounded || playerMover.IsTouchingWall)
-                {
-                    playerMover.Jump();
-                }
+                playerMover.Jump();
             }
-
+            
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
                 gamePadState.Buttons.Y == ButtonState.Pressed)
