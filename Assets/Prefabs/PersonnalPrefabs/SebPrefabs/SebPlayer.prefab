@@ -305,27 +305,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eb51b0463e4e0ab29111f8de1a3ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityMultiplier: 1
-  fallGravityMultiplier: 5
-  canJump: 0
   isGrounded: 0
   isTouchingWall: 0
   isWallSliding: 0
+  isWallJumping: 0
   numberOfJumps: 3
   numberOfJumpsLeft: 0
   wallJumpForce: 5
-  wallDistance: 1
+  wallSlideSpeed: 0
+  gravityMultiplier: 1
+  fallGravityMultiplier: 5
+  xSpeed: 10
+  yForce: 40
   groundCheckRadius: 0
   groundCheck: {fileID: 3785128595046738822}
   wallCheck: {fileID: 2725315058652475324}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  wallSlideSpeed: 0
-  wallJumpDirection: {x: 0, y: 0}
-  xSpeed: 10
-  yForce: 15
-  movementPenality: 2
+  movementPenalty: 2
 --- !u!114 &3135437010232377396
 MonoBehaviour:
   m_ObjectHideFlags: 0
