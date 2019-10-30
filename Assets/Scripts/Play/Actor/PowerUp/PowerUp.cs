@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Game;
+﻿using System.Collections;
 using Harmony;
 using UnityEngine;
 
