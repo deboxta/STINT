@@ -373,17 +373,17 @@ PrefabInstance:
     - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
         type: 3}
       propertyPath: levelScenes.Array.data[1]
-      value: Main_menu
+      value: EndGame
       objectReference: {fileID: 0}
     - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
         type: 3}
       propertyPath: levelScenes.Array.data[2]
-      value: 
+      value: Main_menu
       objectReference: {fileID: 0}
     - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
         type: 3}
       propertyPath: levelScenes.Array.data[0]
-      value: EndGame
+      value: Sebastien
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ac12f576bf6ed4e986b55351eba786, type: 3}
