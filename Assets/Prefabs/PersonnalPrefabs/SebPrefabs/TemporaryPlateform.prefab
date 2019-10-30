@@ -209,27 +209,27 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: bf1baef4754df7443963d5f84ca2aac9, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 5
-    m_Data: {fileID: 11400000, guid: b7d27daeec653f94196a97c20f13e321, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 8c545eac9658302408d270f68547fac4, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: ba7c203ca35796e4d97ab74f1af7f633, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 9a8eb7f85a833de4ca2b98ab3f3f5ad1, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c1a54139a9a8d0143aa6265fe7982a20, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 143985f4af092ca4a9cb20781d217c10, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 1fb62ab3851fb0b44adc1eb9a94220e5, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 871cc405c6d7c3b43b944cb035804094, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 3ced115a1feae1d49a9722445c534fd1, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 94361b381c183ff4eb03a05edd30b229, type: 2}
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300154, guid: 261212b977f594d5dbc48631a5c1295c, type: 3}
@@ -379,7 +379,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
