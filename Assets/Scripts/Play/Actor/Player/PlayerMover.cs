@@ -57,7 +57,12 @@ namespace Game
                 isWallJumping = false;
             }
             
-            RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.right * transform.localScale.x, wallDistance, floorLayer);
+            RaycastHit2D hit = Physics2D.Raycast(
+                wallCheck.position, 
+                Vector2.right * transform.localScale.x, 
+                wallDistance, 
+                floorLayer);
+            
             if (hit)
             {
                 isTouchingWall = true;
@@ -84,7 +89,8 @@ namespace Game
                 rigidBody2D.velocity = velocity;
             }
 
-            if ((isWallJumping || numberOfJumpsLeft <= 0) && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
+            if ((isWallJumping || numberOfJumpsLeft <= 0) && 
+                (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
             {
                 if (wallJumpDirection == new Vector2(transform.localScale.x,transform.localScale.y))
                 {
