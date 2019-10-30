@@ -32,18 +32,19 @@ namespace Game
             end = textHeight + screenHeight;
 
             textRectTransform.localPosition = new Vector3(0, -end, 0);
-        }
 
-        private void FixedUpdate()
-        {
             var newPosition = text.transform.localPosition;
-
-            if (newPosition.y < end)
+            
+            while (newPosition.y < end)
             {
                 newPosition.Set(newPosition.x, newPosition.y + speed, newPosition.z);
             
                 text.transform.localPosition = newPosition;
+
+                yield return null;
             }
+            //TODO replace this with the code Yannick made to return to the main menu
+            Finder.LevelCompletedEventChannel.NotifyLevelCompleted();
         }
     }
 }

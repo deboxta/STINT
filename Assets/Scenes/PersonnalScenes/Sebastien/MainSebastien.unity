@@ -373,7 +373,7 @@ PrefabInstance:
     - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
         type: 3}
       propertyPath: levelScenes.Array.data[1]
-      value: 
+      value: Main_menu
       objectReference: {fileID: 0}
     - target: {fileID: 3943081035587442309, guid: b4ac12f576bf6ed4e986b55351eba786,
         type: 3}
