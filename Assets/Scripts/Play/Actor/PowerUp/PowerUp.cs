@@ -6,7 +6,7 @@ namespace Game
 {
     public class PowerUp : MonoBehaviour, Collectible
     {
-        [SerializeField] private int PowerUpRespawnDelay = 2;
+        [SerializeField] private float PowerUpRespawnDelay = 2;
         
         private GameObject collectable;
         

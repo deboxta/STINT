@@ -23,7 +23,7 @@ namespace Game
         [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
-        [FormerlySerializedAs("movementPenality")] [SerializeField] private float movementPenalty = 2;
+        [SerializeField] private float movementPenalty = 2;
         
         private bool canJump;
         private float wallDistance = 1.11f;
