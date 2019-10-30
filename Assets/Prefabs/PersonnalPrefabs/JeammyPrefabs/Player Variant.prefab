@@ -82,7 +82,7 @@ PrefabInstance:
     - target: {fileID: 3740822280481024877, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024877, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: groundCheckRadius
-      value: -1.11
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
@@ -197,17 +197,27 @@ PrefabInstance:
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: numberOfJumps
-      value: 50
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: wallJumpForce
-      value: 20
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: wallSlideSpeed
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: fallGravityMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: yForce
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3740822281028299591, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}

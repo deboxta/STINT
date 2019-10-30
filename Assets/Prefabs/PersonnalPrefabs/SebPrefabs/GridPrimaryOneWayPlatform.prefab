@@ -259,14 +259,14 @@ PlatformEffector2D:
   m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294967295
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 1
   m_UseSideFriction: 0
   m_UseSideBounce: 0
-  m_SideArc: 180
+  m_SideArc: 0
 --- !u!1 &294420451777846955
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,14 +543,14 @@ PlatformEffector2D:
   m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294967295
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 1
   m_UseSideFriction: 0
   m_UseSideBounce: 0
-  m_SideArc: 180
+  m_SideArc: 0
 --- !u!1 &294420451862172632
 GameObject:
   m_ObjectHideFlags: 0
