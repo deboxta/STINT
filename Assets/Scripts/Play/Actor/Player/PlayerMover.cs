@@ -23,15 +23,13 @@ namespace Game
         [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
+        [FormerlySerializedAs("movementPenality")] [SerializeField] private float movementPenalty = 2;
         
         private bool canJump;
         private float wallDistance = 1.11f;
         private LayerMask floorLayer;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
-
-        [FormerlySerializedAs("movementPenality")] [SerializeField] private float movementPenalty = 2;
-
         private Rigidbody2D rigidBody2D;
 
         private void Awake()
@@ -148,7 +146,7 @@ namespace Game
         {
             if (isGrounded && !isTouchingWall && !isWallSliding)
             {
-                numberOfJumpsLeft = numberOfJumps;
+                ResetNumberOfJumpLeft();
             }
 
             if (numberOfJumpsLeft <= 0)
@@ -160,6 +158,12 @@ namespace Game
             {
                 canJump = true;
             }
+        }
+
+        public void ResetNumberOfJumpLeft()
+        {
+            numberOfJumpsLeft = numberOfJumps;
+            isWallJumping = true;
         }
 
         public void Fall()
