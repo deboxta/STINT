@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: groundCheckRadius
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
