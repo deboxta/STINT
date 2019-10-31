@@ -16,9 +16,7 @@ namespace Game
         private int characterIndex;
         private int textIndex;
         private string displayedText;
-
-        //private string[] Texts => texts;
-
+        
         private void Awake()
         {
             textMesh = GetComponentInChildren<TextMeshProUGUI>();

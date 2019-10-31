@@ -5,13 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainController
-  - TimeController
   - MainTimeline
   - SecondaryTimeline
   - DeathZone
   - Kill
   - PrimaryTimeline
   - HudController
+  - HUD
+  - Collectable
   layers:
   - Default
   - TransparentFX
