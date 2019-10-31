@@ -9,7 +9,6 @@ using XInputDotNetPure;
 
 namespace Play.Menu.MainMenu
 {
-    [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private GameObject[] menuPages = null;

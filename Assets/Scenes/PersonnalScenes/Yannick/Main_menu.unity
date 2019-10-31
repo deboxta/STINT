@@ -2996,7 +2996,6 @@ GameObject:
   - component: {fileID: 549208394}
   - component: {fileID: 549208395}
   - component: {fileID: 549208396}
-  - component: {fileID: 549208397}
   m_Layer: 5
   m_Name: MenuController
   m_TagString: MenuController
@@ -3059,19 +3058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e2a792dbd1a5242b2c81d6e66b9443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMainMenu: 1
---- !u!114 &549208397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549208393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f47dc5992d842e29a7168180adbfeda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isMainMenu: 1
 --- !u!1 &582375623
 GameObject:
   m_ObjectHideFlags: 0

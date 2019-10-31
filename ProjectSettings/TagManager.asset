@@ -11,7 +11,6 @@ TagManager:
   - DeathZone
   - Kill
   - PrimaryTimeline
-  - MenuController
   layers:
   - Default
   - TransparentFX
