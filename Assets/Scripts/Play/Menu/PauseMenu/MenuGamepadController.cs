@@ -32,7 +32,6 @@ namespace Game
             {
                 canvas = GetComponent<Canvas>();
                 firstButton = GetComponentInChildren<Button>();
-                canvas.enabled = false;
             }
             else
             {
@@ -47,6 +46,10 @@ namespace Game
         {
             isfirstButtonNotNull = firstButton != null;
             SelectFirstButton();
+            if (!isMainMenu)
+            {
+                canvas.enabled = false;
+            }
         }
 
         private void OnEnable()
