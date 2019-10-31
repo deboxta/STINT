@@ -14,7 +14,7 @@ namespace Game
     public class MenuGamepadController : MonoBehaviour
     {
         [Header("Type menu")]
-        [SerializeField] private bool isMainMenu = false;
+        [SerializeField] private bool isMainMenu = true;
 
         private LevelController levelController;
         private GamePadState gamePadState;
@@ -32,6 +32,7 @@ namespace Game
             {
                 canvas = GetComponent<Canvas>();
                 firstButton = GetComponentInChildren<Button>();
+                canvas.enabled = false;
             }
             else
             {
@@ -46,10 +47,6 @@ namespace Game
         {
             isfirstButtonNotNull = firstButton != null;
             SelectFirstButton();
-            if (!isMainMenu)
-            {
-                canvas.enabled = false;
-            }
         }
 
         private void OnEnable()
