@@ -6,7 +6,7 @@ namespace Game
     [Findable(R.S.Tag.Player)]
     
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Sensor sensor;
@@ -51,7 +51,7 @@ namespace Game
         }
 
         //Turn the player in the right direction (and the box in his hand technicly)
-        private void FlipPlayer()
+        public void FlipPlayer()
         {
             if (!isLookingRight)
                 transform.localScale = new Vector3(-1, 1, 1);
@@ -89,6 +89,11 @@ namespace Game
                 hands.Throw(isLookingRight);
             
             playerMover.ResetSpeed();
+        }
+
+        public void CollectPowerUp()
+        {
+            playerMover.ResetNumberOfJumpsLeft();
         }
     }
 }
