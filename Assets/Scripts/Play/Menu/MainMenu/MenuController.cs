@@ -16,8 +16,9 @@ namespace Play.Menu.MainMenu
         [SerializeField] private GameObject popupWindow = null;
         
         private LevelCompletedEventChannel levelCompletedEventChannel;
-        private GameObject activePage;
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
+        
+        private GameObject activePage;
 
         public GameObject ActivePage => activePage;
 
@@ -45,23 +46,27 @@ namespace Play.Menu.MainMenu
             activePage = GetActiveImage();
         }
 
+        [UsedImplicitly]
         public void StartGame()
         {
             levelCompletedEventChannel.NotifyLevelCompleted();
         }
 
+        [UsedImplicitly]
         public void SetPage(GameObject toEnable)
         {
             activePage.SetActive(false);
             toEnable.SetActive(true);
             menuPageChangedEventChannel.NotifyPageChanged();
         }
-
+        
+        [UsedImplicitly]
         public void ClosePopup()
         {
             popupWindow.SetActive(false);
         }
         
+        [UsedImplicitly]
         public void ExitGame()
         {
 #if UNITY_EDITOR

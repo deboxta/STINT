@@ -13,24 +13,22 @@ namespace Game
 {
     public class MenuGamepadController : MonoBehaviour
     {
-        [Header("Buttons")]
-        [SerializeField] private bool IsMainMenu = false;
+        [Header("Type menu")]
+        [SerializeField] private bool isMainMenu = false;
 
-        private Button firstButton;
         private LevelController levelController;
         private GamePadState gamePadState;
-        private Canvas canvas; 
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
-        private bool isfirstButtonNotNull;
 
-        private static Button currentSelectedButton =>
-            EventSystem.current.currentSelectedGameObject?.GetComponent<Button>();
+        private Button firstButton;
+        private Canvas canvas; 
+        private bool isfirstButtonNotNull;
 
         private bool CanvasEnabled => canvas.enabled;
 
         private void Awake()
         {
-            if (!IsMainMenu)
+            if (!isMainMenu)
             {
                 canvas = GetComponent<Canvas>();
                 firstButton = GetComponentInChildren<Button>();
@@ -67,16 +65,16 @@ namespace Game
             }
         }
 
-        private void SelectFirstButton()
-        {
-            if (isfirstButtonNotNull)
-                firstButton.Select();
-        }
-
         private void PageChanged()
         {
             firstButton = GetComponentInChildren<Button>();
             SelectFirstButton();
+        }
+
+        private void SelectFirstButton()
+        {
+            if (isfirstButtonNotNull)
+                firstButton.Select();
         }
 
         private void Update()
