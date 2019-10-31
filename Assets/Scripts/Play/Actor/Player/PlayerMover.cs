@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,6 +13,8 @@ namespace Game
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
+        [SerializeField] private bool playerCanControlMoves;
+        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
@@ -37,6 +40,9 @@ namespace Game
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
             floorLayer = LayerMask.GetMask(R.S.Layer.Floor);
+            groundCheck = transform.Find("GroundCheck");
+            wallCheck = transform.Find("WallCheck");
+            playerCanControlMoves = true;
         }
 
         private void FixedUpdate()
@@ -44,8 +50,9 @@ namespace Game
             CheckIfCanJump();
             CheckIfWallSliding();
             CheckSurroundings();
+            
             if (rigidBody2D.velocity.y < 0)
-                rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+                rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
         }
 
         private void CheckSurroundings()
@@ -53,10 +60,8 @@ namespace Game
             //TODO : Change with cube raycast
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
             if (isGrounded)
-            {
                 isWallJumping = false;
-            }
-            
+
             RaycastHit2D hit = Physics2D.Raycast(
                 wallCheck.position, 
                 Vector2.right * transform.localScale.x, 
@@ -66,10 +71,6 @@ namespace Game
             if (hit)
             {
                 isTouchingWall = true;
-                
-                //change player direction left or right
-                transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
-                
                 wallJumpDirection = hit.normal;
             }
             else
@@ -80,31 +81,18 @@ namespace Game
 
         public void Move(Vector2 direction)
         {
-            gamePadState = GamePad.GetState(PlayerIndex.One);
-            
-            if (!isWallSliding && !isWallJumping && numberOfJumpsLeft > 0)
+            if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
-                var velocity = rigidBody2D.velocity;
-                velocity.x = direction.x * xSpeed;
-                rigidBody2D.velocity = velocity;
-            }
-
-            if ((isWallJumping || numberOfJumpsLeft <= 0) && 
-                (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
-            {
-                if (wallJumpDirection == new Vector2(transform.localScale.x,transform.localScale.y))
+                if (!isWallSliding && canJump || isWallJumping)
                 {
-                    rigidBody2D.velocity = new Vector2(xSpeed * transform.localScale.x * -1 ,yForce);
+                    var velocity = rigidBody2D.velocity;
+                    velocity.x = direction.x * xSpeed;
+                    rigidBody2D.velocity = velocity;
                 }
             }
-            
-            if (isWallSliding)
-            {
-                if(rigidBody2D.velocity.y < -wallSlideSpeed)
-                {
+            //WallSlide
+            if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
-                }
-            }
         }
 
         public void Jump()
@@ -113,27 +101,40 @@ namespace Game
             {
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
             }
-            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
+            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
             {
-                isWallSliding = false;
-                isWallJumping = true;
-                numberOfJumpsLeft--;
-                
-                //Add pushing force for wall jump
-                rigidBody2D.velocity = Vector2.zero;
-                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
-                rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+                WallJump();
             }
-            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded) //Wall hop
+            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
             {
-                isWallSliding = false;
-                isWallJumping = false;
-                
-                //Add pushing force for wall hop
-                rigidBody2D.velocity = Vector2.zero;
-                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y );
-                rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+                WallHop();
             }
+        }
+
+        private void WallJump()
+        {
+            isWallSliding = false;
+            isWallJumping = true;
+            numberOfJumpsLeft--;
+            
+            //Add pushing force for wall jump
+            rigidBody2D.velocity = Vector2.zero;
+            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
+            rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+            
+            Finder.Player.FlipPlayer();
+            StartCoroutine(StopPlayerMoves());
+        }
+
+        private void WallHop()
+        {
+            isWallSliding = false;
+            isWallJumping = false;
+                
+            //Add pushing force for wall hop
+            rigidBody2D.velocity = Vector2.zero;
+            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y );
+            rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
 
         private void CheckIfWallSliding()
@@ -150,7 +151,7 @@ namespace Game
         
         private void CheckIfCanJump()
         {
-            if (isGrounded && !isTouchingWall && !isWallSliding)
+            if (isGrounded && !isTouchingWall && !isWallSliding && !isWallJumping)
             {
                 ResetNumberOfJumpsLeft();
             }
@@ -158,7 +159,6 @@ namespace Game
             if (numberOfJumpsLeft <= 0)
             {
                 canJump = false;
-                isWallJumping = false;
             }
             else if (numberOfJumpsLeft > 0)
             {
@@ -169,7 +169,8 @@ namespace Game
         public void ResetNumberOfJumpsLeft()
         {
             numberOfJumpsLeft = numberOfJumps;
-            isWallJumping = true;
+            if(!isGrounded)
+                isWallJumping = true;
         }
 
         public void Fall()
@@ -188,12 +189,22 @@ namespace Game
             xSpeed *= movementPenalty;
             yForce *= movementPenalty;
         }
+
+        IEnumerator StopPlayerMoves()
+        {
+            playerCanControlMoves = false;
+            yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
+            playerCanControlMoves = true;
+        }
         
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * transform.localScale.x  * wallDistance);
-            Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
+            if (wallCheck != null && groundCheck != null)
+            {
+                Gizmos.DrawLine(wallCheck.position, wallCheck.position + wallDistance * transform.localScale.x  * Vector3.right);
+                Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
+            }
         }
     }
 }

@@ -45,13 +45,14 @@ namespace Game
             boxSensor = sensor.For<Box>();
         }
 
-        private void FixedUpdate()
-        {
-            FlipPlayer();
-        }
-
-        //Turn the player in the right direction (and the box in his hand technicly)
+        //Change player direction
         public void FlipPlayer()
+        {
+            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
+        }
+        
+        //Change player direction to the right
+        public void FlipPlayerRight()
         {
             if (!isLookingRight)
                 transform.localScale = new Vector3(-1, 1, 1);
