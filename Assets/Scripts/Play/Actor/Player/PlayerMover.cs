@@ -59,7 +59,7 @@ namespace Game
             
             RaycastHit2D hit = Physics2D.Raycast(
                 wallCheck.position, 
-                Vector2.right * transform.localScale.x, 
+                transform.right * transform.localScale.x, 
                 wallDistance, 
                 floorLayer);
             
@@ -68,7 +68,7 @@ namespace Game
                 isTouchingWall = true;
                 
                 //change player direction left or right
-                transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
                 
                 wallJumpDirection = hit.normal;
             }
@@ -94,7 +94,7 @@ namespace Game
             {
                 if (wallJumpDirection == new Vector2(transform.localScale.x,transform.localScale.y))
                 {
-                    rigidBody2D.velocity = new Vector2(xSpeed * transform.localScale.x * -1 ,yForce);
+                    rigidBody2D.velocity = new Vector2(xSpeed * -transform.localScale.x,yForce);
                 }
             }
             
@@ -131,7 +131,7 @@ namespace Game
                 
                 //Add pushing force for wall hop
                 rigidBody2D.velocity = Vector2.zero;
-                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y );
+                Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y);
                 rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
             }
         }
@@ -192,7 +192,8 @@ namespace Game
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * transform.localScale.x  * wallDistance);
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + transform.right 
+                                              * (transform.localScale.x * wallDistance));
             Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
         }
     }

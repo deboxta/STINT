@@ -8,7 +8,7 @@ namespace Game
 {
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
+        [SerializeField] private KeyCode changeTimelineKeyboardKey = KeyCode.LeftShift;
 
         private GamePadState gamePadState;
         private PlayerMover playerMover;
@@ -67,7 +67,7 @@ namespace Game
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
                 gamePadState.Buttons.Y == ButtonState.Pressed)
                 timeChangeIsClicked = true;
-            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) ||
+            else if (Input.GetKeyDown(changeTimelineKeyboardKey) ||
                      gamePadState.Buttons.X == ButtonState.Released && timeChangeIsClicked ||
                      gamePadState.Buttons.Y == ButtonState.Released && timeChangeIsClicked)
             {
