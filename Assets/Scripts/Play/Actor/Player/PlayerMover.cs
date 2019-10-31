@@ -23,15 +23,13 @@ namespace Game
         [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
+        [SerializeField] private float movementPenalty = 2;
         
         private bool canJump;
         private float wallDistance = 1.11f;
         private LayerMask floorLayer;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
-
-        [FormerlySerializedAs("movementPenality")] [SerializeField] private float movementPenalty = 2;
-
         private Rigidbody2D rigidBody2D;
 
         private void Awake()
@@ -59,7 +57,12 @@ namespace Game
                 isWallJumping = false;
             }
             
-            RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, Vector2.right * transform.localScale.x, wallDistance, floorLayer);
+            RaycastHit2D hit = Physics2D.Raycast(
+                wallCheck.position, 
+                Vector2.right * transform.localScale.x, 
+                wallDistance, 
+                floorLayer);
+            
             if (hit)
             {
                 isTouchingWall = true;
@@ -86,7 +89,8 @@ namespace Game
                 rigidBody2D.velocity = velocity;
             }
 
-            if ((isWallJumping || numberOfJumpsLeft <= 0) && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
+            if ((isWallJumping || numberOfJumpsLeft <= 0) && 
+                (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !isGrounded)
             {
                 if (wallJumpDirection == new Vector2(transform.localScale.x,transform.localScale.y))
                 {
@@ -148,7 +152,7 @@ namespace Game
         {
             if (isGrounded && !isTouchingWall && !isWallSliding)
             {
-                numberOfJumpsLeft = numberOfJumps;
+                ResetNumberOfJumpsLeft();
             }
 
             if (numberOfJumpsLeft <= 0)
@@ -160,6 +164,12 @@ namespace Game
             {
                 canJump = true;
             }
+        }
+
+        public void ResetNumberOfJumpsLeft()
+        {
+            numberOfJumpsLeft = numberOfJumps;
+            isWallJumping = true;
         }
 
         public void Fall()
