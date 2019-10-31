@@ -213,27 +213,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eb51b0463e4e0ab29111f8de1a3ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityMultiplier: 5
-  fallGravityMultiplier: 10
-  canJump: 0
   isGrounded: 0
   isTouchingWall: 0
   isWallSliding: 0
+  isWallJumping: 0
   numberOfJumps: 3
   numberOfJumpsLeft: 0
   wallJumpForce: 5
-  wallDistance: 1
+  wallSlideSpeed: 0
+  gravityMultiplier: 5
+  fallGravityMultiplier: 10
+  xSpeed: 10
+  yForce: 15
   groundCheckRadius: 1
   groundCheck: {fileID: 9062234428917781900}
   wallCheck: {fileID: 5509136088234973154}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  wallSlideSpeed: 0
-  wallJumpDirection: {x: 0, y: 0}
-  xSpeed: 10
-  yForce: 15
-  movementPenality: 2
+  movementPenalty: 2
 --- !u!114 &2028599585974865974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866371981195582340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.048, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 308609901384526595}

@@ -259,12 +259,12 @@ PrefabInstance:
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
       propertyPath: levelScenes.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
       propertyPath: levelScenes.Array.data[0]
-      value: IntegrationScene2
+      value: IntegrationScene
       objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
@@ -275,6 +275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: levelScenes.Array.data[2]
       value: IntegrationScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
+      propertyPath: levelScenes.Array.data[3]
+      value: EndGame
       objectReference: {fileID: 0}
     - target: {fileID: 6146019253906539270, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
@@ -298,12 +303,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.500001
+      value: 82.4
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.7000012
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
