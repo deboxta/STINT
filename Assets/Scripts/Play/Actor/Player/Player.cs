@@ -1,8 +1,6 @@
-﻿using System;
 using Harmony;
 using TreeEditor;
 using UnityEngine;
-using XInputDotNetPure;
 
 namespace Game
 {
@@ -10,13 +8,26 @@ namespace Game
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour
     {
-        private const int MAX_MENTAL_HEALTH = 100;
-        
         private PlayerDeathEventChannel playerDeathEventChannel;
-        private Hands hands;
         private Sensor sensor;
-        private int mentalHealth;
-        private bool holdingBox;
+        private ISensor<Box> boxSensor;
+        private Hands hands;
+        private bool isLookingRight;
+        private Vitals vitals;
+        private bool isCrouched;
+        private PlayerMover playerMover;
+
+        public Hands Hands => hands;
+        public Vitals Vitals
+        {
+            get => vitals;
+        }
+        public bool IsDead { get; set; }
+
+        public bool IsLookingRight 
+        { 
+            set => isLookingRight = value;
+        }
 
         private void Awake()
         {
@@ -24,44 +35,61 @@ namespace Game
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
+            vitals = GetComponentInChildren<Vitals>();
+            playerMover = GetComponent<PlayerMover>();
             
-            mentalHealth = MAX_MENTAL_HEALTH;
+            isLookingRight = true;
+            IsDead = false;
+            isCrouched = false;
+            
+            boxSensor = sensor.For<Box>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            if (mentalHealth <= 0)
-            {
-                Die();
-            }
+            FlipPlayer();
+        }
+
+        //Turn the player in the right direction (and the box in his hand technicly)
+        public void FlipPlayer()
+        {
+            if (!isLookingRight)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
         }
 
         [ContextMenu("Die")]
         public void Die()
         {
-            playerDeathEventChannel.NotifyPlayerDeath();
+            if (!IsDead)
+            {
+                IsDead = true;
+                playerDeathEventChannel.NotifyPlayerDeath();
+            }
         }
 
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
+        //Grabs the box
         public void GrabBox()
         {
-            var boxSensor = sensor.For<Box>();
-            if (boxSensor.SensedObjects.Count > 0)
+            //If the player isn't holding a box and if there is a box in his sensor
+            if (!hands.IsHoldingBox && boxSensor.SensedObjects.Count > 0)
             {
-                Box box = boxSensor.SensedObjects[0];
-
-                box.transform.SetParent(hands.transform);
-                box.GetRigidBody2D().simulated = false;
-                if (box.transform.position.x < transform.position.x)
-                {
-                    box.transform.localPosition = new Vector3(-2, 0);
-                }
-                else
-                {
-                    box.transform.localPosition = new Vector3(2, 0);
-                }
-                
-                holdingBox = true;
+                //Grabs the box
+                hands.Grab(boxSensor.SensedObjects[0]);
+                playerMover.Slowed();
             }
+        }
+        
+        public void ThrowBox(bool crouching)
+        {
+            if (crouching)
+                hands.Drop();
+            else
+                hands.Throw(isLookingRight);
+            
+            playerMover.ResetSpeed();
         }
     }
 }

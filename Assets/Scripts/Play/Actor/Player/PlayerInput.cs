@@ -1,77 +1,92 @@
-﻿using UnityEngine;
+using System;
+using Harmony;
+using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using XInputDotNetPure;
 
 namespace Game
 {
     public class PlayerInput : MonoBehaviour
     {
-        private const string FLOOR_LAYER_ID = "Floor";
+        [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
+
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
-
-
-        private bool holdingBox;
-        private bool isGrounded;
+        private bool crouching;
+        private bool timeChangeIsClicked;
 
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
-            isGrounded = true;
             viewingRight = false;
+            crouching = false;
+            timeChangeIsClicked = false;
         }
 
         private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
-            var direction = Vector2.zero;
+            //Crouch
+            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
+                crouching = true;
+            else
+                crouching = false;
 
+            var direction = Vector2.zero;
             //Right
             if (Input.GetKey(KeyCode.D) ||
                 gamePadState.ThumbSticks.Left.X > 0)
             {
                 direction += Vector2.right;
-                viewingRight = true;
+                player.IsLookingRight = true;
             }
 
             //Left
             if (Input.GetKey(KeyCode.A) ||
                 gamePadState.ThumbSticks.Left.X < 0)
             {
-                {
-                    direction += Vector2.left;
-                    viewingRight = false;
-                }
+                direction += Vector2.left;
+                player.IsLookingRight = false;
             }
 
             playerMover.Move(direction);
 
             //Jump
-            if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed))
+            //Using Input.GetKeyDown for joystick because gamePadState doesn't have GetKeyDown option and jump is then called multiples time.
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
             {
-                isGrounded = false;
                 playerMover.Jump();
             }
             
-            //Fall
-            if (gamePadState.Buttons.A == ButtonState.Released)
+            //Switch timeline
+            if (gamePadState.Buttons.X == ButtonState.Pressed ||
+                gamePadState.Buttons.Y == ButtonState.Pressed)
+                timeChangeIsClicked = true;
+            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) ||
+                     gamePadState.Buttons.X == ButtonState.Released && timeChangeIsClicked ||
+                     gamePadState.Buttons.Y == ButtonState.Released && timeChangeIsClicked)
             {
-                playerMover.Fall();
+                Finder.TimelineController.SwitchTimeline();
+                timeChangeIsClicked = false;
             }
 
-            if ((Input.GetKeyDown(KeyCode.C) ||
-                 GamePad.GetState(PlayerIndex.One).Triggers.Right > 0) && !holdingBox)
-                player.GrabBox();
-        }
+            //Fall
+            if (gamePadState.Buttons.A == ButtonState.Released)
+                playerMover.Fall();
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.collider.gameObject.layer == LayerMask.NameToLayer(FLOOR_LAYER_ID))
-                isGrounded = true;
+            //Grab
+            if (Input.GetKeyDown(KeyCode.C) ||
+                GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
+                player.GrabBox();
+
+            //Throw
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
+                player.ThrowBox(crouching);
         }
     }
 }

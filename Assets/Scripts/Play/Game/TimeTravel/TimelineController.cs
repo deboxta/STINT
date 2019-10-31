@@ -7,15 +7,13 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class TimelineController : MonoBehaviour
     {
-        private const KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
-        
         private Timeline currentTimeline;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         
         public Timeline CurrentTimeline
         {
             get => currentTimeline;
-            set
+            private set
             {
                 currentTimeline = value;
                 timelineChangedEventChannel.NotifyTimelineChanged();
@@ -29,25 +27,23 @@ namespace Game
 
         private void Start()
         {
-            CurrentTimeline = Timeline.Main;
+            CurrentTimeline = Timeline.Primary;
+        }
+        public void ResetTimeline()
+        {
+            CurrentTimeline = Timeline.Primary;
         }
 
-        private void Update()
+        public void SwitchTimeline()
         {
-            if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) 
-                || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed 
-                || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
+            switch (CurrentTimeline)
             {
-                //FlashEffect
-                switch (CurrentTimeline)
-                {
-                    case Timeline.Main:
-                        CurrentTimeline = Timeline.Secondary;
-                        break;
-                    case Timeline.Secondary:
-                        CurrentTimeline = Timeline.Main;
-                        break;
-                }
+                case Timeline.Primary:
+                    CurrentTimeline = Timeline.Secondary;
+                    break;
+                case Timeline.Secondary:
+                    CurrentTimeline = Timeline.Primary;
+                    break;
             }
         }
     }

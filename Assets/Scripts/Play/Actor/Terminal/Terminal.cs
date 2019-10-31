@@ -6,16 +6,14 @@ namespace Game
 {
     public class Terminal : MonoBehaviour
     {
-        [SerializeField] private Sprite spriteDenied;
-        [SerializeField] private Sprite spriteOpen;
-        
-        private LevelCompletedEventChannel levelCompletedEventChannel;
+        [SerializeField] protected Sprite spriteDenied;
+        [SerializeField] protected Sprite spriteOpen;
+
         private SpriteRenderer spriteRenderer;
         private ISensor<Player> playerSensor;
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             spriteRenderer = GetComponent<SpriteRenderer>();
             playerSensor = GetComponent<Sensor>().For<Player>();
 
@@ -34,16 +32,14 @@ namespace Game
             playerSensor.OnUnsensedObject -= OnPlayerUnSensed;
         }
 
-        private void OnPlayerUnSensed(Player otherObject)
+        private void OnPlayerUnSensed(Player player)
         {
             spriteRenderer.sprite = spriteDenied;
         }
 
-        private void OnPlayerSensed(Player otherObject)
+        protected virtual void OnPlayerSensed(Player player)
         {
             spriteRenderer.sprite = spriteOpen;
-            
-            levelCompletedEventChannel.NotifyLevelCompleted();
         }
     }
 }
