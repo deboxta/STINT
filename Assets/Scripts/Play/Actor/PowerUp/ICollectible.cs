@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public interface Collectible
+    public interface ICollectible
     {
         void Collect();
     }

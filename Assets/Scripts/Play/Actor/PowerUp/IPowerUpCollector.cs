@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public interface PowerUpCollector
+    public interface IPowerUpCollector
     {
         void CollectPowerUp();
     }

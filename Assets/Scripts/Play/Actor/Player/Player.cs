@@ -6,7 +6,7 @@ namespace Game
     [Findable(R.S.Tag.Player)]
     
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
-    public class Player : MonoBehaviour , PowerUpCollector
+    public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Sensor sensor;
@@ -93,7 +93,7 @@ namespace Game
 
         public void CollectPowerUp()
         {
-            playerMover.ResetNumberOfJumpLeft();
+            playerMover.ResetNumberOfJumpsLeft();
         }
     }
 }

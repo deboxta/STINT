@@ -152,7 +152,7 @@ namespace Game
         {
             if (isGrounded && !isTouchingWall && !isWallSliding)
             {
-                ResetNumberOfJumpLeft();
+                ResetNumberOfJumpsLeft();
             }
 
             if (numberOfJumpsLeft <= 0)
@@ -166,7 +166,7 @@ namespace Game
             }
         }
 
-        public void ResetNumberOfJumpLeft()
+        public void ResetNumberOfJumpsLeft()
         {
             numberOfJumpsLeft = numberOfJumps;
             isWallJumping = true;
