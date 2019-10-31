@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TerminalDialogue : Terminal
     {
         [SerializeField] private string[] texts;

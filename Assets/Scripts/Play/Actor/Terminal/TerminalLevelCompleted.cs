@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TerminalLevelCompleted : Terminal
     {
         private LevelCompletedEventChannel levelCompletedEventChannel;

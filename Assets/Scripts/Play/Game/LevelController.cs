@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     [Findable(R.S.Tag.MainController)]
     public class LevelController : MonoBehaviour
     {

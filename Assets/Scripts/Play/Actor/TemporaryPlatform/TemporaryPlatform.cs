@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TemporaryPlatform : MonoBehaviour
     {
         [SerializeField] [Range(1, 20)] private float duration = 5;
