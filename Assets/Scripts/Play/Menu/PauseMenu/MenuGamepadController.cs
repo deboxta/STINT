@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics.Tracing;
 using Harmony;
 using JetBrains.Annotations;
+using Play.Menu.MainMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,15 +11,17 @@ using XInputDotNetPure;
 
 namespace Game
 {
-    public class PauseMenuController : MonoBehaviour
+    public class MenuGamepadController : MonoBehaviour
     {
         [Header("Buttons")]
-        [SerializeField] private Button resumeButton = null;
-        [SerializeField] private Button exitButton = null;
+        [SerializeField] private bool IsMainMenu = false;
 
+        private Button firstButton;
         private LevelController levelController;
         private GamePadState gamePadState;
-        private Canvas canvas;
+        private Canvas canvas; 
+        private MenuPageChangedEventChannel menuPageChangedEventChannel;
+        private bool isfirstButtonNotNull;
 
         private static Button currentSelectedButton =>
             EventSystem.current.currentSelectedGameObject?.GetComponent<Button>();
@@ -26,13 +30,53 @@ namespace Game
 
         private void Awake()
         {
-            canvas = GetComponent<Canvas>();
+            if (!IsMainMenu)
+            {
+                canvas = GetComponent<Canvas>();
+                firstButton = GetComponentInChildren<Button>();
+                canvas.enabled = false;
+            }
+            else
+            {
+                menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
+                canvas = GetComponentInParent<Canvas>();
+                firstButton = GetComponentInChildren<Image>().GetComponentInChildren<Button>();
+            }
             levelController = Finder.LevelController;
         }
 
         private void Start()
         {
-            canvas.enabled = false;
+            isfirstButtonNotNull = firstButton != null;
+            SelectFirstButton();
+        }
+
+        private void OnEnable()
+        {
+            if (menuPageChangedEventChannel != null)
+            {
+                menuPageChangedEventChannel.OnPageChanged += PageChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (menuPageChangedEventChannel != null)
+            {
+                menuPageChangedEventChannel.OnPageChanged -= PageChanged;
+            }
+        }
+
+        private void SelectFirstButton()
+        {
+            if (isfirstButtonNotNull)
+                firstButton.Select();
+        }
+
+        private void PageChanged()
+        {
+            firstButton = GetComponentInChildren<Button>();
+            SelectFirstButton();
         }
 
         private void Update()
@@ -41,7 +85,7 @@ namespace Game
             
             if (!CanvasEnabled)
             {
-                if (gamePadState.Buttons.Start == ButtonState.Pressed) Pause();
+                if (gamePadState.Buttons.Start == ButtonState.Pressed && levelController.CurrentLevel != 0) Pause();
             }
             else
             {
@@ -61,7 +105,7 @@ namespace Game
         {
             Time.timeScale = 0;
             canvas.enabled = true;
-            resumeButton.Select();
+            SelectFirstButton();
         }
         
         [UsedImplicitly]
