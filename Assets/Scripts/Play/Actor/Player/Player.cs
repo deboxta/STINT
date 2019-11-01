@@ -97,5 +97,11 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(GetComponentInChildren<BoxCollider2D>().bounds.center,1f);
+        }
     }
 }
