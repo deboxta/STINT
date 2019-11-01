@@ -10,7 +10,7 @@ namespace Game
     public class PlayerMover : MonoBehaviour
     {
         [Header("Abilities to Activate")]
-        [SerializeField] private bool haveBoots;
+        [SerializeField] private bool hasBoots;
         
         //Boolean for verification in unity editor of surroundings and state of the player
         [Header("Player States")]
@@ -47,10 +47,10 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         
         //If player have obtained the capacity of wall jumping by collecting the boots
-        public bool HaveBoots
+        public bool HasBoots
         {
-            get => haveBoots;
-            set => haveBoots = value;
+            get => hasBoots;
+            set => hasBoots = value;
         }
 
         private void Awake()
@@ -115,7 +115,7 @@ namespace Game
                 }
             }
             //WallSlide
-            if (haveBoots)
+            if (hasBoots)
                 if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
         }
@@ -135,7 +135,7 @@ namespace Game
         //Author : Jeammy Côté
         private void WallJump()
         {
-            if (haveBoots)
+            if (hasBoots)
             {
                 isWallSliding = false;
                 isWallJumping = true;

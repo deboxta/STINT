@@ -52,15 +52,6 @@ namespace Game
         {
             transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
         }
-        
-        //Change player direction to the right
-        public void FlipPlayerRight()
-        {
-            if (!isLookingRight)
-                transform.localScale = new Vector3(-1, 1, 1);
-            else
-                transform.localScale = new Vector3(1, 1, 1);
-        }
 
         [ContextMenu("Die")]
         public void Die()
@@ -104,7 +95,7 @@ namespace Game
         //Author : Jeammy Côté
         public void CollectBoots()
         {
-            playerMover.HaveBoots = true;
+            playerMover.HasBoots = true;
         }
     }
 }
