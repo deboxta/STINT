@@ -3,6 +3,7 @@ using Harmony;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     public class ConstantLaser : Laser
     {
         private void Update()
