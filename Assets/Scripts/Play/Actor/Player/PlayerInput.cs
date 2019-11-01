@@ -9,14 +9,15 @@ namespace Game
     public class PlayerInput : MonoBehaviour
     {
         [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
-
+        [SerializeField] private float InputThreshold = 0.13f;
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
         private bool crouching;
         private bool timeChangeIsClicked;
-
+        private bool jumpButtonIsPressed;
+        
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
@@ -40,28 +41,35 @@ namespace Game
             var direction = Vector2.zero;
             //Right
             if (Input.GetKey(KeyCode.D) ||
-                gamePadState.ThumbSticks.Left.X > 0)
+                gamePadState.ThumbSticks.Left.X > InputThreshold)
             {
                 direction += Vector2.right;
                 player.IsLookingRight = true;
+                if (transform.localScale.x < 0)
+                    player.FlipPlayer();
             }
 
             //Left
             if (Input.GetKey(KeyCode.A) ||
-                gamePadState.ThumbSticks.Left.X < 0)
+                gamePadState.ThumbSticks.Left.X < -InputThreshold)
             {
                 direction += Vector2.left;
                 player.IsLookingRight = false;
+                if (transform.localScale.x > 0)
+                    player.FlipPlayer();
             }
-
             playerMover.Move(direction);
-
+            
+            
             //Jump
-            //Using Input.GetKeyDown for joystick because gamePadState doesn't have GetKeyDown option and jump is then called multiples time.
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
+            if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !jumpButtonIsPressed)
             {
                 playerMover.Jump();
+                jumpButtonIsPressed = true;
             }
+
+            if (gamePadState.Buttons.A == ButtonState.Released)
+                jumpButtonIsPressed = false;
             
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||

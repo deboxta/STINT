@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     [Findable(R.S.Tag.MainController)]
     public class FlashEffect : MonoBehaviour
     {
@@ -29,7 +30,10 @@ namespace Game
 
         private void TimelineChanged()
         {
-            animator.SetTrigger(FLASH);
+            if (animator != null)
+            {
+                animator.SetTrigger(FLASH);
+            }
         }
     }
 }
