@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XInputDotNetPure;
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class PlayerMover : MonoBehaviour
     {
         [Header("Abilities to Activate")]
@@ -49,7 +50,6 @@ namespace Game
         //If player have obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
-            get => hasBoots;
             set => hasBoots = value;
         }
 
