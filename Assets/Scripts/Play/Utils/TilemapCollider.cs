@@ -24,7 +24,7 @@ namespace Game
             {
                 for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; j++)
                 {
-                    Vector3Int localPlace = new Vector3Int(i,j,(int)tilemap.transform.position.y);
+                    Vector3Int localPlace = new Vector3Int(i,j,0);
                     Vector3 place = tilemap.CellToWorld(localPlace);
 
                     var tile = tilemap.GetTile(localPlace);
