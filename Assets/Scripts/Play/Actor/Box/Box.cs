@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class Box : MonoBehaviour
     {
         [SerializeField] private Timeline timeOfBox;
@@ -14,7 +16,7 @@ namespace Game
 
         private Rigidbody2D rigidbody2D;
         private Collider2D boxCollider2D;
-        private SpriteRenderer[] spriteRenderers;
+        private SpriteRenderer spriteRenderer;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Stimuli stimuli;
         private Vector3 positionPastBox;
@@ -30,7 +32,7 @@ namespace Game
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             rigidbody2D = GetComponent<Rigidbody2D>();
-            spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+            spriteRenderer = transform.Find(R.S.GameObject.VisualMain).GetComponent<SpriteRenderer>();
             boxCollider2D = GetComponent<BoxCollider2D>();
             stimuli = GetComponentInChildren<Stimuli>();
             timelineController = Finder.TimelineController;
@@ -50,7 +52,7 @@ namespace Game
         {
             rigidbody2D.simulated = false;
             boxCollider2D.enabled = false;
-            spriteRenderers[0].enabled = false;
+            spriteRenderer.enabled = false;
             stimuli.enabled = false;
         }
 
@@ -58,20 +60,16 @@ namespace Game
         {
             rigidbody2D.simulated = true;
             boxCollider2D.enabled = true;
-            spriteRenderers[0].enabled = true;
+            spriteRenderer.enabled = true;
             stimuli.enabled = true;
         }
 
         private void OnTimeLineChange()
         {
             if (timelineController.CurrentTimeline != timeOfBox)
-            {
                 DeActivateComponents();
-            }
             else
-            {
                 ActivateComponents();
-            }
 
             BoxParadoxRelationPosition();
         }
@@ -99,13 +97,9 @@ namespace Game
             transform.parent = null;
             rigidbody2D.simulated = true;
             if (isLookingRight)
-            {
                 rigidbody2D.velocity = new Vector2(throwedForceX, throwedForceUp);
-            }
             else
-            {
                 rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
-            }
         }
 
         public void Dropped()
