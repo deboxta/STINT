@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class DeadlyTrap : MonoBehaviour
     {
         private ISensor<Player> playerSensor;
