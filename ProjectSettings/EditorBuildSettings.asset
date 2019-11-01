@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/PersonnalScenes/Jeammy/Jeammy.unity
     guid: fd94e84b0c89f0546bf5bd75a3bea8f7
   - enabled: 0
-    path: Assets/Scenes/TestScene/Test.unity
+    path: 
     guid: 4d914aba0a4cf9e4190d7cf723445c1b
   - enabled: 0
-    path: Assets/Scenes/TestScene/Test2.unity
+    path: 
     guid: ee6ed6e77718ca441a5b1e5c0a35d6ad
   - enabled: 1
     path: Assets/Scenes/TestScene/IntegrationScene.unity
@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PersonnalScenes/Sebastien/EndGame.unity
     guid: fb533f2aa92455e44b242cacddee75ef
+  - enabled: 1
+    path: Assets/Scenes/TestScene/IntegrationScene3.unity
+    guid: 6ed112b9b0584e547bc7f8d28de46cbe
   m_configObjects: {}
