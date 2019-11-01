@@ -4,6 +4,7 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    //Author : Jeammy Côté and Mathieu Boutet from FPP
     [Findable(R.S.Tag.MainController)]
     public class TimelineController : MonoBehaviour
     {

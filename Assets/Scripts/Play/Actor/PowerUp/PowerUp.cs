@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     public class PowerUp : MonoBehaviour, ICollectible
     {
         [SerializeField] private float PowerUpRespawnDelay = 2;

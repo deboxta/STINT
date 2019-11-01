@@ -1,3 +1,4 @@
+using System;
 using Harmony;
 using TreeEditor;
 using UnityEngine;
@@ -45,18 +46,11 @@ namespace Game
             boxSensor = sensor.For<Box>();
         }
 
-        private void FixedUpdate()
-        {
-            FlipPlayer();
-        }
-
-        //Turn the player in the right direction (and the box in his hand technicly)
+        //Author : Jeammy Côté
+        //Change player direction
         public void FlipPlayer()
         {
-            if (!isLookingRight)
-                transform.localScale = new Vector3(-1, 1, 1);
-            else
-                transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
         }
 
         [ContextMenu("Die")]
@@ -91,10 +85,17 @@ namespace Game
             
             playerMover.ResetSpeed();
         }
-
+        
+        //Author : Jeammy Côté
         public void CollectPowerUp()
         {
             playerMover.ResetNumberOfJumpsLeft();
+        }
+        
+        //Author : Jeammy Côté
+        public void CollectBoots()
+        {
+            playerMover.HasBoots = true;
         }
     }
 }

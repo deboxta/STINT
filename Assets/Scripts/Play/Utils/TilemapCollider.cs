@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //Inspired by https://stackoverflow.com/questions/51499554/using-a-tilemap-composite-collider-as-a-trigger-what-is-the-best-approach-for-g
+//Author : Jeammy Côté
+
 namespace Game
 {
     [RequireComponent(typeof(Tilemap))]
