@@ -198,7 +198,7 @@ PrefabInstance:
       value: "Ce niveau contient des murs, des plateformes \xE0 sens unique, des lasers
         continus, intermitants, ou segment\xE9, des bo\xEEtes, un power-up pour activ\xE9
         le wallJump, des power-up pour recharger le wallJump en vole, un terminal
-        de niveau, un terminal de dialogue et un champ de gravit\xE9."
+        de niveau, un terminal de dialogue, un voidTrap et un champ de gravit\xE9."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2c65a61db18a584a8465cfe94833793, type: 3}
