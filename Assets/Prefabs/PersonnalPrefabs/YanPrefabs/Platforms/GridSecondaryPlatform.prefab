@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 6126559282915719370}
   - component: {fileID: 6126559282915719365}
   - component: {fileID: 6126559282915719364}
-  - component: {fileID: 6871360298069988162}
   m_Layer: 9
   m_Name: Secondary
   m_TagString: SecondaryTimeline
@@ -299,18 +298,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!114 &6871360298069988162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6126559282915719366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a556e51f725b4d72980b39f93d2582bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6126559283939175078
 GameObject:
   m_ObjectHideFlags: 0
