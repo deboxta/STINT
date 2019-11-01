@@ -16,6 +16,7 @@ namespace Game
         private bool viewingRight;
         private bool crouching;
         private bool timeChangeIsClicked;
+        private bool jumpButtonIsPressed;
         
         private void Awake()
         {
@@ -61,11 +62,14 @@ namespace Game
             
             
             //Jump
-            //Jeammy Côté : Using Input.GetKeyDown for joystick because gamePadState doesn't have GetKeyDown option and jump is then called multiples time.
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
+            if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !jumpButtonIsPressed)
             {
                 playerMover.Jump();
+                jumpButtonIsPressed = true;
             }
+
+            if (gamePadState.Buttons.A == ButtonState.Released)
+                jumpButtonIsPressed = false;
             
             //Switch timeline
             if (gamePadState.Buttons.X == ButtonState.Pressed ||

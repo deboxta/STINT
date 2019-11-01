@@ -9,7 +9,11 @@ namespace Game
 {
     public class PlayerMover : MonoBehaviour
     {
+        [Header("Abilities to Activate")]
+        [SerializeField] private bool haveBoots;
+        
         //Boolean for verification in unity editor of surroundings and state of the player
+        [Header("Player States")]
         [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
@@ -17,6 +21,7 @@ namespace Game
         [SerializeField] private bool playerCanControlMoves;
         
         //serializeFields for optimisation and control over moves of the player
+        [Header("Player variables")]
         [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private int numberOfJumpsLeft;
@@ -30,6 +35,7 @@ namespace Game
         [SerializeField] private float movementPenalty = 2;
         
         //Raycasts position for ground and wall
+        [Header("Player surroundings")]
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
         
@@ -41,7 +47,6 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         
         //If player have obtained the capacity of wall jumping by collecting the boots
-        private bool haveBoots;
         public bool HaveBoots
         {
             get => haveBoots;

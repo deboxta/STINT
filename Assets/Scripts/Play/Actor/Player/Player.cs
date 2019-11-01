@@ -1,3 +1,4 @@
+using System;
 using Harmony;
 using TreeEditor;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace Game
             
             boxSensor = sensor.For<Box>();
         }
-        
+
         //Author : Jeammy Côté
         //Change player direction
         public void FlipPlayer()
