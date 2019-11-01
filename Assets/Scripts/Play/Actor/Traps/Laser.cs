@@ -47,6 +47,7 @@ namespace Game
                                                       transform.right,
                                                       RaycastHits);
             
+            CastTouchesPlayer = false;
             int blockingObjectIndex = -1;
             if (NbRaycastHits > 0)
             {
@@ -64,7 +65,6 @@ namespace Game
                 }
                 else
                 {
-                    CastTouchesPlayer = false;
                     blockingObjectIndex = 0;
                 }
             }

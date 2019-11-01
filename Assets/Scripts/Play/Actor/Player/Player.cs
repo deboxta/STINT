@@ -62,6 +62,8 @@ namespace Game
         [ContextMenu("Die")]
         public void Die()
         {
+            Debug.Log("Player died");
+            
             if (!IsDead)
             {
                 IsDead = true;

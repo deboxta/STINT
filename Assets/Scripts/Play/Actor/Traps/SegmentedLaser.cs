@@ -15,7 +15,7 @@ namespace Game
 
         private LineRenderer[] laserBeamSegments;
         private float currentOffset;
-        private int nbSegmentsNeeded;
+        private int nbActiveSegments;
 
         private bool PlayerIsTouchingSegment
         {
@@ -24,7 +24,7 @@ namespace Game
                 if (CastTouchesPlayer)
                 {
                     var playerRaycastHit = RaycastHits[0];
-                    for (int i = 0; i < laserBeamSegments.Length; i++)
+                    for (int i = 0; i < nbActiveSegments; i++)
                     {
                         if (laserBeamSegments[i].GetPosition(1).IsPast(playerRaycastHit.point,
                                                                        transform.right, 0)
@@ -61,13 +61,13 @@ namespace Game
         {
             base.FixedUpdate();
 
-            int nbSegmentsNeededLastUpdate = nbSegmentsNeeded;
-            nbSegmentsNeeded =
+            int nbSegmentsNeededLastUpdate = nbActiveSegments;
+            nbActiveSegments =
                 Math.Max(0, Math.Min(nbMaxSegments,
                                      (int) Math.Ceiling(transform.position.DistanceTo(LaserBeamEndPosition)
                                                       / (segmentSize + gapSize) + 2)));
 
-            for (int i = nbSegmentsNeeded; i < nbSegmentsNeededLastUpdate; i++)
+            for (int i = nbActiveSegments; i < nbSegmentsNeededLastUpdate; i++)
             {
                 laserBeamSegments[i].gameObject.SetActive(false);
             }
@@ -75,7 +75,7 @@ namespace Game
             float initialOffset = -(segmentSize + gapSize);
             Vector3 segmentStartPosition;
             Vector3 segmentEndPosition;
-            for (int i = 0; i < nbSegmentsNeeded; i++)
+            for (int i = 0; i < nbActiveSegments; i++)
             {
                 laserBeamSegments[i].gameObject.SetActive(true);
                 segmentStartPosition = transform.position + transform.right
@@ -95,7 +95,7 @@ namespace Game
                     if (segmentStartPosition.IsPast(LaserBeamEndPosition, transform.right, 0))
                         segmentStartPosition = LaserBeamEndPosition;
                 }
-
+                
                 laserBeamSegments[i].SetPosition(0, segmentStartPosition);
                 laserBeamSegments[i].SetPosition(1, segmentEndPosition);
             }

@@ -169,7 +169,8 @@ namespace Game
         public void ResetNumberOfJumpsLeft()
         {
             numberOfJumpsLeft = numberOfJumps;
-            isWallJumping = true;
+            if (!isGrounded)
+                isWallJumping = true;
         }
 
         public void Fall()
