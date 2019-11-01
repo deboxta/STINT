@@ -1,7 +1,5 @@
-using System;
 using Harmony;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 using XInputDotNetPure;
 
 namespace Game

@@ -8085,6 +8085,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Confiner
       objectReference: {fileID: 0}
+    - target: {fileID: 6307830399383749746, guid: 81c780366d58c75499cf5511100e4e60,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749745, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,6 +1,4 @@
-using System;
 using Harmony;
-using TreeEditor;
 using UnityEngine;
 
 namespace Game

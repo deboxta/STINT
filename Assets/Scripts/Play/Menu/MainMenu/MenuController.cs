@@ -1,10 +1,7 @@
-﻿using System;
-using Game;
+﻿using Game;
 using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
-using XInputDotNetPure;
 
 
 namespace Play.Menu.MainMenu

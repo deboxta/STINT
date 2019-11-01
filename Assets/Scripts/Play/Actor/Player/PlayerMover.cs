@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
-using UnityEngine.Serialization;
 using XInputDotNetPure;
 
 namespace Game

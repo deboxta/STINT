@@ -1,6 +1,5 @@
 ﻿using Harmony;
 using UnityEngine;
-using XInputDotNetPure;
 
 namespace Game
 {
