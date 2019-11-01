@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     public class ObjectSuperpositionHandler : MonoBehaviour
     {
         private Player player;

@@ -44,7 +44,8 @@ namespace Game
             
             boxSensor = sensor.For<Box>();
         }
-
+        
+        //Author : Jeammy Côté
         //Change player direction
         public void FlipPlayer()
         {
@@ -92,10 +93,17 @@ namespace Game
             
             playerMover.ResetSpeed();
         }
-
+        
+        //Author : Jeammy Côté
         public void CollectPowerUp()
         {
             playerMover.ResetNumberOfJumpsLeft();
+        }
+        
+        //Author : Jeammy Côté
+        public void CollectBoots()
+        {
+            playerMover.HaveBoots = true;
         }
     }
 }

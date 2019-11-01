@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté and Mathieu Boutet from FPP.
     public class TimelineChangeableObject : MonoBehaviour
     {
         private TimelineChangedEventChannel timelineChangedEventChannel;

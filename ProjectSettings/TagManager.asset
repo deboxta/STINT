@@ -13,6 +13,8 @@ TagManager:
   - HudController
   - HUD
   - Collectable
+  - MenuController
+  - Boots
   layers:
   - Default
   - TransparentFX
