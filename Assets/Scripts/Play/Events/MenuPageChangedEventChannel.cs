@@ -1,6 +1,7 @@
 ﻿using Harmony;
 using UnityEngine;
 
+//Author : Yannick Cote
 namespace Game
 {
     [Findable(R.S.Tag.MainController)]

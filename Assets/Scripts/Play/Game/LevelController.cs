@@ -14,7 +14,7 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private LevelScenes levelScenes;
         private int currentLevel;
-
+        
         public int CurrentLevel
         {
             get => currentLevel;
@@ -91,11 +91,13 @@ namespace Game
             Finder.TimelineController.ResetTimeline();
         }
         
+        //By Yannick Cote
         public void ReturnToMainMenu()
         {
             StartCoroutine(MenuReturn());
         }
 
+        //By Yannick Cote
         private IEnumerator MenuReturn()
         {
             yield return UnloadGame();

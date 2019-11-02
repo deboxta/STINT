@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
 
-
+//Author : Yannick Cote
 namespace Play.Menu.MainMenu
 {
+    [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private GameObject[] menuPages = null;
@@ -27,7 +28,7 @@ namespace Play.Menu.MainMenu
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
         }
         
-        private GameObject GetActiveImage()
+        private GameObject GetActivePage()
         {
             for (int i = 0; i < menuPages.Length; i++)
             {
@@ -42,7 +43,7 @@ namespace Play.Menu.MainMenu
 
         private void Update()
         {
-            activePage = GetActiveImage();
+            activePage = GetActivePage();
         }
 
         [UsedImplicitly]
