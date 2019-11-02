@@ -1,14 +1,13 @@
-﻿using System;
 using Harmony;
 using UnityEngine;
-using XInputDotNetPure;
 
 namespace Game
 {
-    [Findable(R.S.Tag.Player)]
+    //Author : Anthony Bérubé
     
+    [Findable(R.S.Tag.Player)]
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private Sensor sensor;
@@ -16,12 +15,11 @@ namespace Game
         private Hands hands;
         private bool isLookingRight;
         private Vitals vitals;
+        private bool isCrouched;
+        private PlayerMover playerMover;
 
         public Hands Hands => hands;
-        public Vitals Vitals
-        {
-            get => vitals;
-        }
+        public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
 
         public bool IsLookingRight 
@@ -36,27 +34,24 @@ namespace Game
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
+            playerMover = GetComponent<PlayerMover>();
             
             isLookingRight = true;
             IsDead = false;
+            isCrouched = false;
             
             boxSensor = sensor.For<Box>();
         }
 
-        private void FixedUpdate()
+        //Author : Jeammy Côté
+        //Change player direction
+        public void FlipPlayer()
         {
-            FlipPlayer();
+            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
         }
-
-        //Turn the player in the right direction (and the box in his hand technicly)
-        private void FlipPlayer()
-        {
-            if (!isLookingRight)
-                transform.localScale = new Vector3(-1, 1, 1);
-            else
-                transform.localScale = new Vector3(1, 1, 1);
-        }
-
+        
+        //Author : Sébastien Arsenault
+        [ContextMenu("Die")]
         public void Die()
         {
             if (!IsDead)
@@ -64,10 +59,9 @@ namespace Game
                 IsDead = true;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
-            
         }
 
-        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO
+        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
         //Grabs the box
         public void GrabBox()
         {
@@ -76,12 +70,30 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
+                playerMover.Slowed();
             }
         }
         
-        public void ThrowBox()
+        public void ThrowBox(bool crouching)
         {
-            hands.Throw(isLookingRight);
+            if (crouching)
+                hands.Drop();
+            else
+                hands.Throw(isLookingRight);
+            
+            playerMover.ResetSpeed();
+        }
+        
+        //Author : Jeammy Côté
+        public void CollectPowerUp()
+        {
+            playerMover.ResetNumberOfJumpsLeft();
+        }
+        
+        //Author : Jeammy Côté
+        public void CollectBoots()
+        {
+            playerMover.HasBoots = true;
         }
     }
 }

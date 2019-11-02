@@ -1,19 +1,23 @@
-﻿
-using System;
-using System.Collections;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Author : Yannick Cote
 namespace Game
 {
+    [Findable(R.S.Tag.HudController)]
     public class HudController : MonoBehaviour
     {
+        [Header("Sanity slider")]
         [SerializeField] private Slider sanitySlider = null;
+        
+        [Header("Text fields")]
         [SerializeField] private Text primary = null;
+        [SerializeField] private Text secondary = null;
+
+        [Header("Years of level")]
         [SerializeField] private string primaryYear = "1990";
         [SerializeField] private string secondaryYear = "1990";
-        [SerializeField] private Text secondary = null;
     
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Player player;

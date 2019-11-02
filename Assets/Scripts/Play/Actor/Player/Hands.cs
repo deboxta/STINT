@@ -2,6 +2,8 @@
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class Hands : MonoBehaviour
     {
         private Box box;
@@ -26,6 +28,13 @@ namespace Game
         public void Throw(bool isLookingRight)
         {
             box.Throwed(isLookingRight);
+            box = null;
+            isHoldingBox = false;
+        }
+
+        public void Drop()
+        {
+            box.Dropped();
             box = null;
             isHoldingBox = false;
         }

@@ -1,21 +1,18 @@
-﻿using System;
-using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class Terminal : MonoBehaviour
     {
-        [SerializeField] private Sprite spriteDenied;
-        [SerializeField] private Sprite spriteOpen;
-        
-        private LevelCompletedEventChannel levelCompletedEventChannel;
+        [SerializeField] protected Sprite spriteDenied;
+        [SerializeField] protected Sprite spriteOpen;
+
         private SpriteRenderer spriteRenderer;
         private ISensor<Player> playerSensor;
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             spriteRenderer = GetComponent<SpriteRenderer>();
             playerSensor = GetComponent<Sensor>().For<Player>();
 
@@ -39,11 +36,9 @@ namespace Game
             spriteRenderer.sprite = spriteDenied;
         }
 
-        private void OnPlayerSensed(Player player)
+        protected virtual void OnPlayerSensed(Player player)
         {
             spriteRenderer.sprite = spriteOpen;
-            
-            levelCompletedEventChannel.NotifyLevelCompleted();
         }
     }
 }

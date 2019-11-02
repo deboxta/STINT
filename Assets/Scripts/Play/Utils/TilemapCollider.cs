@@ -1,11 +1,11 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Boo.Lang;
+﻿using Boo.Lang;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //Inspired by https://stackoverflow.com/questions/51499554/using-a-tilemap-composite-collider-as-a-trigger-what-is-the-best-approach-for-g
+//Author : Jeammy Côté
+
 namespace Game
 {
     [RequireComponent(typeof(Tilemap))]
@@ -15,12 +15,9 @@ namespace Game
         private void Start()
         {
             tilemap = GetComponent<Tilemap>();
-            BoundsInt bounds = tilemap.cellBounds;
-            TileBase[] alltiles = tilemap.GetTilesBlock(bounds);
-
             var cellSize = tilemap.layoutGrid.cellSize / 2;
-            
             var availablePlaces = new List<Vector3>();
+            
             for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.yMax; i++)
             {
                 for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; j++)
@@ -39,8 +36,8 @@ namespace Game
                         paradoxCollisionObject.transform.parent = tilemap.transform;
                         paradoxCollisionObject.transform.localPosition = tilemap.CellToLocal(localPlace) + cellSize;
                         paradoxCollisionObject.tag = R.S.Tag.DeathZone;
-                        
-                        //Debug.Log("x:" + i + "y:" + j + "Tile:" + tile.name );
+                        paradoxCollisionObject.gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Floor);
+                        paradoxCollisionObject.transform.localScale = new Vector3(1,1,1);
                     }
                 }
             }

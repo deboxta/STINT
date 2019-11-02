@@ -5,12 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainController
-  - TimeController
   - MainTimeline
   - SecondaryTimeline
   - DeathZone
   - Kill
   - PrimaryTimeline
+  - HudController
+  - HUD
+  - Collectable
+  - Boots
+  - MenuController
+  - ReturnButton
   layers:
   - Default
   - TransparentFX
@@ -22,7 +27,7 @@ TagManager:
   - 
   - Sensor
   - Floor
-  - 
+  - Wall
   - 
   - 
   - 
@@ -47,4 +52,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3293245833
+    locked: 0
+  - name: Floor
+    uniqueID: 2334085795
+    locked: 0
+  - name: Wall
+    uniqueID: 2691102679
+    locked: 0
+  - name: Plateform
+    uniqueID: 2324732745
+    locked: 0
+  - name: Player
+    uniqueID: 2885717815
     locked: 0

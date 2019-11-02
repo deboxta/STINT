@@ -1,0 +1,2 @@
+﻿Des plateformes apparaissent quand le joueur change d'époque!
+Ne restez pas dessus trop longtemps ou attendez qu'elles diparaissent pour avancer dans le niveau.
