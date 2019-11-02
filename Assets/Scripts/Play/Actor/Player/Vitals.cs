@@ -1,7 +1,5 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
-using UnityEngine.UI;
 
 //Author : Yannick Cote
 namespace Game

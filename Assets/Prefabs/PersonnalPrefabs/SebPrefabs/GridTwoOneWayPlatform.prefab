@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6452170356918966656}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 6452170357362192405}
   m_RootOrder: 1
@@ -237,20 +237,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 6452170356918966686}
     m_ColliderPaths:
-    - - X: 174374991
-        Y: 96918644
-      - X: 174374991
-        Y: 110981348
-      - X: 95624900
-        Y: 110981231
-      - X: 95625017
-        Y: 96918644
+    - - X: 119999971
+        Y: 69300000
+      - X: 119999971
+        Y: 80014288
+      - X: 60000000
+        Y: 80014259
+      - X: 60000029
+        Y: 69300000
   m_CompositePaths:
     m_Paths:
-    - - {x: 17.437496, y: 9.691864}
-      - {x: 17.437496, y: 11.098135}
-      - {x: 9.5624895, y: 11.09812}
-      - {x: 9.562505, y: 9.691864}
+    - - {x: 11.999994, y: 6.9300003}
+      - {x: 11.999994, y: 8.001429}
+      - {x: 6, y: 8.001423}
+      - {x: 6.0000057, y: 6.9300003}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!19719996 &6452170356918966686
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 6452170357312732517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 6452170357362192405}
   m_RootOrder: 0
@@ -521,20 +521,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 6452170357312732514}
     m_ColliderPaths:
-    - - X: 174374933
-        Y: 96918644
-      - X: 174374933
-        Y: 110981348
-      - X: 95624900
-        Y: 110981173
-      - X: 95625075
-        Y: 96918644
+    - - X: 119999971
+        Y: 69300000
+      - X: 119999971
+        Y: 80014288
+      - X: 60000000
+        Y: 80014259
+      - X: 60000029
+        Y: 69300000
   m_CompositePaths:
     m_Paths:
-    - - {x: 17.43749, y: 9.691864}
-      - {x: 17.43749, y: 11.098135}
-      - {x: 9.5624895, y: 11.098115}
-      - {x: 9.5625105, y: 9.691864}
+    - - {x: 11.999994, y: 6.9300003}
+      - {x: 11.999994, y: 8.001429}
+      - {x: 6, y: 8.001423}
+      - {x: 6.0000057, y: 6.9300003}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!19719996 &6452170357312732514
@@ -599,7 +599,7 @@ Transform:
   m_GameObject: {fileID: 6452170357362192406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6452170357312732516}
   - {fileID: 6452170356918966687}

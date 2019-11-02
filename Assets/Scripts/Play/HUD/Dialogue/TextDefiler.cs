@@ -5,18 +5,22 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TextDefiler : MonoBehaviour
     {
         [SerializeField] private float speed = 1f;
+        [SerializeField] private float end;
 
         private RectTransform rectTransform;
         private Text text;
-        [SerializeField] private float end;
+        private LevelController levelController;
         
         private void Awake()
         {
             rectTransform = GetComponent<Canvas>().GetComponent<RectTransform>();
             text = GetComponentInChildren<Text>();
+
+            levelController = Finder.LevelController;
         }
 
         private IEnumerator Start()
@@ -43,8 +47,8 @@ namespace Game
 
                 yield return null;
             }
-            //TODO replace this with the code Yannick made to return to the main menu
-            Finder.LevelCompletedEventChannel.NotifyLevelCompleted();
+            
+            levelController.ReturnToMainMenu();
         }
     }
 }
