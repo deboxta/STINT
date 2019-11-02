@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     public class SegmentedLaser : Laser
     {
         [SerializeField] [Range(0, 1000)] private int nbMaxSegments = 100;

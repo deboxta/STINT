@@ -4,6 +4,8 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class PlayerInput : MonoBehaviour
     {
         [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;

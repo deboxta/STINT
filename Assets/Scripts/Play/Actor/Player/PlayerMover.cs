@@ -5,6 +5,8 @@ using XInputDotNetPure;
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class PlayerMover : MonoBehaviour
     {
         [Header("Abilities to Activate")]
@@ -44,10 +46,9 @@ namespace Game
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
         
-        //If player have obtained the capacity of wall jumping by collecting the boots
+        //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
-            get => hasBoots;
             set => hasBoots = value;
         }
 

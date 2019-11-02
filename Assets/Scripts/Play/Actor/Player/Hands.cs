@@ -2,6 +2,8 @@
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     public class Hands : MonoBehaviour
     {
         private Box box;
@@ -33,8 +35,8 @@ namespace Game
         public void Drop()
         {
             box.Dropped();
-             box = null;
-             isHoldingBox = false;
+            box = null;
+            isHoldingBox = false;
         }
     }
 }

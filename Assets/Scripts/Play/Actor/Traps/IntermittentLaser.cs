@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     public class IntermittentLaser : ConstantLaser
     {
         [SerializeField] [Range(0, 100)] private float onTimeInSeconds = 1;

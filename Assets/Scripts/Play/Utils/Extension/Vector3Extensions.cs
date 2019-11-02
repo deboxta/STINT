@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     public static class Vector3Extensions
     {
         /// <summary>
-        /// Check if the point is before another point in the specified direction.
+        /// Checks if the point is before another point in the specified direction.
         /// </summary>
         public static bool IsBefore(this Vector3 point1, Vector3 point2, Vector3 direction, float precision = 1f)
         {
@@ -14,7 +15,7 @@ namespace Game
         }
         
         /// <summary>
-        /// Check if the point is past another point in the specified direction.
+        /// Checks if the point is past another point in the specified direction.
         /// </summary>
         public static bool IsPast(this Vector3 point1, Vector3 point2, Vector3 direction, float precision = 1f)
         {
