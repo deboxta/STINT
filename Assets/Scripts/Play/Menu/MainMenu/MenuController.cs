@@ -1,10 +1,9 @@
-﻿using Game;
-using Harmony;
+﻿using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
 
 //Author : Yannick Cote
-namespace Play.Menu.MainMenu
+namespace Game
 {
     [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour

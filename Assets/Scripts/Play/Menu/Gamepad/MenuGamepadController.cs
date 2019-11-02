@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using Harmony;
+﻿using Harmony;
 using JetBrains.Annotations;
-using Play.Menu.MainMenu;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using XInputDotNetPure;
 //Author : Yannick Cote

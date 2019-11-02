@@ -1,5 +1,5 @@
 ﻿//Auhtor : Yannick Cote
-namespace Play.Menu.MainMenu
+namespace Game
 {
     public interface IModel
     {

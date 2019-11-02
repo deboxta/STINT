@@ -1,5 +1,5 @@
 ﻿//Author : Yannick Cote
-namespace Play.Menu.MainMenu
+namespace Game
 {
     public class Model
     {
