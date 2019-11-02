@@ -33,7 +33,7 @@ namespace Game
         private Canvas canvas; 
         private bool isfirstButtonNotNull;
         private bool isbodyNotNull;
-        private bool isreturnButtonNotNull;
+        private bool isreturnButtonNotNull; 
 
         private bool CanvasEnabled => canvas.enabled;
 
