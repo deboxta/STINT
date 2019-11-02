@@ -5,17 +5,19 @@ using XInputDotNetPure;
 namespace Game
 {
     //Author : Anthony Bérubé
-    
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private KeyCode CHANGE_TIMELINE_KEYBOARD_KEY = KeyCode.LeftShift;
-        [SerializeField] private float InputThreshold = 0.13f;
+        [SerializeField] private KeyCode changeTimelineKeyboardKey = KeyCode.LeftShift;
+        [SerializeField] private KeyCode freezeTimeKeyboardKey = KeyCode.Q;
+        [SerializeField] private float inputThreshold = 0.13f;
+        
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
         private bool crouching;
         private bool timeChangeIsClicked;
+        private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
         
         private void Awake()
@@ -26,6 +28,7 @@ namespace Game
             viewingRight = false;
             crouching = false;
             timeChangeIsClicked = false;
+            freezeTimeIsClicked = false;
         }
 
         private void Update()
@@ -41,7 +44,7 @@ namespace Game
             var direction = Vector2.zero;
             //Right
             if (Input.GetKey(KeyCode.D) ||
-                gamePadState.ThumbSticks.Left.X > InputThreshold)
+                gamePadState.ThumbSticks.Left.X > inputThreshold)
             {
                 direction += Vector2.right;
                 player.IsLookingRight = true;
@@ -51,7 +54,7 @@ namespace Game
 
             //Left
             if (Input.GetKey(KeyCode.A) ||
-                gamePadState.ThumbSticks.Left.X < -InputThreshold)
+                gamePadState.ThumbSticks.Left.X < -inputThreshold)
             {
                 direction += Vector2.left;
                 player.IsLookingRight = false;
@@ -59,8 +62,7 @@ namespace Game
                     player.FlipPlayer();
             }
             playerMover.Move(direction);
-            
-            
+
             //Jump
             if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !jumpButtonIsPressed)
             {
@@ -75,12 +77,23 @@ namespace Game
             if (gamePadState.Buttons.X == ButtonState.Pressed ||
                 gamePadState.Buttons.Y == ButtonState.Pressed)
                 timeChangeIsClicked = true;
-            else if (Input.GetKeyDown(CHANGE_TIMELINE_KEYBOARD_KEY) ||
+            else if (Input.GetKeyDown(changeTimelineKeyboardKey) ||
                      gamePadState.Buttons.X == ButtonState.Released && timeChangeIsClicked ||
                      gamePadState.Buttons.Y == ButtonState.Released && timeChangeIsClicked)
             {
                 Finder.TimelineController.SwitchTimeline();
                 timeChangeIsClicked = false;
+            }
+            
+            // TODO temp
+            //Freeze time
+            if (gamePadState.Buttons.LeftShoulder == ButtonState.Pressed)
+                freezeTimeIsClicked = true;
+            else if (Input.GetKeyDown(freezeTimeKeyboardKey) ||
+                     gamePadState.Buttons.LeftShoulder == ButtonState.Released && freezeTimeIsClicked)
+            {
+                Finder.TimeFreezeController.SwitchState();
+                freezeTimeIsClicked = false;
             }
 
             //Fall
