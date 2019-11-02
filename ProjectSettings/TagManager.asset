@@ -13,8 +13,9 @@ TagManager:
   - HudController
   - HUD
   - Collectable
-  - MenuController
   - Boots
+  - MenuController
+  - ReturnButton
   layers:
   - Default
   - TransparentFX

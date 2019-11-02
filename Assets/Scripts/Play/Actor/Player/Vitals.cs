@@ -1,6 +1,7 @@
 ﻿using Harmony;
 using UnityEngine;
 
+//Author : Yannick Cote
 namespace Game
 {
     public class Vitals : MonoBehaviour
@@ -9,10 +10,11 @@ namespace Game
         
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private PlayerDeathEventChannel deathEventChannel;
-        private bool isActiveSanity;
-        private float healthLeft;
         private Player player;
 
+        private bool isActiveSanity;
+        private float healthLeft;
+        
         private void Awake()
         {
             deathEventChannel = Finder.PlayerDeathEventChannel;
