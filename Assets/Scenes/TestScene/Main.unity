@@ -195,12 +195,12 @@ PrefabInstance:
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
       propertyPath: levelScenes.Array.data[0]
-      value: IntegrationScene2
+      value: Main_menu
       objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
       propertyPath: levelScenes.Array.data[1]
-      value: IntegrationScene2
+      value: IntegrationScene1
       objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
