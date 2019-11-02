@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class FallingBlock : MonoBehaviour
     {
         [SerializeField] private float fallSpeed = 5f;

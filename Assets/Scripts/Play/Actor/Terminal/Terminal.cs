@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class Terminal : MonoBehaviour
     {
         [SerializeField] protected Sprite spriteDenied;

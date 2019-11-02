@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TextDefiler : MonoBehaviour
     {
         [SerializeField] private float speed = 1f;
@@ -46,7 +47,7 @@ namespace Game
 
                 yield return null;
             }
-            //TODO replace this with the code Yannick made to return to the main menu
+            
             levelController.ReturnToMainMenu();
         }
     }
