@@ -14,7 +14,7 @@ namespace Game
 {
     public class MenuGamepadController : MonoBehaviour
     {
-        [Header("Type menu")]
+        [Header("Type menu")] 
         [SerializeField] private bool isMainMenu = true;
         
         [Header("Pause menu")]
