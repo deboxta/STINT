@@ -13,6 +13,7 @@ TagManager:
   - HudController
   - HUD
   - Collectable
+  - Boots
   - MenuController
   - ReturnButton
   layers:
