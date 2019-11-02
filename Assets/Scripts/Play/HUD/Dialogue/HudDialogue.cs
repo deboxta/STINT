@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     [Findable(R.S.Tag.HudController)]
     public class HudDialogue : MonoBehaviour
     {

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     [Findable(R.S.Tag.MainController)]
     public class PlayerDeathEventChannel : MonoBehaviour
     {
