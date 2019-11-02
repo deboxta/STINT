@@ -9,6 +9,7 @@ namespace Game
     public class PlayerInput : MonoBehaviour
     {
         [SerializeField] private KeyCode changeTimelineKeyboardKey = KeyCode.LeftShift;
+        [SerializeField] private KeyCode freezeTimeKeyboardKey = KeyCode.Q;
 
         private GamePadState gamePadState;
         private PlayerMover playerMover;
@@ -16,6 +17,7 @@ namespace Game
         private bool viewingRight;
         private bool crouching;
         private bool timeChangeIsClicked;
+        private bool freezeTimeIsClicked;
 
         private void Awake()
         {
@@ -25,6 +27,7 @@ namespace Game
             viewingRight = false;
             crouching = false;
             timeChangeIsClicked = false;
+            freezeTimeIsClicked = false;
         }
 
         private void Update()
@@ -73,6 +76,17 @@ namespace Game
             {
                 Finder.TimelineController.SwitchTimeline();
                 timeChangeIsClicked = false;
+            }
+            
+            // TODO temp
+            //Freeze time
+            if (gamePadState.Buttons.LeftShoulder == ButtonState.Pressed)
+                freezeTimeIsClicked = true;
+            else if (Input.GetKeyDown(freezeTimeKeyboardKey) ||
+                     gamePadState.Buttons.LeftShoulder == ButtonState.Released && freezeTimeIsClicked)
+            {
+                Finder.TimeFreezeController.SwitchState();
+                freezeTimeIsClicked = false;
             }
 
             //Fall

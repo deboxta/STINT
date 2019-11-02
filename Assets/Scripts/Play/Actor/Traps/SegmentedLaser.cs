@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SegmentedLaser : Laser
+    public class SegmentedLaser : Laser, IFreezable
     {
         [SerializeField] [Range(0, 1000)] private int nbMaxSegments = 100;
         [SerializeField] [Range(0, 50)] private float segmentSize = 1;
@@ -39,6 +39,8 @@ namespace Game
                 return false;
             }
         }
+
+        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
 
         protected override void Awake()
         {
@@ -103,7 +105,7 @@ namespace Game
             if (PlayerIsTouchingSegment)
                 Finder.Player.Die();
 
-            if (segmentSize + gapSize != 0)
+            if (segmentSize + gapSize != 0 && !Frozen)
                 currentOffset = (currentOffset + (movementSpeed * Time.fixedDeltaTime)) % (segmentSize + gapSize)
                               + initialOffset;
         }

@@ -14,29 +14,14 @@ namespace Game
         protected bool CastTouchesPlayer { get; private set; }
         protected Vector3 LaserBeamStartPosition { get; private set; }
         protected Vector3 LaserBeamEndPosition { get; private set; }
-        private bool firing;
-
         protected RaycastHit2D[] RaycastHits { get; private set; }
         protected int NbRaycastHits { get; private set; }
-        protected bool Firing
-        {
-            get => firing;
-            set
-            {
-                firing = value;
-                enabled = value;
-                if (!value)
-                    laserBeam.SetPosition(1, transform.position);
-                laserBeam.gameObject.SetActive(value);
-            }
-        }
 
         protected virtual void Awake()
         {
             RaycastHits = new RaycastHit2D[RAYCAST_HITS_BUFFER_SIZE];
             laserBeam = GetComponentInChildren<LineRenderer>();
             laserBeam.useWorldSpace = true;
-            Firing = true;
             CastTouchesPlayer = false;
         }
 

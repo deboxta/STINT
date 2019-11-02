@@ -77,6 +77,7 @@ namespace Game
             yield return UnloadGame();
             yield return LoadGame();
             Finder.TimelineController.ResetTimeline();
+            Finder.TimeFreezeController.Reset();
         }
         
         private IEnumerator UnloadGame()

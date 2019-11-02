@@ -1,31 +1,57 @@
 ﻿using System;
+using Harmony;
 using UnityEngine;
 
 namespace Game
 {
-    public class FallingBlock : MonoBehaviour
+    public class FallingBlock : MonoBehaviour, IFreezable
     {
         [SerializeField] private float fallSpeed = 5f;
         
-        private Rigidbody2D rigidBody2D;
+        private new Rigidbody2D rigidbody2D;
         private DeadlyTrap deadlyTrap;
         private ISensor<Player> playerSensor;
-        
+        private TimeFreezeEventChannel timeFreezeEventChannel;
+        private Vector2 velocityBeforeFreeze;
+        private bool wasKinematicBeforeFreeze;
+
+        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
+
         private void Awake()
         {
-            rigidBody2D = GetComponent<Rigidbody2D>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
             playerSensor = GetComponentInChildren<Sensor>().For<Player>();
             deadlyTrap = GetComponentInChildren<DeadlyTrap>();
+            timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
+            velocityBeforeFreeze = Vector2.zero;
+            wasKinematicBeforeFreeze = true;
         }
 
         private void OnEnable()
         {
+            timeFreezeEventChannel.OnTimeFreezeStateChanged += OnTimeFreezeStateChanged;
             playerSensor.OnSensedObject += OnPlayerSensed;
         }
 
         private void OnDisable()
         {
+            timeFreezeEventChannel.OnTimeFreezeStateChanged -= OnTimeFreezeStateChanged;
             playerSensor.OnSensedObject -= OnPlayerSensed;
+        }
+
+        private void OnTimeFreezeStateChanged()
+        {
+            if (Frozen)
+            {
+                velocityBeforeFreeze = rigidbody2D.velocity;
+                wasKinematicBeforeFreeze = rigidbody2D.isKinematic;
+                StopFalling();
+            }
+            else
+            {
+                rigidbody2D.velocity = velocityBeforeFreeze;
+                rigidbody2D.isKinematic = wasKinematicBeforeFreeze;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -45,20 +71,21 @@ namespace Game
 
         private void Fall()
         {
-            rigidBody2D.isKinematic = false;
+            rigidbody2D.isKinematic = false;
         }
 
         private void StopFalling()
         {
-            rigidBody2D.velocity = Vector2.zero;
-            rigidBody2D.isKinematic = true;
-
+            rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.isKinematic = true;
+            
             deadlyTrap.enabled = false;
         }
         
         private void OnPlayerSensed(Player player)
         {
-            Fall();
+            if (!Frozen)
+                Fall();
         }
     }
 }
