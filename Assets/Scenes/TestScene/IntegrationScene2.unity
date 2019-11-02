@@ -130,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 4900207682366664099, guid: a2c65a61db18a584a8465cfe94833793,
         type: 3}
       propertyPath: m_Name
-      value: DialogueTerminal
+      value: DialogTerminal
       objectReference: {fileID: 0}
     - target: {fileID: 4900207682366664100, guid: a2c65a61db18a584a8465cfe94833793,
         type: 3}
@@ -7842,7 +7842,7 @@ PrefabInstance:
     - target: {fileID: 5718476932167221096, guid: 39f9b82debf4aeb4684b733652c388ca,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5718476932167221096, guid: 39f9b82debf4aeb4684b733652c388ca,
         type: 3}
@@ -7911,7 +7911,7 @@ PrefabInstance:
     - target: {fileID: 2543230121687379233, guid: 898482b517213c5478712c06c52a2967,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2543230121687379233, guid: 898482b517213c5478712c06c52a2967,
         type: 3}
@@ -8083,7 +8083,7 @@ PrefabInstance:
     - target: {fileID: 6307830399383749746, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_Name
-      value: Confiner
+      value: CameraConfiner
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749746, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
@@ -11064,7 +11064,7 @@ PrefabInstance:
     - target: {fileID: 2543230121687379233, guid: 898482b517213c5478712c06c52a2967,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2543230121687379233, guid: 898482b517213c5478712c06c52a2967,
         type: 3}

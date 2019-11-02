@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4900207682366664101}
   - component: {fileID: 4900207682366664098}
   m_Layer: 0
-  m_Name: DialogueTerminal
+  m_Name: DialogTerminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 3276542850459167940, guid: 04629942d786194488e3861717aa8310,
         type: 3}
       propertyPath: m_Name
-      value: HUDCanvas (1)
+      value: HUDCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3276542850459167937, guid: 04629942d786194488e3861717aa8310,
         type: 3}
@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 6307830399383749746, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_Name
-      value: Confiner (1)
+      value: CameraConfiner
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749745, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
@@ -588,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 4900207682366664099, guid: a2c65a61db18a584a8465cfe94833793,
         type: 3}
       propertyPath: m_Name
-      value: DialogueTerminal
+      value: DialogTerminal
       objectReference: {fileID: 0}
     - target: {fileID: 4900207682366664100, guid: a2c65a61db18a584a8465cfe94833793,
         type: 3}
@@ -668,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 1083761582550505947, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
         type: 3}
       propertyPath: m_Name
-      value: ===== World ===== (1)
+      value: ===== World =====
       objectReference: {fileID: 0}
     - target: {fileID: 1083761582550505948, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
         type: 3}
@@ -724,11 +724,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1083761583087005131, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1083761583087005134, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
         type: 3}
@@ -5556,11 +5551,6 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[2].Array.data[3].y
       value: -3
       objectReference: {fileID: 0}
-    - target: {fileID: 1083761581332050059, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1083761581332050062, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
         type: 3}
       propertyPath: m_Tiles.Array.size
@@ -10257,6 +10247,16 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[2].Array.data[3].y
       value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 1083761581332050059, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083761583087005131, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1083761582863084089, guid: 29b4d9e9ec9fee34b8d7d5059c0714cb,
         type: 3}
       propertyPath: m_Tiles.Array.size
@@ -10665,7 +10665,7 @@ PrefabInstance:
     - target: {fileID: 8687065588171667593, guid: 99f85b6c825181d43b9340218512879e,
         type: 3}
       propertyPath: m_Name
-      value: ===== Walls ===== (1)
+      value: ===== Walls =====
       objectReference: {fileID: 0}
     - target: {fileID: 8687065588171667592, guid: 99f85b6c825181d43b9340218512879e,
         type: 3}
@@ -14639,17 +14639,27 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[1].Array.data[3].y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8687065586695106839, guid: 99f85b6c825181d43b9340218512879e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687065587820633512, guid: 99f85b6c825181d43b9340218512879e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687065587837933799, guid: 99f85b6c825181d43b9340218512879e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2434979379519154382, guid: 99f85b6c825181d43b9340218512879e,
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6108303645371481278, guid: 99f85b6c825181d43b9340218512879e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687065586695106839, guid: 99f85b6c825181d43b9340218512879e,
         type: 3}
       propertyPath: m_Layer
       value: 9
@@ -14670,16 +14680,6 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6108303644379959297, guid: 99f85b6c825181d43b9340218512879e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687065587820633512, guid: 99f85b6c825181d43b9340218512879e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687065587837933799, guid: 99f85b6c825181d43b9340218512879e,
         type: 3}
       propertyPath: m_Layer
       value: 9
@@ -18145,7 +18145,7 @@ PrefabInstance:
     - target: {fileID: 308609901384526592, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_Name
-      value: Player (1)
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -18236,7 +18236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1440254450}
   m_Layer: 0
-  m_Name: '-----------TRAPS---------- (1)'
+  m_Name: '-----------TRAPS----------'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18278,7 +18278,7 @@ PrefabInstance:
     - target: {fileID: 2336518926875734325, guid: 82df312aec33e9145aebbb4264398fb6,
         type: 3}
       propertyPath: m_Name
-      value: VirtualCamera (1)
+      value: VirtualCamera
       objectReference: {fileID: 0}
     - target: {fileID: 2336518926875734331, guid: 82df312aec33e9145aebbb4264398fb6,
         type: 3}
@@ -18357,7 +18357,7 @@ PrefabInstance:
     - target: {fileID: 6097213828000709411, guid: 682a01730a34780408334d15be7960eb,
         type: 3}
       propertyPath: m_Name
-      value: ===== Platforms ===== (1)
+      value: ===== Platforms =====
       objectReference: {fileID: 0}
     - target: {fileID: 6097213828000709411, guid: 682a01730a34780408334d15be7960eb,
         type: 3}
@@ -24806,7 +24806,7 @@ PrefabInstance:
     - target: {fileID: 8595126467784740727, guid: ca162097064aea848af1fca8368595f3,
         type: 3}
       propertyPath: m_Name
-      value: LevelTerminal (3)
+      value: LevelTerminal
       objectReference: {fileID: 0}
     - target: {fileID: 8595126467784740727, guid: ca162097064aea848af1fca8368595f3,
         type: 3}
