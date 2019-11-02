@@ -1,11 +1,11 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Boo.Lang;
+﻿using Boo.Lang;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //Inspired by https://stackoverflow.com/questions/51499554/using-a-tilemap-composite-collider-as-a-trigger-what-is-the-best-approach-for-g
+//Author : Jeammy Côté
+
 namespace Game
 {
     [RequireComponent(typeof(Tilemap))]
@@ -37,6 +37,7 @@ namespace Game
                         paradoxCollisionObject.transform.localPosition = tilemap.CellToLocal(localPlace) + cellSize;
                         paradoxCollisionObject.tag = R.S.Tag.DeathZone;
                         paradoxCollisionObject.gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Floor);
+                        paradoxCollisionObject.transform.localScale = new Vector3(1,1,1);
                     }
                 }
             }

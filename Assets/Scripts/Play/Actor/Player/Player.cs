@@ -1,9 +1,10 @@
 using Harmony;
-using TreeEditor;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Anthony Bérubé
+    
     [Findable(R.S.Tag.Player)]
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour , IPowerUpCollector
@@ -18,10 +19,7 @@ namespace Game
         private PlayerMover playerMover;
 
         public Hands Hands => hands;
-        public Vitals Vitals
-        {
-            get => vitals;
-        }
+        public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
 
         public bool IsLookingRight 
@@ -45,20 +43,14 @@ namespace Game
             boxSensor = sensor.For<Box>();
         }
 
-        private void FixedUpdate()
-        {
-            FlipPlayer();
-        }
-
-        //Turn the player in the right direction (and the box in his hand technicly)
+        //Author : Jeammy Côté
+        //Change player direction
         public void FlipPlayer()
         {
-            if (!isLookingRight)
-                transform.localScale = new Vector3(-1, 1, 1);
-            else
-                transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
         }
-
+        
+        //Author : Sébastien Arsenault
         [ContextMenu("Die")]
         public void Die()
         {
@@ -93,10 +85,17 @@ namespace Game
             
             playerMover.ResetSpeed();
         }
-
+        
+        //Author : Jeammy Côté
         public void CollectPowerUp()
         {
             playerMover.ResetNumberOfJumpsLeft();
+        }
+        
+        //Author : Jeammy Côté
+        public void CollectBoots()
+        {
+            playerMover.HasBoots = true;
         }
     }
 }

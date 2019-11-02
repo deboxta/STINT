@@ -1,9 +1,9 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     public abstract class Laser : MonoBehaviour
     {
         protected const int LASER_BEAM_DEFAULT_LENGTH = 500;

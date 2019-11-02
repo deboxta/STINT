@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     [Findable(R.S.Tag.MainController)]
     public class LevelController : MonoBehaviour
     {
@@ -14,6 +15,11 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private LevelScenes levelScenes;
         private int currentLevel;
+        
+        public int CurrentLevel
+        {
+            get => currentLevel;
+        }
 
         private void Awake()
         {
@@ -22,6 +28,16 @@ namespace Game
             levelScenes = GetComponentInChildren<LevelScenes>();
             
             currentLevel = STARTING_LEVEL;
+        }
+        
+        private void Start()
+        {
+            if (!SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)).isLoaded)
+                StartCoroutine(LoadGame());
+            else
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+            }
         }
         
         private void OnEnable()
@@ -40,7 +56,7 @@ namespace Game
         {
             StartCoroutine(RestartLevel());
         }
-
+        
         private void LevelCompleted()
         {
             StartCoroutine(NextLevel());
@@ -53,21 +69,18 @@ namespace Game
             yield return LoadGame();
         }
 
-        private void Start()
-        {
-            if (!SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)).isLoaded)
-                StartCoroutine(LoadGame());
-            else
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
-            }
-        }
-
         private IEnumerator LoadGame()
         {
             yield return SceneManager.LoadSceneAsync(levelScenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+            
+            Finder.TimelineController.ResetTimeline();
+        }
+
+        private IEnumerator UnloadGame()
+        {
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
         }
 
         private IEnumerator RestartLevel()
@@ -76,13 +89,22 @@ namespace Game
             yield return new WaitForSeconds(0.5f);
             yield return UnloadGame();
             yield return LoadGame();
-            Finder.TimelineController.ResetTimeline();
-            Finder.TimeFreezeController.Reset();
         }
         
-        private IEnumerator UnloadGame()
+        //By Yannick Cote
+        public void ReturnToMainMenu()
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+            StartCoroutine(MenuReturn());
+        }
+
+        //By Yannick Cote
+        private IEnumerator MenuReturn()
+        {
+            yield return UnloadGame();
+            currentLevel = 0;
+            yield return LoadGame();
+            Finder.TimelineController.ResetTimeline();
+            Finder.TimeFreezeController.Reset();
         }
     }
 }

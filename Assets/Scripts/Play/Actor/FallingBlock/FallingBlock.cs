@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class FallingBlock : MonoBehaviour, IFreezable
     {
         [SerializeField] private float fallSpeed = 5f;
