@@ -52,6 +52,8 @@ namespace Game
             {
                 rigidbody2D.velocity = velocityBeforeFreeze;
                 rigidbody2D.isKinematic = wasKinematicBeforeFreeze;
+                if (!rigidbody2D.isKinematic)
+                    deadlyTrap.enabled = true;
             }
         }
 
