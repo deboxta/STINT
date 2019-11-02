@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1557757039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3335593475322764020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7394783857619608261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &556037402053490610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,6 +193,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6146019253906539270, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
       propertyPath: levelScenes.Array.size
@@ -211,11 +222,6 @@ PrefabInstance:
         type: 3}
       propertyPath: levelScenes.Array.data[3]
       value: EndGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 6146019253906539270, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db2f018e065eab44ad7dfdeffdc0ddc, type: 3}
@@ -372,8 +378,13 @@ PrefabInstance:
     - target: {fileID: 3335593473986361020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3335593473986360995, guid: 7d253f9b4bea2f0449410b58bb766c1e,
+        type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 1557757039}
     - target: {fileID: 3335593473986360999, guid: 7d253f9b4bea2f0449410b58bb766c1e,
         type: 3}
       propertyPath: m_LocalPosition.x
