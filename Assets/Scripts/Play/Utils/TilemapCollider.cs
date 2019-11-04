@@ -20,7 +20,7 @@ namespace Game
             var cellSize = tilemap.layoutGrid.cellSize / 2;
             var availablePlaces = new List<Vector3>();
             
-            for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.yMax; i++)
+            for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.xMax; i++)
             {
                 for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; j++)
                 {
