@@ -17,6 +17,7 @@ namespace Game
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
+        [SerializeField] private bool canJump;
         [SerializeField] private bool playerCanControlMoves;
         
         //serializeFields for optimisation and control over moves of the player
@@ -38,7 +39,6 @@ namespace Game
         [SerializeField] private Transform groundCheck; 
         [SerializeField] private Transform wallCheck; 
         
-        private bool canJump;
         private float wallDistance = 1.11f;
         private LayerMask floorLayer;
         private Vector2 wallJumpDirection;
@@ -102,9 +102,9 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
+            if ((direction != Vector2.zero || !isWallJumping) && playerCanControlMoves)
             {
-                if (!isWallSliding && canJump || isWallJumping)
+                if (!isWallSliding || isWallJumping)
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
@@ -126,8 +126,8 @@ namespace Game
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
-            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
-                WallHop();
+            //else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
+            //    WallHop();
         }
         
         //Author : Jeammy Côté
