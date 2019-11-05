@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelScenes:
   - Main_menu
-  - YanScene
+  - IntegrationScene
 --- !u!1 &1553605310
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +354,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f47dc5992d842e29a7168180adbfeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1562340833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4256037153546632486, guid: f5b1d0bf02204ce49936516306abaa33,
+    type: 3}
+  m_PrefabInstance: {fileID: 4256037153215418153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2145978353
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +489,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4256037153546632486, guid: f5b1d0bf02204ce49936516306abaa33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4256037153546632509, guid: f5b1d0bf02204ce49936516306abaa33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -590,8 +601,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4256037153546632505, guid: f5b1d0bf02204ce49936516306abaa33,
         type: 3}
-      propertyPath: isMainMenu
-      value: 0
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 1562340833}
+    - target: {fileID: 4256037152869765486, guid: f5b1d0bf02204ce49936516306abaa33,
+        type: 3}
+      propertyPath: m_Name
+      value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256037153415123795, guid: f5b1d0bf02204ce49936516306abaa33,
+        type: 3}
+      propertyPath: m_TagString
+      value: ReturnButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5b1d0bf02204ce49936516306abaa33, type: 3}

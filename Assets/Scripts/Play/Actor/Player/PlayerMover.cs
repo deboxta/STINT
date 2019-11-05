@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -7,7 +6,6 @@ using XInputDotNetPure;
 namespace Game
 {
     //Author : Anthony Bérubé
-    
     public class PlayerMover : MonoBehaviour
     {
         [Header("Abilities to Activate")]
@@ -47,7 +45,7 @@ namespace Game
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
         
-        //If player have obtained the capacity of wall jumping by collecting the boots
+        //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
             set => hasBoots = value;
@@ -86,7 +84,7 @@ namespace Game
 
             RaycastHit2D hit = Physics2D.Raycast(
                 wallCheck.position, 
-                Vector2.right * transform.localScale.x, 
+                transform.right * transform.localScale.x, 
                 wallDistance, 
                 floorLayer);
             
@@ -159,7 +157,7 @@ namespace Game
                 
             //Add pushing force for wall hop
             rigidBody2D.velocity = Vector2.zero;
-            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y );
+            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y);
             rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
         
@@ -190,7 +188,7 @@ namespace Game
         public void ResetNumberOfJumpsLeft()
         {
             numberOfJumpsLeft = numberOfJumps;
-            if(!isGrounded)
+            if (!isGrounded)
                 isWallJumping = true;
         }
         
@@ -228,7 +226,7 @@ namespace Game
             Gizmos.color = Color.red;
             if (wallCheck != null && groundCheck != null)
             {
-                Gizmos.DrawLine(wallCheck.position, wallCheck.position + wallDistance * transform.localScale.x  * Vector3.right);
+                Gizmos.DrawLine(wallCheck.position, wallCheck.position + wallDistance * transform.localScale.x * transform.right);
                 Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
             }
         }

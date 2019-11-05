@@ -1,14 +1,11 @@
-﻿using System;
-using Game;
-using Harmony;
+﻿using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
-using XInputDotNetPure;
 
-
-namespace Play.Menu.MainMenu
+//Author : Yannick Cote
+namespace Game
 {
+    [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private GameObject[] menuPages = null;
@@ -27,7 +24,7 @@ namespace Play.Menu.MainMenu
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
         }
         
-        private GameObject GetActiveImage()
+        private GameObject GetActivePage()
         {
             for (int i = 0; i < menuPages.Length; i++)
             {
@@ -42,7 +39,7 @@ namespace Play.Menu.MainMenu
 
         private void Update()
         {
-            activePage = GetActiveImage();
+            activePage = GetActivePage();
         }
 
         [UsedImplicitly]

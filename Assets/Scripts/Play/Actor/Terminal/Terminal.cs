@@ -1,9 +1,8 @@
-﻿using System;
-using Harmony;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class Terminal : MonoBehaviour
     {
         [SerializeField] protected Sprite spriteDenied;

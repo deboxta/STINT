@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class LevelScenes : MonoBehaviour
     {
         [SerializeField] private string[] levelScenes;
