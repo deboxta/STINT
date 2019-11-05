@@ -18,12 +18,12 @@ namespace Game
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
         [SerializeField] private bool playerCanControlMoves;
+        [SerializeField] private int numberOfJumpsLeft;
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
         [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
-        [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
         [SerializeField] private float gravityMultiplier = 5f;
