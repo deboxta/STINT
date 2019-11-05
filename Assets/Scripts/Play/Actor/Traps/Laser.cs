@@ -16,6 +16,7 @@ namespace Game
         protected Vector3 LaserBeamEndPosition { get; private set; }
         protected RaycastHit2D[] RaycastHits { get; private set; }
         protected int NbRaycastHits { get; private set; }
+        protected int LayersToHit { get; private set; }
 
         protected virtual void Awake()
         {
@@ -23,6 +24,12 @@ namespace Game
             laserBeam = GetComponentInChildren<LineRenderer>();
             laserBeam.useWorldSpace = true;
             CastTouchesPlayer = false;
+            
+            //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
+            //To add a layer to hit do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
+            //Author : Sébastien Arsenault
+            LayersToHit = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
+            LayersToHit |= (1 << LayerMask.NameToLayer(R.S.Layer.Default));
         }
 
         protected virtual void FixedUpdate()
@@ -30,7 +37,7 @@ namespace Game
             NbRaycastHits = Physics2D.RaycastNonAlloc(transform.position 
                                                     + transform.right * RAYCAST_ORIGIN_DEAD_ZONE,
                                                       transform.right,
-                                                      RaycastHits);
+                                                      RaycastHits, LASER_BEAM_DEFAULT_LENGTH, LayersToHit);
             
             CastTouchesPlayer = false;
             int blockingObjectIndex = -1;
