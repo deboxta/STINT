@@ -96,6 +96,7 @@ namespace Game
             playerMover.HasBoots = true;
         }
         
+        //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
             var playerBounds = GetComponentInChildren<Collider2D>().bounds;
