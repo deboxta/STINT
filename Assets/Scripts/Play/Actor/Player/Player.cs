@@ -27,6 +27,9 @@ namespace Game
             set => isLookingRight = value;
         }
 
+        private float size;
+        public float Size => size;
+
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
@@ -39,6 +42,8 @@ namespace Game
             isLookingRight = true;
             IsDead = false;
             isCrouched = false;
+            size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
+            Debug.Log(size);
             
             boxSensor = sensor.For<Box>();
         }

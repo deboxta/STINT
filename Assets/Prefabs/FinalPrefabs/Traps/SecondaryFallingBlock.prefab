@@ -306,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b43ab680a374c5cafc6b39d98b40848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 5
+  fallSpeed: 0.2
+  startingDistance: 10
 --- !u!50 &5582942809624087944
 Rigidbody2D:
   serializedVersion: 4
@@ -344,7 +345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1197905936209101861
 Transform:
   m_ObjectHideFlags: 0
