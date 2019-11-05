@@ -95,5 +95,17 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
+        
+        //Author : Jeammy Côté
+        private void OnDrawGizmos()
+        {
+            var playerBounds = GetComponentInChildren<Collider2D>().bounds;
+
+            Vector3 bottomLeftPosition = new Vector3(playerBounds.center.x - playerBounds.extents.x,playerBounds.center.y - playerBounds.extents.y);
+            Vector3 topRightPosition = new Vector3(playerBounds.center.x + playerBounds.extents.x,playerBounds.center.y + playerBounds.extents.y);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(bottomLeftPosition,topRightPosition);
+        }
     }
 }
