@@ -16,6 +16,7 @@ TagManager:
   - Boots
   - MenuController
   - ReturnButton
+  - LaserGoThrough
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Sensor
   - Floor
   - Wall
-  - 
+  - OneWay
   - 
   - 
   - 
