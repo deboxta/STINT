@@ -24,12 +24,6 @@ namespace Game
         private new Collider2D collider2D;
         private readonly List<GameObject> sensedObjects;
         private ulong dirtyFlag;
-        
-        public float YSize
-        {
-            get => ySize;
-            set => ySize = value;
-        }
 
         public event SensorEventHandler<GameObject> OnSensedObject;
         public event SensorEventHandler<GameObject> OnUnsensedObject;
