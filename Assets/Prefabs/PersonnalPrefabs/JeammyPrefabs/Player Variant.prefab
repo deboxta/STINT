@@ -152,7 +152,7 @@ PrefabInstance:
     - target: {fileID: 2762981788643430168, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: InputThreshold
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3740822280481024879, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
@@ -224,15 +224,30 @@ PrefabInstance:
       propertyPath: yForce
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 3740822280481024873, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: timeBeforePlayerCanControlMoves
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3740822281028299591, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.99
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 3740822281028299591, guid: 52a5f552daa52af408daf10f9dc619b6,
         type: 3}
       propertyPath: m_Size.y
       value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6236345457347197520, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: xSize
+      value: 2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6236345457347197520, guid: 52a5f552daa52af408daf10f9dc619b6,
+        type: 3}
+      propertyPath: ySize
+      value: 3.29
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3740822280481024876, guid: 52a5f552daa52af408daf10f9dc619b6, type: 3}

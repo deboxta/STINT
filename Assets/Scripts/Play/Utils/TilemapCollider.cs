@@ -18,11 +18,11 @@ namespace Game
             var cellSize = tilemap.layoutGrid.cellSize / 2;
             var availablePlaces = new List<Vector3>();
             
-            for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.yMax; i++)
+            for (int i = tilemap.cellBounds.xMin; i < tilemap.cellBounds.xMax; i++)
             {
                 for (int j = tilemap.cellBounds.yMin; j < tilemap.cellBounds.yMax; j++)
                 {
-                    Vector3Int localPlace = new Vector3Int(i,j,(int)tilemap.transform.position.y);
+                    Vector3Int localPlace = new Vector3Int(i,j,0);
                     Vector3 place = tilemap.CellToWorld(localPlace);
 
                     var tile = tilemap.GetTile(localPlace);
