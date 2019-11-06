@@ -69,7 +69,6 @@ namespace Game
             if (Math.Abs(startingDistance) > 0.2f)
             {
                 startingDistance -= fallSpeed;
-                //sensorBoxCollider2D.size = new Vector2(sensorBoxCollider2D.size.x, sensorBoxCollider2D.size.y - fallSpeed);
             }
             else
                 isGrounded = true;
