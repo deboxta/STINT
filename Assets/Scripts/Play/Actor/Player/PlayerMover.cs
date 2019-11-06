@@ -104,7 +104,7 @@ namespace Game
         {
             if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
-                if (!isWallSliding && canJump || isWallJumping)
+                if (!isWallSliding || isWallJumping)
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
@@ -126,8 +126,8 @@ namespace Game
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
-            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
-                WallHop();
+            //else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
+            //    WallHop();
         }
         
         //Author : Jeammy Côté
