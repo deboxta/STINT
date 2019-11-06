@@ -16,7 +16,7 @@ namespace Game
         private Vector2 velocityBeforeFreeze;
         private bool wasKinematicBeforeFreeze;
 
-        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
+        public bool Frozen => false;//Finder.TimeFreezeController.IsFrozen;
 
         private void Awake()
         {
