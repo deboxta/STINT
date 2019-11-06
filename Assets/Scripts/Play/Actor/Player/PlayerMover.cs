@@ -40,7 +40,7 @@ namespace Game
         
         private bool canJump;
         private float wallDistance = 1.11f;
-        private LayerMask floorLayer;
+        private int layersToJump;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
@@ -51,11 +51,18 @@ namespace Game
             set => hasBoots = value;
         }
 
+        
         private void Awake()
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            floorLayer = LayerMask.GetMask(R.S.Layer.Floor);
+            
+            //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
+            //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
+            //Author : Sébastien Arsenault
+            layersToJump = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
+            layersToJump |= (1 << LayerMask.NameToLayer(R.S.Layer.OneWay));
+
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
             playerCanControlMoves = true;
@@ -78,7 +85,9 @@ namespace Game
         private void CheckSurroundings()
         {
             //TODO : Change with cube raycast
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
+            var position = groundCheck.position;
+
+            isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
             if (isGrounded)
                 isWallJumping = false;
 
@@ -86,7 +95,7 @@ namespace Game
                 wallCheck.position, 
                 transform.right * transform.localScale.x, 
                 wallDistance, 
-                floorLayer);
+                layersToJump);
             
             if (hit)
             {
