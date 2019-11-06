@@ -10,12 +10,10 @@ namespace Game
         [SerializeField] private float fallSpeed = 0.2f;
         [SerializeField] private float startingDistance = 10f;
 
-        private new Rigidbody2D rigidbody2D;
+        private BoxCollider2D sensorBoxCollider2D;
+        private BoxCollider2D blockBoxCollider2D;
         private Sensor sensor;
-        private DeadlyTrap deadlyTrap;
         private ISensor<Player> playerSensor;
-        private TimeFreezeEventChannel timeFreezeEventChannel;
-        private Vector2 velocityBeforeFreeze;
         private bool wasKinematicBeforeFreeze;
         private bool isFalling;
         private bool isGrounded;
@@ -25,15 +23,13 @@ namespace Game
 
         private void Awake()
         {
-            rigidbody2D = GetComponent<Rigidbody2D>();
+            blockBoxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
             playerSensor = GetComponentInChildren<Sensor>().For<Player>();
             sensor = GetComponentInChildren<Sensor>();
             sensor.transform.position = new Vector3(sensor.transform.position.x,
-                sensor.transform.position.y - sensor.YSize / 2, 0);
-            deadlyTrap = GetComponentInChildren<DeadlyTrap>();
-            timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
-            velocityBeforeFreeze = Vector2.zero;
-            wasKinematicBeforeFreeze = true;
+                -startingDistance / 2, 0);
+            sensorBoxCollider2D = transform.Find(R.S.GameObject.Sensor).GetComponent<BoxCollider2D>();
+            sensorBoxCollider2D.size = new Vector2(blockBoxCollider2D.size.x, startingDistance);
             transform.position = new Vector3(transform.position.x, transform.position.y + startingDistance,
                 transform.position.z);
             isFalling = false;
@@ -57,37 +53,24 @@ namespace Game
 
         private void OnEnable()
         {
-            timeFreezeEventChannel.OnTimeFreezeStateChanged += OnTimeFreezeStateChanged;
             playerSensor.OnSensedObject += OnPlayerSensed;
         }
 
         private void OnDisable()
         {
-            timeFreezeEventChannel.OnTimeFreezeStateChanged -= OnTimeFreezeStateChanged;
             playerSensor.OnSensedObject -= OnPlayerSensed;
-        }
-
-        private void OnTimeFreezeStateChanged()
-        {
-            if (Frozen)
-            {
-                velocityBeforeFreeze = rigidbody2D.velocity;
-                wasKinematicBeforeFreeze = rigidbody2D.isKinematic;
-            }
-            else
-            {
-                rigidbody2D.velocity = velocityBeforeFreeze;
-                rigidbody2D.isKinematic = wasKinematicBeforeFreeze;
-                if (!rigidbody2D.isKinematic)
-                    deadlyTrap.enabled = true;
-            }
         }
 
         private void Fall()
         {
             transform.position -= new Vector3(0, fallSpeed, 0);
+            sensorBoxCollider2D.size = new Vector2(sensorBoxCollider2D.size.x, sensorBoxCollider2D.size.y - fallSpeed);
+            sensor.transform.position = new Vector3(sensor.transform.position.x, sensor.transform.position.y + fallSpeed / 2, sensor.transform.position.z);
             if (Math.Abs(startingDistance) > 0.2f)
+            {
                 startingDistance -= fallSpeed;
+                //sensorBoxCollider2D.size = new Vector2(sensorBoxCollider2D.size.x, sensorBoxCollider2D.size.y - fallSpeed);
+            }
             else
                 isGrounded = true;
         }
