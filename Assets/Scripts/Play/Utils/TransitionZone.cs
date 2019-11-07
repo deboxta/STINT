@@ -45,6 +45,7 @@ namespace Game
                 var playerVelocity = sensedPlayerRigidbody2D.velocity;
                 
                 playerVelocity.y = 0;
+                //If the player is too slow, we speed up his transition
                 if (Math.Abs(playerVelocity.x) < minSpeed)
                 {
                     if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
@@ -64,6 +65,7 @@ namespace Game
                 var playerVelocity = sensedPlayerRigidbody2D.velocity;
                 
                 playerVelocity.x = 0;
+                //If the player is too slow, we speed up his transition
                 if (Math.Abs(playerVelocity.y) < minSpeed)
                 {
                     if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
