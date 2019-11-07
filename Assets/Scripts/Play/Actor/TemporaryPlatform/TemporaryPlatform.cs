@@ -69,6 +69,7 @@ namespace Game
             StopAllCoroutines();
             if (ignoreFirstTimeLineChanged)
             {
+               
                 ignoreFirstTimeLineChanged = false;
                 return;
             }
