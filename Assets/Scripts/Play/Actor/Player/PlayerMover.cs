@@ -76,7 +76,7 @@ namespace Game
             CheckSurroundings();
             
             //Author : Anthony Bérubé
-            //PLayer fall faster for more realistic physic
+            //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
                 rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
         }
