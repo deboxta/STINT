@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -51,7 +52,6 @@ namespace Game
             set => hasBoots = value;
         }
 
-        
         private void Awake()
         {
             wallJumpDirection.Normalize();
@@ -111,7 +111,16 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
+            /*xSpeed += Gravity.force.magnitude;
+            yForce += Gravity.force.magnitude;
+            if (direction == Vector2.left)
+                xSpeed += Gravity.force.x;
+            else if (direction == Vector2.right)
+                xSpeed -= Gravity.force.x;
+            else if (direction == Vector2.down)
+                yForce */
+
+                if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
                 if (!isWallSliding && canJump || isWallJumping)
                 {
@@ -125,6 +134,9 @@ namespace Game
             if (hasBoots)
                 if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
+            
+            xSpeed = 15;
+            yForce = 5;
         }
         
         //Author : Jeammy Côté
@@ -228,7 +240,7 @@ namespace Game
             yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
             playerCanControlMoves = true;
         }
-        
+
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
