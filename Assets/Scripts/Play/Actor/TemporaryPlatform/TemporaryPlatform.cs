@@ -66,8 +66,10 @@ namespace Game
 
         private void OnTimelineChangedEventChannel()
         {
+            StopAllCoroutines();
             if (ignoreFirstTimeLineChanged)
             {
+               
                 ignoreFirstTimeLineChanged = false;
                 return;
             }
