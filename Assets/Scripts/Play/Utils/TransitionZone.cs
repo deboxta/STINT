@@ -10,7 +10,7 @@ namespace Game
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private CompositeCollider2D roomOne;
         [SerializeField] private CompositeCollider2D roomTwo;
-        [SerializeField] private bool moveHorizontaly = true;
+        [SerializeField] private bool moveHorizontal = true;
         [SerializeField] private bool roomOneIsLeftOrBottom = true;
         [SerializeField] [Range(1, 100)] private float minSpeed = 5f;
 
@@ -40,7 +40,7 @@ namespace Game
 
             var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
             
-            if (moveHorizontaly)
+            if (moveHorizontal)
             {
                 var playerVelocity = sensedPlayerRigidbody2D.velocity;
                 
