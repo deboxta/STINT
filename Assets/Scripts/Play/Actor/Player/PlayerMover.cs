@@ -13,6 +13,7 @@ namespace Game
         
         //Boolean for verification in unity editor of surroundings and state of the player
         [Header("Player States")]
+        [SerializeField] private bool isSpringJumping;
         [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
@@ -51,6 +52,13 @@ namespace Game
             set => hasBoots = value;
         }
 
+        public bool IsSpringJumping
+        {
+            get => isSpringJumping;
+            set => isSpringJumping = value;
+        }
+        
+        public float SpringForce { get; set; }
         
         private void Awake()
         {
@@ -79,6 +87,10 @@ namespace Game
             //PLayer fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
                 rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+            
+            //Author : Jeammy Côté
+            if (isSpringJumping)
+                SpringJump();
         }
         
         //Author : Jeammy Côté
@@ -90,6 +102,8 @@ namespace Game
             isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
             if (isGrounded)
                 isWallJumping = false;
+            if (!isGrounded)
+                isSpringJumping = false;
 
             RaycastHit2D hit = Physics2D.Raycast(
                 wallCheck.position, 
@@ -135,8 +149,8 @@ namespace Game
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
-            //else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
-            //    WallHop();
+            else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
+                WallHop();
         }
         
         //Author : Jeammy Côté
@@ -168,6 +182,15 @@ namespace Game
             rigidBody2D.velocity = Vector2.zero;
             Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y);
             rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+        }
+
+        //Author : Jeammy Côté
+        public void SpringJump()
+        {
+            if(isGrounded)
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce + SpringForce);
+            else
+                rigidBody2D.velocity = Vector2.zero;
         }
         
         //Author : Jeammy Côté

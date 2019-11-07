@@ -97,6 +97,13 @@ namespace Game
         }
         
         //Author : Jeammy Côté
+        public void SpringJump(float springForce)
+        {
+            playerMover.IsSpringJumping = true;
+            playerMover.SpringForce = springForce;
+        }
+        
+        //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
             var playerBounds = GetComponentInChildren<Collider2D>().bounds;
