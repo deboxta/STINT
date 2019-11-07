@@ -56,6 +56,9 @@ namespace Game
             var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
             cinemachineConfiner.m_BoundingShape2D =
                 (cinemachineConfiner.m_BoundingShape2D == roomOne) ? roomTwo : roomOne;
+            
+            //Need to call this function when the confiner is change during runtime
+            cinemachineConfiner.InvalidatePathCache();
         }
 
         private void OnPlayerUnSensed(Player sensedPlayer)
@@ -63,6 +66,7 @@ namespace Game
             var sensedPlayerRigidbody2D = sensedPlayer.GetComponent<Rigidbody2D>();
             sensedPlayerRigidbody2D.isKinematic = false;
             sensedPlayer.GetComponent<PlayerInput>().enabled = true;
+            
         }
     }
 }
