@@ -10,7 +10,7 @@ namespace Game
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private CompositeCollider2D roomOne;
         [SerializeField] private CompositeCollider2D roomTwo;
-        [SerializeField] private bool moveHorozontaly = true;
+        [SerializeField] private bool moveHorizontaly  = true;
 
         private ISensor<Player> playerSensor;
 
@@ -36,7 +36,7 @@ namespace Game
             var sensedPlayerRigidbody2D = sensedPlayer.GetComponent<Rigidbody2D>();
             sensedPlayerRigidbody2D.isKinematic = true;
 
-            if (moveHorozontaly)
+            if (moveHorizontaly)
             {
                 var playerVelocity = sensedPlayerRigidbody2D.velocity;
                 
