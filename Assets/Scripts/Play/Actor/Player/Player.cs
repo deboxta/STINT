@@ -100,14 +100,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-        
-        //Author : Jeammy Côté
-        public void SpringJump(float springForce)
-        {
-            playerMover.IsSpringJumping = true;
-            playerMover.SpringForce = springForce;
-        }
-        
+
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {

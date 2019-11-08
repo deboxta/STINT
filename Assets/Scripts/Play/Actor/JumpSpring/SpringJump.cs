@@ -4,46 +4,59 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     public class SpringJump : MonoBehaviour
     {
-        //Boolean to see if the player is in jump spring zone.
-        [SerializeField] private bool hitLeft;
-        [SerializeField] private bool hitRight;
-        
+        [Header("Configuration of spring jump")]
         [SerializeField] private float springForce = 10;
         [SerializeField] private float springDetectionDistance = 1f;
-        [SerializeField] private LayerMask playerLayer;
+        
+        private LayerMask layerToHit;
         
         private Transform raycastSensorLeft;
         private Transform raycastSensorRight;
-        
+
+        private RaycastHit2D hitLeft;
+        private RaycastHit2D hitRight;
+
         private void Awake()
         {
             raycastSensorLeft = transform.Find("RaycastSensorLeft");
             raycastSensorRight = transform.Find("RaycastSensorRight");
         }
 
-        private void Update()
+        private void Start()
+        {
+            layerToHit = 1 << LayerMask.NameToLayer(R.S.Layer.Player);
+        }
+
+        private void FixedUpdate()
         {
             hitLeft = Physics2D.Raycast(
                 raycastSensorLeft.position, 
                 transform.up, 
                 springDetectionDistance, 
-                playerLayer);
+                layerToHit);
                         
             hitRight = Physics2D.Raycast(
                 raycastSensorRight.position, 
                 transform.up,
                 springDetectionDistance,
-                playerLayer);
-            
+                layerToHit);
+
+
             if (hitLeft && hitRight)
-                OnPlayerSensed();
+            {
+                GameObject objectToSpringJump = hitLeft.transform.gameObject;
+                if (objectToSpringJump)
+                    springPlayer(objectToSpringJump);
+            }
         }
 
-        private void OnPlayerSensed()
+        private void springPlayer(GameObject gameObject)
         {
-            Finder.Player.SpringJump(springForce);
+            Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
+            rigidbody.velocity = new Vector2(x: rigidbody.velocity.x, springForce);
         }
         
         private void OnDrawGizmos()
