@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 4519857631210427440, guid: fe04e2ac1043d6b45839458bdf158796,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.65973485
+      value: 62.759735
       objectReference: {fileID: 0}
     - target: {fileID: 4519857631210427440, guid: fe04e2ac1043d6b45839458bdf158796,
         type: 3}
@@ -200,7 +200,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 2118527609}
+      objectReference: {fileID: 1452168431}
     m_RemovedComponents:
     - {fileID: 3599352475504595107, guid: fe04e2ac1043d6b45839458bdf158796, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fe04e2ac1043d6b45839458bdf158796, type: 3}
@@ -268,7 +268,7 @@ PrefabInstance:
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 62.1
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -319,11 +319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 308609901384526596, guid: 43a401b213aa2e84093c8824469128d1,
-        type: 3}
-      propertyPath: yForce
-      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43a401b213aa2e84093c8824469128d1, type: 3}
@@ -635,6 +630,16 @@ PrefabInstance:
     - target: {fileID: 276251413911606613, guid: 00c4664d82b306d49890a954a5eab891,
         type: 3}
       propertyPath: moveHorizontaly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276251413911606613, guid: 00c4664d82b306d49890a954a5eab891,
+        type: 3}
+      propertyPath: roomOneIsLeftOrBottom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276251413911606613, guid: 00c4664d82b306d49890a954a5eab891,
+        type: 3}
+      propertyPath: moveHorizontal
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
