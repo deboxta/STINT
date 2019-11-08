@@ -51,7 +51,6 @@ namespace Game
             set => hasBoots = value;
         }
 
-        
         private void Awake()
         {
             wallJumpDirection.Normalize();
@@ -113,7 +112,7 @@ namespace Game
         {
             if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
-                if (!isWallSliding && canJump || isWallJumping)
+                if (!isWallSliding || isWallJumping)
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
@@ -169,7 +168,7 @@ namespace Game
             Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y);
             rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
-        
+
         //Author : Jeammy Côté
         private void CheckIfWallSliding()
         {
