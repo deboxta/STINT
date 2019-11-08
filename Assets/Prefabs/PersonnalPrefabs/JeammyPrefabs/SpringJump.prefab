@@ -77,13 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b65b85fc3d8471da601aa4cf51bccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitLeft: 0
-  hitRight: 0
-  springForce: 15
+  springForce: 30
   springDetectionDistance: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 4096
 --- !u!210 &1068499648031710625
 SortingGroup:
   m_ObjectHideFlags: 0
