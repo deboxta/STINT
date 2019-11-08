@@ -111,16 +111,14 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            /*xSpeed += Gravity.force.magnitude;
-            yForce += Gravity.force.magnitude;
             if (direction == Vector2.left)
-                xSpeed += Gravity.force.x;
+                xSpeed += Gravity.AdjustedForce.x;
             else if (direction == Vector2.right)
-                xSpeed -= Gravity.force.x;
-            else if (direction == Vector2.down)
-                yForce */
+                xSpeed -= Gravity.AdjustedForce.x;
+            //else if (direction == Vector2.down)
+                
 
-                if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
+            if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
                 if (!isWallSliding && canJump || isWallJumping)
                 {
@@ -136,7 +134,6 @@ namespace Game
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
             
             xSpeed = 15;
-            yForce = 5;
         }
         
         //Author : Jeammy Côté
