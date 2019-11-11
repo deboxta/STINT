@@ -8,6 +8,8 @@ namespace Game
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private GameWonEventChannel gameWonEventChannel;
+        //private Serialize serialize;
+        private bool first
 
         private void Awake()
         {
@@ -31,7 +33,7 @@ namespace Game
 
         private void OnPlayerDeath()
         {
-            if (expr)
+            if (serialize.neverDied)
             {
                 throw new NotImplementedException();
             }
@@ -47,7 +49,7 @@ namespace Game
 
         private void CheckAlreadyUnlockedSucces()
         {
-            if (gameWon && neverDied)
+            /*if (serialize.gameWon && serialize.neverDied)
             {
                 gameWonEventChannel.OnGameWon -= OnGameWon;
             }
@@ -55,7 +57,7 @@ namespace Game
             if (expr)
             {
                 
-            }
+            }*/
         }
     }
 }
