@@ -27,6 +27,9 @@ namespace Game
             set => isLookingRight = value;
         }
 
+        private float size;
+        public float Size => size;
+
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
@@ -39,6 +42,8 @@ namespace Game
             isLookingRight = true;
             IsDead = false;
             isCrouched = false;
+            size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
+            Debug.Log(size);
             
             boxSensor = sensor.For<Box>();
         }
@@ -94,6 +99,18 @@ namespace Game
         public void CollectBoots()
         {
             playerMover.HasBoots = true;
+        }
+
+        //Author : Jeammy Côté
+        private void OnDrawGizmos()
+        {
+            var playerBounds = GetComponentInChildren<Collider2D>().bounds;
+
+            Vector3 bottomLeftPosition = new Vector3(playerBounds.center.x - playerBounds.extents.x,playerBounds.center.y - playerBounds.extents.y);
+            Vector3 topRightPosition = new Vector3(playerBounds.center.x + playerBounds.extents.x,playerBounds.center.y + playerBounds.extents.y);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(bottomLeftPosition,topRightPosition);
         }
     }
 }

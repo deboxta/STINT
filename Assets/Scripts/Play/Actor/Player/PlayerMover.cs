@@ -18,12 +18,12 @@ namespace Game
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
         [SerializeField] private bool playerCanControlMoves;
+        [SerializeField] private int numberOfJumpsLeft;
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
         [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
-        [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
         [SerializeField] private float gravityMultiplier = 5f;
@@ -40,7 +40,7 @@ namespace Game
         
         private bool canJump;
         private float wallDistance = 1.11f;
-        private LayerMask floorLayer;
+        private int layersToJump;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
@@ -55,7 +55,13 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            floorLayer = LayerMask.GetMask(R.S.Layer.Floor);
+            
+            //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
+            //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
+            //Author : Sébastien Arsenault
+            layersToJump = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
+            layersToJump |= (1 << LayerMask.NameToLayer(R.S.Layer.OneWay));
+
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
             playerCanControlMoves = true;
@@ -69,7 +75,7 @@ namespace Game
             CheckSurroundings();
             
             //Author : Anthony Bérubé
-            //PLayer fall faster for more realistic physic
+            //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
                 rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
         }
@@ -78,7 +84,9 @@ namespace Game
         private void CheckSurroundings()
         {
             //TODO : Change with cube raycast
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
+            var position = groundCheck.position;
+
+            isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
             if (isGrounded)
                 isWallJumping = false;
 
@@ -86,7 +94,7 @@ namespace Game
                 wallCheck.position, 
                 transform.right * transform.localScale.x, 
                 wallDistance, 
-                floorLayer);
+                layersToJump);
             
             if (hit)
             {
@@ -104,7 +112,7 @@ namespace Game
         {
             if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
-                if (!isWallSliding && canJump || isWallJumping)
+                if (!isWallSliding || isWallJumping)
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
@@ -160,7 +168,7 @@ namespace Game
             Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x, rigidBody2D.velocity.y);
             rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
-        
+
         //Author : Jeammy Côté
         private void CheckIfWallSliding()
         {
