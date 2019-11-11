@@ -768,6 +768,26 @@ CompositeCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 202972504}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &280657286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5027930216725131281, guid: f367ba5d34a59154697f71bcde19da9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7325721007422237674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &280657291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280657286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3da4a66e66246ee895afa3f557db643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 0.01
+  fadeBy: 0.1
 --- !u!1001 &286367372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20022,12 +20042,12 @@ PrefabInstance:
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -27275,12 +27295,12 @@ PrefabInstance:
     - target: {fileID: 5027930216725131295, guid: f367ba5d34a59154697f71bcde19da9d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 5027930216725131295, guid: f367ba5d34a59154697f71bcde19da9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5027930216725131295, guid: f367ba5d34a59154697f71bcde19da9d,
         type: 3}
