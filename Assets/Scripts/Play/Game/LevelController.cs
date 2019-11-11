@@ -15,10 +15,17 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private LevelScenes levelScenes;
         private int currentLevel;
-        
+        private int levelToLoad;
+
         public int CurrentLevel
         {
             get => currentLevel;
+        }
+
+        public int LevelToLoad
+        {
+            get => levelToLoad;
+            set => levelToLoad = value;
         }
 
         private void Awake()
@@ -65,7 +72,14 @@ namespace Game
         private IEnumerator NextLevel()
         {
             yield return UnloadGame();
-            currentLevel++;
+            if (levelToLoad != 0)
+            {
+                currentLevel = levelToLoad;
+            }
+            else
+            {
+                currentLevel++;
+            }
             yield return LoadGame();
         }
 

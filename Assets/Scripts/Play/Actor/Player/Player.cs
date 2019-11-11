@@ -10,6 +10,7 @@ namespace Game
     public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
+        [SerializeField] private int nbdeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
@@ -17,6 +18,7 @@ namespace Game
         private Vitals vitals;
         private bool isCrouched;
         private PlayerMover playerMover;
+        private Dispatcher dispatcher;
 
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
@@ -33,6 +35,7 @@ namespace Game
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
@@ -62,6 +65,8 @@ namespace Game
             if (!IsDead)
             {
                 IsDead = true;
+                dispatcher.DataCollector.NbDeath++;
+                nbdeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
         }
