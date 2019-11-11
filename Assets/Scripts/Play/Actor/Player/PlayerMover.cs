@@ -132,10 +132,8 @@ namespace Game
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
-            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
+            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
                 WallJump();
-            //else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
-            //    WallHop();
         }
         
         //Author : Jeammy Côté
