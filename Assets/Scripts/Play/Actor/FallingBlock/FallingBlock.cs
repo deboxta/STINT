@@ -9,14 +9,14 @@ namespace Game
     {
         [SerializeField] private float fallSpeed = 5f;
         
+        private TimeFreezeEventChannel timeFreezeEventChannel;
+        private Vector2 velocityBeforeFreeze;
         private new Rigidbody2D rigidbody2D;
         private DeadlyTrap deadlyTrap;
         private ISensor<Player> playerSensor;
-        private TimeFreezeEventChannel timeFreezeEventChannel;
-        private Vector2 velocityBeforeFreeze;
         private bool wasKinematicBeforeFreeze;
 
-        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
+        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private void Awake()
         {
@@ -38,23 +38,6 @@ namespace Game
         {
             timeFreezeEventChannel.OnTimeFreezeStateChanged -= OnTimeFreezeStateChanged;
             playerSensor.OnSensedObject -= OnPlayerSensed;
-        }
-
-        private void OnTimeFreezeStateChanged()
-        {
-            if (Frozen)
-            {
-                velocityBeforeFreeze = rigidbody2D.velocity;
-                wasKinematicBeforeFreeze = rigidbody2D.isKinematic;
-                StopFalling();
-            }
-            else
-            {
-                rigidbody2D.velocity = velocityBeforeFreeze;
-                rigidbody2D.isKinematic = wasKinematicBeforeFreeze;
-                if (!rigidbody2D.isKinematic)
-                    deadlyTrap.enabled = true;
-            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -87,8 +70,26 @@ namespace Game
         
         private void OnPlayerSensed(Player player)
         {
-            if (!Frozen)
+            if (!IsFrozen)
                 Fall();
+        }
+        
+        // Author : Mathieu Boutet
+        private void OnTimeFreezeStateChanged()
+        {
+            if (IsFrozen)
+            {
+                velocityBeforeFreeze = rigidbody2D.velocity;
+                wasKinematicBeforeFreeze = rigidbody2D.isKinematic;
+                StopFalling();
+            }
+            else
+            {
+                rigidbody2D.velocity = velocityBeforeFreeze;
+                rigidbody2D.isKinematic = wasKinematicBeforeFreeze;
+                if (!rigidbody2D.isKinematic)
+                    deadlyTrap.enabled = true;
+            }
         }
     }
 }
