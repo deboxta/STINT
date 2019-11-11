@@ -100,7 +100,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-        
+
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
