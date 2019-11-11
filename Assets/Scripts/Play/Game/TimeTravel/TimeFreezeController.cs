@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    [Findable(R.S.Tag.MainController)]
+    [Findable(R.S.Tag.GameController)]
     public class TimeFreezeController : MonoBehaviour
     {
         private bool isFrozen;
