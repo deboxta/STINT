@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6579493665847138749e93c00d9915f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbLaserBeamSegments: 100
+  nbMaxSegments: 100
   segmentSize: 1
   gapSize: 1
   movementSpeed: 1
@@ -34,41 +34,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000,
         type: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1019524490433850803, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
         type: 3}
       propertyPath: m_RootOrder
@@ -93,6 +58,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserBeamSegment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658667363078146686, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5552066542975708685, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12, type: 3}
