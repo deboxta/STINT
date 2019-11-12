@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Game
     {
         private Player player;
         private DataCollector dataCollector;
-        private LevelCompletedEventChannel levelCompletedEventChannel;
+        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private LevelController levelController;
 
         public DataCollector DataCollector
@@ -21,7 +22,7 @@ namespace Game
 
         private void Awake()
         {
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             dataCollector = new DataCollector();
             levelController = Finder.LevelController;
         }
@@ -36,17 +37,9 @@ namespace Game
 
         public void SetData()
         {
-            player = GameObject.FindWithTag(R.S.Tag.Player).GetComponent<Player>();
-
             SetScene();
-
-            SetPlayer();
         }
 
-        private void SetPlayer()
-        {
-            player.transform.position = new Vector3(dataCollector.PositionX,dataCollector.PositionY);
-        }
         private (float,float) GetPlayer()
         {
             var position = player.transform.position;
@@ -55,8 +48,7 @@ namespace Game
 
         private void SetScene()
         {
-            levelController.LevelToLoad = dataCollector.ActiveScene;
-            levelCompletedEventChannel.NotifyLevelCompleted();
+            savedDataLoadedEventChannel.NotifySavedDataLoaded();
         }
 
         private int GetScene()
