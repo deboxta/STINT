@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Harmony;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Game
 {
@@ -12,7 +11,6 @@ namespace Game
     public class ObjectThrower : MonoBehaviour, IFreezable
     {
         [SerializeField] [Range(0, 1000)] private int nbMaxThrowableObjects = 100;
-        [SerializeField] private float throwingAngle = 0;
         [SerializeField] private float speed = 1;
         [SerializeField] private float throwNextObjectDelay = 1;
         [SerializeField] public float removeObjectDelay = 3;
