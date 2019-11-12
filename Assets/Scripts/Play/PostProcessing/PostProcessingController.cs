@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Cinemachine.PostFX;
 using Harmony;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
-    public class PostProcessing : MonoBehaviour
+    public class PostProcessingController : MonoBehaviour
     {
-        [SerializeField] private float fadeSpeed = 0.0001f;
-        [SerializeField] private float fadeBy = 0.25f;
+        [SerializeField] private float fadeSpeed = 0.025f;
+        [SerializeField] private float fadeBy = 0.1f;
         
         private ColorGrading colorGrading;
         private DepthOfField depthOfField;
@@ -22,16 +22,13 @@ namespace Game
         {
             volume = gameObject.GetComponent<CinemachinePostProcessing>();
 
-            volume.m_Profile.TryGetSettings(out colorGrading);
-            volume.m_Profile.TryGetSettings(out depthOfField);
+            volume.m_Profile = volume.Profile.Clone();
+
+            volume.Profile.TryGetSettings(out colorGrading);
+            volume.Profile.TryGetSettings(out depthOfField);
 
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
-        }
-
-        private void OnDestroy()
-        {
-            depthOfField.focusDistance.value = 5;
         }
 
         private void OnEnable()
@@ -40,41 +37,41 @@ namespace Game
             levelCompletedEventChannel.OnLevelCompleted += OnLevelCompleted;
         }
 
+        
+
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted -= OnLevelCompleted;
         }
-        
+
         private void OnLevelCompleted()
         {
-            StartCoroutine(FadeOut());
+            //StartCoroutine(FocusOut());
         }
 
         private void OnPlayerDeath()
         {
-            StartCoroutine(FadeOut());        
+            StartCoroutine(FocusOut());        
         }
 
-        private IEnumerator FadeOut()
+        private IEnumerator FocusOut()
         {
             depthOfField.focusDistance.value -= fadeBy;
-            volume.InvalidateCachedProfile();
             yield  return new WaitForSeconds(fadeSpeed);
             if (depthOfField.focusDistance.value >= 1)
             {
-                yield return FadeOut();
+                yield return FocusOut();
             }
         }
-        
-        private IEnumerator FadeIn()
+
+        private IEnumerator FocusIn()
         {
             depthOfField.focusDistance.value += fadeBy;
-            volume.InvalidateCachedProfile();
             yield  return new WaitForSeconds(fadeSpeed);
-            if (depthOfField.focusDistance.value <= 1)
+            if (depthOfField.focusDistance.value <= 5)
             {
-                yield return FadeOut();
+                yield return FocusOut();
             }
         }
     }
