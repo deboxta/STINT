@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6307830399383749747}
   - component: {fileID: 6307830399383749750}
   m_Layer: 2
-  m_Name: Confiner
+  m_Name: CameraConfiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,20 +74,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 6307830399383749750}
     m_ColliderPaths:
-    - - X: 309999971
+    - - X: 249999971
         Y: -150000000
-      - X: 309999971
+      - X: 249999971
         Y: 150000000
-      - X: -190000000
+      - X: -250000000
         Y: 149999971
-      - X: -189999971
+      - X: -249999971
         Y: -150000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 30.999994, y: -15}
-      - {x: 30.999994, y: 15}
-      - {x: -19, y: 14.999993}
-      - {x: -18.999994, y: -15}
+    - - {x: 24.999994, y: -15}
+      - {x: 24.999994, y: 15}
+      - {x: -25, y: 14.999993}
+      - {x: -24.999994, y: -15}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!61 &6307830399383749750
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 6, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
