@@ -13,9 +13,12 @@ namespace Game
         
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
+        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
         private LevelScenes levelScenes;
         private int currentLevel;
-        
+        private Dispatcher dispatcher;
+
         public int CurrentLevel
         {
             get => currentLevel;
@@ -23,8 +26,11 @@ namespace Game
 
         private void Awake()
         {
+            dispatcher = Finder.Dispatcher;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
+            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
             levelScenes = GetComponentInChildren<LevelScenes>();
             
             currentLevel = STARTING_LEVEL;
@@ -44,12 +50,14 @@ namespace Game
         {
             playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
+            savedDataLoadedEventChannel.OnSavedDataLoaded += SavedDataLoaded;
         }
 
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
+            savedDataLoadedEventChannel.OnSavedDataLoaded -= SavedDataLoaded;
         }
 
         private void PlayerDeath()
@@ -61,11 +69,26 @@ namespace Game
         {
             StartCoroutine(NextLevel());
         }
+        //By Yannick Cote
+        private void SavedDataLoaded()
+        {
+            StartCoroutine(LoadSavedScene());
+        }
+        //By Yannick Cote
+        private IEnumerator LoadSavedScene()
+        {
+            yield return UnloadGame();
+            currentLevel = dispatcher.DataCollector.ActiveScene;
+            yield return LoadGame();
+            savedSceneLoadedEventChannel.NotifySavedDataLoaded();
+        }
 
         private IEnumerator NextLevel()
         {
             yield return UnloadGame();
+
             currentLevel++;
+
             yield return LoadGame();
         }
 

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -10,6 +12,8 @@ namespace Game
     public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        [SerializeField] private int nbdeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
@@ -17,6 +21,7 @@ namespace Game
         private Vitals vitals;
         private bool isCrouched;
         private PlayerMover playerMover;
+        private Dispatcher dispatcher;
 
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
@@ -33,6 +38,8 @@ namespace Game
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
@@ -46,6 +53,26 @@ namespace Game
             Debug.Log(size);
             
             boxSensor = sensor.For<Box>();
+        }
+
+        private void OnEnable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded += SavedSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded -= SavedSceneLoaded;
+        }
+
+        private void SavedSceneLoaded()
+        {
+            StartCoroutine(ChangePosition());
+        }
+
+        private IEnumerator ChangePosition()
+        {
+            yield return transform.position = new Vector3(dispatcher.DataCollector.PositionX,dispatcher.DataCollector.PositionY);
         }
 
         //Author : Jeammy Côté
@@ -62,6 +89,8 @@ namespace Game
             if (!IsDead)
             {
                 IsDead = true;
+                dispatcher.DataCollector.NbDeath++;
+                nbdeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
         }
