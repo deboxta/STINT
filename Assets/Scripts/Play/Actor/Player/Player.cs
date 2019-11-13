@@ -43,7 +43,6 @@ namespace Game
             IsDead = false;
             isCrouched = false;
             size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
-            Debug.Log(size);
             
             boxSensor = sensor.For<Box>();
         }
@@ -52,7 +51,7 @@ namespace Game
         //Change player direction
         public void FlipPlayer()
         {
-            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
         
         //Author : Sébastien Arsenault
@@ -100,7 +99,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-        
+
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {

@@ -21,7 +21,7 @@ namespace Game
         protected virtual void Awake()
         {
             RaycastHits = new RaycastHit2D[RAYCAST_HITS_BUFFER_SIZE];
-            laserBeam = GetComponentInChildren<LineRenderer>();
+            laserBeam = this.GetRequiredComponentInChildren<LineRenderer>(true);
             laserBeam.useWorldSpace = true;
             CastTouchesPlayer = false;
             
@@ -29,7 +29,7 @@ namespace Game
             //To add a layer to hit do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
             //Author : Sébastien Arsenault
             LayersToHit = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
-            LayersToHit |= (1 << LayerMask.NameToLayer(R.S.Layer.Default));
+            LayersToHit |= (1 << LayerMask.NameToLayer(R.S.Layer.Player));
         }
 
         protected virtual void FixedUpdate()

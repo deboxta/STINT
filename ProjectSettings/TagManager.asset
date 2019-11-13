@@ -30,7 +30,7 @@ TagManager:
   - Floor
   - Wall
   - OneWay
-  - 
+  - Player
   - 
   - 
   - 
@@ -68,4 +68,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2885717815
+    locked: 0
+  - name: Traps
+    uniqueID: 248300439
     locked: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using Harmony;
 using UnityEngine;
 using XInputDotNetPure;
@@ -10,15 +11,17 @@ namespace Game
         [SerializeField] private KeyCode changeTimelineKeyboardKey = KeyCode.LeftShift;
         [SerializeField] private KeyCode freezeTimeKeyboardKey = KeyCode.Q;
         [SerializeField] private float inputThreshold = 0.13f;
+        [SerializeField] private float timeBeforePlayerCanTimeChange = 0.5f;
         
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
         private bool viewingRight;
         private bool crouching;
-        private bool timeChangeIsClicked;
         private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
+        private bool canChangeTimeline;
+        private bool isChangeTimelineKeyReleased;
         
         private void Awake()
         {
@@ -27,8 +30,8 @@ namespace Game
 
             viewingRight = false;
             crouching = false;
-            timeChangeIsClicked = false;
             freezeTimeIsClicked = false;
+            canChangeTimeline = true;
         }
 
         private void Update()
@@ -74,16 +77,19 @@ namespace Game
                 jumpButtonIsPressed = false;
             
             //Switch timeline
-            if (gamePadState.Buttons.X == ButtonState.Pressed ||
-                gamePadState.Buttons.Y == ButtonState.Pressed)
-                timeChangeIsClicked = true;
-            else if (Input.GetKeyDown(changeTimelineKeyboardKey) ||
-                     gamePadState.Buttons.X == ButtonState.Released && timeChangeIsClicked ||
-                     gamePadState.Buttons.Y == ButtonState.Released && timeChangeIsClicked)
+            if ((Input.GetKeyDown(changeTimelineKeyboardKey) ||
+                     gamePadState.Buttons.X == ButtonState.Pressed ||
+                     gamePadState.Buttons.Y == ButtonState.Pressed) && 
+                     canChangeTimeline && 
+                     isChangeTimelineKeyReleased)
             {
                 Finder.TimelineController.SwitchTimeline();
-                timeChangeIsClicked = false;
+                StartCoroutine(TimeChangeDelay());
+                isChangeTimelineKeyReleased = false;
             }
+            else if (gamePadState.Buttons.X == ButtonState.Released && gamePadState.Buttons.Y == ButtonState.Released)
+                isChangeTimelineKeyReleased = true;
+                
             
             // TODO temp
             //Freeze time
@@ -108,6 +114,13 @@ namespace Game
             //Throw
             if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
                 player.ThrowBox(crouching);
+        }
+        
+        IEnumerator TimeChangeDelay()
+        {
+            canChangeTimeline = false;
+            yield return new WaitForSeconds(timeBeforePlayerCanTimeChange);
+            canChangeTimeline = true;
         }
     }
 }

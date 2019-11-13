@@ -13,10 +13,12 @@ namespace Game
         [SerializeField] [Range(0, 100)] private float onTimeInSeconds = 1;
         [SerializeField] [Range(0, 100)] private float offTimeInSeconds = 1;
         
+        private TimeFreezeEventChannel timeFreezeEventChannel;
         private bool firing;
         private Stopwatch switchFiringStateStopwatch;
         private TimeSpan firingStopwatchCurrentTimeLimit;
-        private TimeFreezeEventChannel timeFreezeEventChannel;
+
+        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private bool Firing
         {
@@ -29,9 +31,7 @@ namespace Game
                 laserBeam.gameObject.SetActive(value);
             }
         }
-
-        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -55,14 +55,6 @@ namespace Game
         {
             timeFreezeEventChannel.OnTimeFreezeStateChanged -= OnTimeFreezeStateChanged;
         }
-        
-        private void OnTimeFreezeStateChanged()
-        {
-            if (Frozen)
-                switchFiringStateStopwatch.Stop();
-            else
-                switchFiringStateStopwatch.Start();
-        }
 
         protected override void FixedUpdate()
         {
@@ -75,6 +67,14 @@ namespace Game
                 firingStopwatchCurrentTimeLimit = TimeSpan.FromSeconds(Firing ? onTimeInSeconds : offTimeInSeconds);
                 switchFiringStateStopwatch.Restart();
             }
+        }
+        
+        private void OnTimeFreezeStateChanged()
+        {
+            if (IsFrozen)
+                switchFiringStateStopwatch.Stop();
+            else
+                switchFiringStateStopwatch.Start();
         }
     }
 }

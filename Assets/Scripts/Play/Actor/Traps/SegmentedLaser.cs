@@ -12,11 +12,11 @@ namespace Game
         [SerializeField] [Range(0, 50)] private float gapSize = 1;
         [SerializeField] [Range(-50, 50)] private float movementSpeed = 1;
 
-        private const string SEGMENT_OBJECT_NAME = "LaserBeamSegment";
-
         private LineRenderer[] laserBeamSegments;
         private float currentOffset;
         private int nbActiveSegments;
+
+        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private bool PlayerIsTouchingSegment
         {
@@ -40,23 +40,16 @@ namespace Game
                 return false;
             }
         }
-
-        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
-
+        
         protected override void Awake()
         {
             base.Awake();
 
             laserBeamSegments = new LineRenderer[nbMaxSegments];
-        }
-
-        private void Start()
-        {
+            laserBeam.gameObject.SetActive(false);
             for (int i = 0; i < nbMaxSegments; i++)
             {
                 laserBeamSegments[i] = Instantiate(laserBeam, transform);
-                laserBeamSegments[i].name = SEGMENT_OBJECT_NAME;
-                laserBeamSegments[i].gameObject.SetActive(false);
             }
         }
 
@@ -106,7 +99,7 @@ namespace Game
             if (PlayerIsTouchingSegment)
                 Finder.Player.Die();
 
-            if (segmentSize + gapSize != 0 && !Frozen)
+            if (segmentSize + gapSize != 0 && !IsFrozen)
                 currentOffset = (currentOffset + (movementSpeed * Time.fixedDeltaTime)) % (segmentSize + gapSize)
                               + initialOffset;
         }
