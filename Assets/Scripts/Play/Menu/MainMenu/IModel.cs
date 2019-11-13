@@ -4,5 +4,6 @@ namespace Game
     public interface IModel
     {
         //BETA : implement the iModel once the serialization saving system is implemented.
+        void CreateNewGameFile(string name);
     }
 }
