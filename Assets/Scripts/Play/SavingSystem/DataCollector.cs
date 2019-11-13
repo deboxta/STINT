@@ -1,7 +1,4 @@
 ﻿using System;
-using Harmony;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -12,6 +9,8 @@ namespace Game
         private float positionX, positionY;
         private int nbDeath;
         private string name;
+        private bool firstDeath;
+        private bool wonWithoutDying;
 
         public int ActiveScene
         {
@@ -41,6 +40,18 @@ namespace Game
         {
             get => name;
             set => name = value;
+        }
+        
+        public bool FirstDeath
+        {
+            get => firstDeath;
+            set => firstDeath = value;
+        }
+        
+        public bool WonWithoutDying
+        {
+            get => wonWithoutDying;
+            set => wonWithoutDying = value;
         }
     }
 }
