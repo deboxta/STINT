@@ -10,10 +10,10 @@ namespace Game
     // Author : Mathieu Boutet
     public class ObjectThrower : MonoBehaviour, IFreezable
     {
-        [SerializeField] [Range(0, 1000)] private int nbMaxThrowableObjects = 100;
-        [SerializeField] private float speed = 1;
-        [SerializeField] private float throwNextObjectDelay = 1;
-        [SerializeField] public float removeObjectDelay = 3;
+        [Range(0, 1000)] [SerializeField] private int nbMaxThrowableObjects = 100;
+        [Range(-30000, 30000)] [SerializeField] private float speed = 4000;
+        [Range(0, 60)] [SerializeField] private float throwNextObjectDelay = 1;
+        [Range(0, 60)] [SerializeField] public float removeObjectDelay = 3;
 
         private ThrowableObject throwableObjectModel;
         private TimeFreezeEventChannel timeFreezeEventChannel;
