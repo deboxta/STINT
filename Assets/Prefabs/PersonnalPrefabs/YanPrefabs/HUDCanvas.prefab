@@ -537,6 +537,8 @@ MonoBehaviour:
   sanitySlider: {fileID: 1678938151487421386}
   primary: {fileID: 1678938151029456390}
   secondary: {fileID: 1678938150243877014}
+  primaryYear: 1990
+  secondaryYear: 1990
 --- !u!1 &1678938151029456388
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +649,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
