@@ -11,6 +11,7 @@ namespace Game
 {
     public class SaveSystem
     {
+        private static int nbOfSaves;
         private DataCollector localData;
         private Dispatcher dispatcher;
         private const string SAVE_FOLDER_NAME = "Saves/";
@@ -30,6 +31,7 @@ namespace Game
             foreach (var filesName in filesNames)
             {
                 filesList.Add(File.Open(filesName, FileMode.Open));
+                nbOfSaves++;
             }
 
             foreach (var file in filesList)
@@ -40,6 +42,19 @@ namespace Game
             }
             
             return dataCollectors;
+        }
+
+        public void DeleteSave(string saveToDelete)
+        {
+            var filesNames = Directory.GetFiles(SAVE_FOLDER_NAME).Where(file => !file.ToLower().Contains("desktop.ini")); //Inspired from : nerdshark https://www.reddit.com/r/csharp/comments/7uulwg/get_all_items_from_desktop_except_desktopini_am_i/
+            foreach (var filesName in filesNames)
+            {
+                if (filesName == SAVE_FOLDER_NAME+saveToDelete+SAVE_FILE_EXT)
+                {
+                    File.Delete(filesName);
+                    nbOfSaves--;
+                }
+            }
         }
 
         public void SaveGame()

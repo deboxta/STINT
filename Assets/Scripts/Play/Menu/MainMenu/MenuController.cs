@@ -48,6 +48,12 @@ namespace Game
         {
             activePage = GetActivePage();
         }
+        
+        [UsedImplicitly]
+        public void DeleteSave(GameObject saveNameToDelete)
+        {
+            saveSystem.DeleteSave(saveNameToDelete.GetComponent<Text>().text);
+        }
 
         [UsedImplicitly]
         public void StartGame(GameObject fileName)
