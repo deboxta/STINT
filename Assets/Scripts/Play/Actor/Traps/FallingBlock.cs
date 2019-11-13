@@ -19,7 +19,7 @@ namespace Game
         private bool isGrounded;
         private float playerSize;
 
-        public bool Frozen => Finder.TimeFreezeController.IsFrozen;
+        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private void Awake()
         {
@@ -39,7 +39,7 @@ namespace Game
 
         private void FixedUpdate()
         {
-            if (!isGrounded && isFalling && !Frozen)
+            if (!isGrounded && isFalling && !IsFrozen)
             {
                 Fall();
             }
@@ -77,7 +77,7 @@ namespace Game
         private void OnPlayerSensed(Player player)
         {
             playerSize = player.Size;
-            if (!Frozen)
+            if (!IsFrozen)
                 isFalling = true;
         }
     }

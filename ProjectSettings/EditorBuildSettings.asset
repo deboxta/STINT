@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PersonnalScenes/Yannick/YanScene.unity
     guid: 91042d485b38f7b458a1d6b4146f7d72
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/PersonnalScenes/Jeammy/Jeammy.unity
     guid: fd94e84b0c89f0546bf5bd75a3bea8f7
   - enabled: 0
