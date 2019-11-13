@@ -33,6 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene/IntegrationScene1.unity
     guid: 6ed112b9b0584e547bc7f8d28de46cbe
   - enabled: 1
-    path: Assets/Scenes/PersonnalScenes/Anthony.unity
+    path: Assets/Scenes/PersonnalScenes/Anthony/Anthony.unity
     guid: 1d380b41fbeb3c14cae98f011c5306eb
   m_configObjects: {}
