@@ -52,7 +52,7 @@ namespace Game
 
         private void OnPlayerDeath()
         {
-            StartCoroutine(FocusOut());        
+            StartCoroutine(FocusOut());
         }
 
         private IEnumerator FocusOut()
@@ -71,7 +71,7 @@ namespace Game
             yield  return new WaitForSeconds(fadeSpeed);
             if (depthOfField.focusDistance.value <= 5)
             {
-                yield return FocusOut();
+                yield return FocusIn();
             }
         }
     }

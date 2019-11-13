@@ -27171,16 +27171,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 228230787161725443, guid: f367ba5d34a59154697f71bcde19da9d,
-        type: 3}
-      propertyPath: fadeSpeed
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 228230787161725443, guid: f367ba5d34a59154697f71bcde19da9d,
-        type: 3}
-      propertyPath: fadeBy
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fadeBy
       value: 0.1
@@ -27193,6 +27183,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VirtualCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 228230787161725443, guid: f367ba5d34a59154697f71bcde19da9d,
+        type: 3}
+      propertyPath: fadeSpeed
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 228230787161725443, guid: f367ba5d34a59154697f71bcde19da9d,
+        type: 3}
+      propertyPath: fadeBy
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5027930216725131295, guid: f367ba5d34a59154697f71bcde19da9d,
         type: 3}
