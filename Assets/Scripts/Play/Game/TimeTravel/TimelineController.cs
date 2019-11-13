@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game
 {
     //Author : Jeammy Côté and Mathieu Boutet from FPP
-    [Findable(R.S.Tag.MainController)]
+    [Findable(R.S.Tag.GameController)]
     public class TimelineController : MonoBehaviour
     {
         private Timeline currentTimeline;

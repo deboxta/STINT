@@ -21,7 +21,7 @@ namespace Game
         protected virtual void Awake()
         {
             RaycastHits = new RaycastHit2D[RAYCAST_HITS_BUFFER_SIZE];
-            laserBeam = GetComponentInChildren<LineRenderer>();
+            laserBeam = this.GetRequiredComponentInChildren<LineRenderer>(true);
             laserBeam.useWorldSpace = true;
             CastTouchesPlayer = false;
             
