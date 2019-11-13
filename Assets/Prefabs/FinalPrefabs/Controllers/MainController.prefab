@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 450831425154879390}
+  - component: {fileID: 7366872951164378045}
   - component: {fileID: 8434718536069152611}
   - component: {fileID: 5656073382414011744}
   - component: {fileID: 5439996729442061647}
@@ -37,6 +38,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7366872951164378045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450831425154879389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8434718536069152611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +133,7 @@ GameObject:
   - component: {fileID: 1172976733044154911}
   - component: {fileID: 9121506100151385926}
   m_Layer: 0
-  m_Name: Level List
+  m_Name: LevelList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,8 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e6e0e1a29543bfa275096316b6b25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelScenes:
-  - Main_menu
-  - IntegrationScene1
-  - IntegrationScene2
-  - EndGame
+  levelScenes: []

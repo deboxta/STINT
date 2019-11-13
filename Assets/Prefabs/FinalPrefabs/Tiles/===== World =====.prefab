@@ -123,24 +123,24 @@ Tilemap:
   - m_RefCount: 0
     m_Data:
       e00: NaN
-      e01: 0
-      e02: 1.05e-43
-      e03: 0
+      e01: NaN
+      e02: NaN
+      e03: 1.26e-43
       e10: NaN
-      e11: 0
-      e12: NaN
+      e11: NaN
+      e12: 4.5914e-41
       e13: 0
-      e20: 1.05e-43
-      e21: 0
-      e22: 0
-      e23: 0
-      e30: 7.09e-43
-      e31: NaN
-      e32: 0
-      e33: 5.429e-42
+      e20: 0
+      e21: NaN
+      e22: 1.0469247e-38
+      e23: 2.5373765e-22
+      e30: 0
+      e31: 4.5914e-41
+      e32: 3.949078e-39
+      e33: 5.45e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: -3.912945e+11, g: -3.912945e+11, b: -3.912945e+11, a: -3.912945e+11}
+    m_Data: {r: 3.4509184e+19, g: 3.4509184e+19, b: 3.4509184e+19, a: 3.4509184e+19}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -25, y: -27, z: 0}
