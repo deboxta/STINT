@@ -19,6 +19,7 @@ namespace Game
         private SaveSystem saveSystem;
         private List<Button> savesButtons;
         private List<GameObject> deleteButtons;
+        private const string DEFAULT_SAVE_NAME = "empty";
 
         private void Awake()
         {
@@ -52,15 +53,30 @@ namespace Game
         public void LoadSavesNames()
         {
             List<DataCollector> dataInfo = saveSystem.GetSaves();
-            int index = 0;
-            foreach (var data in dataInfo)
+            for (int index = -1; index < 3; index++)
             {
-                savesButtons[index].GetComponent<Image>().enabled = true;
-                savesButtons[index].GetComponentInChildren<Text>().text = data.Name;
-                savesButtons[index].GetComponentInChildren<Button>().enabled = true;
-                deleteButtons[index].SetActive(true);
-                savesButtons[index].enabled = true;
-                index++;
+                if (dataInfo.Count != 0)
+                {
+                    foreach (var data in dataInfo)
+                    {
+                        index++;
+                        savesButtons[index].GetComponent<Image>().enabled = true;
+                        savesButtons[index].GetComponentInChildren<Text>().text = data.Name;
+                        savesButtons[index].GetComponentInChildren<Button>().enabled = true;
+                        deleteButtons[index].SetActive(true);
+                        savesButtons[index].enabled = true;
+                    }
+
+                    dataInfo.Clear();
+                }
+                else if (index != -1)
+                {
+                    savesButtons[index].GetComponent<Image>().enabled = false;
+                    savesButtons[index].GetComponentInChildren<Text>().text = DEFAULT_SAVE_NAME;
+                    savesButtons[index].GetComponentInChildren<Button>().enabled = false;
+                    deleteButtons[index].SetActive(false);
+                    savesButtons[index].enabled = false;
+                }
             }
         }
     }
