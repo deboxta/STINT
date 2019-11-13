@@ -269,7 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7492174739ac4e1788b51bc35a93b0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 0.05
+  fadeSpeed: 0.025
+  fadeBy: 0.02
 --- !u!1 &1557757039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3335593475322764020, guid: 7d253f9b4bea2f0449410b58bb766c1e,

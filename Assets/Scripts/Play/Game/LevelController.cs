@@ -73,21 +73,16 @@ namespace Game
         {
             yield return SceneManager.LoadSceneAsync(levelScenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
-            yield return new WaitForSeconds(1.5f);
-            
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
         }
 
         private IEnumerator UnloadGame()
         {
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
-            
-            yield return new WaitForSeconds(1.5f);
         }
 
         private IEnumerator RestartLevel()
         {
-            //Finder.Player.gameObject.SetActive(false);
             yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
             yield return LoadGame();
