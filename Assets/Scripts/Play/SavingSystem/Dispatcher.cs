@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Game
 {
     [Findable(R.S.Tag.MainController)]
-
     public class Dispatcher : MonoBehaviour
     {
         private Player player;

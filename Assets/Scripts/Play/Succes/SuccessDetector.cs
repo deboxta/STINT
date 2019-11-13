@@ -4,19 +4,23 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SuccesDetector : MonoBehaviour
+    public class SuccessDetector : MonoBehaviour
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private GameWonEventChannel gameWonEventChannel;
-        //private Serialize serialize;
-        private bool first
+        private Dispatcher dispatcher;
+        private bool firstDeath;
+        private bool wonWithoutDying;
 
         private void Awake()
         {
+            dispatcher = Finder.Dispatcher;
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             gameWonEventChannel = Finder.GameWonEventChannel;
+            firstDeath = false;
+            wonWithoutDying = false;
 
-            CheckAlreadyUnlockedSucces();
+            CheckAlreadyUnlockedSuccess();
         }
 
         private void OnEnable()
@@ -33,25 +37,29 @@ namespace Game
 
         private void OnPlayerDeath()
         {
-            if (serialize.neverDied)
+            if (dispatcher.DataCollector.NbDeath == 1)
             {
-                throw new NotImplementedException();
+                firstDeath = true;
+                //Show notification and save achievement
+                playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
             }
         }
 
         private void OnGameWon()
         {
-            if (expr)
+            if (dispatcher.DataCollector.NbDeath == 0)
             {
-                throw new NotImplementedException();
+                wonWithoutDying = true;
+                //Show notification and save achievement
+                gameWonEventChannel.OnGameWon -= OnGameWon;
             }
         }
 
-        private void CheckAlreadyUnlockedSucces()
+        private void CheckAlreadyUnlockedSuccess()
         {
-            /*if (serialize.gameWon && serialize.neverDied)
+            /*if (dispatcher.DataCollector.FirstDeath == true)
             {
-                gameWonEventChannel.OnGameWon -= OnGameWon;
+                firstDeath = true;
             }
 
             if (expr)
