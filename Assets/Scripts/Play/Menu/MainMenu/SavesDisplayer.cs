@@ -9,20 +9,27 @@ namespace Game
 {
     public class SavesDisplayer : MonoBehaviour
     {
-        [SerializeField] private Text save1Text;
-        [SerializeField] private Text save2Text;
-        [SerializeField] private Text save3Text;
+        [SerializeField] private Button save1;
+        [SerializeField] private Button save2;
+        [SerializeField] private Button save3;
         
         private SaveSystem saveSystem;
-        private List<Text> savesTexts;
+        private List<Button> savesButtons;
 
         private void Awake()
         {
-            saveSystem = new SaveSystem();
-            savesTexts = new List<Text>();
-            savesTexts.Add(save1Text);
-            savesTexts.Add(save2Text);
-            savesTexts.Add(save3Text);
+           saveSystem = new SaveSystem();
+           savesButtons = new List<Button>();
+
+            savesButtons.Add(save1);
+            savesButtons.Add(save2);
+            savesButtons.Add(save3);
+            foreach (var button in savesButtons)
+            {
+                button.GetComponent<Image>().enabled = false;
+                button.enabled = false;
+            }
+
 
             LoadSavesNames();
         }
@@ -33,13 +40,15 @@ namespace Game
             int index = 0;
             foreach (var data in dataInfo)
             {
-                savesTexts[index].text = data.Name;
+                savesButtons[index].GetComponent<Image>().enabled = true;
+                savesButtons[index].GetComponentInChildren<Text>().text = data.Name;
+                savesButtons[index].enabled = true;
                 index++;
             }
 
-            savesTexts[0] = save1Text;
-            savesTexts[1] = save2Text;
-            savesTexts[2] = save3Text;
+            savesButtons[0] = save1;
+            savesButtons[1] = save2;
+            savesButtons[2] = save3;
         }
     }
 }
