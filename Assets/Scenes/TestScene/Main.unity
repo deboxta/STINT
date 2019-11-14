@@ -253,6 +253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
         type: 3}
+      propertyPath: scenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
       propertyPath: levelScenes.Array.data[0]
       value: Main_menu
       objectReference: {fileID: 0}
@@ -270,6 +275,21 @@ PrefabInstance:
         type: 3}
       propertyPath: levelScenes.Array.data[3]
       value: EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
+      propertyPath: scenes.Array.data[0]
+      value: Main_menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178552235206937648, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
+      propertyPath: scenes.Array.data[1]
+      value: Chapter5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763575430632172527, guid: 8db2f018e065eab44ad7dfdeffdc0ddc,
+        type: 3}
+      propertyPath: m_Name
+      value: Scene List
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db2f018e065eab44ad7dfdeffdc0ddc, type: 3}

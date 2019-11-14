@@ -13,14 +13,14 @@ namespace Game
 
         private RectTransform rectTransform;
         private Text text;
-        private LevelController levelController;
+        private SceneController sceneController;
         
         private void Awake()
         {
             rectTransform = GetComponent<Canvas>().GetComponent<RectTransform>();
             text = GetComponentInChildren<Text>();
 
-            levelController = Finder.LevelController;
+            sceneController = Finder.SceneController;
         }
 
         private IEnumerator Start()
@@ -48,7 +48,7 @@ namespace Game
                 yield return null;
             }
             
-            levelController.ReturnToMainMenu();
+            sceneController.ReturnToMainMenu();
         }
     }
 }

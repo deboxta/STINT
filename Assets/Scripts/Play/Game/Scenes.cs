@@ -3,13 +3,13 @@
 namespace Game
 {
     //Author : Sébastien Arsenault
-    public class LevelScenes : MonoBehaviour
+    public class Scenes : MonoBehaviour
     {
-        [SerializeField] private string[] levelScenes;
+        [SerializeField] private string[] scenes;
 
         public string GetSceneName(int index)
         {
-            return levelScenes[index];
+            return scenes[index];
         }
     }
 }

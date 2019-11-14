@@ -12,7 +12,7 @@ namespace Game
         private Player player;
         private DataCollector dataCollector;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
-        private LevelController levelController;
+        private SceneController sceneController;
 
         public DataCollector DataCollector
         {
@@ -24,7 +24,7 @@ namespace Game
         {
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             dataCollector = new DataCollector();
-            levelController = Finder.LevelController;
+            sceneController = Finder.SceneController;
         }
 
         public void GetData()
@@ -53,7 +53,7 @@ namespace Game
 
         private int GetScene()
         {
-            return levelController.CurrentLevel;
+            return sceneController.CurrentLevel;
         }
     }
 }

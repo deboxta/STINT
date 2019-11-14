@@ -7,7 +7,7 @@ namespace Game
 {
     //Author : Sébastien Arsenault
     [Findable(R.S.Tag.MainController)]
-    public class LevelController : MonoBehaviour
+    public class SceneController : MonoBehaviour
     {
         private const int STARTING_LEVEL = 0;
         
@@ -15,7 +15,7 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        private LevelScenes levelScenes;
+        private Scenes scenes;
         private int currentLevel;
         private Dispatcher dispatcher;
 
@@ -31,18 +31,18 @@ namespace Game
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
-            levelScenes = GetComponentInChildren<LevelScenes>();
+            scenes = GetComponentInChildren<Scenes>();
             
             currentLevel = STARTING_LEVEL;
         }
         
         private void Start()
         {
-            if (!SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)).isLoaded)
+            if (!SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)).isLoaded)
                 StartCoroutine(LoadGame());
             else
             {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
             }
         }
         
@@ -94,16 +94,16 @@ namespace Game
 
         private IEnumerator LoadGame()
         {
-            yield return SceneManager.LoadSceneAsync(levelScenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
             
             Finder.TimelineController.ResetTimeline();
         }
 
         private IEnumerator UnloadGame()
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(levelScenes.GetSceneName(currentLevel)));
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
         }
 
         private IEnumerator RestartLevel()

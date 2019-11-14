@@ -10,7 +10,7 @@ namespace Game
     [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] menuPages = null;
+        [SerializeField] private GameObject firstPage = null;
         [SerializeField] private GameObject popupWindow = null;
         
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
@@ -30,26 +30,9 @@ namespace Game
 
             dispatcher = Finder.Dispatcher;
             saveSystem = Finder.SaveSystem;
-        }
-        
-        private GameObject GetActivePage()
-        {
-            for (int i = 0; i < menuPages.Length; i++)
-            {
-                if (menuPages[i].activeSelf == true)
-                {
-                    return menuPages[i];
-                }            
-            }
-
-            return null;
+            activePage = firstPage;
         }
 
-        private void Update()
-        {
-            activePage = GetActivePage();
-        }
-        
         [UsedImplicitly]
         public void DeleteSave()
         {
@@ -70,6 +53,7 @@ namespace Game
         {
             activePage.SetActive(false);
             toEnable.SetActive(true);
+            activePage = toEnable;
             menuPageChangedEventChannel.NotifyPageChanged();
         }
 
@@ -102,6 +86,7 @@ namespace Game
             popupWindow.SetActive(true);
         }
         
+        //TODO: Should be called in maincontroller when maincontroller is implemented
         [UsedImplicitly]
         public void ExitGame()
         {

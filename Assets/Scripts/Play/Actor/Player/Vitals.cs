@@ -8,19 +8,23 @@ namespace Game
     {
         [SerializeField] private float maxMentalHealth = 10;
         
-        private TimelineChangedEventChannel timelineChangedEventChannel;
-        private PlayerDeathEventChannel deathEventChannel;
         private Player player;
+        private TimelineController timelineController;
 
         private bool isActiveSanity;
+        private bool playerIsDead;
         private float healthLeft;
-        
+
+        public float HealthLeft => healthLeft;
+
+        public float MaxMentalHealth => maxMentalHealth;
+
         private void Awake()
         {
-            deathEventChannel = Finder.PlayerDeathEventChannel;
-            timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
-            isActiveSanity = false;
+            timelineController = Finder.TimelineController;
             healthLeft = maxMentalHealth;
+            playerIsDead = false;
+            isActiveSanity = false;
         }
 
         private void Start()
@@ -29,41 +33,16 @@ namespace Game
             
         }
 
-        private void OnEnable()
-        {
-            timelineChangedEventChannel.OnTimelineChanged += TimelineChange;
-            deathEventChannel.OnPlayerDeath += PlayerDeath;
-        }
-
-
-        private void OnDisable()
-        {
-            timelineChangedEventChannel.OnTimelineChanged -= TimelineChange;
-            deathEventChannel.OnPlayerDeath -= PlayerDeath;
-        }
-        
-        private void PlayerDeath()
-        {
-            healthLeft = maxMentalHealth;
-        }
-        
-        private void TimelineChange()
-        {
-            switch (Finder.TimelineController.CurrentTimeline)
-            {
-                case Timeline.Primary:
-                    isActiveSanity = false;
-                    break;
-                case Timeline.Secondary:
-                    isActiveSanity = true;
-                    break;
-            }
-        }
-
         private void Update()
         {
-            if (healthLeft <= 0)
+            if (timelineController.CurrentTimeline == Timeline.Primary)
+                isActiveSanity = false;
+            else
+                isActiveSanity = true;
+
+            if (healthLeft <= 0 && !playerIsDead)
             {
+                playerIsDead = true;
                 player.Die();
             }
             else if (healthLeft > 0)
@@ -73,11 +52,6 @@ namespace Game
                 else
                     healthLeft += Time.deltaTime;
             }
-        }
-        
-        public float CalculateSliderValue()
-        {
-            return ((healthLeft*100) / maxMentalHealth);
         }
     }
 }

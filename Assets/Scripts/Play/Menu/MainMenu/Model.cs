@@ -4,7 +4,7 @@ using Harmony;
 
 namespace Game
 {
-    public class Model : IModel
+    public class Model
     {
         //BETA : implement the Model once the serialization saving system is implemented.
         private SaveSystem saveSystem;
