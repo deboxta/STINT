@@ -30,7 +30,7 @@ TagManager:
   - Floor
   - Wall
   - OneWay
-  - 
+  - Player
   - 
   - 
   - 
@@ -63,9 +63,9 @@ TagManager:
   - name: Wall
     uniqueID: 2691102679
     locked: 0
-  - name: Plateform
-    uniqueID: 2324732745
-    locked: 0
   - name: Player
     uniqueID: 2885717815
+    locked: 0
+  - name: Props
+    uniqueID: 248300439
     locked: 0
