@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ namespace Game
         private RectTransform rectTransform;
         private Text text;
         private LevelController levelController;
+        private GameWonEventChannel gameWonEventChannel;
         
         private void Awake()
         {
@@ -21,10 +23,13 @@ namespace Game
             text = GetComponentInChildren<Text>();
 
             levelController = Finder.LevelController;
+            gameWonEventChannel = Finder.GameWonEventChannel;
         }
 
         private IEnumerator Start()
         {
+            gameWonEventChannel.NotifyGameWon();
+            
             yield return null;
             
             var textRectTransform = text.rectTransform;
@@ -47,7 +52,7 @@ namespace Game
 
                 yield return null;
             }
-            
+
             levelController.ReturnToMainMenu();
         }
     }
