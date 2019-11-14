@@ -25,7 +25,7 @@ namespace Game
             playerDeathEventChannel.OnPlayerDeath -= NotifyFirstDeath;
         }
 
-        public void NotifyFirstDeath() 
+        private void NotifyFirstDeath() 
         { 
             if (OnFirstDeath != null) OnFirstDeath();
         }

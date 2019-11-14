@@ -24,7 +24,7 @@ namespace Game
             secretRoomFoundEventChannel.OnSecretRoomFound -= NotifySecretRoomFound;
         }
 
-        public void NotifySecretRoomFound() 
+        private void NotifySecretRoomFound() 
         { 
             if (OnSecretRoomFound != null) OnSecretRoomFound();
         }

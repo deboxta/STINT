@@ -24,7 +24,7 @@ namespace Game
             gameWonEventChannel.OnGameWon -= NotifyGameWon;
         }
 
-        public void NotifyGameWon() 
+        private void NotifyGameWon() 
         { 
             if (OnGameWonSuccess != null) OnGameWonSuccess();
         }

@@ -24,7 +24,7 @@ namespace Game
             savedSceneLoadedEventChannel.OnSavedSceneLoaded -= NotifySaveNamedBen;
         }
 
-        public void NotifySaveNamedBen() 
+        private void NotifySaveNamedBen() 
         { 
             if (OnSaveNamedBen != null) OnSaveNamedBen();
         }
