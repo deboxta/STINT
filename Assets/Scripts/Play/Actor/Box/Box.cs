@@ -22,6 +22,7 @@ namespace Game
         private Vector3 positionPastBox;
         private TimelineController timelineController;
 
+        //BR : Excellent.
         public Vector3 Position
         {
             get => transform.position;
@@ -48,6 +49,8 @@ namespace Game
             timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChange;
         }
 
+        //BR : Renommer en "DesactivateComponents".
+        //     En fait, j'irais même plus loin en renommant cela en "Hide".
         private void DeActivateComponents()
         {
             rigidbody2D.simulated = false;
@@ -56,6 +59,8 @@ namespace Game
             stimuli.enabled = false;
         }
 
+        //BR : Placer cette méthode "avant" "DeActivateComponents".
+        //BR : Renommer pour "Show".
         private void ActivateComponents()
         {
             rigidbody2D.simulated = true;
@@ -78,20 +83,27 @@ namespace Game
         {
             if (boxFutureReference != null)
             {
+                //BR : Utiliser une méthode d'extension pour savoir si deux position
+                //     sont à peu près les mêmes.
                 if (Math.Abs(Position.x - positionPastBox.x) >= 0.1 ||
                     Math.Abs(Position.y - positionPastBox.y) >= 0.1)
                     boxFutureReference.Position = Position;
 
+                //BC : Es-tu certain que tu ne devrais pas assigner cette valeur une première fois au "Awake" aussi ?
                 positionPastBox = Position;
             }
         }
 
+        //BR : Nommage. Grab.
         public void Grabbed()
         {
             rigidbody2D.simulated = false;
             transform.localPosition = Vector3.zero;
         }
 
+        //BC : Devrait recevoir en paramètre une direction sous la forme d'une Vector2 (ou un Vector3)
+        //     ainsi qu'une force. Actuellement, la boite sait la force avec laquelle elle est lancée.
+        //BR : Nommage. Throw.
         public void Throwed(bool isLookingRight)
         {
             transform.parent = null;
@@ -102,6 +114,7 @@ namespace Game
                 rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
         }
 
+        //BR : Nommage. Drop.
         public void Dropped()
         {
             transform.parent = null;

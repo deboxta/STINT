@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Game
 {
+    //BR : Clean. Ne touchez pas à ça.
+    
     //Author : Jeammy Côté and Mathieu Boutet from FPP.
     public class TimelineChangeableObject : MonoBehaviour
     {
@@ -15,6 +17,7 @@ namespace Game
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             
+            //BR : Peut être raccourci. Voir propostion plus bas.
             GameObject[] children = this.Children();
 
             foreach (var child in children)
@@ -29,6 +32,17 @@ namespace Game
                     secondaryTimelineObject = child;
                 }
             }
+            
+            //BR : Proposition.
+            /*
+            foreach (var child in this.Children())
+            {
+                if (child.CompareTag(R.S.Tag.MainTimeline))
+                    mainTimelineObject = child;
+                if (child.CompareTag(R.S.Tag.SecondaryTimeline))
+                    secondaryTimelineObject = child;
+            }
+            */
         }
 
         private void OnEnable()

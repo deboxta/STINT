@@ -5,6 +5,11 @@ using UnityEngine;
 namespace Game
 {
     // Author : Mathieu Boutet
+    //BC : Je crois que tu as essayé de trop réutiliser le code de la classe Laser, ce qui cause tout ces défauts
+    //     de structure.
+    //
+    //     Tu peux te faire une classe de base pour les lasers, mais je crois qu'elle va contenir plus de méthodes
+    //     abstraites que autre chose. Il y aura probablement pas grand chose de réutilisable.
     public class SegmentedLaser : Laser, IFreezable
     {
         [SerializeField] [Range(0, 1000)] private int nbMaxSegments = 100;
@@ -12,8 +17,12 @@ namespace Game
         [SerializeField] [Range(0, 50)] private float gapSize = 1;
         [SerializeField] [Range(-50, 50)] private float movementSpeed = 1;
 
+        //BR : Il y a des constantes autogénérées justement pour ça;
+        //     Voir R.S.GameObject.LaserBeamSegment;
         private const string SEGMENT_OBJECT_NAME = "LaserBeamSegment";
 
+        //BC : Défaut dans l'héritage. Certaines parties de la classe "Laser" ne sont pas utilisées (voir laserBeam).
+        //     Lorsque l'on fait de l'héritage, c'est pour ajouter des fonctionalités et non pas en remplacer.
         private LineRenderer[] laserBeamSegments;
         private float currentOffset;
         private int nbActiveSegments;
@@ -27,6 +36,7 @@ namespace Game
                     var playerRaycastHit = RaycastHits[0];
                     for (int i = 0; i < nbActiveSegments; i++)
                     {
+                        //BR : Bon usage de méthodes d'extension.
                         if (laserBeamSegments[i].GetPosition(1).IsPast(playerRaycastHit.point,
                                                                        transform.right, 0)
                          && (laserBeamSegments[i].GetPosition(0).IsBefore(playerRaycastHit.point,

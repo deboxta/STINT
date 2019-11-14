@@ -2,6 +2,8 @@
 
 namespace Game
 {
+    //BR : Clean. Touchez pas à ça.
+    
     // Author : Mathieu Boutet
     public class DeadlyTrap : MonoBehaviour
     {

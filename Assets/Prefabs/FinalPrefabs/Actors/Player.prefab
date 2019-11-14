@@ -224,8 +224,8 @@ MonoBehaviour:
   numberOfJumpsLeft: 0
   wallJumpForce: 1.5
   wallSlideSpeed: 1.5
-  gravityMultiplier: 5
-  fallGravityMultiplier: 10
+  gravityMultiplier: 1
+  fallGravityMultiplier: 1
   xSpeed: 10
   yForce: 16
   groundCheckRadius: 1
@@ -256,8 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f9615fffed414493319da7ba245efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CHANGE_TIMELINE_KEYBOARD_KEY: 304
-  InputThreshold: 0.13
+  changeTimelineKeyboardKey: 304
+  freezeTimeKeyboardKey: 113
+  inputThreshold: 0.13
 --- !u!114 &498739955404519404
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ namespace Game
         private Player player;
         private bool viewingRight;
         private bool crouching;
+        //BC : Utilise "Clicked" ou "Pressed", mais pas les deux dans tes noms de variables.
+        //     J'ai une préférence pour "Pressed".
         private bool timeChangeIsClicked;
         private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
@@ -31,11 +33,14 @@ namespace Game
             freezeTimeIsClicked = false;
         }
 
+        //BC : La méthode "Update" mériterait d'être découpée en de plus petites méthodes.
         private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
             //Crouch
+            //BR : Vous êtes vraiment chanceux que "Xinput" gère lui même ses "Deadzones". Sinon, la comparaison entre X et 0
+            //     ne marcherais jamais.
             if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
                 crouching = true;
             else
@@ -43,11 +48,13 @@ namespace Game
 
             var direction = Vector2.zero;
             //Right
+            //BC : Beaucoup de "SerializedFields" manquants ici (pour les KeyCode). Vous en avez quelques un en haut pourtant. 
             if (Input.GetKey(KeyCode.D) ||
                 gamePadState.ThumbSticks.Left.X > inputThreshold)
             {
                 direction += Vector2.right;
                 player.IsLookingRight = true;
+                //BC : Il y a un "IsLookingRight" ici. Cela me semble similaire à "FlipPlayer".
                 if (transform.localScale.x < 0)
                     player.FlipPlayer();
             }
@@ -58,6 +65,7 @@ namespace Game
             {
                 direction += Vector2.left;
                 player.IsLookingRight = false;
+                //BC : Il y a un "IsLookingRight" ici. Cela me semble similaire à "FlipPlayer".
                 if (transform.localScale.x > 0)
                     player.FlipPlayer();
             }
@@ -107,6 +115,7 @@ namespace Game
 
             //Throw
             if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
+                //BC : Voir mes commentaires dans cette méthode.
                 player.ThrowBox(crouching);
         }
     }

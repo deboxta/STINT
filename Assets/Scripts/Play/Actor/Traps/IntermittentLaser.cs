@@ -69,6 +69,9 @@ namespace Game
             if (Firing) 
                 base.FixedUpdate();
 
+            //BR : Pourrait facilement être remplacé par une "Coroutine".
+            //BC : N'utilisez pas "StopWatch" pour les calculs de temps avec Unity. Si vous mettez votre jeu en pause
+            //     avec le "TimeScale", le "StopWatch" continue quand même.
             if (switchFiringStateStopwatch.Elapsed >= firingStopwatchCurrentTimeLimit)
             {
                 Firing = !Firing;

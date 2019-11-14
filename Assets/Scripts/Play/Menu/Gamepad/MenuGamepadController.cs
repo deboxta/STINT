@@ -6,6 +6,12 @@ using XInputDotNetPure;
 //Author : Yannick Cote
 namespace Game
 {
+    //BC : Ooof....je me suis vraiment cassé la tête la dessus. C'est un méchant spaghetti ce truc là.
+    //     Est-ce que c'est parce que tu as tenté de faire un "MenuGamepadController" qui marcherait avec
+    //     tous les menus ?
+    //
+    //     En plus, cela semble gérer le "Temps" aussi (voir méthodes "Pause", "Resume" et "Exit").
+    //     Il y a de la séparation en petites classes à faire ici.
     public class MenuGamepadController : MonoBehaviour
     {
         [Header("Type menu")] 
@@ -29,10 +35,17 @@ namespace Game
         private bool isbodyNotNull;
         private bool isreturnButtonNotNull; 
 
+        //BC : Code mort.
         private bool CanvasEnabled => canvas.enabled;
 
         private void Awake()
         {
+            //BC : Pourquoi cette condition là existe ? C'est quoi que vous avez essayé de faire avec
+            //     ça ? Que tentez-vous de résoudre comme problème ?
+            //
+            //     Si je comprends bien, le "MainMenu" a un structure différente des autres et doit
+            //     doit avoir un traitement spécial ? Cela me semble une patch plus que d'autre chose :
+            //     le véritable problème est ailleurs.
             if (!isMainMenu)
             {
                 canvas = GetComponent<Canvas>();
@@ -43,6 +56,8 @@ namespace Game
             {
                 menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
                 canvas = GetComponentInParent<Canvas>();
+                //BC : OH non! Faites tout sauf ça!! Rcherche le "GameObject" par nom, je sais pas, mais
+                //     jamais ça!!!
                 firstButton = GetComponentInChildren<Image>().GetComponentInChildren<Button>();
             }
 
@@ -53,6 +68,10 @@ namespace Game
 
         private void Start()
         {
+            //BR : Euh....c'était vraiment utile ça ? Je parle de "isreturnButtonNotNull"...
+            //     Franchement, je vois pas l'intérêt de stocker une valeur pour ça.
+            //
+            //     Au pire, fait une propriété.
             isreturnButtonNotNull = returnButton != null;
             isbodyNotNull = body != null;
             isfirstButtonNotNull = firstButton != null;
@@ -73,9 +92,11 @@ namespace Game
                 menuPageChangedEventChannel.OnPageChanged -= PageChanged;
         }
 
+        //BC : ???
         private void PageChanged()
         {
             firstButton = GetComponentInChildren<Button>();
+            //BC : Constante manquante.
             if (menuController.ActivePage.name != "Menu")
                 returnButton = FindReturnButton();
 

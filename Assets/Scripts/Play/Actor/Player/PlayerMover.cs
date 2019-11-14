@@ -17,17 +17,21 @@ namespace Game
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
+        //BR : Renommer en "canPlayerMove".
         [SerializeField] private bool playerCanControlMoves;
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
+        //BC : Renommage à faire. Semble être relié uniquement au "WallJump".
         [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
+        //BR : 3 ?
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private int numberOfJumpsLeft;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
         [SerializeField] private float gravityMultiplier = 5f;
         [SerializeField] private int fallGravityMultiplier = 10;
+        //BC : Ces deux attributs devraient être un Vector2. 
         [SerializeField] private float xSpeed = 10f;
         [SerializeField] private float yForce = 15f;
         [SerializeField] private float groundCheckRadius = 1.11f; 
@@ -75,16 +79,21 @@ namespace Game
         }
         
         //Author : Jeammy Côté
+        //BC : Découpage déficient. À découper en deux (pour le sol et pour les murs).
         private void CheckSurroundings()
         {
             //TODO : Change with cube raycast
+            //BR : Il y a de meilleures façon de faire. Pourquoi pas faire un "Cast" du collider du player vers
+            //     le bas et vérifier la "normale" de la colision afin de savoir si ce qui a été touché est un sol ou pas.
+            //     Voir "rigidBody2D.Cast()".
+            //     Voir https://docs.unity3d.com/ScriptReference/Rigidbody2D.Cast.html
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,floorLayer);
             if (isGrounded)
                 isWallJumping = false;
 
             RaycastHit2D hit = Physics2D.Raycast(
                 wallCheck.position, 
-                transform.right * transform.localScale.x, 
+                transform.right * transform.localScale.x,  //BC : Aucune raison de multiplier une direction.
                 wallDistance, 
                 floorLayer);
             
@@ -107,6 +116,7 @@ namespace Game
                 if (!isWallSliding && canJump || isWallJumping)
                 {
                     //Author : Anthony Bérubé
+                    //BR : Utiliser une méthode d'extension aiderait probablement.
                     var velocity = rigidBody2D.velocity;
                     velocity.x = direction.x * xSpeed;
                     rigidBody2D.velocity = velocity;
@@ -150,6 +160,9 @@ namespace Game
         }
         
         //Author : Jeammy Côté
+        //BR : C'est quoi la différence entre WallJump et WallHop ?
+        //     Mettre un commentaire aiderais à voir la différence.
+        //     Remarque que c'est symptomatique d'un découpage ou d'un nommage déficient.
         private void WallHop()
         {
             isWallSliding = false;
@@ -195,12 +208,17 @@ namespace Game
         //Author : Anthony Bérubé
         public void Fall()
         {
+            //BR : Est-ce que cela devrait être fait seulement si le joueur n'est pas "grounded" ?
+            //     Je crois que cela change rien....
             rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
         
         //Author : Anthony Bérubé
         public void Slowed()
         {
+            //BR : Problème de précision en vue. Utilisez plutôt un multiplicateur de vitesse.
+            //     Autrement dit, cette méthode va modifier le multiplicateur de vitesse pour "0.5" par exemple.
+            //     Lorsque l'on remet le multiplicateur à 1, c'est comme s'il ne s'était rien passé.
             xSpeed /= movementPenalty;
             yForce /= movementPenalty;
         }
@@ -213,6 +231,7 @@ namespace Game
         }
         
         //Author : Jeammy Côté
+        //BC : Private manquant.
         IEnumerator StopPlayerMoves()
         {
             playerCanControlMoves = false;

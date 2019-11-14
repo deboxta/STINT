@@ -25,6 +25,7 @@ namespace Game
 
         private IEnumerator Start()
         {
+            //BC : Expliquer pourquoi le "yield return null" via un commentaire.
             yield return null;
             
             var textRectTransform = text.rectTransform;

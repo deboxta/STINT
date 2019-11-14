@@ -42,6 +42,8 @@ namespace Game
             deathEventChannel.OnPlayerDeath -= PlayerDeath;
         }
         
+        //BC : Le joueur meurt et résussite tout de suite après ?
+        //     Vous "reloadez" votre scène à chaque mort. Ça sert à rien ça.
         private void PlayerDeath()
         {
             healthLeft = maxMentalHealth;
@@ -51,6 +53,13 @@ namespace Game
         {
             switch (Finder.TimelineController.CurrentTimeline)
             {
+                //BR: Pourquoi alors ne pas tout simplement utiliser "TimelineController" dans
+                //    la méthode "Update" et comparer la valeur de "CurrentTimeline" ?
+                //
+                //    Cela éviterait d'utiliser le canal événementiel.
+                //
+                //    À moins de vouloir créer une coroutine quand la Timeline change ? À ce moment
+                //    là, ça va.
                 case Timeline.Primary:
                     isActiveSanity = false;
                     break;
@@ -64,6 +73,8 @@ namespace Game
         {
             if (healthLeft <= 0)
             {
+                //BC : Le joueur va mourir combien de fois ?
+                //     Actuellement, il meurt à chaque frame. Cela devrait se produire une seule fois.
                 player.Die();
             }
             else if (healthLeft > 0)
@@ -75,6 +86,7 @@ namespace Game
             }
         }
         
+        //BC : Pas à la bonne place. Devrait être fait dans "HudController" à la place.
         public float CalculateSliderValue()
         {
             return ((healthLeft*100) / maxMentalHealth);

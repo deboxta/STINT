@@ -4,6 +4,8 @@ namespace Game
 {
     //Author : Anthony Bérubé
     
+    //BR : Pas loin d'être propre. Quelques modifications à faire seulement.
+    
     public class Hands : MonoBehaviour
     {
         private Box box;
@@ -13,6 +15,9 @@ namespace Game
 
         private void Awake()
         {
+            //BC : Duplication d'information. Si "box" est pas null, c'est que tu "hold" une box.
+            //     Je me permet de pénaliser ici, car c'était très facile à régler.
+            //     Éviter de faire cela à l'avenir : c'est une source importante de bogues.
             isHoldingBox = false;
         }
 
@@ -25,6 +30,7 @@ namespace Game
             isHoldingBox = true;
         }
 
+        //BC : Voir commentaires dans "Box" sur la méthode "Throwed". C'est la même chose ici.
         public void Throw(bool isLookingRight)
         {
             box.Throwed(isLookingRight);
