@@ -26,12 +26,6 @@ namespace Game
             CheckAlreadyUnlockedSuccess();
         }
 
-        /*private void OnEnable()
-        {
-            firstDeathSuccess.OnFirstDeath += OnFirstDeathDetected;
-            wonWithoutDyingSuccess.OnGameWonWithoutDyingSuccess += OnGameWonWithoutDyingWithoutDyingDetected;
-        }*/
-        
         private void OnDisable()
         {
             firstDeathSuccess.OnFirstDeath -= OnFirstDeathDetected;
