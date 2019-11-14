@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/PersonalScenes/Yannick/Chapter5.unity
+    guid: be172f5f57553944599605dd574380dd
   - enabled: 0
     path: Assets/Scenes/TestScenes/IntegrationScene.unity
     guid: d9beda175e549aa47bc5cca5a5fd2224
