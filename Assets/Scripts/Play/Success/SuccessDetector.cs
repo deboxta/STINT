@@ -22,13 +22,6 @@ namespace Game
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
         }
 
-        /*private IEnumerator Start()
-        {
-            yield return null;
-            
-            CheckAlreadyUnlockedSuccess();
-        }*/
-
         private void OnEnable()
         {
             savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
