@@ -19,16 +19,17 @@ namespace Game
         private GameObject activePage;
         private SaveSystem saveSystem;
         private Dispatcher dispatcher;
+        private GameObject saveToDelete;
 
         public GameObject ActivePage => activePage;
-
+        
         private void Awake()
         {
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
 
             dispatcher = Finder.Dispatcher;
-            saveSystem = new SaveSystem();
+            saveSystem = Finder.SaveSystem;
         }
         
         private GameObject GetActivePage()
@@ -50,9 +51,12 @@ namespace Game
         }
         
         [UsedImplicitly]
-        public void DeleteSave(GameObject saveNameToDelete)
+        public void DeleteSave()
         {
-            saveSystem.DeleteSave(saveNameToDelete.GetComponent<Text>().text);
+            if (saveToDelete != null)
+            {
+                saveSystem.DeleteSave(saveToDelete.GetComponent<Text>().text);
+            }
         }
 
         [UsedImplicitly]
@@ -68,7 +72,7 @@ namespace Game
             toEnable.SetActive(true);
             menuPageChangedEventChannel.NotifyPageChanged();
         }
-        
+
         [UsedImplicitly]
         public void CreateNewGameFile(InputField fileName)
         {
@@ -89,6 +93,13 @@ namespace Game
         public void ClosePopup()
         {
             popupWindow.SetActive(false);
+        }
+        
+        [UsedImplicitly]
+        public void OpenPopup(GameObject saveToDelete)
+        {
+            this.saveToDelete = saveToDelete;
+            popupWindow.SetActive(true);
         }
         
         [UsedImplicitly]

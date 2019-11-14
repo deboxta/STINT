@@ -23,7 +23,7 @@ namespace Game
 
         private void Awake()
         {
-           saveSystem = new SaveSystem();
+           saveSystem = Finder.SaveSystem;
            savesButtons = new List<Button>();
            deleteButtons = new List<GameObject>();
 
