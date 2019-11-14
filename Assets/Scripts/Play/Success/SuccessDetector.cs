@@ -14,16 +14,24 @@ namespace Game
         private SaveNamedBenSuccess saveNamedBenSuccess;
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
+        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
+            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
         }
 
-        private IEnumerator Start()
+        /*private IEnumerator Start()
         {
             yield return null;
             
             CheckAlreadyUnlockedSuccess();
+        }*/
+
+        private void OnEnable()
+        {
+            savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
         }
 
         private void OnDisable()
@@ -33,6 +41,13 @@ namespace Game
             wonGameSuccess.OnGameWonSuccess -= OnGameWonDetected;
             saveNamedBenSuccess.OnSaveNamedBen -= OnSaveNamedBenDetected;
             secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
+            
+            savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
+        }
+
+        private void OnSavedDataLoaded()
+        {
+            CheckAlreadyUnlockedSuccess();
         }
 
         private void OnSecretRoomFoundDetected()

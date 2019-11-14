@@ -7,21 +7,21 @@ namespace Game
     {
         public event SaveNamedBenSuccessEventHandler OnSaveNamedBen;
 
-        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
 
         private void Awake()
         {
-            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
+            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
         }
 
         private void OnEnable()
         {
-            savedDataLoadedEventChannel.OnSavedDataLoaded += NotifySaveNamedBen;
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded += NotifySaveNamedBen;
         }
 
         private void OnDisable()
         {
-            savedDataLoadedEventChannel.OnSavedDataLoaded -= NotifySaveNamedBen;
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded -= NotifySaveNamedBen;
         }
 
         public void NotifySaveNamedBen() 
