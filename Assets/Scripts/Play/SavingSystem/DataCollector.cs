@@ -12,6 +12,8 @@ namespace Game
         private bool firstDeath;
         private bool wonGame;
         private bool wonWithoutDying;
+        private bool saveNamedBen;
+        private bool secretRoomFound;
 
         public int ActiveScene
         {
@@ -59,6 +61,18 @@ namespace Game
         {
             get => wonGame;
             set => wonGame = value;
+        }
+
+        public bool SaveNamedBen
+        {
+            get => saveNamedBen;
+            set => saveNamedBen = value;
+        }
+        
+        public bool SecretRoomFound
+        {
+            get => secretRoomFound;
+            set => secretRoomFound = value;
         }
     }
 }

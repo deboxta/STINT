@@ -11,6 +11,8 @@ namespace Game
         private FirstDeathSuccess firstDeathSuccess;
         private WonGameSuccess wonGameSuccess;
         private WonWithoutDyingSuccess wonWithoutDyingSuccess;
+        private SaveNamedBenSuccess saveNamedBenSuccess;
+        private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
         private void Awake()
         {
@@ -35,6 +37,15 @@ namespace Game
             firstDeathSuccess.OnFirstDeath -= OnFirstDeathDetected;
             wonWithoutDyingSuccess.OnGameWonWithoutDyingSuccess -= OnGameWonWithoutDyingWithoutDyingDetected;
             wonGameSuccess.OnGameWonSuccess -= OnGameWonDetected;
+            saveNamedBenSuccess.OnSaveNamedBen -= OnSaveNamedBenDetected;
+            secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
+        }
+
+        private void OnSecretRoomFoundDetected()
+        {
+            dispatcher.DataCollector.SecretRoomFound = true;
+            secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
+            secretRoomFoundSuccess.DestroySuccess();
         }
 
         private void OnFirstDeathDetected()
@@ -61,6 +72,16 @@ namespace Game
             }
         }
 
+        private void OnSaveNamedBenDetected()
+        {
+            if (dispatcher.DataCollector.Name == "ben")
+            {
+                dispatcher.DataCollector.SaveNamedBen = true;
+                saveNamedBenSuccess.OnSaveNamedBen -= OnSaveNamedBenDetected;
+                saveNamedBenSuccess.DestroySuccess();
+            }
+        }
+
         private void CheckAlreadyUnlockedSuccess()
         {
             if (!dispatcher.DataCollector.FirstDeath)
@@ -79,6 +100,18 @@ namespace Game
             {
                 wonWithoutDyingSuccess = gameObject.AddComponent<WonWithoutDyingSuccess>();
                 wonWithoutDyingSuccess.OnGameWonWithoutDyingSuccess += OnGameWonWithoutDyingWithoutDyingDetected;
+            }
+
+            if (!dispatcher.DataCollector.SaveNamedBen)
+            {
+                saveNamedBenSuccess = gameObject.AddComponent<SaveNamedBenSuccess>();
+                saveNamedBenSuccess.OnSaveNamedBen += OnSaveNamedBenDetected;
+            }
+
+            if (!dispatcher.DataCollector.SecretRoomFound)
+            {
+                secretRoomFoundSuccess = gameObject.AddComponent<SecretRoomFoundSuccess>();
+                secretRoomFoundSuccess.OnSecretRoomFound += OnSecretRoomFoundDetected;
             }
         }
     }
