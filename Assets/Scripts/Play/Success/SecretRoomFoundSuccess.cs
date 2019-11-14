@@ -3,15 +3,19 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SecretRoomFoundSuccess : MonoBehaviour
+    public class SecretRoomFoundSuccess : MonoBehaviour, ISuccess
     {
         public event SecretRoomFoundEventChannel.SecretRoomFoundEventHandler OnSecretRoomFound;
         
         private SecretRoomFoundEventChannel secretRoomFoundEventChannel;
         
+        public string successName { get; set; }
+        
         private void Awake()
         {
             secretRoomFoundEventChannel = Finder.SecretRoomFoundEventChannel;
+            
+            successName = "SecretRoomFoundSuccess";
         }
 
         private void OnEnable()

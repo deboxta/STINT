@@ -15,11 +15,13 @@ namespace Game
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+        private SuccessUnlockedEventChannel successUnlockedEventChannel;
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
+            successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
         }
 
         private void OnEnable()
@@ -43,11 +45,17 @@ namespace Game
             CheckAlreadyUnlockedSuccess();
         }
 
+        private void OnSuccessUnlocked(string successName)
+        {
+            successUnlockedEventChannel.NotifySuccessUnlocked(successName);
+        }
+
         private void OnSecretRoomFoundDetected()
         {
             dispatcher.DataCollector.SecretRoomFound = true;
             secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
             secretRoomFoundSuccess.DestroySuccess();
+            OnSuccessUnlocked(secretRoomFoundSuccess.successName);
         }
 
         private void OnFirstDeathDetected()
@@ -55,6 +63,7 @@ namespace Game
             dispatcher.DataCollector.FirstDeath = true;
             firstDeathSuccess.OnFirstDeath -= OnFirstDeathDetected;
             firstDeathSuccess.DestroySuccess();
+            OnSuccessUnlocked(firstDeathSuccess.successName);
         }
 
         private void OnGameWonDetected()
@@ -62,6 +71,7 @@ namespace Game
             dispatcher.DataCollector.WonGame = true;
             wonGameSuccess.OnGameWonSuccess -= OnGameWonDetected;
             wonGameSuccess.DestroySuccess();
+            OnSuccessUnlocked(wonGameSuccess.successName);
         }
         
         private void OnGameWonWithoutDyingWithoutDyingDetected()
@@ -71,6 +81,7 @@ namespace Game
                 dispatcher.DataCollector.WonWithoutDying = true;
                 wonWithoutDyingSuccess.OnGameWonWithoutDyingSuccess -= OnGameWonWithoutDyingWithoutDyingDetected;
                 wonWithoutDyingSuccess.DestroySuccess();
+                OnSuccessUnlocked(wonWithoutDyingSuccess.successName);
             }
         }
 
@@ -81,6 +92,7 @@ namespace Game
                 dispatcher.DataCollector.SaveNamedBen = true;
                 saveNamedBenSuccess.OnSaveNamedBen -= OnSaveNamedBenDetected;
                 saveNamedBenSuccess.DestroySuccess();
+                OnSuccessUnlocked(saveNamedBenSuccess.successName);
             }
         }
 

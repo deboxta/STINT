@@ -3,15 +3,19 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SaveNamedBenSuccess : MonoBehaviour
+    public class SaveNamedBenSuccess : MonoBehaviour, ISuccess
     {
         public event SaveNamedBenSuccessEventHandler OnSaveNamedBen;
 
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        
+        public string successName { get; set; }
 
         private void Awake()
         {
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            
+            successName = "SaveNamedBenSuccess";
         }
 
         private void OnEnable()

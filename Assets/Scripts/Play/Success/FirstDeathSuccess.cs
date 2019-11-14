@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace Game
 {
-    public class FirstDeathSuccess : MonoBehaviour
+    public class FirstDeathSuccess : MonoBehaviour, ISuccess
     {
         public event FirstDeathSuccessEventHandler OnFirstDeath;
         
         private PlayerDeathEventChannel playerDeathEventChannel;
+        
+        public string successName { get; set; }
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            successName = "FirstDeathSuccess";
         }
 
         private void OnEnable()
