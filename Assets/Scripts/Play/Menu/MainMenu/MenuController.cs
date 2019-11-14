@@ -1,6 +1,8 @@
 ﻿using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 //Author : Yannick Cote
 namespace Game
@@ -11,17 +13,22 @@ namespace Game
         [SerializeField] private GameObject[] menuPages = null;
         [SerializeField] private GameObject popupWindow = null;
         
-        private LevelCompletedEventChannel levelCompletedEventChannel;
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
+        private LevelCompletedEventChannel levelCompletedEventChannel;
         
         private GameObject activePage;
+        private SaveSystem saveSystem;
+        private Dispatcher dispatcher;
 
         public GameObject ActivePage => activePage;
 
         private void Awake()
         {
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+
+            dispatcher = Finder.Dispatcher;
+            saveSystem = new SaveSystem();
         }
         
         private GameObject GetActivePage()
@@ -43,9 +50,9 @@ namespace Game
         }
 
         [UsedImplicitly]
-        public void StartGame()
+        public void StartGame(GameObject fileName)
         {
-            levelCompletedEventChannel.NotifyLevelCompleted();
+            saveSystem.LoadData(fileName.GetComponent<Text>().text);
         }
 
         [UsedImplicitly]
@@ -54,6 +61,22 @@ namespace Game
             activePage.SetActive(false);
             toEnable.SetActive(true);
             menuPageChangedEventChannel.NotifyPageChanged();
+        }
+        
+        [UsedImplicitly]
+        public void CreateNewGameFile(InputField fileName)
+        {
+            if (fileName.text != null)
+            {
+                dispatcher.DataCollector.Name = fileName.text;
+                levelCompletedEventChannel.NotifyLevelCompleted();
+            }
+        }
+        
+        [UsedImplicitly]
+        public void SaveGameStatus()
+        {
+            saveSystem.SaveGame();
         }
         
         [UsedImplicitly]

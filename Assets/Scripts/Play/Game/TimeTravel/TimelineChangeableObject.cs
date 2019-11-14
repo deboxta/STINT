@@ -8,7 +8,7 @@ namespace Game
     {
         private TimelineChangedEventChannel timelineChangedEventChannel;
 
-        private GameObject mainTimelineObject;
+        private GameObject primaryTimelineObject;
         private GameObject secondaryTimelineObject;
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace Game
             {
                 if (child.CompareTag(R.S.Tag.MainTimeline))
                 {
-                    mainTimelineObject = child;
+                    primaryTimelineObject = child;
                 }
 
                 if (child.CompareTag(R.S.Tag.SecondaryTimeline))
@@ -46,12 +46,12 @@ namespace Game
             switch (Finder.TimelineController.CurrentTimeline)
             {
                 case Timeline.Primary:
-                    mainTimelineObject.SetActive(true);
-                    secondaryTimelineObject.SetActive(false);
+                    primaryTimelineObject?.SetActive(true);
+                    secondaryTimelineObject?.SetActive(false);
                     break;
                 case Timeline.Secondary:
-                    mainTimelineObject.SetActive(false);
-                    secondaryTimelineObject.SetActive(true);
+                    primaryTimelineObject?.SetActive(false);
+                    secondaryTimelineObject?.SetActive(true);
                     break;
             }
         }
