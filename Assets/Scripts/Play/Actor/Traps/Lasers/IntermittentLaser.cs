@@ -10,8 +10,8 @@ namespace Game
     // Author : Mathieu Boutet
     public class IntermittentLaser : ConstantLaser, IFreezable
     {
-        [SerializeField] [Range(0, 100)] private float onTimeInSeconds = 1;
-        [SerializeField] [Range(0, 100)] private float offTimeInSeconds = 1;
+        [Range(0, 100)] [SerializeField] private float onTimeInSeconds = 1;
+        [Range(0, 100)] [SerializeField] private float offTimeInSeconds = 1;
         
         private TimeFreezeEventChannel timeFreezeEventChannel;
         private bool firing;
