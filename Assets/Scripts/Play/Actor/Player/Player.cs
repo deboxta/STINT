@@ -99,7 +99,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-
+#if UNITY_EDITOR
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
@@ -111,5 +111,6 @@ namespace Game
             Gizmos.color = Color.red;
             Gizmos.DrawLine(bottomLeftPosition,topRightPosition);
         }
+#endif
     }
 }
