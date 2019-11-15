@@ -21,7 +21,6 @@ namespace Game
 
         private void Awake()
         {
-            timelineController = Finder.TimelineController;
             healthLeft = maxMentalHealth;
             playerIsDead = false;
             isActiveSanity = false;
@@ -30,7 +29,7 @@ namespace Game
         private void Start()
         {
             player = Finder.Player;
-            
+            timelineController = Finder.TimelineController;
         }
 
         private void Update()
