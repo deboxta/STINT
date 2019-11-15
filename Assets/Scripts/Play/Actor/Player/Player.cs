@@ -13,7 +13,7 @@ namespace Game
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        [SerializeField] private int nbdeath;
+        [SerializeField] private int nbDeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
@@ -89,7 +89,7 @@ namespace Game
             {
                 IsDead = true;
                 dispatcher.DataCollector.NbDeath++;
-                nbdeath = dispatcher.DataCollector.NbDeath;
+                nbDeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
         }
