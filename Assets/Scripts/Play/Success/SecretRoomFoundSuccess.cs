@@ -15,7 +15,7 @@ namespace Game
         {
             secretRoomFoundEventChannel = Finder.SecretRoomFoundEventChannel;
             
-            successName = "SecretRoomFoundSuccess";
+            successName = "Secret Room Found Success";
         }
 
         private void OnEnable()

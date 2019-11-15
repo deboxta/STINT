@@ -15,7 +15,7 @@ namespace Game
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
-            successName = "FirstDeathSuccess";
+            successName = "First Death Success";
         }
 
         private void OnEnable()

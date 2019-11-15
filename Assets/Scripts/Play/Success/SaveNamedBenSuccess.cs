@@ -15,7 +15,7 @@ namespace Game
         {
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
             
-            successName = "SaveNamedBenSuccess";
+            successName = "Save Named Ben Success";
         }
 
         private void OnEnable()

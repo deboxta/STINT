@@ -15,7 +15,7 @@ namespace Game
         {
             gameWonEventChannel = Finder.GameWonEventChannel;
             
-            successName = "WonGameSuccess";
+            successName = "Won Game Success";
         }
 
         private void OnEnable()
