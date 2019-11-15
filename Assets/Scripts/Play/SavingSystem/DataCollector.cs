@@ -1,7 +1,4 @@
 ﻿using System;
-using Harmony;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -12,6 +9,11 @@ namespace Game
         private float positionX, positionY;
         private int nbDeath;
         private string name;
+        private bool firstDeath;
+        private bool wonGame;
+        private bool wonWithoutDying;
+        private bool saveNamedBen;
+        private bool secretRoomFound;
 
         public int ActiveScene
         {
@@ -41,6 +43,36 @@ namespace Game
         {
             get => name;
             set => name = value;
+        }
+        
+        public bool FirstDeath
+        {
+            get => firstDeath;
+            set => firstDeath = value;
+        }
+        
+        public bool WonWithoutDying
+        {
+            get => wonWithoutDying;
+            set => wonWithoutDying = value;
+        }
+        
+        public bool WonGame
+        {
+            get => wonGame;
+            set => wonGame = value;
+        }
+
+        public bool SaveNamedBen
+        {
+            get => saveNamedBen;
+            set => saveNamedBen = value;
+        }
+        
+        public bool SecretRoomFound
+        {
+            get => secretRoomFound;
+            set => secretRoomFound = value;
         }
     }
 }

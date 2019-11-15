@@ -97,8 +97,6 @@ namespace Game
             yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
-            
-            Finder.TimelineController.ResetTimeline();
         }
 
         private IEnumerator UnloadGame()
@@ -126,8 +124,6 @@ namespace Game
             yield return UnloadGame();
             currentLevel = 0;
             yield return LoadGame();
-            Finder.TimelineController.ResetTimeline();
-            Finder.TimeFreezeController.Reset();
         }
     }
 }

@@ -40,12 +40,12 @@ namespace Game
 
         private void OnEnable()
         {
-            timelineChangedEventChannel.OnTimelineChanged += OnTimeLineChange;
+            timelineChangedEventChannel.OnTimelineChanged += OnTimelineChange;
         }
 
         private void OnDisable()
         {
-            timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChange;
+            timelineChangedEventChannel.OnTimelineChanged -= OnTimelineChange;
         }
 
         private void DeActivateComponents()
@@ -64,7 +64,7 @@ namespace Game
             stimuli.enabled = true;
         }
 
-        private void OnTimeLineChange()
+        private void OnTimelineChange()
         {
             if (timelineController.CurrentTimeline != timeOfBox)
                 DeActivateComponents();
