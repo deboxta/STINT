@@ -282,7 +282,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -307,12 +307,12 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[0]
-      value: Main_menu
+      value: Chapter5
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[1]
-      value: Chapter5
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3bc7e5b9c935ab4a99841241ec089aa, type: 3}

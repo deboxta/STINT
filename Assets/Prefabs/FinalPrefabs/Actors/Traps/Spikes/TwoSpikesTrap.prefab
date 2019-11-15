@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 5210573147480632186}
   - component: {fileID: 5210573147480632187}
   - component: {fileID: 7862098681555245451}
+  - component: {fileID: 8799272434001418408}
   m_Layer: 0
   m_Name: TwoSpikesTrap
   m_TagString: Untagged
@@ -247,6 +248,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abfc6c267748fdbae59c36b1ee87ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &8799272434001418408
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210573147480632184}
+  m_Enabled: 1
+  m_SortingLayerID: -1603864617
+  m_SortingLayer: 3
+  m_SortingOrder: 0
 --- !u!1 &5210573147777004529
 GameObject:
   m_ObjectHideFlags: 0
