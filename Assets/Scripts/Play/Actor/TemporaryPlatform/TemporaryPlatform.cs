@@ -16,7 +16,7 @@ namespace Game
         private CompositeCollider2D compositeCollider2D;
         private TilemapCollider2D tileMapCollider2D;
 
-        private bool ignoreFirstTimeLineChanged;
+        private bool ignoreFirstTimelineChanged;
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace Game
             
             Deactivate();
 
-            ignoreFirstTimeLineChanged = true;
+            ignoreFirstTimelineChanged = true;
         }
 
         private void OnEnable()
@@ -66,9 +66,10 @@ namespace Game
 
         private void OnTimelineChangedEventChannel()
         {
-            if (ignoreFirstTimeLineChanged)
+            StopAllCoroutines();
+            if (ignoreFirstTimelineChanged)
             {
-                ignoreFirstTimeLineChanged = false;
+                ignoreFirstTimelineChanged = false;
                 return;
             }
             StartCoroutine(Appear());

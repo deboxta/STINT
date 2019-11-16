@@ -1,9 +1,9 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    // Author : Mathieu Boutet
     [Findable(R.S.Tag.MainController)]
     public class TimeFreezeEventChannel : MonoBehaviour
     {
@@ -11,7 +11,6 @@ namespace Game
         
         public void NotifyTimeFreezeStateChanged()
         {
-            Debug.Log("Time frozen: " + Finder.TimeFreezeController.IsFrozen);
             if (OnTimeFreezeStateChanged != null) OnTimeFreezeStateChanged();
         }
         
