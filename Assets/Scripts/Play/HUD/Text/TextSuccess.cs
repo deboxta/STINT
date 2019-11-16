@@ -18,13 +18,6 @@ namespace Game
             successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
             textMeshProUGUI = GetComponent<TextMeshProUGUI>();
         }
-/*
-        private IEnumerator Start()
-        {
-            yield return null;
-            successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
-            textMeshProUGUI = GetComponent<TextMeshProUGUI>();
-        }*/
 
         private void OnEnable()
         {
@@ -45,7 +38,6 @@ namespace Game
         private IEnumerator DisplayText()
         {
             yield return new WaitForSeconds(displayTime);
-            //TODO check if have to use variable
             textMeshProUGUI.text = "";
         }
     }
