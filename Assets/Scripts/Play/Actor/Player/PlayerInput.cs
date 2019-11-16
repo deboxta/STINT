@@ -116,7 +116,7 @@ namespace Game
                 player.ThrowBox(crouching);
         }
         
-        IEnumerator TimeChangeDelay()
+        private IEnumerator TimeChangeDelay()
         {
             canChangeTimeline = false;
             yield return new WaitForSeconds(timeBeforePlayerCanTimeChange);
