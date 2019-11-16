@@ -3,15 +3,19 @@ using UnityEngine;
 
 namespace Game
 {
-    public class WonWithoutDyingSuccess : MonoBehaviour
+    public class WonWithoutDyingSuccess : MonoBehaviour, ISuccess
     {
         public event GameWonSuccessEventHandler OnGameWonWithoutDyingSuccess;
         
         private GameWonEventChannel gameWonEventChannel;
+        
+        public string successName { get; set; }
 
         private void Awake()
         {
             gameWonEventChannel = Finder.GameWonEventChannel;
+            
+            successName = "Won Without Dying Success";
         }
 
         private void OnEnable()
