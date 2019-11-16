@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Game
 {
     [Findable(R.S.Tag.MainController)]
-
     public class SavedDataLoadedEventChannel : MonoBehaviour
     {
         public event SavedDataLoadedHandler OnSavedDataLoaded;
