@@ -10,7 +10,7 @@ namespace Game
     [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] menuPages = null;
+        [SerializeField] private GameObject firstPage = null;
         [SerializeField] private GameObject popupWindow = null;
         
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
@@ -19,34 +19,27 @@ namespace Game
         private GameObject activePage;
         private SaveSystem saveSystem;
         private Dispatcher dispatcher;
+        private GameObject saveToDelete;
 
         public GameObject ActivePage => activePage;
-
+        
         private void Awake()
         {
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
 
             dispatcher = Finder.Dispatcher;
-            saveSystem = new SaveSystem();
+            saveSystem = Finder.SaveSystem;
+            activePage = firstPage;
         }
-        
-        private GameObject GetActivePage()
+
+        [UsedImplicitly]
+        public void DeleteSave()
         {
-            for (int i = 0; i < menuPages.Length; i++)
+            if (saveToDelete != null)
             {
-                if (menuPages[i].activeSelf == true)
-                {
-                    return menuPages[i];
-                }            
+                saveSystem.DeleteSave(saveToDelete.GetComponent<Text>().text);
             }
-
-            return null;
-        }
-
-        private void Update()
-        {
-            activePage = GetActivePage();
         }
 
         [UsedImplicitly]
@@ -60,9 +53,10 @@ namespace Game
         {
             activePage.SetActive(false);
             toEnable.SetActive(true);
+            activePage = toEnable;
             menuPageChangedEventChannel.NotifyPageChanged();
         }
-        
+
         [UsedImplicitly]
         public void CreateNewGameFile(InputField fileName)
         {
@@ -85,6 +79,14 @@ namespace Game
             popupWindow.SetActive(false);
         }
         
+        [UsedImplicitly]
+        public void OpenPopup(GameObject saveToDelete)
+        {
+            this.saveToDelete = saveToDelete;
+            popupWindow.SetActive(true);
+        }
+        
+        //TODO: Should be called in maincontroller when maincontroller is implemented
         [UsedImplicitly]
         public void ExitGame()
         {

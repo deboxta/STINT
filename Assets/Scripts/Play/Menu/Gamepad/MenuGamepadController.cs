@@ -14,7 +14,7 @@ namespace Game
         [Header("Pause menu")]
         [SerializeField] private GameObject body = null;
 
-        private LevelController levelController;
+        private SceneController sceneController;
         private MenuController menuController;
         private GamePadState gamePadState;
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
@@ -27,10 +27,7 @@ namespace Game
         private Canvas canvas; 
         private bool isfirstButtonNotNull;
         private bool isbodyNotNull;
-        private bool isreturnButtonNotNull; 
-
-        private bool CanvasEnabled => canvas.enabled;
-
+        private bool isreturnButtonNotNull;
         private void Awake()
         {
             if (!isMainMenu)
@@ -47,7 +44,7 @@ namespace Game
             }
 
             returnButton = null;
-            levelController = Finder.LevelController;
+            sceneController = Finder.SceneController;
             menuController = Finder.MenuController;
         }
 
@@ -101,7 +98,7 @@ namespace Game
             
             if (isbodyNotNull && !body.activeSelf)
             {
-                if (gamePadState.Buttons.Start == ButtonState.Pressed && levelController.CurrentLevel != 0) Pause();
+                if (gamePadState.Buttons.Start == ButtonState.Pressed && sceneController.CurrentLevel != 0) Pause();
             }
             else
             {
@@ -155,7 +152,7 @@ namespace Game
         {
             Time.timeScale = 1;
             body.SetActive(false);
-            levelController.ReturnToMainMenu();
+            sceneController.ReturnToMainMenu();
         }
     }
 }

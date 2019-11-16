@@ -14,7 +14,7 @@ namespace Game
 
         private RectTransform rectTransform;
         private Text text;
-        private LevelController levelController;
+        private SceneController sceneController;
         private GameWonEventChannel gameWonEventChannel;
         
         private void Awake()
@@ -22,7 +22,7 @@ namespace Game
             rectTransform = GetComponent<Canvas>().GetComponent<RectTransform>();
             text = GetComponentInChildren<Text>();
 
-            levelController = Finder.LevelController;
+            sceneController = Finder.SceneController;
             gameWonEventChannel = Finder.GameWonEventChannel;
         }
 
@@ -52,8 +52,8 @@ namespace Game
 
                 yield return null;
             }
-
-            levelController.ReturnToMainMenu();
+            
+            sceneController.ReturnToMainMenu();
         }
     }
 }

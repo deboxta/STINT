@@ -21,14 +21,15 @@ namespace Game
     
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Player player;
+        private TimelineController timelineController;
 
-        private void Start()
+        private const int BIG_FONT_SIZE = 32;
+        private const int SMALL_FONT_SIZE = 16;
+        
+        private void Awake()
         {
+            timelineController = Finder.TimelineController;
             player = Finder.Player;
-        }
-
-        void Awake()
-        {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
         }
 
@@ -44,33 +45,43 @@ namespace Game
 
         private void TimelineChange()
         {
-            switch (Finder.TimelineController.CurrentTimeline)
+            SetTimeView(timelineController.CurrentTimeline);
+        }
+
+        private void SetTimeView(Timeline timeline)
+        {
+            switch (timeline)
             {
                 case Timeline.Primary:
                     
                     primary.text = primaryYear;
-                    primary.fontSize = 32;
+                    primary.fontSize = BIG_FONT_SIZE;
                     secondary.text = secondaryYear;
-                    secondary.fontSize = 16;
-                break;
+                    secondary.fontSize = SMALL_FONT_SIZE;
+                    break;
                 case Timeline.Secondary:
                     
                     primary.text = secondaryYear;
-                    primary.fontSize = 16;
+                    primary.fontSize = SMALL_FONT_SIZE;
                     secondary.text = primaryYear;
-                    secondary.fontSize = 32;
-                break;
+                    secondary.fontSize = BIG_FONT_SIZE;
+                    break;
             }
         }
 
         private void Update()
         {
-            SetSanitySlider(player.Vitals.CalculateSliderValue());
+            UpdateSanityView(CalculateSliderValue());
         }
 
-        public void SetSanitySlider(float position)
+        private void UpdateSanityView(float position)
         {
             sanitySlider.value = position;
+        }
+        
+        private float CalculateSliderValue()
+        {
+            return ((player.Vitals.HealthLeft*100) / player.Vitals.MaxMentalHealth);
         }
     }
 }
