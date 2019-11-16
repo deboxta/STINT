@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Harmony;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Game
         [SerializeField] private float xForce;
         [SerializeField] private float yForce;
         [SerializeField][Range(-200,200)] private float adjustForceFactor;
+        private bool isEnter;
 
         public static Vector2 AdjustedForce;
         
@@ -30,6 +32,8 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
+            AdjustedForce = new Vector2(1,1);
+            isEnter = false;
             mainController = Finder.MainController;
             player = Finder.Player;
             pointEffector2D = GetComponent<PointEffector2D>();
@@ -44,19 +48,39 @@ namespace Game
         public Vector2 calculatePlayerForceImpact()
         {
             //return new Vector2((xAxisAdjust/(forceVector.x%adjustForceFactor)), (yAxisAdjust/(forceVector.y%adjustForceFactor)));
-            xForce = 1 / (forceVector.x / 100) * radius;
-            return new Vector2((1/(forceVector.x/100)*radius), (1/(forceVector.y/100)*radius));
+            xForce = xAxisAdjust/(100-(Mathf.Abs(forceVector.x) * 100) / radius);
+            return new Vector2(xAxisAdjust/(100-((forceVector.x*100)/radius)), yAxisAdjust/(100-((forceVector.y*100)/radius)));
         }
 
         // Update is called once per frame
         void Update()
         {
-            forceVector = calculateForceDirection();
-            xvalue = forceVector.x;
-            yvalue = forceVector.y;
-            AdjustedForce = calculatePlayerForceImpact();
+            if (isEnter)
+            {
+                forceVector = calculateForceDirection();
+                xvalue = forceVector.x;
+                yvalue = forceVector.y;
+                AdjustedForce = calculatePlayerForceImpact();
+            }
         }
-        
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag(R.S.Tag.Player))
+            {
+                isEnter = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag(R.S.Tag.Player))
+            {
+                isEnter = false;
+                AdjustedForce = new Vector2(1,1);
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;

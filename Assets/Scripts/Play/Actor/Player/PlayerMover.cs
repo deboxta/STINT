@@ -111,11 +111,11 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            if (direction == Vector2.left)
-                xSpeed -= Gravity.AdjustedForce.x;
+            /*if (direction == Vector2.left)
+                xSpeed += Gravity.AdjustedForce.x;
             else if (direction == Vector2.right)
-                xSpeed -= Gravity.AdjustedForce.x;
-            //else if (direction == Vector2.down)
+                xSpeed += Gravity.AdjustedForce.x;
+            //else if (direction == Vector2.down)*/
                 
 
             if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
@@ -124,7 +124,7 @@ namespace Game
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
-                    velocity.x = direction.x * xSpeed;
+                    velocity.x = direction.x * xSpeed* Gravity.AdjustedForce.x;
                     rigidBody2D.velocity = velocity;
                 }
             }
