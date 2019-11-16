@@ -12,6 +12,8 @@ namespace Game
         [SerializeField][Range(-100,100)] private int yAxisAdjust = 20;
         [SerializeField] private float xvalue;
         [SerializeField] private float yvalue;
+        [SerializeField] private float xForce;
+        [SerializeField] private float yForce;
         [SerializeField][Range(-200,200)] private float adjustForceFactor;
 
         public static Vector2 AdjustedForce;
@@ -23,6 +25,7 @@ namespace Game
         private MainController mainController;
         private PointEffector2D pointEffector2D;
         private Vector2 forceVector;
+        private float radius;
 
         // Start is called before the first frame update
         void Start()
@@ -30,6 +33,7 @@ namespace Game
             mainController = Finder.MainController;
             player = Finder.Player;
             pointEffector2D = GetComponent<PointEffector2D>();
+            radius = GetComponent<CircleCollider2D>().radius;
         }
 
         private Vector2 calculateForceDirection()
@@ -40,7 +44,8 @@ namespace Game
         public Vector2 calculatePlayerForceImpact()
         {
             //return new Vector2((xAxisAdjust/(forceVector.x%adjustForceFactor)), (yAxisAdjust/(forceVector.y%adjustForceFactor)));
-            return new Vector2(forceVector.x%GetComponent<CircleCollider2D>().radius, forceVector.y%GetComponent<CircleCollider2D>().radius);
+            xForce = 1 / (forceVector.x / 100) * radius;
+            return new Vector2((1/(forceVector.x/100)*radius), (1/(forceVector.y/100)*radius));
         }
 
         // Update is called once per frame

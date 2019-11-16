@@ -112,7 +112,7 @@ namespace Game
         public void Move(Vector2 direction)
         {
             if (direction == Vector2.left)
-                xSpeed += Gravity.AdjustedForce.x;
+                xSpeed -= Gravity.AdjustedForce.x;
             else if (direction == Vector2.right)
                 xSpeed -= Gravity.AdjustedForce.x;
             //else if (direction == Vector2.down)
