@@ -56,7 +56,7 @@ namespace Game
             Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
             rigidbody.velocity = new Vector2(x: rigidbody.velocity.x, springForce);
         }
-        
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -66,5 +66,6 @@ namespace Game
                 Gizmos.DrawLine(raycastSensorRight.position, raycastSensorRight.position + springDetectionDistance * transform.localScale.y * transform.up);
             }
         }
+#endif
     }
 }
