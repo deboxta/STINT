@@ -46,7 +46,7 @@ namespace Game
                 if (RaycastHits[0].transform.CompareTag(R.S.Tag.Player))
                 {
                     CastTouchesPlayer = true;
-                    for (int i  = 1; i < NbRaycastHits; i++)
+                    for (int i = 1; i < NbRaycastHits; i++)
                     {
                         if (!RaycastHits[i].transform.CompareTag(R.S.Tag.Player))
                         {
