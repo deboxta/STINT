@@ -32,7 +32,6 @@ namespace Game
                 if (LayerMask.LayerToName(children.layer) == R.S.Layer.MovablePlatform)
                 {
                     children.GetComponent<Rigidbody2D>().velocity = new Vector2(platformSpeed,0);
-                    //children.transform.position = new Vector2(children.transform.position.x + platformSpeed,children.transform.position.y);
                 }
             }
         }
