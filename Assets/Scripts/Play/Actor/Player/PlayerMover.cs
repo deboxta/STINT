@@ -111,20 +111,13 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            /*if (direction == Vector2.left)
-                xSpeed += Gravity.AdjustedForce.x;
-            else if (direction == Vector2.right)
-                xSpeed += Gravity.AdjustedForce.x;
-            //else if (direction == Vector2.down)*/
-                
-
             if ((direction != Vector2.zero || isGrounded) && playerCanControlMoves)
             {
                 if (!isWallSliding && canJump || isWallJumping)
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
-                    velocity.x = direction.x * xSpeed* Gravity.AdjustedForce.x;
+                    velocity.x = Gravity.CalculateForceToApply(direction, xSpeed).x;
                     rigidBody2D.velocity = velocity;
                 }
             }
@@ -135,13 +128,13 @@ namespace Game
             
             xSpeed = 15;
         }
-        
+
         //Author : Jeammy Côté
         public void Jump()
         {
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
-                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x ,  Gravity.GetGravityImpactOnForce(yForce, true));
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
             else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )

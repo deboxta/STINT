@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Harmony;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace Game
         [SerializeField] private float xForce;
         [SerializeField] private float yForce;
         [SerializeField][Range(-200,200)] private float adjustForceFactor;
-        private bool isEnter;
+        private bool raycastIsTriggered;
 
         public static Vector2 AdjustedForce;
         
@@ -28,57 +29,67 @@ namespace Game
         private PointEffector2D pointEffector2D;
         private Vector2 forceVector;
         private float radius;
+        private LayerMask playerLayer;
 
         // Start is called before the first frame update
         void Start()
         {
+            playerLayer = (1 << LayerMask.NameToLayer(R.S.Layer.Player));
             AdjustedForce = new Vector2(1,1);
-            isEnter = false;
             mainController = Finder.MainController;
             player = Finder.Player;
             pointEffector2D = GetComponent<PointEffector2D>();
             radius = GetComponent<CircleCollider2D>().radius;
         }
 
-        private Vector2 calculateForceDirection()
+        private Vector2 CalculateForceDirection()
         {
             return player.transform.position - transform.position;
         }
 
-        public Vector2 calculatePlayerForceImpact()
+        private Vector2 CalculatePlayerForceImpact()
         {
-            //return new Vector2((xAxisAdjust/(forceVector.x%adjustForceFactor)), (yAxisAdjust/(forceVector.y%adjustForceFactor)));
-            xForce = xAxisAdjust/(100-(Mathf.Abs(forceVector.x) * 100) / radius);
-            return new Vector2(xAxisAdjust/(100-((forceVector.x*100)/radius)), yAxisAdjust/(100-((forceVector.y*100)/radius)));
+            return new Vector2(CalculateForceToApply(forceVector.x), CalculateForceToApply(forceVector.y));
+        }
+
+        private float CalculateForceToApply(float force)
+        {
+            return ((force * 100) / radius);
+        }
+
+        public static float GetGravityImpactOnForce(float force, bool isPositiveDirection)
+        {
+            if (isPositiveDirection)
+                return (force - (force * AdjustedForce.x) / 100);
+            return (force + (force * AdjustedForce.x) / 100);
+        }
+        
+        public static Vector2 CalculateForceToApply(Vector2 direction, float xSpeed)
+        {
+            if (direction.x > 0)
+                return new Vector2(direction.x * Gravity.GetGravityImpactOnForce(xSpeed, true), 0);
+            return new Vector2(direction.x * Gravity.GetGravityImpactOnForce(xSpeed, false), 0);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (isEnter)
+            if (raycastIsTriggered)
             {
-                forceVector = calculateForceDirection();
+                forceVector = CalculateForceDirection();
                 xvalue = forceVector.x;
                 yvalue = forceVector.y;
-                AdjustedForce = calculatePlayerForceImpact();
+                AdjustedForce = CalculatePlayerForceImpact();
             }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag(R.S.Tag.Player))
+            else
             {
-                isEnter = true;
+                AdjustedForce = new Vector2(0,0);
             }
-        }
+            
+            xForce = CalculateForceToApply(forceVector.x);
+            yForce = CalculateForceToApply(forceVector.y);
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag(R.S.Tag.Player))
-            {
-                isEnter = false;
-                AdjustedForce = new Vector2(1,1);
-            }
+            raycastIsTriggered = Physics2D.OverlapCircle(transform.position, radius, playerLayer);
         }
 
         private void OnDrawGizmos()
