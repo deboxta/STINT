@@ -78,7 +78,8 @@ namespace Game
             //Author : Anthony Bérubé
             //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
-                rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+                rigidBody2D.velocity += Time.fixedDeltaTime * /*Gravity.GetGravityImpactOnForceY(Physics2D.gravity.y, false)*/Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+
         }
         
         //Author : Jeammy Côté
@@ -117,7 +118,7 @@ namespace Game
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
-                    velocity.x = Gravity.CalculateForceToApply(direction, xSpeed).x;
+                    velocity.x = Gravity.CalculateForceToApplyX(direction, xSpeed).x;
                     rigidBody2D.velocity = velocity;
                 }
             }
@@ -125,8 +126,6 @@ namespace Game
             if (hasBoots)
                 if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
-            
-            xSpeed = 15;
         }
 
         //Author : Jeammy Côté
@@ -134,7 +133,9 @@ namespace Game
         {
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
-                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x ,  Gravity.GetGravityImpactOnForce(yForce, true));
+            {
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, Gravity.CalculateForceToApplyY(yForce).y);
+            }
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
             else if ((isWallJumping || numberOfJumpsLeft <= 0 && isTouchingWall) && !isGrounded )
@@ -206,7 +207,7 @@ namespace Game
         //Author : Anthony Bérubé
         public void Fall()
         {
-            rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
+            rigidBody2D.velocity += Time.deltaTime * Physics.gravity.y /*Gravity.GetGravityImpactOnForceY(Physics2D.gravity.y, false)*/ * fallGravityMultiplier * Vector2.up;
         }
         
         //Author : Anthony Bérubé

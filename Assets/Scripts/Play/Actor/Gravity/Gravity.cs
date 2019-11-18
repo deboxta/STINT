@@ -56,19 +56,31 @@ namespace Game
         {
             return ((force * 100) / radius);
         }
+        
+        private static float GetGravityImpactOnForceY(float force, bool isPositiveDirection)
+        {
+            if (isPositiveDirection)
+                return (force - (force * AdjustedForce.y) / 100);
+            return (force + ((force * AdjustedForce.y) / 100));
+        }
 
-        public static float GetGravityImpactOnForce(float force, bool isPositiveDirection)
+        private static float GetGravityImpactOnForceX(float force, bool isPositiveDirection)
         {
             if (isPositiveDirection)
                 return (force - (force * AdjustedForce.x) / 100);
             return (force + (force * AdjustedForce.x) / 100);
         }
         
-        public static Vector2 CalculateForceToApply(Vector2 direction, float xSpeed)
+        public static Vector2 CalculateForceToApplyY(float yForce)
+        {
+            return new Vector2(0, GetGravityImpactOnForceY(yForce, false));
+        }
+        
+        public static Vector2 CalculateForceToApplyX(Vector2 direction, float xSpeed)
         {
             if (direction.x > 0)
-                return new Vector2(direction.x * Gravity.GetGravityImpactOnForce(xSpeed, true), 0);
-            return new Vector2(direction.x * Gravity.GetGravityImpactOnForce(xSpeed, false), 0);
+                return new Vector2(direction.x * Gravity.GetGravityImpactOnForceX(xSpeed, true), 0);
+            return new Vector2(direction.x * Gravity.GetGravityImpactOnForceX(xSpeed, false), 0);
         }
 
         // Update is called once per frame
