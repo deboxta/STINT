@@ -32,20 +32,20 @@ namespace Game
         private void OnEnable()
         {
             timelineChangedEventChannel.OnTimelineChanged += TimelineChange;
-            deathEventChannel.OnPlayerDeath += PlayerDeath;
+            //deathEventChannel.OnPlayerDeath += PlayerDeath;
         }
 
 
         private void OnDisable()
         {
             timelineChangedEventChannel.OnTimelineChanged -= TimelineChange;
-            deathEventChannel.OnPlayerDeath -= PlayerDeath;
+            //deathEventChannel.OnPlayerDeath -= PlayerDeath;
         }
         
-        private void PlayerDeath()
+        /*private void PlayerDeath()
         {
             healthLeft = maxMentalHealth;
-        }
+        }*/
         
         private void TimelineChange()
         {

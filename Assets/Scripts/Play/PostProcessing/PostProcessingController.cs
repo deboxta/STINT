@@ -16,6 +16,8 @@ namespace Game
         private DepthOfField depthOfField;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
+        private TimelineChangedEventChannel timelineChangedEventChannel;
+        private TimelineController timelineController;
         private CinemachinePostProcessing volume;
 
         private void Awake()
@@ -29,12 +31,15 @@ namespace Game
 
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
+            timelineController = Finder.TimelineController;
         }
 
         private void OnEnable()
         {
             playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += OnLevelCompleted;
+            timelineChangedEventChannel.OnTimelineChanged += OnTimeLineChanged;
         }
 
         
@@ -43,6 +48,13 @@ namespace Game
         {
             playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted -= OnLevelCompleted;
+            timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChanged;
+        }
+
+        private void OnTimeLineChanged()
+        {
+            volume.enabled = !volume.enabled;
+            //colorGrading.enabled.value = !colorGrading.enabled.value;
         }
 
         private void OnLevelCompleted()
