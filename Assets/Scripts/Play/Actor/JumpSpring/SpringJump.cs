@@ -12,10 +12,8 @@ namespace Game
         [SerializeField] private float springDetectionDistance = 1f;
         
         private LayerMask layerToHit;
-        
         private Transform raycastSensorLeft;
         private Transform raycastSensorRight;
-
         private RaycastHit2D hitLeft;
         private RaycastHit2D hitRight;
 
@@ -49,16 +47,16 @@ namespace Game
             {
                 GameObject objectToSpringJump = hitLeft.transform.gameObject;
                 if (objectToSpringJump)
-                    springPlayer(objectToSpringJump);
+                    SpringPlayer(objectToSpringJump);
             }
         }
 
-        private void springPlayer(GameObject gameObject)
+        private void SpringPlayer(GameObject gameObject)
         {
             Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
             rigidbody.velocity = new Vector2(x: rigidbody.velocity.x, springForce);
         }
-        
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -68,5 +66,6 @@ namespace Game
                 Gizmos.DrawLine(raycastSensorRight.position, raycastSensorRight.position + springDetectionDistance * transform.localScale.y * transform.up);
             }
         }
+#endif
     }
 }
