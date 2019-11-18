@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 0.025
-  fadeBy: 0.02
+  fadeBy: 0.025
 --- !u!1 &1557757039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3335593475322764020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
@@ -366,7 +366,7 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2999988
+      value: 6.3000035
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}

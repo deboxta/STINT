@@ -10,14 +10,16 @@ namespace Game
     public class FadeInAndOut : MonoBehaviour
     {
         [SerializeField] private float fadeSpeed = 0.025f;
-        [SerializeField] private float fadeBy = 0.1f;
+        [SerializeField] private float fadeBy = 0.025f;
 
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private LevelCompletedEventChannel levelCompletedEventChannel;
         private Image image;
 
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             image = GetComponent<Image>();
         }
 
@@ -25,28 +27,31 @@ namespace Game
         {
             playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
             SceneManager.sceneLoaded += OnSceneLoaded;
-            //SceneManager.sceneUnloaded += OnSceneUnLoaded;
+            levelCompletedEventChannel.OnLevelCompleted += OnLevelCompleted;
         }
 
         private void OnDisable()
         {
             playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            //SceneManager.sceneUnloaded -= OnSceneUnLoaded;
+            levelCompletedEventChannel.OnLevelCompleted -= OnLevelCompleted;
         }
 
         private void OnPlayerDeath()
         {
-            StartCoroutine(FadeOut());
-        }
-        
-        private void OnSceneUnLoaded(Scene arg0)
-        {
+            StopAllCoroutines();
             StartCoroutine(FadeOut());
         }
 
+        private void OnLevelCompleted()
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeOut());
+        }
+        
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
+            StopAllCoroutines();
             StartCoroutine(FadeIn());
         }
 

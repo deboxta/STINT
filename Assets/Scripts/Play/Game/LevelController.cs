@@ -64,6 +64,7 @@ namespace Game
 
         private IEnumerator NextLevel()
         {
+            yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
             currentLevel++;
             yield return LoadGame();
