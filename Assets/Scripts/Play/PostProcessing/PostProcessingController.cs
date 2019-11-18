@@ -53,7 +53,16 @@ namespace Game
 
         private void OnTimeLineChanged()
         {
-            volume.enabled = !volume.enabled;
+            if (timelineController.CurrentTimeline == Timeline.Primary)
+            {
+                volume.enabled = false;
+            }
+            else
+            {
+                volume.enabled = true;
+            }
+            
+            //volume.enabled = !volume.enabled;
             //colorGrading.enabled.value = !colorGrading.enabled.value;
         }
 
