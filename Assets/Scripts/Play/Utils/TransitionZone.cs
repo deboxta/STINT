@@ -83,11 +83,11 @@ namespace Game
             
             sensedPlayer.GetComponent<PlayerInput>().enabled = false;
             
-            cinemachineConfiner.m_BoundingShape2D =
+            /*cinemachineConfiner.m_BoundingShape2D =
                 (cinemachineConfiner.m_BoundingShape2D == roomOne) ? roomTwo : roomOne;
             
             //Need to call this function when the confiner is change during runtime
-            cinemachineConfiner.InvalidatePathCache();
+            cinemachineConfiner.InvalidatePathCache();*/
         }
 
         private void OnPlayerUnSensed(Player sensedPlayer)

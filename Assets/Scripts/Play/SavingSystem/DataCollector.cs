@@ -9,6 +9,7 @@ namespace Game
         private float positionX, positionY;
         private int nbDeath;
         private string name;
+        private int cameraConfinerIndex;
         private bool firstDeath;
         private bool wonGame;
         private bool wonWithoutDying;
@@ -43,6 +44,12 @@ namespace Game
         {
             get => name;
             set => name = value;
+        }
+
+        public int CameraConfinerIndex
+        {
+            get => cameraConfinerIndex;
+            set => cameraConfinerIndex = value;
         }
         
         public bool FirstDeath
