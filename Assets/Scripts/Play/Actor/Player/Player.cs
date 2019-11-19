@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game
 {
@@ -11,6 +12,9 @@ namespace Game
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour , IPowerUpCollector
     {
+        [Header("Events")]
+        [SerializeField] private UnityEvent onLandEvent;
+        
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
         [SerializeField] private int nbDeath;
@@ -34,6 +38,7 @@ namespace Game
 
         private float size;
         public float Size => size;
+        
 
         private void Awake()
         {
