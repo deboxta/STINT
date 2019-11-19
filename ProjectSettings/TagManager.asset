@@ -17,6 +17,7 @@ TagManager:
   - MenuController
   - ReturnButton
   - LaserGoThrough
+  - GravityObject
   layers:
   - Default
   - TransparentFX

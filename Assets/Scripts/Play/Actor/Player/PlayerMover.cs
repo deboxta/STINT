@@ -45,6 +45,7 @@ namespace Game
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
+        private Gravity gravity;
         
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
@@ -56,6 +57,7 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
+            gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
             
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
@@ -78,8 +80,8 @@ namespace Game
             //Author : Anthony Bérubé
             //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
-                rigidBody2D.velocity += Time.fixedDeltaTime * /*Gravity.GetGravityImpactOnForceY(Physics2D.gravity.y, false)*/Physics2D.gravity.y * gravityMultiplier * Vector2.up;
-
+                rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+            
         }
         
         //Author : Jeammy Côté
@@ -118,7 +120,11 @@ namespace Game
                 {
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
-                    velocity.x = Gravity.CalculateForceToApplyX(direction, xSpeed).x;
+                    //Author : Yannick Cote
+                    if (gravity != null)
+                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
+                    else
+                        velocity.x = direction.x * xSpeed;
                     rigidBody2D.velocity = velocity;
                 }
             }
@@ -134,7 +140,11 @@ namespace Game
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
-                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, Gravity.CalculateForceToApplyY(yForce).y);
+                //Author : Yannick Cote
+                if (gravity != null)
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
+                else
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
             }
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
                 WallJump();
@@ -207,7 +217,7 @@ namespace Game
         //Author : Anthony Bérubé
         public void Fall()
         {
-            rigidBody2D.velocity += Time.deltaTime * Physics.gravity.y /*Gravity.GetGravityImpactOnForceY(Physics2D.gravity.y, false)*/ * fallGravityMultiplier * Vector2.up;
+            rigidBody2D.velocity += Time.deltaTime * Physics.gravity.y * fallGravityMultiplier * Vector2.up;
         }
         
         //Author : Anthony Bérubé
