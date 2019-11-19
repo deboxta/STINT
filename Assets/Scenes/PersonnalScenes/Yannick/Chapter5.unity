@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1046525002}
-  xAxisPositiveAdjust: 20
+  xAxisPositiveAdjust: 80
   xAxisNegativeAdjust: 20
   yAxisPositiveAdjust: 20
   yAxisNegativeAdjust: 20
@@ -18205,7 +18205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958960943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: 30, z: 0}
+  m_LocalPosition: {x: 235.3, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 330329303}
@@ -20250,12 +20250,12 @@ PrefabInstance:
     - target: {fileID: 1184345451735542018, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1184345451735542018, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1184345451735542018, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
@@ -20415,7 +20415,7 @@ PrefabInstance:
     - target: {fileID: 1184345451735542021, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
       propertyPath: m_ForceMagnitude
-      value: -40
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 1184345451735542021, guid: 6e9415f37fa32644cbeb2071da100882,
         type: 3}
@@ -21529,7 +21529,7 @@ PrefabInstance:
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 85.3
+      value: 10.2
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -22130,7 +22130,7 @@ PrefabInstance:
     - target: {fileID: 2336518926875734331, guid: 82df312aec33e9145aebbb4264398fb6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 85.3
+      value: 10.2
       objectReference: {fileID: 0}
     - target: {fileID: 2336518926875734331, guid: 82df312aec33e9145aebbb4264398fb6,
         type: 3}
