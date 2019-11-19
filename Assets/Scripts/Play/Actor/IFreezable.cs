@@ -2,6 +2,6 @@
 {
     public interface IFreezable
     {
-        bool Frozen { get; }
+        bool IsFrozen { get; }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -10,6 +12,8 @@ namespace Game
     public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        [SerializeField] private int nbDeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
@@ -17,6 +21,7 @@ namespace Game
         private Vitals vitals;
         private bool isCrouched;
         private PlayerMover playerMover;
+        private Dispatcher dispatcher;
 
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
@@ -33,6 +38,8 @@ namespace Game
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
@@ -43,16 +50,35 @@ namespace Game
             IsDead = false;
             isCrouched = false;
             size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
-            Debug.Log(size);
             
             boxSensor = sensor.For<Box>();
+        }
+
+        private void OnEnable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded += SavedSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded -= SavedSceneLoaded;
+        }
+
+        private void SavedSceneLoaded()
+        {
+            StartCoroutine(ChangePosition());
+        }
+
+        private IEnumerator ChangePosition()
+        {
+            yield return transform.position = new Vector3(dispatcher.DataCollector.PositionX,dispatcher.DataCollector.PositionY);
         }
 
         //Author : Jeammy Côté
         //Change player direction
         public void FlipPlayer()
         {
-            transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
         
         //Author : Sébastien Arsenault
@@ -62,6 +88,8 @@ namespace Game
             if (!IsDead)
             {
                 IsDead = true;
+                dispatcher.DataCollector.NbDeath++;
+                nbDeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
         }
@@ -100,7 +128,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-        
+#if UNITY_EDITOR
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
@@ -112,5 +140,6 @@ namespace Game
             Gizmos.color = Color.red;
             Gizmos.DrawLine(bottomLeftPosition,topRightPosition);
         }
+#endif
     }
 }
