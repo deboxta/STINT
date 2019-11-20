@@ -85,6 +85,7 @@ namespace Game
 
         private IEnumerator NextLevel()
         {
+            yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
 
             currentLevel++;
@@ -106,8 +107,7 @@ namespace Game
 
         private IEnumerator RestartLevel()
         {
-            Finder.Player.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
             yield return LoadGame();
         }
