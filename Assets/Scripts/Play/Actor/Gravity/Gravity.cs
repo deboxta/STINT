@@ -33,7 +33,7 @@ namespace Game
         void Start()
         {
             playerLayer = (1 << LayerMask.NameToLayer(R.S.Layer.Player));
-            AdjustedForce = new Vector2(1,1);
+            adjustedForce = new Vector2(1,1);
             player = Finder.Player;
             radius = GetComponent<CircleCollider2D>().radius;
         }
@@ -55,7 +55,7 @@ namespace Game
         
         private float GetGravityImpactOnForceY(float force)
         {
-            if (AdjustedForce.y <= 0)
+            if (adjustedForce.y <= 0)
                 return force + (force * yAxisPositiveAdjust / 100);
             return force - (force * yAxisNegativeAdjust / 100);
         }
@@ -64,11 +64,11 @@ namespace Game
         {
             if (isPositiveDirection)
             {
-                if (AdjustedForce.x <= 0)
+                if (adjustedForce.x <= 0)
                     return force + (force * xAxisPositiveAdjust/100);
                 return force - (force * xAxisNegativeAdjust/100);
             }
-            if (AdjustedForce.x <= 0)
+            if (adjustedForce.x <= 0)
                     return force - (force * xAxisNegativeAdjust/100);
             return force + (force * xAxisPositiveAdjust/100);
         }
