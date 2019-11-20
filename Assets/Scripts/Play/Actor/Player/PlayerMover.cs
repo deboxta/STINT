@@ -58,8 +58,14 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
-            
+
+            GameObject gravityObject = GameObject.FindWithTag(R.S.Tag.GravityObject);
+
+            if (gravityObject != null)
+                gravity = gravityObject.GetComponentInChildren<Gravity>();
+            else
+                gravity = null;
+
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
             //Author : Sébastien Arsenault
