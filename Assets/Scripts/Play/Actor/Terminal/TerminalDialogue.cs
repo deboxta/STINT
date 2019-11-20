@@ -7,20 +7,20 @@ namespace Game
     public class TerminalDialogue : Terminal
     {
         [SerializeField] private string[] texts;
-        private HudDialogue hudDialogue;
+        private HudDialog hudDialog;
         
         protected override void Awake()
         {
             base.Awake();
 
-            hudDialogue = Finder.HudDialogue;
+            hudDialog = Finder.HudDialog;
         }
 
         protected override void OnPlayerSensed(Player player)
         {
             base.OnPlayerSensed(player);
             
-            hudDialogue.StartDisplaying(texts);
+            hudDialog.StartDisplaying(texts);
         }
     }
 }

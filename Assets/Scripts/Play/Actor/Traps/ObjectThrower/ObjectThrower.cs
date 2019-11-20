@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Harmony;
 using UnityEngine;
@@ -10,16 +8,15 @@ namespace Game
     // Author : Mathieu Boutet
     public class ObjectThrower : MonoBehaviour, IFreezable
     {
-        [SerializeField] [Range(0, 1000)] private int nbMaxThrowableObjects = 100;
-        [SerializeField] private float speed = 1;
-        [SerializeField] private float throwNextObjectDelay = 1;
-        [SerializeField] public float removeObjectDelay = 3;
+        [Range(0, 1000)] [SerializeField] private int nbMaxThrowableObjects = 100;
+        [Range(-30000, 30000)] [SerializeField] private float speed = 4000;
+        [Range(0, 60)] [SerializeField] private float throwNextObjectDelay = 0.11f;
+        [Range(0, 60)] [SerializeField] public float removeObjectDelay = 5;
 
         private ThrowableObject throwableObjectModel;
         private TimeFreezeEventChannel timeFreezeEventChannel;
         private Stopwatch throwNewObjectStopwatch;
         private ObjectPool<ThrowableObject> throwableObjects;
-        private List<ThrowableObject> thrownObjects;
 
         public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
@@ -33,7 +30,6 @@ namespace Game
                 () => Instantiate(throwableObjectModel, transform),
                 nbMaxThrowableObjects
             );
-            thrownObjects = new List<ThrowableObject>();
         }
 
         private void Start()
@@ -65,14 +61,14 @@ namespace Game
         {
             var objectToThrow = throwableObjects.GetObject();
             objectToThrow.gameObject.SetActive(true);
+            objectToThrow.transform.position = transform.position;
             objectToThrow.Rigidbody2D.velocity = transform.right * (speed * Time.fixedDeltaTime);
-            thrownObjects.Add(objectToThrow);
         }
 
         public void RemoveThrownObject(ThrowableObject thrownObject)
         {
             thrownObject.gameObject.SetActive(false);
-            thrownObjects.Remove(thrownObject);
+            throwableObjects.PutObject(thrownObject);
         }
 
         private void OnTimeFreezeStateChanged()

@@ -1,6 +1,8 @@
 ﻿using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 //Author : Yannick Cote
 namespace Game
@@ -8,44 +10,42 @@ namespace Game
     [Findable(R.S.Tag.MenuController)]
     public class MenuController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] menuPages = null;
+        [SerializeField] private GameObject firstPage = null;
         [SerializeField] private GameObject popupWindow = null;
         
-        private LevelCompletedEventChannel levelCompletedEventChannel;
         private MenuPageChangedEventChannel menuPageChangedEventChannel;
+        private LevelCompletedEventChannel levelCompletedEventChannel;
         
         private GameObject activePage;
+        private SaveSystem saveSystem;
+        private Dispatcher dispatcher;
+        private GameObject saveToDelete;
 
         public GameObject ActivePage => activePage;
-
+        
         private void Awake()
         {
-            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
-        }
-        
-        private GameObject GetActivePage()
-        {
-            for (int i = 0; i < menuPages.Length; i++)
-            {
-                if (menuPages[i].activeSelf == true)
-                {
-                    return menuPages[i];
-                }            
-            }
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
 
-            return null;
-        }
-
-        private void Update()
-        {
-            activePage = GetActivePage();
+            dispatcher = Finder.Dispatcher;
+            saveSystem = Finder.SaveSystem;
+            activePage = firstPage;
         }
 
         [UsedImplicitly]
-        public void StartGame()
+        public void DeleteSave()
         {
-            levelCompletedEventChannel.NotifyLevelCompleted();
+            if (saveToDelete != null)
+            {
+                saveSystem.DeleteSave(saveToDelete.GetComponent<Text>().text);
+            }
+        }
+
+        [UsedImplicitly]
+        public void StartGame(GameObject fileName)
+        {
+            saveSystem.LoadData(fileName.GetComponent<Text>().text);
         }
 
         [UsedImplicitly]
@@ -53,7 +53,24 @@ namespace Game
         {
             activePage.SetActive(false);
             toEnable.SetActive(true);
+            activePage = toEnable;
             menuPageChangedEventChannel.NotifyPageChanged();
+        }
+
+        [UsedImplicitly]
+        public void CreateNewGameFile(InputField fileName)
+        {
+            if (fileName.text != null)
+            {
+                dispatcher.DataCollector.Name = fileName.text;
+                levelCompletedEventChannel.NotifyLevelCompleted();
+            }
+        }
+        
+        [UsedImplicitly]
+        public void SaveGameStatus()
+        {
+            saveSystem.SaveGame();
         }
         
         [UsedImplicitly]
@@ -62,6 +79,14 @@ namespace Game
             popupWindow.SetActive(false);
         }
         
+        [UsedImplicitly]
+        public void OpenPopup(GameObject saveToDelete)
+        {
+            this.saveToDelete = saveToDelete;
+            popupWindow.SetActive(true);
+        }
+        
+        //TODO: Should be called in maincontroller when maincontroller is implemented
         [UsedImplicitly]
         public void ExitGame()
         {

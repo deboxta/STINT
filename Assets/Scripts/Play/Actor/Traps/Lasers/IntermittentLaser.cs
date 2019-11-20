@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
-using System.Timers;
 using Harmony;
 using UnityEngine;
 
@@ -10,8 +8,9 @@ namespace Game
     // Author : Mathieu Boutet
     public class IntermittentLaser : ConstantLaser, IFreezable
     {
-        [SerializeField] [Range(0, 100)] private float onTimeInSeconds = 1;
-        [SerializeField] [Range(0, 100)] private float offTimeInSeconds = 1;
+        [Range(0, 100)] [SerializeField] private float onTimeInSeconds = 1;
+        [Range(0, 100)] [SerializeField] private float offTimeInSeconds = 1;
+        [SerializeField] private bool isOnAtStart = true;
         
         private TimeFreezeEventChannel timeFreezeEventChannel;
         private bool firing;
@@ -36,7 +35,7 @@ namespace Game
         {
             base.Awake();
 
-            firing = true;
+            firing = isOnAtStart;
             switchFiringStateStopwatch = new Stopwatch();
             timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
         }

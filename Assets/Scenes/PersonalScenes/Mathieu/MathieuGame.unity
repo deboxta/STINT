@@ -438,10 +438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nbMaxThrowableObjects: 100
-  minThrowAngle: -10
-  maxThrowAngle: 10
   speed: 4000
-  throwNextObjectDelay: 0.1
+  throwNextObjectDelay: 10
   removeObjectDelay: 3
 --- !u!4 &378794448
 Transform:
@@ -603,7 +601,7 @@ Transform:
   m_Children:
   - {fileID: 172054273}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1194419795
 GameObject:
@@ -1054,7 +1052,7 @@ PrefabInstance:
     - target: {fileID: 3419891640348005671, guid: 811a5c88f714d9641b8895e8789c4724,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3419891640348005671, guid: 811a5c88f714d9641b8895e8789c4724,
         type: 3}

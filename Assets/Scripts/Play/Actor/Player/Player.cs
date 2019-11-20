@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -10,6 +12,8 @@ namespace Game
     public class Player : MonoBehaviour , IPowerUpCollector
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
+        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        [SerializeField] private int nbDeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
@@ -17,6 +21,10 @@ namespace Game
         private Vitals vitals;
         private bool isCrouched;
         private PlayerMover playerMover;
+        private PlayerInput playerInput;
+        private BoxCollider2D boxCollider2D;
+        private Rigidbody2D rigidBody2D;
+        private Dispatcher dispatcher;
 
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
@@ -33,18 +41,44 @@ namespace Game
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
+            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
             playerMover = GetComponent<PlayerMover>();
-            
+            playerInput = GetComponent<PlayerInput>();
+            boxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
+            rigidBody2D = GetComponent<Rigidbody2D>();
+
             isLookingRight = true;
             IsDead = false;
             isCrouched = false;
+            //TODO CHANGE THIS SEB NOTE
             size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
             
             boxSensor = sensor.For<Box>();
+        }
+
+        private void OnEnable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded += SavedSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            savedSceneLoadedEventChannel.OnSavedSceneLoaded -= SavedSceneLoaded;
+        }
+
+        private void SavedSceneLoaded()
+        {
+            StartCoroutine(ChangePosition());
+        }
+
+        private IEnumerator ChangePosition()
+        {
+            yield return transform.position = new Vector3(dispatcher.DataCollector.PositionX,dispatcher.DataCollector.PositionY);
         }
 
         //Author : Jeammy Côté
@@ -61,8 +95,21 @@ namespace Game
             if (!IsDead)
             {
                 IsDead = true;
+                DeactivateComponentsWhenDead();
+                dispatcher.DataCollector.NbDeath++;
+                nbDeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
+        }
+
+        //Author : Sébastien Arsenault
+        private void DeactivateComponentsWhenDead()
+        {
+            playerMover.enabled = false;
+            playerInput.enabled = false;
+            boxCollider2D.enabled = false;
+            rigidBody2D.isKinematic = true;
+            rigidBody2D.velocity = Vector2.zero;
         }
 
         //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
@@ -77,7 +124,7 @@ namespace Game
                 playerMover.Slowed();
             }
         }
-        
+
         public void ThrowBox(bool crouching)
         {
             if (crouching)
@@ -99,7 +146,7 @@ namespace Game
         {
             playerMover.HasBoots = true;
         }
-
+#if UNITY_EDITOR
         //Author : Jeammy Côté
         private void OnDrawGizmos()
         {
@@ -111,5 +158,6 @@ namespace Game
             Gizmos.color = Color.red;
             Gizmos.DrawLine(bottomLeftPosition,topRightPosition);
         }
+#endif
     }
 }

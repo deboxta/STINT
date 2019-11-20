@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 308609900899969834}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2, y: 3.4}
+  m_Size: {x: 2.16, y: 3.288}
   m_EdgeRadius: 0
 --- !u!1 &308609901205549281
 GameObject:
@@ -123,11 +123,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1409249481
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d4ffd5e0e9e4c4498512e26464b29a7, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.002667904, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 00dfe748a9b879f4d9d38ee986e31e15, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -196,7 +196,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 6200000, guid: dde9de5d8b766eb4f999142619d67a37, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -218,10 +218,11 @@ MonoBehaviour:
   isTouchingWall: 0
   isWallSliding: 0
   isWallJumping: 0
+  canJump: 0
   playerCanControlMoves: 0
+  numberOfJumpsLeft: 0
   timeBeforePlayerCanControlMoves: 0.15
   numberOfJumps: 3
-  numberOfJumpsLeft: 0
   wallJumpForce: 1.5
   wallSlideSpeed: 1.5
   gravityMultiplier: 5
@@ -229,6 +230,7 @@ MonoBehaviour:
   xSpeed: 10
   yForce: 16
   groundCheckRadius: 1
+  wallDistance: 1.11
   movementPenalty: 2
   groundCheck: {fileID: 9062234428917781900}
   wallCheck: {fileID: 5509136088234973154}
@@ -244,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098af6e10a04d6b47879e1778467064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0
+  nbDeath: 0
 --- !u!114 &1295453769084325749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +262,7 @@ MonoBehaviour:
   changeTimelineKeyboardKey: 304
   freezeTimeKeyboardKey: 113
   inputThreshold: 0.13
+  timeBeforePlayerCanTimeChange: 0.5
 --- !u!114 &498739955404519404
 MonoBehaviour:
   m_ObjectHideFlags: 0
