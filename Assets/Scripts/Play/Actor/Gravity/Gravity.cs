@@ -26,7 +26,7 @@ namespace Game
         
         private bool raycastIsTriggered;
 
-        private Vector2 AdjustedForce;
+        private Vector2 adjustedForce;
         private Vector2 forceVector;
         private float radius;
         private LayerMask playerLayer;
