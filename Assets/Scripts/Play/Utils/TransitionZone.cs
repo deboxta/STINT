@@ -7,11 +7,11 @@ namespace Game
 {
     public class TransitionZone : MonoBehaviour
     {
-        [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
-        [SerializeField] private CompositeCollider2D roomOne;
-        [SerializeField] private CompositeCollider2D roomTwo;
+        //[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+        //[SerializeField] private CompositeCollider2D roomOne;
+        //[SerializeField] private CompositeCollider2D roomTwo;
         [SerializeField] private bool moveHorizontal = true;
-        [SerializeField] private bool roomOneIsLeftOrBottom = true;
+        //[SerializeField] private bool roomOneIsLeftOrBottom = true;
         [SerializeField] [Range(1, 100)] private float minSpeed = 5f;
 
         private ISensor<Player> playerSensor;
@@ -38,7 +38,7 @@ namespace Game
             var sensedPlayerRigidbody2D = sensedPlayer.GetComponent<Rigidbody2D>();
             sensedPlayerRigidbody2D.isKinematic = true;
 
-            var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
+            //var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
             
             if (moveHorizontal)
             {
@@ -48,7 +48,7 @@ namespace Game
                 //If the player is too slow, we speed up his transition
                 if (Math.Abs(playerVelocity.x) < minSpeed)
                 {
-                    if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
+                    if (playerVelocity.x < 0)
                     {
                         playerVelocity.x = minSpeed;
                     }
@@ -56,6 +56,14 @@ namespace Game
                     {
                         playerVelocity.x = -minSpeed;
                     }
+                    /*if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
+                    {
+                        playerVelocity.x = minSpeed;
+                    }
+                    else
+                    {
+                        playerVelocity.x = -minSpeed;
+                    }*/
                 }
                 
                 sensedPlayerRigidbody2D.velocity = playerVelocity;
@@ -68,7 +76,7 @@ namespace Game
                 //If the player is too slow, we speed up his transition
                 if (Math.Abs(playerVelocity.y) < minSpeed)
                 {
-                    if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
+                    if (playerVelocity.y < 0)
                     {
                         playerVelocity.y = minSpeed;
                     }
@@ -76,6 +84,15 @@ namespace Game
                     {
                         playerVelocity.y = -minSpeed;
                     }
+                    
+                    /*if (roomOneIsLeftOrBottom && cinemachineConfiner.m_BoundingShape2D == roomOne)
+                    {
+                        playerVelocity.y = minSpeed;
+                    }
+                    else
+                    {
+                        playerVelocity.y = -minSpeed;
+                    }*/
                 }
                 
                 sensedPlayerRigidbody2D.velocity = playerVelocity;
@@ -83,11 +100,11 @@ namespace Game
             
             sensedPlayer.GetComponent<PlayerInput>().enabled = false;
             
-            cinemachineConfiner.m_BoundingShape2D =
+            /*cinemachineConfiner.m_BoundingShape2D =
                 (cinemachineConfiner.m_BoundingShape2D == roomOne) ? roomTwo : roomOne;
             
             //Need to call this function when the confiner is change during runtime
-            cinemachineConfiner.InvalidatePathCache();
+            cinemachineConfiner.InvalidatePathCache();*/
         }
 
         private void OnPlayerUnSensed(Player sensedPlayer)

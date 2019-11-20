@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 308609900899969834}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1409249481
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 00dfe748a9b879f4d9d38ee986e31e15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -230,6 +230,7 @@ MonoBehaviour:
   xSpeed: 10
   yForce: 16
   groundCheckRadius: 1
+  wallDistance: 1.11
   movementPenalty: 2
   groundCheck: {fileID: 9062234428917781900}
   wallCheck: {fileID: 5509136088234973154}
@@ -245,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098af6e10a04d6b47879e1778467064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbDeath: 0
 --- !u!114 &1295453769084325749
 MonoBehaviour:
   m_ObjectHideFlags: 0

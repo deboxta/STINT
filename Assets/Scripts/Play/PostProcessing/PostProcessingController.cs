@@ -12,7 +12,6 @@ namespace Game
         [SerializeField] private float fadeSpeed = 0.025f;
         [SerializeField] private float fadeBy = 0.1f;
         
-        private ColorGrading colorGrading;
         private DepthOfField depthOfField;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
@@ -25,8 +24,7 @@ namespace Game
             volume = gameObject.GetComponent<CinemachinePostProcessing>();
 
             volume.m_Profile = volume.Profile.Clone();
-
-            volume.Profile.TryGetSettings(out colorGrading);
+            
             volume.Profile.TryGetSettings(out depthOfField);
 
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
@@ -55,24 +53,31 @@ namespace Game
         {
             if (timelineController.CurrentTimeline == Timeline.Primary)
             {
-                volume.enabled = false;
+                volume.m_Profile.GetSetting<ColorGrading>().active = false;
+                volume.m_Profile.GetSetting<LensDistortion>().active = false;
+                volume.m_Profile.GetSetting<Bloom>().active = false;
+                volume.m_Profile.GetSetting<ChromaticAberration>().active = false;
+                volume.m_Profile.GetSetting<Grain>().active = false;
             }
             else
             {
-                volume.enabled = true;
+                volume.m_Profile.GetSetting<ColorGrading>().active = true;
+                volume.m_Profile.GetSetting<LensDistortion>().active = true;
+                volume.m_Profile.GetSetting<Bloom>().active = true;
+                volume.m_Profile.GetSetting<ChromaticAberration>().active = true;
+                volume.m_Profile.GetSetting<Grain>().active = true;
             }
-            
-            //volume.enabled = !volume.enabled;
-            //colorGrading.enabled.value = !colorGrading.enabled.value;
         }
 
         private void OnLevelCompleted()
         {
-            //StartCoroutine(FocusOut());
+            StopAllCoroutines();
+            StartCoroutine(FocusOut());
         }
 
         private void OnPlayerDeath()
         {
+            StopAllCoroutines();
             StartCoroutine(FocusOut());
         }
 
@@ -83,16 +88,6 @@ namespace Game
             if (depthOfField.focusDistance.value >= 1)
             {
                 yield return FocusOut();
-            }
-        }
-
-        private IEnumerator FocusIn()
-        {
-            depthOfField.focusDistance.value += fadeBy;
-            yield  return new WaitForSeconds(fadeSpeed);
-            if (depthOfField.focusDistance.value <= 5)
-            {
-                yield return FocusIn();
             }
         }
     }
