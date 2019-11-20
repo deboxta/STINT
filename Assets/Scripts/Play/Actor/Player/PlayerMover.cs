@@ -9,9 +9,6 @@ namespace Game
     //Author : Anthony Bérubé
     public class PlayerMover : MonoBehaviour
     {
-        [Header("Player animator")]
-        [SerializeField] private Animator animator;
-        
         [Header("Abilities to Activate")]
         [SerializeField] private bool hasBoots;
         
@@ -49,7 +46,7 @@ namespace Game
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
-        private OnLandingEventChannel onLandingEventChannel;
+        private PlayerAnimator playerAnimator;
         
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
@@ -72,17 +69,7 @@ namespace Game
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
             playerCanControlMoves = true;
-            onLandingEventChannel = Finder.OnLandingEventChannel;
-        }
-
-        private void OnEnable()
-        {
-            onLandingEventChannel.Onlanding += OnLanding;
-        }
-
-        private void OnDisable()
-        {
-            onLandingEventChannel.Onlanding -= OnLanding;
+            playerAnimator = Finder.PlayerAnimator;
         }
 
         private void FixedUpdate()
@@ -116,7 +103,7 @@ namespace Game
             {
                 isWallJumping = false;
                 if (!wasGrounded)
-                    onLandingEventChannel.NotifyOnLanding();
+                    playerAnimator.OnLanding();
             }
         }
 
@@ -153,7 +140,7 @@ namespace Game
                     
                     //Author : Jeammy Côté
                     if(!isWallSliding)
-                        animator.SetFloat("Speed",Mathf.Abs(velocity.x * xSpeed));
+                        playerAnimator.OnMoving(velocity.x);
                 }
             }
             //WallSlide
@@ -172,13 +159,13 @@ namespace Game
             {
                 //Author : Anthony Bérubé
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x , yForce);
-                animator.SetBool("IsJumping",true);
+                playerAnimator.OnJumping();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
             {
-                animator.SetBool("IsJumping",true);
                 WallJump();
+                playerAnimator.OnJumping();
             }
         }
         
@@ -218,14 +205,14 @@ namespace Game
                 isWallSliding = true;
                 if (!isWallJumping)
                 {
-                    animator.SetBool("IsJumping",false);
+                    playerAnimator.OnLanding();
                 }
-                animator.SetBool("IsWallSliding",true);
+                playerAnimator.OnWallSliding();
             }
             else
             {
                 isWallSliding = false;
-                animator.SetBool("IsWallSliding",false);
+                playerAnimator.OnStopWallSliding();
             }
         }
         
@@ -235,10 +222,12 @@ namespace Game
         {
             if (isGrounded && !isTouchingWall && !isWallSliding && !isWallJumping)
                 ResetNumberOfJumpsLeft();
-            
+
             if (numberOfJumpsLeft <= 0)
+            {
                 canJump = false;
-            
+                playerAnimator.WallJumpWarningAnimation();
+            }
             else if (numberOfJumpsLeft > 0)
                 canJump = true;
         }
@@ -257,11 +246,6 @@ namespace Game
             rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
 
-        private void OnLanding()
-        {
-            animator.SetBool("IsJumping", false);
-        }
-        
         //Author : Anthony Bérubé
         public void Slowed()
         {
