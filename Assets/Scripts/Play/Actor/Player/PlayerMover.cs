@@ -196,7 +196,7 @@ namespace Game
                 {
                     //Add pushing force for wall jump with velocity of the moving wall.
                     rigidBody2D.velocity = Vector2.zero;
-                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
+                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, wallHit.rigidbody.velocity.x * wallJumpForce * yForce +10);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
                 
