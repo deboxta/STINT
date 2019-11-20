@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using Harmony;
 using UnityEngine;
 
 namespace Game
@@ -19,11 +20,14 @@ namespace Game
         private void OnTriggerEnter2D(Collider2D other)
         {
             var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
-
-            cinemachineConfiner.m_BoundingShape2D = compositeCollider2D;
             
-            //Need to call this function when the confiner is change during runtime
-            cinemachineConfiner.InvalidatePathCache();
+            if (other.transform.CompareTag(R.S.Tag.Player))
+            {
+                cinemachineConfiner.m_BoundingShape2D = compositeCollider2D;
+            
+                //Need to call this function when the confiner is change during runtime
+                cinemachineConfiner.InvalidatePathCache();
+            }
         }
     }
 }
