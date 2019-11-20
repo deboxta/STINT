@@ -7,7 +7,7 @@ namespace Game
 {
     //Author : Sébastien Arsenault
     [Findable(R.S.Tag.HudController)]
-    public class HudDialogue : MonoBehaviour
+    public class HudDialog : MonoBehaviour
     {
         [SerializeField] private float delayBetweenCharacters = 0.1f;
         [SerializeField] private float delayBetweenTexts = 3f;

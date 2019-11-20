@@ -60,7 +60,7 @@ namespace Game
         private IEnumerator Appear()
         {
             Activate();
-            yield  return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(duration);
             Deactivate();
         }
 
