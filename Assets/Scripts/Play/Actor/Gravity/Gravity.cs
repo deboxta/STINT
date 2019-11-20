@@ -95,11 +95,11 @@ namespace Game
                 forceVector = CalculateForceDirection();
                 xValue = forceVector.x;
                 yValue = forceVector.y;
-                AdjustedForce = GetPlayerForceImpact();
+                adjustedForce = GetPlayerForceImpact();
             }
             else
             {
-                AdjustedForce = new Vector2(0,100);
+                adjustedForce = new Vector2(0,100);
             }
             
             xForce = CalculateForcePercentage(forceVector.x);
