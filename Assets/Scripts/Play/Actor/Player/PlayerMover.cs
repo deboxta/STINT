@@ -46,7 +46,7 @@ namespace Game
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
-        private Gravity gravity;
+        //private Gravity gravity;
         
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
@@ -58,7 +58,7 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
+            //gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
             
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
@@ -123,9 +123,9 @@ namespace Game
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
                     //Author : Yannick Cote
-                    if (gravity != null)
+                    /*if (gravity != null)
                         velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
-                    else
+                    else*/
                         velocity.x = direction.x * xSpeed;
                     rigidBody2D.velocity = velocity;
                 }
@@ -143,9 +143,9 @@ namespace Game
                 //Author : Anthony Bérubé
             {
                 //Author : Yannick Cote
-                if (gravity != null)
+                /*if (gravity != null)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
-                else
+                else*/
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
             }
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
