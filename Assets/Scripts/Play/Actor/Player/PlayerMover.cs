@@ -32,7 +32,7 @@ namespace Game
         [SerializeField] private float xSpeed = 10f;
         [SerializeField] private float yForce = 15f;
         [SerializeField] private float groundCheckRadius = 1.11f; 
-        [SerializeField] private float movementPenalty = 2;
+        [SerializeField] private float movementPenalty = 0.13f;
         
         //Raycasts position for ground and wall
         [Header("Player surroundings")]
