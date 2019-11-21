@@ -89,9 +89,8 @@ namespace Game
             }
             else if (gamePadState.Buttons.X == ButtonState.Released && gamePadState.Buttons.Y == ButtonState.Released)
                 isChangeTimelineKeyReleased = true;
-                
-            
-            // TODO temp
+
+#if UNITY_EDITOR
             //Freeze time
             if (gamePadState.Buttons.LeftShoulder == ButtonState.Pressed)
                 freezeTimeIsClicked = true;
@@ -101,6 +100,7 @@ namespace Game
                 Finder.TimeFreezeController.SwitchState();
                 freezeTimeIsClicked = false;
             }
+#endif
 
             //Fall
             if (gamePadState.Buttons.A == ButtonState.Released)

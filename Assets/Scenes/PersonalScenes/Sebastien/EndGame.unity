@@ -136,6 +136,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VirtualCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 4519857631210427454, guid: fe04e2ac1043d6b45839458bdf158796,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4519857631210427440, guid: fe04e2ac1043d6b45839458bdf158796,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -220,6 +225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HudCredit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822076440851904206, guid: f8ad510dc18edfd47b8f941773dafe78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3822076440851904202, guid: f8ad510dc18edfd47b8f941773dafe78,
         type: 3}
@@ -330,6 +340,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822076440886418733, guid: f8ad510dc18edfd47b8f941773dafe78,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822076440957695538, guid: f8ad510dc18edfd47b8f941773dafe78,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8ad510dc18edfd47b8f941773dafe78, type: 3}

@@ -25,6 +25,9 @@ namespace Game
         private Vitals vitals;
         private bool isCrouched;
         private PlayerMover playerMover;
+        private PlayerInput playerInput;
+        private BoxCollider2D boxCollider2D;
+        private Rigidbody2D rigidBody2D;
         private Dispatcher dispatcher;
 
         public Hands Hands => hands;
@@ -50,10 +53,14 @@ namespace Game
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
             playerMover = GetComponent<PlayerMover>();
-            
+            playerInput = GetComponent<PlayerInput>();
+            boxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
+            rigidBody2D = GetComponent<Rigidbody2D>();
+
             isLookingRight = true;
             IsDead = false;
             isCrouched = false;
+            //TODO CHANGE THIS SEB NOTE
             size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
             
             boxSensor = sensor.For<Box>();
@@ -93,10 +100,21 @@ namespace Game
             if (!IsDead)
             {
                 IsDead = true;
+                DeactivateComponentsWhenDead();
                 dispatcher.DataCollector.NbDeath++;
                 nbDeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
+        }
+
+        //Author : Sébastien Arsenault
+        private void DeactivateComponentsWhenDead()
+        {
+            playerMover.enabled = false;
+            playerInput.enabled = false;
+            boxCollider2D.enabled = false;
+            rigidBody2D.isKinematic = true;
+            rigidBody2D.velocity = Vector2.zero;
         }
 
         //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
@@ -111,7 +129,7 @@ namespace Game
                 playerMover.Slowed();
             }
         }
-        
+
         public void ThrowBox(bool crouching)
         {
             if (crouching)

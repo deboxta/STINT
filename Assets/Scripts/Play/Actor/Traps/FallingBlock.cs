@@ -26,15 +26,19 @@ namespace Game
             blockBoxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
             playerSensor = GetComponentInChildren<Sensor>().For<Player>();
             sensor = GetComponentInChildren<Sensor>();
-            sensor.transform.position = new Vector3(sensor.transform.position.x,
+            isFalling = false;
+            isGrounded = false;
+            playerSize = Finder.Player.Size;
+        }
+
+        private void Start()
+        {
+            sensor.transform.localPosition = new Vector3(sensor.transform.localPosition.x,
                 -startingDistance / 2, 0);
             sensorBoxCollider2D = transform.Find(R.S.GameObject.Sensor).GetComponent<BoxCollider2D>();
             sensorBoxCollider2D.size = new Vector2(blockBoxCollider2D.size.x, startingDistance);
             transform.position = new Vector3(transform.position.x, transform.position.y + startingDistance,
                 transform.position.z);
-            isFalling = false;
-            isGrounded = false;
-            playerSize = 0;
         }
 
         private void FixedUpdate()
@@ -76,7 +80,6 @@ namespace Game
 
         private void OnPlayerSensed(Player player)
         {
-            playerSize = player.Size;
             if (!IsFrozen)
                 isFalling = true;
         }
