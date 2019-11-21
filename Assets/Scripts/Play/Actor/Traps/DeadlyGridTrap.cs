@@ -7,9 +7,9 @@ namespace Game
 {
     public class DeadlyGridTrap : MonoBehaviour
     {
-        private void OnCollisionEnter2D(Collision2D other1)
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other1.transform.CompareTag(R.S.Tag.Player))
+            if (other.transform.CompareTag(R.S.Tag.Player))
             {
                 Finder.Player.Die();
             }
