@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2336518926875734324}
   - component: {fileID: 6589510860134628462}
   - component: {fileID: 4860130458955322391}
-  - component: {fileID: 1006709471214126049}
+  - component: {fileID: 8241520018865989966}
   m_Layer: 0
   m_Name: VirtualCamera
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 0.025
   fadeBy: 0.1
---- !u!114 &1006709471214126049
+--- !u!114 &8241520018865989966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
