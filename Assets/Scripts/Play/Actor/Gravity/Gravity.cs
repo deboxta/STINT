@@ -30,12 +30,15 @@ namespace Game
         private Vector2 forceVector;
         private float radius;
         private LayerMask playerLayer;
+        private PointEffector2D pointEffector2D;
+        
         void Start()
         {
             playerLayer = (1 << LayerMask.NameToLayer(R.S.Layer.Player));
             adjustedForce = new Vector2(1,1);
             player = Finder.Player;
             radius = GetComponent<CircleCollider2D>().radius;
+            pointEffector2D = GetComponent<PointEffector2D>();
         }
 
         private Vector2 CalculateForceDirection()
@@ -108,11 +111,18 @@ namespace Game
             raycastIsTriggered = Physics2D.OverlapCircle(transform.position, radius, playerLayer);
         }
 
+        public void DeactivatePointEffector(bool isDesabled)
+        {
+            pointEffector2D.enabled = !isDesabled;
+        }
+        
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(player.transform.position, transform.position);
         }
+#endif
     } 
 }
 

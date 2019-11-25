@@ -89,7 +89,7 @@ namespace Game
             //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
                 rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
-            
+
         }
         
         //Author : Jeammy Côté
@@ -100,7 +100,10 @@ namespace Game
 
             isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
             if (isGrounded)
+            {
                 isWallJumping = false;
+                gravity.DeactivatePointEffector(false);
+            }
 
             wallHit = Physics2D.Raycast(
                 wallCheck.position, 
@@ -136,6 +139,7 @@ namespace Game
                     rigidBody2D.velocity = velocity;
                 }
             }
+
             //WallSlide
             if (hasBoots)
                 if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
@@ -148,6 +152,7 @@ namespace Game
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
+                gravity.DeactivatePointEffector(true);
                 //Author : Yannick Cote
                 if (gravity != null)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
@@ -175,7 +180,8 @@ namespace Game
                     forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
-                
+                gravity.DeactivatePointEffector(true);
+
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;
                 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
