@@ -12,6 +12,7 @@ namespace Game
         private TilemapCollider2D tilemapCollider2D;
         private Tilemap tilemap;
         private Color originalColor;
+        private Color ghostColor;
 
         private void Awake()
         {
@@ -19,6 +20,7 @@ namespace Game
             tilemap = GetComponent<Tilemap>();
             tilemapCollider2D = GetComponent<TilemapCollider2D>();
             originalColor = tilemap.color;
+            ghostColor = new Color(originalColor.r, originalColor.g, originalColor.b, ALPHA_OF_COLOR);
         }
 
         private void OnEnable()
@@ -59,7 +61,7 @@ namespace Game
         private void DisableCollider()
         {
             tilemapCollider2D.enabled = false;
-            tilemap.color = new Color(originalColor.r, originalColor.g, originalColor.b, ALPHA_OF_COLOR);
+            tilemap.color = ghostColor;
         }
     }
 }
