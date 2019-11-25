@@ -22,6 +22,7 @@ namespace Game
         private bool jumpButtonIsPressed;
         private bool canChangeTimeline;
         private bool isChangeTimelineKeyReleased;
+        private bool rtButtonUnpressed;
         
         private void Awake()
         {
@@ -32,17 +33,12 @@ namespace Game
             crouching = false;
             freezeTimeIsClicked = false;
             canChangeTimeline = true;
+            rtButtonUnpressed = true;
         }
 
         private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            //Crouch
-            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
-                crouching = true;
-            else
-                crouching = false;
 
             var direction = Vector2.zero;
             //Right
@@ -107,13 +103,21 @@ namespace Game
                 playerMover.Fall();
 
             //Grab
-            if (Input.GetKeyDown(KeyCode.C) ||
-                GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 && !player.Hands.IsHoldingBox)
+            {
                 player.GrabBox();
-
+                rtButtonUnpressed = false;
+            }
             //Throw
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
-                player.ThrowBox(crouching);
+            else if (gamePadState.Triggers.Right > 0 && rtButtonUnpressed && player.Hands.IsHoldingBox)
+                player.ThrowBox(false);
+            //Drop
+            else if (gamePadState.Buttons.RightShoulder == ButtonState.Pressed && player.Hands.IsHoldingBox)
+                player.ThrowBox(true);
+            
+            //Reset Right Trigger state
+            if (gamePadState.Triggers.Right > 0 == false)
+                rtButtonUnpressed = true;
         }
         
         private IEnumerator TimeChangeDelay()
