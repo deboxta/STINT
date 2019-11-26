@@ -53,7 +53,8 @@ namespace Game
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            isPlayerInConfiner = false;
+            if (other.transform.CompareTag(R.S.Tag.Player))
+                isPlayerInConfiner = false;
         }
 
         private void Update()
@@ -61,9 +62,9 @@ namespace Game
             //Author : Yannick Cote
             //For the camera shake effect
             if (isShakeActive && isPlayerInConfiner)
-            {
                 noiseController.CalledOnEventShake(amplitude,frequency);
-            }
+            else if(!isShakeActive)
+                noiseController.CalledOnEventShake(0,0);
         }
     }
     

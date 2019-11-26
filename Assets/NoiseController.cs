@@ -14,7 +14,6 @@ public class NoiseController : MonoBehaviour
     
     private CinemachineVirtualCamera virtualCamera;
     private TimelineChangedEventChannel timelineChangedEventChannel;
-    private CameraShakeEnterEventChannel cameraShakeEnterEventChannel;
     private TimelineController timelineController;
     private CinemachineBasicMultiChannelPerlin noiseSettings;
 
