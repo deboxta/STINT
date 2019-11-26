@@ -121,6 +121,8 @@ namespace Game
             {
                 isTouchingWall = true;
                 wallJumpDirection = wallHit.normal;
+                if (!canJump)
+                    playerAnimator.WallJumpWarningAnimation();
             }
             else
             {
@@ -191,7 +193,7 @@ namespace Game
                 {
                     //Add pushing force for wall jump with velocity of the moving wall.
                     rigidBody2D.velocity = Vector2.zero;
-                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, wallHit.rigidbody.velocity.x * wallJumpForce * yForce +10);
+                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, wallHit.rigidbody.velocity.x * wallJumpForce * yForce +55);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
                 
@@ -211,10 +213,10 @@ namespace Game
             if (isTouchingWall && !isGrounded)
             {
                 isWallSliding = true;
+                
                 if (!isWallJumping)
-                {
                     playerAnimator.OnLanding();
-                }
+                
                 playerAnimator.OnWallSliding();
             }
             else
@@ -232,10 +234,7 @@ namespace Game
                 ResetNumberOfJumpsLeft();
 
             if (numberOfJumpsLeft <= 0)
-            {
                 canJump = false;
-                playerAnimator.WallJumpWarningAnimation();
-            }
             else if (numberOfJumpsLeft > 0)
                 canJump = true;
         }
@@ -275,7 +274,7 @@ namespace Game
             yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
             playerCanControlMoves = true;
         }
-        
+
 #if UNITY_EDITOR
         //Author : Jeammy Côté
         private void OnDrawGizmos()

@@ -12,9 +12,6 @@ namespace Game
     [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
     public class Player : MonoBehaviour , IPowerUpCollector
     {
-        [Header("Events")]
-        [SerializeField] private UnityEvent onLandEvent;
-        
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
         [SerializeField] private int nbDeath;
@@ -127,6 +124,7 @@ namespace Game
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
                 playerMover.Slowed();
+                Finder.PlayerAnimator.OnGrabBox();
             }
         }
 
@@ -138,6 +136,7 @@ namespace Game
                 hands.Throw(isLookingRight);
             
             playerMover.ResetSpeed();
+            Finder.PlayerAnimator.OnBoxThrow();
         }
         
         //Author : Jeammy Côté
