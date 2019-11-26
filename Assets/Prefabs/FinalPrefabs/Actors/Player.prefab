@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
-  xSize: 2.3
+  xSize: 2.4
   ySize: 3
 --- !u!1 &8122630466803514657
 GameObject:
