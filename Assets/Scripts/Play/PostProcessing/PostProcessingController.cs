@@ -13,10 +13,13 @@ namespace Game
         [SerializeField] private float fadeBy = 0.1f;
         
         private DepthOfField depthOfField;
+        private ChromaticAberration chromaticAberration;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private TimelineController timelineController;
+        private TimeFreezeEventChannel timeFreezeEventChannel;
+        private TimeFreezeController timeFreezeController;
         private CinemachinePostProcessing volume;
 
         private void Awake()
@@ -26,11 +29,14 @@ namespace Game
             volume.m_Profile = volume.Profile.Clone();
             
             volume.Profile.TryGetSettings(out depthOfField);
+            volume.Profile.TryGetSettings(out chromaticAberration);
 
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             timelineController = Finder.TimelineController;
+            timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
+            timeFreezeController = Finder.TimeFreezeController;
         }
 
         private void OnEnable()
@@ -38,6 +44,7 @@ namespace Game
             playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += OnLevelCompleted;
             timelineChangedEventChannel.OnTimelineChanged += OnTimeLineChanged;
+            timeFreezeEventChannel.OnTimeFreezeStateChanged += OnTimeFreezeChanged;
         }
 
         
@@ -47,6 +54,7 @@ namespace Game
             playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted -= OnLevelCompleted;
             timelineChangedEventChannel.OnTimelineChanged -= OnTimeLineChanged;
+            timeFreezeEventChannel.OnTimeFreezeStateChanged -= OnTimeFreezeChanged;
         }
 
         private void OnTimeLineChanged()
@@ -56,7 +64,7 @@ namespace Game
                 volume.m_Profile.GetSetting<ColorGrading>().active = false;
                 volume.m_Profile.GetSetting<LensDistortion>().active = false;
                 volume.m_Profile.GetSetting<Bloom>().active = false;
-                volume.m_Profile.GetSetting<ChromaticAberration>().active = false;
+                //volume.m_Profile.GetSetting<ChromaticAberration>().active = false;
                 volume.m_Profile.GetSetting<Grain>().active = false;
             }
             else
@@ -64,7 +72,7 @@ namespace Game
                 volume.m_Profile.GetSetting<ColorGrading>().active = true;
                 volume.m_Profile.GetSetting<LensDistortion>().active = true;
                 volume.m_Profile.GetSetting<Bloom>().active = true;
-                volume.m_Profile.GetSetting<ChromaticAberration>().active = true;
+                //volume.m_Profile.GetSetting<ChromaticAberration>().active = true;
                 volume.m_Profile.GetSetting<Grain>().active = true;
             }
         }
@@ -81,6 +89,20 @@ namespace Game
             StartCoroutine(FocusOut());
         }
 
+        private void OnTimeFreezeChanged()
+        {
+            if (timeFreezeController.IsFrozen)
+            {
+                StopAllCoroutines();
+                StartCoroutine(ChromaticWarningOn());
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(ChromaticWarningOff());
+            }
+        }
+
         private IEnumerator FocusOut()
         {
             depthOfField.focusDistance.value -= fadeBy;
@@ -88,6 +110,26 @@ namespace Game
             if (depthOfField.focusDistance.value >= 1)
             {
                 yield return FocusOut();
+            }
+        }
+
+        private IEnumerator ChromaticWarningOn()
+        {
+            if (chromaticAberration.intensity.value < 1f)
+            {
+                chromaticAberration.intensity.value += 0.1f;
+                yield return new WaitForSeconds(0.025f);
+                yield return ChromaticWarningOn();
+            }
+        }
+        
+        private IEnumerator ChromaticWarningOff()
+        {
+            if (chromaticAberration.intensity.value > 0f)
+            {
+                chromaticAberration.intensity.value -= 0.1f;
+                yield return new WaitForSeconds(0.025f);
+                yield return ChromaticWarningOff();
             }
         }
     }

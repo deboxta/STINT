@@ -112,7 +112,8 @@ namespace Game
                 player.GrabBox();
 
             //Throw
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
+            if (/*Input.GetKeyDown(KeyCode.V)*/ //||
+                GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
                 player.ThrowBox(crouching);
         }
         
