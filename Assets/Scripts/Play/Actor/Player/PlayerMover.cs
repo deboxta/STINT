@@ -47,7 +47,8 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
         private Gravity gravity;
-        
+        private bool isGravityNotNull;
+
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
@@ -63,8 +64,7 @@ namespace Game
 
             if (gravityObject != null)
                 gravity = gravityObject.GetComponentInChildren<Gravity>();
-            else
-                gravity = null;
+            isGravityNotNull = gravity != null;
 
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
@@ -102,7 +102,8 @@ namespace Game
             if (isGrounded)
             {
                 isWallJumping = false;
-                gravity.DeactivatePointEffector(false);
+                if (isGravityNotNull && gravity.isActiveAndEnabled)
+                    gravity.DeactivatePointEffector(false);
             }
 
             wallHit = Physics2D.Raycast(
@@ -132,7 +133,7 @@ namespace Game
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
                     //Author : Yannick Cote
-                    if (gravity != null)
+                    if (isGravityNotNull && gravity.isActiveAndEnabled)
                         velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
                     else
                         velocity.x = direction.x * xSpeed;
@@ -152,9 +153,10 @@ namespace Game
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
-                gravity.DeactivatePointEffector(true);
+                if (isGravityNotNull && gravity.isActiveAndEnabled)
+                    gravity.DeactivatePointEffector(true);
                 //Author : Yannick Cote
-                if (gravity != null)
+                if (isGravityNotNull)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
                 else
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
@@ -180,7 +182,9 @@ namespace Game
                     forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
-                gravity.DeactivatePointEffector(true);
+
+                if (isGravityNotNull && gravity.isActiveAndEnabled)
+                    gravity.DeactivatePointEffector(true);
 
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;

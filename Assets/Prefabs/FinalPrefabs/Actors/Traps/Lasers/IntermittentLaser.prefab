@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onTimeInSeconds: 1
   offTimeInSeconds: 1
+  isOnAtStart: 1
 --- !u!1001 &7730537411229513128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46,8 +47,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5552066542975708685, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33d0fbfdb7c5d1b42b71a27461e1fb12, type: 3}
 --- !u!1 &2757475982814616484 stripped
 GameObject:
