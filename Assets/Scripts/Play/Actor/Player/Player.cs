@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Game
 {
@@ -39,7 +37,6 @@ namespace Game
         private float size;
         public float Size => size;
         
-
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;

@@ -82,10 +82,8 @@ namespace Game
 
         public void WallJumpWarningAnimation()
         {
-            if (!coroutineIsRunning)
-            {
+            if (!coroutineIsRunning){}
                 StartCoroutine(WallJumpWarningTimeLaps());
-            }
         }
 
         private void OnPlayerDeath()
