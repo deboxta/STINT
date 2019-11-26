@@ -46,6 +46,7 @@ namespace Game
         private GamePadState gamePadState;
         private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
+        private PlayerAnimator playerAnimator;
         //private Gravity gravity;
         
         //If player has obtained the capacity of wall jumping by collecting the boots
@@ -70,6 +71,7 @@ namespace Game
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
             playerCanControlMoves = true;
+            playerAnimator = Finder.PlayerAnimator;
         }
 
         private void FixedUpdate()
@@ -83,19 +85,32 @@ namespace Game
             //Player fall faster for more realistic physic
             if (rigidBody2D.velocity.y < 0)
                 rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
-            
         }
         
         //Author : Jeammy Côté
         private void CheckSurroundings()
         {
-            //TODO : Change with cube raycast
-            var position = groundCheck.position;
+            CheckIfIsGrounded();
+            CheckIfIsTouchingWall();
+        }
 
-            isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
+        private void CheckIfIsGrounded()
+        {
+            bool wasGrounded = isGrounded;
+            isGrounded = false;
+            
+            Vector3 groundCheckPosition = groundCheck.position;
+            isGrounded = Physics2D.OverlapCircle(groundCheckPosition, groundCheckRadius, layersToJump);
             if (isGrounded)
+            {
                 isWallJumping = false;
+                if (!wasGrounded)
+                    playerAnimator.OnLanding();
+            }
+        }
 
+        private void CheckIfIsTouchingWall()
+        {
             wallHit = Physics2D.Raycast(
                 wallCheck.position, 
                 transform.right * transform.localScale.x, 
@@ -106,6 +121,8 @@ namespace Game
             {
                 isTouchingWall = true;
                 wallJumpDirection = wallHit.normal;
+                if (!canJump)
+                    playerAnimator.WallJumpWarningAnimation();
             }
             else
             {
@@ -128,6 +145,10 @@ namespace Game
                     else*/
                         velocity.x = direction.x * xSpeed;
                     rigidBody2D.velocity = velocity;
+                    
+                    //Author : Jeammy Côté
+                    if(!isWallSliding)
+                        playerAnimator.OnMoving(velocity.x);
                 }
             }
             //WallSlide
@@ -139,6 +160,7 @@ namespace Game
         //Author : Jeammy Côté
         public void Jump()
         {
+            //Normal jump
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
@@ -146,10 +168,15 @@ namespace Game
                 /*if (gravity != null)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
                 else*/
-                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
+                playerAnimator.OnJumping();
             }
-            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded )
+            //Wall jump
+            else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
+            {
                 WallJump();
+                playerAnimator.OnJumping();
+            }
         }
         
         //Author : Jeammy Côté
@@ -164,9 +191,9 @@ namespace Game
                 
                 if (wallHit)
                 {
-                    //Add pushing force for wall jump with velocity of the wall.
+                    //Add pushing force for wall jump with velocity of the moving wall.
                     rigidBody2D.velocity = Vector2.zero;
-                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, yForce );
+                    forceToAdd = new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed, wallHit.rigidbody.velocity.x * wallJumpForce * yForce +55);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
                 
@@ -184,9 +211,19 @@ namespace Game
         private void CheckIfWallSliding()
         {
             if (isTouchingWall && !isGrounded)
+            {
                 isWallSliding = true;
+                
+                if (!isWallJumping)
+                    playerAnimator.OnLanding();
+                
+                playerAnimator.OnWallSliding();
+            }
             else
+            {
                 isWallSliding = false;
+                playerAnimator.OnStopWallSliding();
+            }
         }
         
         //Author : Jeammy Côté
@@ -195,10 +232,9 @@ namespace Game
         {
             if (isGrounded && !isTouchingWall && !isWallSliding && !isWallJumping)
                 ResetNumberOfJumpsLeft();
-            
+
             if (numberOfJumpsLeft <= 0)
                 canJump = false;
-            
             else if (numberOfJumpsLeft > 0)
                 canJump = true;
         }
@@ -216,7 +252,7 @@ namespace Game
         {
             rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
-        
+
         //Author : Anthony Bérubé
         public void Slowed()
         {
@@ -238,7 +274,7 @@ namespace Game
             yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
             playerCanControlMoves = true;
         }
-        
+
 #if UNITY_EDITOR
         //Author : Jeammy Côté
         private void OnDrawGizmos()

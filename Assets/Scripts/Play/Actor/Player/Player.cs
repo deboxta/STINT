@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -37,7 +36,7 @@ namespace Game
 
         private float size;
         public float Size => size;
-
+        
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
@@ -122,6 +121,7 @@ namespace Game
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
                 playerMover.Slowed();
+                Finder.PlayerAnimator.OnGrabBox();
             }
         }
 
@@ -133,6 +133,7 @@ namespace Game
                 hands.Throw(isLookingRight);
             
             playerMover.ResetSpeed();
+            Finder.PlayerAnimator.OnBoxThrow();
         }
         
         //Author : Jeammy Côté
