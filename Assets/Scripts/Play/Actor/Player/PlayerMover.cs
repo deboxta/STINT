@@ -111,10 +111,12 @@ namespace Game
             if (isGrounded)
             {
                 isWallJumping = false;
-                if (isGravityNotNull && gravity.isActiveAndEnabled)
-                    gravity.DeactivatePointEffector(false);
                 if (!wasGrounded)
+                {
                     playerAnimator.OnLanding();
+                    if (isGravityNotNull && gravity.isActiveAndEnabled)
+                        gravity.DeactivatePointEffector(false);
+                }
             }
         }
 
@@ -170,12 +172,12 @@ namespace Game
         //Author : Jeammy Côté
         public void Jump()
         {
+            if (isGravityNotNull && gravity.isActiveAndEnabled)
+                gravity.DeactivatePointEffector(true);
             //Normal jump
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
-                if (isGravityNotNull && gravity.isActiveAndEnabled)
-                    gravity.DeactivatePointEffector(true);
                 //Author : Yannick Cote
                 if (isGravityNotNull)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
@@ -194,6 +196,8 @@ namespace Game
         //Author : Jeammy Côté
         private void WallJump()
         {
+            if (isGravityNotNull && gravity.isActiveAndEnabled)
+                gravity.DeactivatePointEffector(true);
             if (hasBoots)
             {
                 isWallSliding = false;
@@ -209,8 +213,6 @@ namespace Game
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
 
-                if (isGravityNotNull && gravity.isActiveAndEnabled)
-                    gravity.DeactivatePointEffector(true);
 
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;
