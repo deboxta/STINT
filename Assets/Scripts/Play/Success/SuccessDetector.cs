@@ -52,7 +52,6 @@ namespace Game
             {
                 secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
             }
-            //savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
             sceneLoadedEventChannel.OnSceneLoaded -= OnSceneLoaded;
         }
 
