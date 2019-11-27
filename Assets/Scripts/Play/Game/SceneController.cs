@@ -15,6 +15,7 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        private SceneLoadedEventChannel sceneLoadedEventChannel;
         private Scenes scenes;
         private int currentLevel;
         private Dispatcher dispatcher;
@@ -31,6 +32,7 @@ namespace Game
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            sceneLoadedEventChannel = Finder.SceneLoadedEventChannel;
             scenes = GetComponentInChildren<Scenes>();
             
             currentLevel = STARTING_LEVEL;
@@ -81,6 +83,7 @@ namespace Game
             currentLevel = dispatcher.DataCollector.ActiveScene;
             yield return LoadGame();
             savedSceneLoadedEventChannel.NotifySavedDataLoaded();
+            sceneLoadedEventChannel.NotifySceneLoaded();
         }
 
         private IEnumerator NextLevel()
@@ -98,6 +101,8 @@ namespace Game
             yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
+            
+            sceneLoadedEventChannel.NotifySceneLoaded();
         }
 
         private IEnumerator UnloadGame()

@@ -2,6 +2,7 @@
 using System.Collections;
 using Harmony;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -14,19 +15,19 @@ namespace Game
         private SaveNamedBenSuccess saveNamedBenSuccess;
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
-        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SuccessUnlockedEventChannel successUnlockedEventChannel;
+        private SceneLoadedEventChannel sceneLoadedEventChannel;
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
-            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
+            sceneLoadedEventChannel = Finder.SceneLoadedEventChannel;
         }
 
         private void OnEnable()
         {
-            savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
+            sceneLoadedEventChannel.OnSceneLoaded += OnSceneLoaded;
         }
 
         private void OnDisable()
@@ -51,10 +52,11 @@ namespace Game
             {
                 secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
             }
-            savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
+            //savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
+            sceneLoadedEventChannel.OnSceneLoaded -= OnSceneLoaded;
         }
 
-        private void OnSavedDataLoaded()
+        private void OnSceneLoaded()
         {
             CheckAlreadyUnlockedSuccess();
         }

@@ -6481,7 +6481,7 @@ PrefabInstance:
     - target: {fileID: 308609901384526596, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: yForce
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 308609901384526596, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -7507,6 +7507,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3335593473986360995, guid: 7d253f9b4bea2f0449410b58bb766c1e,
+        type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 1479146457}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d253f9b4bea2f0449410b58bb766c1e, type: 3}
 --- !u!1 &1396274221
@@ -8099,6 +8104,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1479146457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3335593475322764020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1390817057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1514514604
 GameObject:
   m_ObjectHideFlags: 0
