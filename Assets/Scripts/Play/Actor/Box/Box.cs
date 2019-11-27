@@ -67,7 +67,9 @@ namespace Game
         private void OnTimelineChange()
         {
             if (timelineController.CurrentTimeline != timeOfBox)
+            {
                 DeActivateComponents();
+            }
             else
                 ActivateComponents();
 
