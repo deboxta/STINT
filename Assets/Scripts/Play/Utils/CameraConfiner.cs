@@ -20,7 +20,8 @@ namespace Game
         [SerializeField] float frequency;
         
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
-        
+        [SerializeField] private float zoomValue;
+
         private CompositeCollider2D compositeCollider2D;
         private NoiseController noiseController;
         private bool isPlayerInConfiner;
@@ -39,8 +40,9 @@ namespace Game
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
             
+            var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
+
             if (other.transform.CompareTag(R.S.Tag.Player))
             {
                 isPlayerInConfiner = true;
@@ -48,6 +50,13 @@ namespace Game
             
                 //Need to call this function when the confiner is change during runtime
                 cinemachineConfiner.InvalidatePathCache();
+                
+                //Author : Yannick Cote
+                //Adjust the zoom of the cam
+                if (zoomValue != 0)
+                    cinemachineVirtualCamera.m_Lens.OrthographicSize = zoomValue;
+                else
+                    zoomValue = cinemachineVirtualCamera.m_Lens.OrthographicSize;
             }
         }
 

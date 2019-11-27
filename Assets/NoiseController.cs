@@ -73,10 +73,4 @@ public class NoiseController : MonoBehaviour
         noiseSettings.m_AmplitudeGain = amp;
         noiseSettings.m_FrequencyGain = freq;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
