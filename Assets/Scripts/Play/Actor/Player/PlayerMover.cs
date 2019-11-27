@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -8,24 +9,22 @@ namespace Game
     //Author : Anthony Bérubé
     public class PlayerMover : MonoBehaviour
     {
-        [Header("Abilities to Activate")] [SerializeField]
-        private bool hasBoots;
-
+        [Header("Abilities to Activate")]
+        [SerializeField] private bool hasBoots;
+        
         //Boolean for verification in unity editor of surroundings and state of the player
-        [Header("Player States")] [SerializeField]
-        private bool isGrounded;
-
+        [Header("Player States")]
+        [SerializeField] private bool isGrounded;
         [SerializeField] private bool isTouchingWall;
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
         [SerializeField] private bool canJump;
         [SerializeField] private bool playerCanControlMoves;
         [SerializeField] private int numberOfJumpsLeft;
-
+        
         //serializeFields for optimisation and control over moves of the player
-        [Header("Player variables")] [SerializeField]
-        private float timeBeforePlayerCanControlMoves = 0.10f;
-
+        [Header("Player variables")]
+        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
@@ -38,19 +37,18 @@ namespace Game
         [SerializeField] private float movementPenalty = 2;
 
         //Raycasts position for ground and wall
-        [Header("Player surroundings")] [SerializeField]
-        private Transform groundCheck;
-
-        [SerializeField] private Transform wallCheck;
-
+        [Header("Player surroundings")]
+        [SerializeField] private Transform groundCheck; 
+        [SerializeField] private Transform wallCheck; 
+        
         private int layersToJump;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
         private RaycastHit2D wallHit;
+        private PlayerAnimator playerAnimator;
 
         public Rigidbody2D RigidBody2D { get; set; }
 
-//        public float? ModifiedYVelocity { get; set; }
         public float? YVelocityToLerp { get; set; }
         public float YVelocityLerpTValue { get; set; }
 
@@ -64,7 +62,8 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             RigidBody2D = GetComponent<Rigidbody2D>();
-
+            //gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
+            
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
             //Author : Sébastien Arsenault
@@ -75,6 +74,7 @@ namespace Game
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
             playerCanControlMoves = true;
+            playerAnimator = Finder.PlayerAnimator;
         }
 
         private void FixedUpdate()
@@ -103,13 +103,27 @@ namespace Game
         //Author : Jeammy Côté
         private void CheckSurroundings()
         {
-            //TODO : Change with cube raycast
-            var position = groundCheck.position;
+            CheckIfIsGrounded();
+            CheckIfIsTouchingWall();
+        }
 
-            isGrounded = Physics2D.OverlapCircle(position, groundCheckRadius, layersToJump);
+        private void CheckIfIsGrounded()
+        {
+            bool wasGrounded = isGrounded;
+            isGrounded = false;
+            
+            Vector3 groundCheckPosition = groundCheck.position;
+            isGrounded = Physics2D.OverlapCircle(groundCheckPosition, groundCheckRadius, layersToJump);
             if (isGrounded)
+            {
                 isWallJumping = false;
+                if (!wasGrounded)
+                    playerAnimator.OnLanding();
+            }
+        }
 
+        private void CheckIfIsTouchingWall()
+        {
             wallHit = Physics2D.Raycast(
                 wallCheck.position,
                 transform.right * transform.localScale.x,
@@ -120,6 +134,8 @@ namespace Game
             {
                 isTouchingWall = true;
                 wallJumpDirection = wallHit.normal;
+                if (!canJump)
+                    playerAnimator.WallJumpWarningAnimation();
             }
             else
             {
@@ -136,8 +152,16 @@ namespace Game
                 {
                     //Author : Anthony Bérubé
                     var velocity = RigidBody2D.velocity;
-                    velocity.x = direction.x * xSpeed;
+                    //Author : Yannick Cote
+                    /*if (gravity != null)
+                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
+                    else*/
+                        velocity.x = direction.x * xSpeed;
                     RigidBody2D.velocity = velocity;
+                    
+                    //Author : Jeammy Côté
+                    if(!isWallSliding)
+                        playerAnimator.OnMoving(velocity.x);
                 }
             }
 
@@ -150,11 +174,23 @@ namespace Game
         //Author : Jeammy Côté
         public void Jump()
         {
+            //Normal jump
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
+            {
+                //Author : Yannick Cote
+                /*if (gravity != null)
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
+                else*/
                 RigidBody2D.velocity = new Vector2(x: RigidBody2D.velocity.x, yForce);
+                playerAnimator.OnJumping();
+            }
+            //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
+            {
                 WallJump();
+                playerAnimator.OnJumping();
+            }
         }
 
         //Author : Jeammy Côté
@@ -191,9 +227,19 @@ namespace Game
         private void CheckIfWallSliding()
         {
             if (isTouchingWall && !isGrounded)
+            {
                 isWallSliding = true;
+                
+                if (!isWallJumping)
+                    playerAnimator.OnLanding();
+                
+                playerAnimator.OnWallSliding();
+            }
             else
+            {
                 isWallSliding = false;
+                playerAnimator.OnStopWallSliding();
+            }
         }
 
         //Author : Jeammy Côté

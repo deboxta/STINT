@@ -17,6 +17,7 @@ TagManager:
   - MenuController
   - ReturnButton
   - LaserGoThrough
+  - GravityObject
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - OneWay
   - Player
   - MovablePlatform
-  - 
+  - VisualScene
   - 
   - 
   - 
