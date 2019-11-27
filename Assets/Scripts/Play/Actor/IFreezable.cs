@@ -1,7 +1,8 @@
 ﻿namespace Game
 {
+    // Author : Mathieu Boutet
     public interface IFreezable
     {
-        bool IsFrozen { get; }
+        // Used to identify freezable objects
     }
 }

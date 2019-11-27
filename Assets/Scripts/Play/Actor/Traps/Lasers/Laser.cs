@@ -6,11 +6,11 @@ namespace Game
     // Author : Mathieu Boutet
     public abstract class Laser : MonoBehaviour
     {
-        protected const int LASER_BEAM_DEFAULT_LENGTH = 500;
-        protected const int RAYCAST_HITS_BUFFER_SIZE = 50;
-        protected const float RAYCAST_ORIGIN_DEAD_ZONE = 0.05f;
+        [SerializeField] private int laserBeamDefaultLength = 500;
+        [SerializeField] private int raycastHitsBufferSize = 50;
+        [SerializeField] private float raycastOriginDeadZone = 0.05f;
 
-        protected LineRenderer laserBeam;
+        protected LineRenderer laserBeamLineRenderer;
         protected bool CastTouchesPlayer { get; private set; }
         protected Vector3 LaserBeamStartPosition { get; private set; }
         protected Vector3 LaserBeamEndPosition { get; private set; }
@@ -20,9 +20,9 @@ namespace Game
 
         protected virtual void Awake()
         {
-            RaycastHits = new RaycastHit2D[RAYCAST_HITS_BUFFER_SIZE];
-            laserBeam = this.GetRequiredComponentInChildren<LineRenderer>(true);
-            laserBeam.useWorldSpace = true;
+            RaycastHits = new RaycastHit2D[raycastHitsBufferSize];
+            laserBeamLineRenderer = this.GetRequiredComponentInChildren<LineRenderer>(true);
+            laserBeamLineRenderer.useWorldSpace = true;
             CastTouchesPlayer = false;
             
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
@@ -35,9 +35,9 @@ namespace Game
         protected virtual void FixedUpdate()
         {
             NbRaycastHits = Physics2D.RaycastNonAlloc(transform.position 
-                                                    + transform.right * RAYCAST_ORIGIN_DEAD_ZONE,
+                                                    + transform.right * raycastOriginDeadZone,
                                                       transform.right,
-                                                      RaycastHits, LASER_BEAM_DEFAULT_LENGTH, LayersToHit);
+                                                      RaycastHits, laserBeamDefaultLength, LayersToHit);
             
             CastTouchesPlayer = false;
             int blockingObjectIndex = -1;
@@ -66,7 +66,7 @@ namespace Game
             if (blockingObjectIndex >= 0)
                 LaserBeamEndPosition = RaycastHits[blockingObjectIndex].point;
             else
-                LaserBeamEndPosition = transform.position + transform.right * LASER_BEAM_DEFAULT_LENGTH;
+                LaserBeamEndPosition = transform.position + transform.right * laserBeamDefaultLength;
         }
 
 #if UNITY_EDITOR
@@ -86,7 +86,7 @@ namespace Game
             
             // Beam trajectory
             Gizmos.color = darkRed;
-            Gizmos.DrawRay(transform.position, transform.right * LASER_BEAM_DEFAULT_LENGTH);
+            Gizmos.DrawRay(transform.position, transform.right * laserBeamDefaultLength);
 
             // Reset color
             Gizmos.color = Color.white;

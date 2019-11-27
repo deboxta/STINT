@@ -46,10 +46,10 @@ namespace Game
             base.Awake();
 
             laserBeamSegments = new LineRenderer[nbMaxSegments];
-            laserBeam.gameObject.SetActive(false);
+            laserBeamLineRenderer.gameObject.SetActive(false);
             for (int i = 0; i < nbMaxSegments; i++)
             {
-                laserBeamSegments[i] = Instantiate(laserBeam, transform);
+                laserBeamSegments[i] = Instantiate(laserBeamLineRenderer, transform);
             }
         }
 

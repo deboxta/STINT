@@ -20,9 +20,9 @@ namespace Game
         private bool isLookingRight;
         private Vitals vitals;
         private bool isCrouched;
-        private PlayerMover playerMover;
         private Dispatcher dispatcher;
 
+        public PlayerMover PlayerMover { get; set; }
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
@@ -44,7 +44,7 @@ namespace Game
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
-            playerMover = GetComponent<PlayerMover>();
+            PlayerMover = GetComponent<PlayerMover>();
             
             isLookingRight = true;
             IsDead = false;
@@ -103,7 +103,7 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(boxSensor.SensedObjects[0]);
-                playerMover.Slowed();
+                PlayerMover.Slowed();
             }
         }
         
@@ -114,19 +114,19 @@ namespace Game
             else
                 hands.Throw(isLookingRight);
             
-            playerMover.ResetSpeed();
+            PlayerMover.ResetSpeed();
         }
         
         //Author : Jeammy Côté
         public void CollectPowerUp()
         {
-            playerMover.ResetNumberOfJumpsLeft();
+            PlayerMover.ResetNumberOfJumpsLeft();
         }
         
         //Author : Jeammy Côté
         public void CollectBoots()
         {
-            playerMover.HasBoots = true;
+            PlayerMover.HasBoots = true;
         }
 #if UNITY_EDITOR
         //Author : Jeammy Côté

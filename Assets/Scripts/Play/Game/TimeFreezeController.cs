@@ -32,10 +32,6 @@ namespace Game
         private void Awake()
         {
             timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
-        }
-
-        private void Start()
-        {
             isFrozen = startFrozen;
         }
 
