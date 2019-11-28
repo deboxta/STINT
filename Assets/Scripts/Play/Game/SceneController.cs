@@ -15,7 +15,7 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        private SceneLoadedEventChannel sceneLoadedEventChannel;
+        private NewGameLoadedEventChannel newGameLoadedEventChannel;
         private Scenes scenes;
         private int currentLevel;
         private Dispatcher dispatcher;
@@ -32,7 +32,7 @@ namespace Game
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
-            sceneLoadedEventChannel = Finder.SceneLoadedEventChannel;
+            newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
             scenes = GetComponentInChildren<Scenes>();
             
             currentLevel = STARTING_LEVEL;
@@ -83,17 +83,22 @@ namespace Game
             currentLevel = dispatcher.DataCollector.ActiveScene;
             yield return LoadGame();
             savedSceneLoadedEventChannel.NotifySavedDataLoaded();
-            sceneLoadedEventChannel.NotifySceneLoaded();
         }
 
         private IEnumerator NextLevel()
         {
             yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
+            
+            if (currentLevel == 0)
+            {
+                newGameLoadedEventChannel.NotifyNewGameLoaded();
+            }
 
             currentLevel++;
 
             yield return LoadGame();
+
         }
 
         private IEnumerator LoadGame()
@@ -101,8 +106,6 @@ namespace Game
             yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
-            
-            sceneLoadedEventChannel.NotifySceneLoaded();
         }
 
         private IEnumerator UnloadGame()

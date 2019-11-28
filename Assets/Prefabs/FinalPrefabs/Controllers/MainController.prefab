@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 450831425154879390}
   - component: {fileID: 7366872951164378045}
   - component: {fileID: 8434718536069152611}
-  - component: {fileID: 3260249929845761192}
+  - component: {fileID: 5062081907815295385}
   - component: {fileID: 5656073382414011744}
   - component: {fileID: 5439996729442061647}
   - component: {fileID: 9087834356088241826}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589976d2cd6843c5aa0bc79d127599f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3260249929845761192
+--- !u!114 &5062081907815295385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

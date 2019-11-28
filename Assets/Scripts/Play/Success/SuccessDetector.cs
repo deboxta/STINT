@@ -16,18 +16,22 @@ namespace Game
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
         private SuccessUnlockedEventChannel successUnlockedEventChannel;
-        private SceneLoadedEventChannel sceneLoadedEventChannel;
+
+        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+        private NewGameLoadedEventChannel newGameLoadedEventChannel;
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
             successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
-            sceneLoadedEventChannel = Finder.SceneLoadedEventChannel;
+            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
+            newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
         }
 
         private void OnEnable()
         {
-            sceneLoadedEventChannel.OnSceneLoaded += OnSceneLoaded;
+            newGameLoadedEventChannel.OnNewGameLoaded += OnNewGameLoaded;
+            savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
         }
 
         private void OnDisable()
@@ -52,17 +56,25 @@ namespace Game
             {
                 secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
             }
-            sceneLoadedEventChannel.OnSceneLoaded -= OnSceneLoaded;
-        }
-
-        private void OnSceneLoaded()
-        {
-            CheckAlreadyUnlockedSuccess();
+            
+            savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
+            
+            newGameLoadedEventChannel.OnNewGameLoaded -= OnNewGameLoaded;
         }
 
         private void OnSuccessUnlocked(string successName)
         {
             successUnlockedEventChannel.NotifySuccessUnlocked(successName);
+        }
+
+        private void OnNewGameLoaded()
+        {
+            CheckAlreadyUnlockedSuccess();
+        }
+
+        private void OnSavedDataLoaded()
+        {
+            CheckAlreadyUnlockedSuccess();
         }
 
         private void OnSecretRoomFoundDetected()
