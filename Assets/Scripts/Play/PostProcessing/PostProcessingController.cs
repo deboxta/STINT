@@ -95,14 +95,10 @@ namespace Game
         {
             if (timeFreezeController.IsFrozen)
             {
-                /*StopAllCoroutines();
-                StartCoroutine(ChromaticWarningOn());*/
                 chromaticAberration.intensity.value = 1;
             }
             else
             {
-                /*StopAllCoroutines();
-                StartCoroutine(ChromaticWarningOff());*/
                 chromaticAberration.intensity.value = 0;
             }
         }
