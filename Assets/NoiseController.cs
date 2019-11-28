@@ -7,17 +7,16 @@ using Harmony;
 using UnityEngine;
 
 public class NoiseController : MonoBehaviour
-{
-    [Header("Shake settings")] 
-    [SerializeField] [Range(0,100)] private float amplitude;
-    [SerializeField] [Range(0,100)] private float frequency;
+{ 
+    private float primaryAmplitude; 
+    private float primaryFrequency;
+    private float secondaryAmplitude;
+    private float secondaryFrequency;
     
     private CinemachineVirtualCamera virtualCamera;
     private TimelineChangedEventChannel timelineChangedEventChannel;
     private TimelineController timelineController;
     private CinemachineBasicMultiChannelPerlin noiseSettings;
-
-    private const float MIN_VALUE_SHAKE = 0;
 
     void Awake()
     {
@@ -43,34 +42,38 @@ public class NoiseController : MonoBehaviour
         SetCameraNoiseSettings(timelineController.CurrentTimeline);
     }
 
+    public void SetNoiseSettings(float primAmp, float primFreq, float secAmp, float secFreq)
+    {
+        primaryAmplitude = primAmp;
+        primaryFrequency = primFreq;
+        secondaryAmplitude = secAmp;
+        secondaryFrequency = secFreq;
+        
+        SetCameraNoiseSettings(timelineController.CurrentTimeline);
+    }
+
     private void SetCameraNoiseSettings(Timeline timeline)
     {
         switch (timeline)
         {
             case Timeline.Primary:
-                NormalShake();
+                SetPrimaryNoise();
                 break;
             case Timeline.Secondary:
-                StopNoise();
+                SetSecondaryNoise();
                 break;
         }
     }
 
-    private void NormalShake()
+    private void SetPrimaryNoise()
     {
-        noiseSettings.m_AmplitudeGain = amplitude;
-        noiseSettings.m_FrequencyGain = frequency;
+        noiseSettings.m_AmplitudeGain = primaryAmplitude;
+        noiseSettings.m_FrequencyGain = primaryFrequency;
     }
 
-    private void StopNoise()
+    private void SetSecondaryNoise()
     {
-        noiseSettings.m_AmplitudeGain = MIN_VALUE_SHAKE;
-        noiseSettings.m_FrequencyGain = MIN_VALUE_SHAKE;
-    }
-
-    public void CalledOnEventShake(float amp, float freq)
-    {
-        noiseSettings.m_AmplitudeGain = amp;
-        noiseSettings.m_FrequencyGain = freq;
+        noiseSettings.m_AmplitudeGain = secondaryAmplitude;
+        noiseSettings.m_FrequencyGain = secondaryFrequency;
     }
 }

@@ -15,9 +15,14 @@ namespace Game
         [HideInInspector]
         [SerializeField] private bool isShakeActive;
         [HideInInspector]
-        [SerializeField] float amplitude;
+        [SerializeField] float primaryAmplitude;
         [HideInInspector]
-        [SerializeField] float frequency;
+        [SerializeField] float primaryFrequency;
+        [HideInInspector]
+        [SerializeField] float secondaryAmplitude;
+        [HideInInspector]
+        [SerializeField] float secondaryFrequency;
+
         
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private float zoomValue;
@@ -71,9 +76,11 @@ namespace Game
             //Author : Yannick Cote
             //For the camera shake effect
             if (isShakeActive && isPlayerInConfiner)
-                noiseController.CalledOnEventShake(amplitude,frequency);
-            else if(!isShakeActive)
-                noiseController.CalledOnEventShake(0,0);
+            {
+                noiseController.SetNoiseSettings(primaryAmplitude,primaryFrequency, secondaryAmplitude, secondaryFrequency);
+            }
+            else if (!isShakeActive)
+                noiseController.SetNoiseSettings(0,0,0,0);
         }
     }
     
@@ -84,15 +91,17 @@ namespace Game
     [CustomEditor(typeof(CameraConfiner))]
     public class MyScriptEditor : Editor
     {
-        private SerializedProperty amplitudeProperty;
-        private SerializedProperty frequencyProperty;
-
+        private SerializedProperty primaryAmplitudeProperty;
+        private SerializedProperty primaryFrequencyProperty;
+        private SerializedProperty secondaryAmplitudeProperty;
+        private SerializedProperty secondaryFrequencyProperty;
 
         private void OnEnable()
         {
-            amplitudeProperty = serializedObject.FindProperty("amplitude");
-            frequencyProperty = serializedObject.FindProperty("frequency");
-
+            primaryAmplitudeProperty = serializedObject.FindProperty("primaryAmplitude");
+            primaryFrequencyProperty = serializedObject.FindProperty("primaryFrequency");
+            secondaryAmplitudeProperty = serializedObject.FindProperty("secondaryAmplitude");
+            secondaryFrequencyProperty = serializedObject.FindProperty("secondaryFrequency");
         }
 
         public override void OnInspectorGUI()
@@ -103,13 +112,17 @@ namespace Game
             cameraConfiner.IsShakeActive = GUILayout.Toggle(cameraConfiner.IsShakeActive, "Shake actived");
             if (cameraConfiner.IsShakeActive)
             {
-                EditorGUILayout.PropertyField(amplitudeProperty);
-                EditorGUILayout.PropertyField(frequencyProperty);
+                EditorGUILayout.PropertyField(primaryAmplitudeProperty);
+                EditorGUILayout.PropertyField(primaryFrequencyProperty);
+                EditorGUILayout.PropertyField(secondaryAmplitudeProperty);
+                EditorGUILayout.PropertyField(secondaryFrequencyProperty);
             }
             else
             {
-                amplitudeProperty.floatValue = 0;
-                frequencyProperty.floatValue = 0;
+                primaryAmplitudeProperty.floatValue = 0;
+                primaryFrequencyProperty.floatValue = 0;
+                secondaryAmplitudeProperty.floatValue = 0;
+                secondaryFrequencyProperty.floatValue = 0;
             }
             EditorUtility.SetDirty(cameraConfiner);
             serializedObject.ApplyModifiedProperties();
