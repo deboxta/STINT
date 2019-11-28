@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Game
 {
     // Author : Mathieu Boutet
+    // Takes an already existing Collider2D in the object instead of creating a new one
     public sealed class StimuliV2 : MonoBehaviour
     {
         public event StimuliV2EventHandler OnDestroyed;

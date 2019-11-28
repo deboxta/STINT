@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Game
 {
     // Author : Mathieu Boutet
+    // Takes an already existing Collider2D in the object instead of creating a new one 
     public interface ISensorV2<out T>
     {
         event SensorV2EventHandler<T> OnSensedObject;
