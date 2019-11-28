@@ -50,12 +50,6 @@ namespace Game
             isWarning = false;
         }
 
-        private void OnEnable()
-        {
-            /*if (changeStateAtInterval)
-                StartCoroutine(WaitForInitialDelay());*/
-        }
-
         public void Reset()
         {
             isFrozen = false;
