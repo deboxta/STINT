@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -7,30 +8,29 @@ namespace Game
     {
         public event SaveNamedBenSuccessEventHandler OnSaveNamedBen;
 
-        private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        
         public string successName { get; set; }
 
         private void Awake()
         {
-            savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
-            
             successName = "Save Named Ben Success";
         }
 
         private void OnEnable()
         {
-            savedSceneLoadedEventChannel.OnSavedSceneLoaded += NotifySaveNamedBen;
+            SceneManager.sceneLoaded += NotifySaveNamedBen;
         }
 
         private void OnDisable()
         {
-            savedSceneLoadedEventChannel.OnSavedSceneLoaded -= NotifySaveNamedBen;
+            SceneManager.sceneLoaded -= NotifySaveNamedBen;
         }
 
-        private void NotifySaveNamedBen() 
-        { 
-            if (OnSaveNamedBen != null) OnSaveNamedBen();
+        private void NotifySaveNamedBen(Scene scene, LoadSceneMode loadSceneMode) 
+        {
+            if (scene.name != R.S.Scene.Main_menu)
+            {
+                if (OnSaveNamedBen != null) OnSaveNamedBen();
+            }
         }
 
         public void DestroySuccess()

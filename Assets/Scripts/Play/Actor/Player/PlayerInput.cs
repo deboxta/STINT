@@ -83,6 +83,7 @@ namespace Game
             {
                 if (player.Hands.IsHoldingBox)
                     player.ThrowBox(true);
+                
                 Finder.TimelineController.SwitchTimeline();
                 StartCoroutine(TimeChangeDelay());
                 isChangeTimelineKeyReleased = false;
