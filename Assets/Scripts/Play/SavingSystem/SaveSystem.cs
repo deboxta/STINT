@@ -18,13 +18,16 @@ namespace Game
         private Dispatcher dispatcher;
         private const string SAVE_FOLDER_NAME = "Saves/";
         private const string SAVE_FILE_EXT = ".binary";
+        private bool isGameSaved;
 
         public int NbOfSaves => nbOfSaves;
-        
+        public bool IsGameSaved => isGameSaved;
+
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
+            isGameSaved = false;
         }
 
         public List<DataCollector> GetSaves()
@@ -77,6 +80,8 @@ namespace Game
             localData = dispatcher.DataCollector;
             
             formatter.Serialize(saveFile, localData);
+
+            isGameSaved = true;
             
             saveFile.Close();
         }

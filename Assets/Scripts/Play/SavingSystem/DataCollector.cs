@@ -5,7 +5,7 @@ namespace Game
     [Serializable]
     public class DataCollector
     {
-        private int activeScene;
+        private int? activeScene;
         private float positionX, positionY;
         private int nbDeath;
         private string name;
@@ -16,7 +16,7 @@ namespace Game
         private bool saveNamedBen;
         private bool secretRoomFound;
 
-        public int ActiveScene
+        public int? ActiveScene
         {
             get => activeScene;
             set => activeScene = value;
