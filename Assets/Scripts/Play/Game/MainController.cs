@@ -7,6 +7,8 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class MainController : MonoBehaviour
     {
+        [SerializeField] private float fixedDeltaTime = 0.02f;
+        
         private void Update()
         {
 #if UNITY_EDITOR
@@ -15,7 +17,7 @@ namespace Game
                 Time.timeScale *= 2;
             if (Input.GetKeyDown(KeyCode.KeypadMinus))
                 Time.timeScale /= 2;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
 #endif
         }
     }

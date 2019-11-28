@@ -3451,11 +3451,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6097213828000709409, guid: 682a01730a34780408334d15be7960eb,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682a01730a34780408334d15be7960eb, type: 3}
 --- !u!1 &115175198
@@ -3635,11 +3630,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: dde9de5d8b766eb4f999142619d67a37, type: 2}
-    - target: {fileID: 403383710981523352, guid: 43a401b213aa2e84093c8824469128d1,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43a401b213aa2e84093c8824469128d1, type: 3}
 --- !u!4 &261303896 stripped
@@ -21144,18 +21134,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f85b6c825181d43b9340218512879e, type: 3}
---- !u!114 &363934568 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2336518926875734324, guid: 82df312aec33e9145aebbb4264398fb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 568381276}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &392532458
 GameObject:
   m_ObjectHideFlags: 0
@@ -21275,17 +21253,6 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 829729274}
-    - target: {fileID: 8241520018865989966, guid: 82df312aec33e9145aebbb4264398fb6,
-        type: 3}
-      propertyPath: m_Profile
-      value: 
-      objectReference: {fileID: 11400000, guid: ac402d030ae286749a42b5e578b30442,
-        type: 2}
-    - target: {fileID: 8241520018865989966, guid: 82df312aec33e9145aebbb4264398fb6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3397474459754083752, guid: 82df312aec33e9145aebbb4264398fb6, type: 3}
     - {fileID: 6640492311505399935, guid: 82df312aec33e9145aebbb4264398fb6, type: 3}
@@ -21700,11 +21667,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
-        type: 3}
-      propertyPath: cinemachineVirtualCamera
-      value: 
-      objectReference: {fileID: 363934568}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c780366d58c75499cf5511100e4e60, type: 3}
 --- !u!4 &829729270 stripped
