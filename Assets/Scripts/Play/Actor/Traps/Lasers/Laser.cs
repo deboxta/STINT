@@ -12,8 +12,8 @@ namespace Game
 
         protected LineRenderer laserBeam;
         protected bool CastTouchesPlayer { get; private set; }
-        protected Vector3 LaserBeamStartPosition { get; private set; }
-        protected Vector3 LaserBeamEndPosition { get; private set; }
+        protected Vector2 LaserBeamStartPosition { get; private set; }
+        protected Vector2 LaserBeamEndPosition { get; private set; }
         protected RaycastHit2D[] RaycastHits { get; private set; }
         protected int NbRaycastHits { get; private set; }
         protected int LayersToHit { get; private set; }
