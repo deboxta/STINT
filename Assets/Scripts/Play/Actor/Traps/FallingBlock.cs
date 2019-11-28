@@ -28,11 +28,11 @@ namespace Game
             sensor = GetComponentInChildren<Sensor>();
             isFalling = false;
             isGrounded = false;
-            playerSize = Finder.Player.Size;
         }
 
         private void Start()
         {
+            playerSize = Finder.Player.Size;
             sensor.transform.localPosition = new Vector3(sensor.transform.localPosition.x,
                 -startingDistance / 2, 0);
             sensorBoxCollider2D = transform.Find(R.S.GameObject.Sensor).GetComponent<BoxCollider2D>();
