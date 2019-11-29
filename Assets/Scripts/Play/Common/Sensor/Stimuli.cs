@@ -1,4 +1,5 @@
 ﻿using System;
+using Harmony;
 using UnityEngine;
 
 namespace Game
@@ -43,7 +44,7 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            gameObject.layer = LayerMask.NameToLayer("Sensor");
+            gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Sensor);
         }
 
         private void NotifyDestroyed()
