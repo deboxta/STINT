@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    [ObsoleteAttribute("The old sensor is deprecated. Use " + nameof(StimuliV2) + " instead.")]
     public sealed class Stimuli : MonoBehaviour
     {
         [SerializeField] private Shape shape = Shape.Circle;
