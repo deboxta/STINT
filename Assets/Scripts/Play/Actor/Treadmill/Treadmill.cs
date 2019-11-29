@@ -5,12 +5,6 @@ namespace Game
     public class Treadmill : MonoBehaviour
     {
         [SerializeField] private float effectSpeed = 0.5f;
-        private BoxCollider2D boxCollider2D;
-
-        private void Awake()
-        {
-            boxCollider2D = GetComponent<BoxCollider2D>();
-        }
 
         private void OnCollisionStay2D(Collision2D other)
         {
@@ -18,7 +12,7 @@ namespace Game
 
             var objectTrigger = other.gameObject;
             var position = objectTrigger.transform.position;
-            position = new Vector3(position.x - effectSpeed, position.y, position.z);
+            position = new Vector3(position.x + effectSpeed, position.y, position.z);
             objectTrigger.transform.position = position;
         }
     }
