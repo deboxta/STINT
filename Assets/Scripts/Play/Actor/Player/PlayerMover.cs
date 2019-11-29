@@ -46,8 +46,7 @@ namespace Game
         private GamePadState gamePadState;
         private RaycastHit2D wallHit;
         private PlayerAnimator playerAnimator;
-
-        public Rigidbody2D RigidBody2D { get; set; }
+        private Rigidbody2D rigidBody2D;
 
         public float? YVelocityToLerp { get; set; }
         public float YVelocityLerpTValue { get; set; }
@@ -61,7 +60,7 @@ namespace Game
         private void Awake()
         {
             wallJumpDirection.Normalize();
-            RigidBody2D = GetComponent<Rigidbody2D>();
+            rigidBody2D = GetComponent<Rigidbody2D>();
             //gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
             
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
@@ -84,10 +83,10 @@ namespace Game
             CheckIfWallSliding();
             CheckSurroundings();
 
-            float newYVelocity = RigidBody2D.velocity.y;
+            float newYVelocity = rigidBody2D.velocity.y;
             //Author : Anthony Bérubé
             //Player fall faster for more realistic physics
-            if (RigidBody2D.velocity.y < 0)
+            if (rigidBody2D.velocity.y < 0)
 //                RigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
             {
                 newYVelocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier;
@@ -97,7 +96,7 @@ namespace Game
             {
                 newYVelocity = Mathf.Lerp(newYVelocity, (float) YVelocityToLerp, YVelocityLerpTValue);
             }
-            RigidBody2D.velocity = new Vector2(RigidBody2D.velocity.x, newYVelocity);
+            rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, newYVelocity);
         }
 
         //Author : Jeammy Côté
@@ -151,13 +150,13 @@ namespace Game
                 if (!isWallSliding || isWallJumping)
                 {
                     //Author : Anthony Bérubé
-                    var velocity = RigidBody2D.velocity;
+                    var velocity = rigidBody2D.velocity;
                     //Author : Yannick Cote
                     /*if (gravity != null)
                         velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
                     else*/
                         velocity.x = direction.x * xSpeed;
-                    RigidBody2D.velocity = velocity;
+                    rigidBody2D.velocity = velocity;
                     
                     //Author : Jeammy Côté
                     if(!isWallSliding)
@@ -167,8 +166,8 @@ namespace Game
 
             //WallSlide
             if (hasBoots)
-                if (isWallSliding && RigidBody2D.velocity.y < -wallSlideSpeed)
-                    RigidBody2D.velocity = new Vector2(RigidBody2D.velocity.x, -wallSlideSpeed);
+                if (isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
+                    rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
         }
 
         //Author : Jeammy Côté
@@ -182,7 +181,7 @@ namespace Game
                 /*if (gravity != null)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
                 else*/
-                RigidBody2D.velocity = new Vector2(x: RigidBody2D.velocity.x, yForce);
+                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
                 playerAnimator.OnJumping();
             }
             //Wall jump
@@ -206,17 +205,17 @@ namespace Game
                 if (wallHit)
                 {
                     //Add pushing force for wall jump with velocity of the wall.
-                    RigidBody2D.velocity = Vector2.zero;
+                    rigidBody2D.velocity = Vector2.zero;
                     forceToAdd =
                         new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed,
                                     yForce);
-                    RigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+                    rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
 
                 //Add pushing force for wall jump
-                RigidBody2D.velocity = Vector2.zero;
+                rigidBody2D.velocity = Vector2.zero;
                 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce);
-                RigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+                rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
 
                 Finder.Player.FlipPlayer();
                 StartCoroutine(StopPlayerMoves());
@@ -267,7 +266,7 @@ namespace Game
         //Author : Anthony Bérubé
         public void Fall()
         {
-            RigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
+            rigidBody2D.velocity += Time.deltaTime * Physics2D.gravity.y * fallGravityMultiplier * Vector2.up;
         }
 
         //Author : Anthony Bérubé
