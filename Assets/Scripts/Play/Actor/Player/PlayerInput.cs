@@ -12,37 +12,31 @@ namespace Game
         [SerializeField] private KeyCode freezeTimeKeyboardKey = KeyCode.Q;
         [SerializeField] private float inputThreshold = 0.13f;
         [SerializeField] private float timeBeforePlayerCanTimeChange = 0.5f;
-        
+
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
-        private bool viewingRight;
         private bool crouching;
         private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
         private bool canChangeTimeline;
         private bool isChangeTimelineKeyReleased;
-        
+        private bool rtButtonUnpressed;
+
         private void Awake()
         {
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
-            viewingRight = false;
             crouching = false;
             freezeTimeIsClicked = false;
             canChangeTimeline = true;
+            rtButtonUnpressed = true;
         }
 
         private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            //Crouch
-            if (gamePadState.ThumbSticks.Left.Y < 0 && gamePadState.ThumbSticks.Left.X == 0)
-                crouching = true;
-            else
-                crouching = false;
 
             var direction = Vector2.zero;
             //Right
@@ -64,10 +58,12 @@ namespace Game
                 if (transform.localScale.x > 0)
                     player.FlipPlayer();
             }
+
             playerMover.Move(direction);
 
             //Jump
-            if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) && !jumpButtonIsPressed)
+            if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) &&
+                !jumpButtonIsPressed)
             {
                 playerMover.Jump();
                 jumpButtonIsPressed = true;
@@ -75,14 +71,17 @@ namespace Game
 
             if (gamePadState.Buttons.A == ButtonState.Released)
                 jumpButtonIsPressed = false;
-            
+
             //Switch timeline
             if ((Input.GetKeyDown(changeTimelineKeyboardKey) ||
-                     gamePadState.Buttons.X == ButtonState.Pressed ||
-                     gamePadState.Buttons.Y == ButtonState.Pressed) && 
-                     canChangeTimeline && 
-                     isChangeTimelineKeyReleased)
+                 gamePadState.Buttons.X == ButtonState.Pressed ||
+                 gamePadState.Buttons.Y == ButtonState.Pressed) &&
+                canChangeTimeline &&
+                isChangeTimelineKeyReleased)
             {
+                if (player.Hands.IsHoldingBox)
+                    player.ThrowBox(true);
+                
                 Finder.TimelineController.SwitchTimeline();
                 StartCoroutine(TimeChangeDelay());
                 isChangeTimelineKeyReleased = false;
@@ -107,15 +106,23 @@ namespace Game
                 playerMover.Fall();
 
             //Grab
-            if (Input.GetKeyDown(KeyCode.C) ||
-                GamePad.GetState(PlayerIndex.One).Triggers.Right > 0)
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 && !player.Hands.IsHoldingBox)
+            {
                 player.GrabBox();
-
+                rtButtonUnpressed = false;
+            }
             //Throw
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 == false && player.Hands.IsHoldingBox)
-                player.ThrowBox(crouching);
+            else if (gamePadState.Triggers.Right > 0 && rtButtonUnpressed && player.Hands.IsHoldingBox)
+                player.ThrowBox(false);
+            //Drop
+            else if (gamePadState.Buttons.RightShoulder == ButtonState.Pressed && player.Hands.IsHoldingBox)
+                player.ThrowBox(true);
+
+            //Reset Right Trigger state
+            if (gamePadState.Triggers.Right > 0 == false)
+                rtButtonUnpressed = true;
         }
-        
+
         private IEnumerator TimeChangeDelay()
         {
             canChangeTimeline = false;

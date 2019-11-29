@@ -15,6 +15,7 @@ namespace Game
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
+        private NewGameLoadedEventChannel newGameLoadedEventChannel;
         private SaveSystem saveSystem;
         private Scenes scenes;
         private int currentLevel;
@@ -32,6 +33,7 @@ namespace Game
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
+            newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
             saveSystem = Finder.SaveSystem;
             scenes = GetComponentInChildren<Scenes>();
             
@@ -90,10 +92,16 @@ namespace Game
         {
             yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
+            
+            if (currentLevel == 0)
+            {
+                newGameLoadedEventChannel.NotifyNewGameLoaded();
+            }
 
             currentLevel++;
 
             yield return LoadGame();
+
         }
 
         private IEnumerator LoadGame()

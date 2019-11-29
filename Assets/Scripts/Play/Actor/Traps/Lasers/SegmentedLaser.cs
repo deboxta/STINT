@@ -46,10 +46,10 @@ namespace Game
             base.Awake();
 
             laserBeamSegments = new LineRenderer[nbMaxSegments];
-            laserBeam.gameObject.SetActive(false);
+            laserBeamLineRenderer.gameObject.SetActive(false);
             for (int i = 0; i < nbMaxSegments; i++)
             {
-                laserBeamSegments[i] = Instantiate(laserBeam, transform);
+                laserBeamSegments[i] = Instantiate(laserBeamLineRenderer, transform);
             }
         }
 
@@ -69,15 +69,15 @@ namespace Game
             }
 
             float initialOffset = -(segmentSize + gapSize);
-            Vector3 segmentStartPosition;
-            Vector3 segmentEndPosition;
+            Vector2 segmentStartPosition;
+            Vector2 segmentEndPosition;
             for (int i = 0; i < nbActiveSegments; i++)
             {
                 laserBeamSegments[i].gameObject.SetActive(true);
                 segmentStartPosition = transform.position + transform.right
                                      * (i * (segmentSize + gapSize) + currentOffset);
 
-                segmentEndPosition = segmentStartPosition + transform.right * segmentSize;
+                segmentEndPosition = segmentStartPosition + (Vector2) transform.right * segmentSize;
                 if (segmentStartPosition.IsBefore(transform.position, transform.right, 0))
                 {
                     segmentStartPosition = transform.position;
