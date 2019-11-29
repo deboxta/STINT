@@ -14,13 +14,14 @@ namespace Game
         [SerializeField] private int throwedForceX = 25;
 
 
-        private Rigidbody2D rigidbody2D;
+        private new Rigidbody2D rigidbody2D;
         private Collider2D boxCollider2D;
         private SpriteRenderer spriteRenderer;
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Stimuli stimuli;
         private Vector3 positionPastBox;
         private TimelineController timelineController;
+        private Transform originalParent;
 
         public Vector3 Position
         {
@@ -36,6 +37,7 @@ namespace Game
             boxCollider2D = GetComponent<BoxCollider2D>();
             stimuli = GetComponentInChildren<Stimuli>();
             timelineController = Finder.TimelineController;
+            originalParent = transform.parent;
         }
 
         private void OnEnable()
@@ -94,7 +96,7 @@ namespace Game
 
         public void Throwed(bool isLookingRight)
         {
-            transform.parent = null;
+            transform.parent = originalParent;
             rigidbody2D.simulated = true;
             if (isLookingRight)
                 rigidbody2D.velocity = new Vector2(throwedForceX, throwedForceUp);
@@ -104,7 +106,7 @@ namespace Game
 
         public void Dropped()
         {
-            transform.parent = null;
+            transform.parent = originalParent;
             rigidbody2D.simulated = true;
         }
     }

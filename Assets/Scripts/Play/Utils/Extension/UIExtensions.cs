@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public static class UIExtenssions
+    public static class UIExtensions
     {
         public static Button SelectedButton =>             
             EventSystem
