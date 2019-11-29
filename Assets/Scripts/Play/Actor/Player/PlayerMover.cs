@@ -9,6 +9,8 @@ namespace Game
     //Author : Anthony Bérubé
     public class PlayerMover : MonoBehaviour
     {
+        public event PlayerJumpEventHandler OnPlayerJump;
+        
         [Header("Abilities to Activate")]
         [SerializeField] private bool hasBoots;
         
@@ -183,6 +185,7 @@ namespace Game
                 else*/
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
                 playerAnimator.OnJumping();
+                NotifyPlayerJump();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
@@ -217,6 +220,9 @@ namespace Game
                 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce);
                 rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
 
+                
+                NotifyPlayerJump();
+                
                 Finder.Player.FlipPlayer();
                 StartCoroutine(StopPlayerMoves());
             }
@@ -290,6 +296,11 @@ namespace Game
             yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
             playerCanControlMoves = true;
         }
+        
+        private void NotifyPlayerJump() 
+        { 
+            if (OnPlayerJump != null) OnPlayerJump();
+        }
 
 #if UNITY_EDITOR
         //Author : Jeammy Côté
@@ -303,6 +314,8 @@ namespace Game
                 Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
             }
         }
-#endif
+#endif   
+        
+        public delegate void PlayerJumpEventHandler();
     }
 }
