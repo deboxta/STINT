@@ -24,7 +24,7 @@ namespace Game
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
-        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
+        [SerializeField] private float timeBeforePlayerCanControlMovesWhenWallJumping = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
@@ -271,7 +271,7 @@ namespace Game
         private IEnumerator StopPlayerMoves()
         {
             playerCanControlMoves = false;
-            yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
+            yield return new WaitForSeconds(timeBeforePlayerCanControlMovesWhenWallJumping);
             playerCanControlMoves = true;
         }
 
