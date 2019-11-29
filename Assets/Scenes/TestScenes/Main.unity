@@ -645,7 +645,7 @@ PrefabInstance:
     - target: {fileID: 5673422481078157294, guid: 02dee30cf720db249a4cd29ea33dca96,
         type: 3}
       propertyPath: m_Name
-      value: Audio Source
+      value: AudioSource
       objectReference: {fileID: 0}
     - target: {fileID: 5673422481078157294, guid: 02dee30cf720db249a4cd29ea33dca96,
         type: 3}
