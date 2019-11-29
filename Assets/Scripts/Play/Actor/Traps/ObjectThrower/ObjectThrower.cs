@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
+﻿using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -14,20 +12,17 @@ namespace Game
         [Range(0, 60)] [SerializeField] private float throwNextObjectDelay = 0.175f;
         [Range(0, 60)] [SerializeField] public float removeObjectDelay = 5;
 
-        private ThrowableObject throwableObjectModel;
         private ObjectPool<ThrowableObject> throwableObjectPool;
         private FreezableWaitForSeconds waitForThrowNewObjectDelay;
 
-        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
-
         private void Awake()
         {
-            throwableObjectModel = this.GetRequiredComponentInChildren<ThrowableObject>(true);
-            throwableObjectModel.gameObject.SetActive(false);
             throwableObjectPool = new ObjectPool<ThrowableObject>(
                 () =>
                 {
-                    var throwableObject = Instantiate(throwableObjectModel, transform);
+                    GameObject gameObject = Finder.PrefabFactory.CreateThrowableObject(transform);
+                    gameObject.SetActive(false);
+                    ThrowableObject throwableObject = gameObject.GetComponent<ThrowableObject>();
                     throwableObject.Thrower = this;
                     return throwableObject;
                 },
