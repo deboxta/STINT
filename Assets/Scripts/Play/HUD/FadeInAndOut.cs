@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class FadeInAndOut : MonoBehaviour
     {
         [SerializeField] private float fadeSpeed = 0.025f;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class FirstDeathSuccess : MonoBehaviour, ISuccess
     {
         public event FirstDeathSuccessEventHandler OnFirstDeath;

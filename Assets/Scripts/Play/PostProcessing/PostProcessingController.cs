@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class PostProcessingController : MonoBehaviour
     {
         [SerializeField] private float fadeSpeed = 0.025f;

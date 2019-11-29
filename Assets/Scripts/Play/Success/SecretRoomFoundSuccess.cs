@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SecretRoomFoundSuccess : MonoBehaviour, ISuccess
     {
         public event SecretRoomFoundEventChannel.SecretRoomFoundEventHandler OnSecretRoomFound;

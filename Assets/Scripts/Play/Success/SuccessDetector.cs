@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SuccessDetector : MonoBehaviour
     {
         private Dispatcher dispatcher;

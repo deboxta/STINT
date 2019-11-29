@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SaveNamedBenSuccess : MonoBehaviour, ISuccess
     {
         public event SaveNamedBenSuccessEventHandler OnSaveNamedBen;

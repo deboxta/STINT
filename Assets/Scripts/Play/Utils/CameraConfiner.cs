@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class CameraConfiner : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;

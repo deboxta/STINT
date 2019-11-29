@@ -5099,7 +5099,7 @@ PrefabInstance:
     - target: {fileID: 6307830399383749745, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.75
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749745, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
@@ -5199,42 +5199,42 @@ PrefabInstance:
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
-      value: -400000000
+      value: -420000000
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
-      value: 400000000
+      value: 420000000
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: 399999971
+      value: 419999971
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: -400000000
+      value: -420000000
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].y
-      value: -40
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
-      value: 40
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].y
-      value: 39.999992
+      value: 41.999992
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749747, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].y
-      value: -40
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 6307830399383749750, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
@@ -5244,7 +5244,7 @@ PrefabInstance:
     - target: {fileID: 6307830399383749750, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
       propertyPath: m_Size.y
-      value: 80
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
         type: 3}
@@ -6253,11 +6253,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 308609901384526592, guid: 43a401b213aa2e84093c8824469128d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 308609901384526595, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6312,6 +6307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 308609901384526592, guid: 43a401b213aa2e84093c8824469128d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 308609900899969832, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
@@ -74319,7 +74319,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 076bd9dddcb73784482a300082489e96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74349,7 +74349,7 @@ MonoBehaviour:
   texts:
   - Something weird is happening now.
   - When I change timeline there are things that are stuck in between the timelines
-  - This is surly not safe, but I migth be able to use it to get up.
+  - This is surely not safe, but I migth be able to use it to get up.
 --- !u!114 &4900207682825598182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74824,7 +74824,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7f90dd5faf10c204b98a3bbced3587f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74873,7 +74873,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7f90dd5faf10c204b98a3bbced3587f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74922,7 +74922,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7f90dd5faf10c204b98a3bbced3587f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74971,7 +74971,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7f90dd5faf10c204b98a3bbced3587f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -75660,7 +75660,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -75756,7 +75756,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -75914,7 +75914,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -76010,7 +76010,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -76248,7 +76248,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 248300439
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 076bd9dddcb73784482a300082489e96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -76835,6 +76835,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e735c26049fe4e68ae22428afaa2faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserBeamDefaultLength: 500
+  raycastHitsBufferSize: 50
+  raycastOriginDeadZone: 0.05
 --- !u!1 &9013323481600910047
 GameObject:
   m_ObjectHideFlags: 0
@@ -76864,6 +76867,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e735c26049fe4e68ae22428afaa2faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserBeamDefaultLength: 500
+  raycastHitsBufferSize: 50
+  raycastOriginDeadZone: 0.05
 --- !u!1 &9013323481759692873
 GameObject:
   m_ObjectHideFlags: 0
@@ -76893,6 +76899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e735c26049fe4e68ae22428afaa2faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserBeamDefaultLength: 500
+  raycastHitsBufferSize: 50
+  raycastOriginDeadZone: 0.05
 --- !u!1 &9013323482619695139
 GameObject:
   m_ObjectHideFlags: 0
@@ -76939,3 +76948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e735c26049fe4e68ae22428afaa2faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserBeamDefaultLength: 500
+  raycastHitsBufferSize: 50
+  raycastOriginDeadZone: 0.05
