@@ -16,8 +16,6 @@ namespace Game
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
-        private bool viewingRight;
-        private bool crouching;
         private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
         private bool canChangeTimeline;
@@ -29,8 +27,6 @@ namespace Game
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
-            viewingRight = false;
-            crouching = false;
             freezeTimeIsClicked = false;
             canChangeTimeline = true;
             rtButtonUnpressed = true;
@@ -82,7 +78,7 @@ namespace Game
                 isChangeTimelineKeyReleased)
             {
                 if (player.Hands.IsHoldingBox)
-                    player.ThrowBox(true);
+                    player.DropBox();
                 
                 Finder.TimelineController.SwitchTimeline();
                 StartCoroutine(TimeChangeDelay());
@@ -108,17 +104,19 @@ namespace Game
                 playerMover.Fall();
 
             //Grab
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 && !player.Hands.IsHoldingBox)
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0 && !player.IsHoldingBox)
             {
                 player.GrabBox();
                 rtButtonUnpressed = false;
             }
+            
             //Throw
-            else if (gamePadState.Triggers.Right > 0 && rtButtonUnpressed && player.Hands.IsHoldingBox)
-                player.ThrowBox(false);
+            if (gamePadState.Triggers.Right > 0 && rtButtonUnpressed && player.IsHoldingBox)
+                player.ThrowBox();
+            
             //Drop
-            else if (gamePadState.Buttons.RightShoulder == ButtonState.Pressed && player.Hands.IsHoldingBox)
-                player.ThrowBox(true);
+            if (gamePadState.Buttons.RightShoulder == ButtonState.Pressed && player.Hands.IsHoldingBox)
+                player.DropBox();
 
             //Reset Right Trigger state
             if (gamePadState.Triggers.Right > 0 == false)

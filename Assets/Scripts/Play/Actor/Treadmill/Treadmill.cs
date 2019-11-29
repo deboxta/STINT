@@ -5,12 +5,6 @@ namespace Game
     public class Treadmill : MonoBehaviour
     {
         [SerializeField] private float effectSpeed = 0.5f;
-        private BoxCollider2D boxCollider2D;
-
-        private void Awake()
-        {
-            boxCollider2D = GetComponent<BoxCollider2D>();
-        }
 
         private void OnCollisionStay2D(Collision2D other)
         {
