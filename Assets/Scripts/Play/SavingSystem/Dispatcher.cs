@@ -52,7 +52,7 @@ namespace Game
 
         private int GetScene()
         {
-            return sceneController.CurrentLevel;
+            return sceneController.CurrentScene;
         }
     }
 }
