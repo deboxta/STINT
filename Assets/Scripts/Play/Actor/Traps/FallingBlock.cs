@@ -70,7 +70,7 @@ namespace Game
             transform.position -= new Vector3(0, fallSpeed, 0);
             sensorBoxCollider2D.size = new Vector2(sensorBoxCollider2D.size.x, sensorBoxCollider2D.size.y - fallSpeed);
             sensor.transform.position = new Vector3(sensor.transform.position.x, sensor.transform.position.y + fallSpeed / 2, sensor.transform.position.z);
-            if (Math.Abs(startingDistance) > 0.2f)
+            if (Math.Abs(startingDistance) > fallSpeed)
             {
                 startingDistance -= fallSpeed;
             }
