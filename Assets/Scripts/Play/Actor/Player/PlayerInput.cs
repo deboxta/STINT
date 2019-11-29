@@ -16,7 +16,6 @@ namespace Game
         private GamePadState gamePadState;
         private PlayerMover playerMover;
         private Player player;
-        private bool viewingRight;
         private bool crouching;
         private bool freezeTimeIsClicked;
         private bool jumpButtonIsPressed;
@@ -29,7 +28,6 @@ namespace Game
             playerMover = GetComponent<PlayerMover>();
             player = GetComponent<Player>();
 
-            viewingRight = false;
             crouching = false;
             freezeTimeIsClicked = false;
             canChangeTimeline = true;

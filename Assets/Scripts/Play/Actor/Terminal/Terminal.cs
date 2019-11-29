@@ -13,7 +13,7 @@ namespace Game
 
         protected virtual void Awake()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             playerSensor = GetComponent<Sensor>().For<Player>();
 
             spriteRenderer.sprite = spriteDenied;
