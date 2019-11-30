@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
@@ -13,13 +12,11 @@ namespace Game
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        [SerializeField] private int nbDeath;
         private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
-        private bool isLookingRight;
         private Vitals vitals;
-        private bool isCrouched;
+        private PlayerMover playerMover;
         private PlayerInput playerInput;
         private BoxCollider2D boxCollider2D;
         private Rigidbody2D rigidBody2D;
@@ -30,10 +27,17 @@ namespace Game
         public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
 
-        public bool IsLookingRight 
-        { 
-            set => isLookingRight = value;
+        public bool IsLookingRight
+        {
+            get => transform.localScale.x >= 0;
+            set => transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * (value ? 1 : -1), transform.localScale.y);
         }
+        
+        public bool IsHoldingBox => hands.IsHoldingBox;
+        
+        private bool IsSensingBox => boxSensor.SensedObjects.Count > 0;
+
+        private Box SensedBox => boxSensor.SensedObjects[0];
 
         private float size;
         public float Size => size;
@@ -52,11 +56,9 @@ namespace Game
             boxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
             rigidBody2D = GetComponent<Rigidbody2D>();
 
-            isLookingRight = true;
+            IsLookingRight = true;
             IsDead = false;
-            isCrouched = false;
-            //TODO CHANGE THIS SEB NOTE
-            size = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>().bounds.size.y;
+            size = boxCollider2D.bounds.size.y;
             
             boxSensor = sensor.For<Box>();
         }
@@ -85,7 +87,7 @@ namespace Game
         //Change player direction
         public void FlipPlayer()
         {
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            IsLookingRight = !IsLookingRight;
         }
         
         //Author : Sébastien Arsenault
@@ -97,7 +99,6 @@ namespace Game
                 IsDead = true;
                 DeactivateComponentsWhenDead();
                 dispatcher.DataCollector.NbDeath++;
-                nbDeath = dispatcher.DataCollector.NbDeath;
                 playerDeathEventChannel.NotifyPlayerDeath();
             }
         }
@@ -112,26 +113,30 @@ namespace Game
             rigidBody2D.velocity = Vector2.zero;
         }
 
-        //TODO : LOOK FOR THE NEAREST BOX IN CASE THERE'S TWO AND THE DIRECTION
         //Grabs the box
         public void GrabBox()
         {
             //If the player isn't holding a box and if there is a box in his sensor
-            if (!hands.IsHoldingBox && boxSensor.SensedObjects.Count > 0)
+            if (!IsHoldingBox && IsSensingBox)
             {
                 //Grabs the box
-                hands.Grab(boxSensor.SensedObjects[0]);
-                PlayerMover.Slowed();
+                hands.Grab(SensedBox);
+                playerMover.Slowed();
                 Finder.PlayerAnimator.OnGrabBox();
             }
         }
 
-        public void ThrowBox(bool crouching)
+        public void ThrowBox()
         {
-            if (crouching)
-                hands.Drop();
-            else
-                hands.Throw(isLookingRight);
+            hands.Throw(IsLookingRight);
+            
+            playerMover.ResetSpeed();
+            Finder.PlayerAnimator.OnBoxThrow();
+        }
+        
+        public void DropBox()
+        {
+            hands.Drop();
             
             PlayerMover.ResetSpeed();
             Finder.PlayerAnimator.OnBoxThrow();
