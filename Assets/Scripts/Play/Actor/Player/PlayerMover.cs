@@ -192,7 +192,7 @@ namespace Game
                 //Author : Anthony Bérubé
             {
                 //Author : Yannick Cote
-                if (isGravityNotNull)
+                if (isGravityNotNull && gravity.isActiveAndEnabled)
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
                 else
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
