@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Game
 {
     //Author : Jeammy Côté
-    //TODO : Change with inheritance
     public class Collectible : MonoBehaviour
     {
         private void Awake()
