@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    // Legacy
     // Author : Mathieu Boutet
     public class SegmentedLaser : Laser, IFreezable
     {

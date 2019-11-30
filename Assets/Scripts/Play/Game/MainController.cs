@@ -1,6 +1,7 @@
 ﻿using System;
 using Harmony;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Game
 {
@@ -8,7 +9,7 @@ namespace Game
     public class MainController : MonoBehaviour
     {
         [SerializeField] private float fixedDeltaTime = 0.02f;
-        
+
         private void Update()
         {
 #if UNITY_EDITOR
