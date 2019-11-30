@@ -21,6 +21,7 @@ namespace Game
         private SpriteRenderer playerSpriteRenderer;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
+        private PlayerMover playerMover;
         private float movingAnimationThreshold = 0.01f;
         private bool coroutineIsRunning;
         
@@ -29,12 +30,14 @@ namespace Game
             playerSpriteRenderer = Finder.Player.GetComponentInChildren<SpriteRenderer>();
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            playerMover = GetComponentInParent<PlayerMover>();
         }
 
         private void OnEnable()
         {
             playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += OnButtonPressing;
+            playerMover.OnPlayerJump += OnPlayerJump;
         }
 
         private void OnDisable()
@@ -43,7 +46,7 @@ namespace Game
             levelCompletedEventChannel.OnLevelCompleted -= OnButtonPressing;
         }
 
-        public void OnJumping()
+        public void OnPlayerJump()
         {
             animator.SetBool(IS_JUMPING, true);
         }
