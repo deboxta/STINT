@@ -1,12 +1,7 @@
-using System;
-using System.Diagnostics;
 using Cinemachine;
 using Harmony;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = System.Object;
 
 namespace Game
 {
@@ -86,7 +81,7 @@ namespace Game
     }
     
     
-    
+#if UNITY_EDITOR    
     //Author : Yannick Cote
     //Useful for a more dynamic menu in unity ( camera shake options )
     [CustomEditor(typeof(CameraConfiner))]
@@ -131,4 +126,5 @@ namespace Game
         
         
     }
+#endif 
 }
