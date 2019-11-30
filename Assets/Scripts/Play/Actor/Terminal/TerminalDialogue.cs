@@ -8,11 +8,11 @@ namespace Game
     {
         [SerializeField] private string[] texts;
         private HudDialog hudDialog;
-        
+
         protected override void Awake()
         {
             base.Awake();
-
+            
             hudDialog = Finder.HudDialog;
         }
 
