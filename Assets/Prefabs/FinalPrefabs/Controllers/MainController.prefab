@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450831425154879390}
   - component: {fileID: 7366872951164378045}
+  - component: {fileID: 4659416782741405355}
   - component: {fileID: 8434718536069152611}
   - component: {fileID: 5062081907815295385}
   - component: {fileID: 5656073382414011744}
@@ -27,7 +28,7 @@ GameObject:
   - component: {fileID: 1687549173264235112}
   - component: {fileID: 250532413530501389}
   m_Layer: 0
-  m_Name: MainController
+  m_Name: M_MainController
   m_TagString: MainController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,6 +61,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedDeltaTime: 0.02
+--- !u!114 &4659416782741405355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450831425154879389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d01f6928687445da6f0828acdb7e9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwableObjectPrefab: {fileID: 3719239548657916306, guid: 3c11fa7dfd38e6c4aa5ec7d3acc6ffd0,
+    type: 3}
 --- !u!114 &8434718536069152611
 MonoBehaviour:
   m_ObjectHideFlags: 0

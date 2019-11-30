@@ -1,22 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
     //Author : Sébastien Arsenault
-    [Obsolete("The old sensor is deprecated. Use " + nameof(TerminalV2) + " instead.")]
-    public class Terminal : MonoBehaviour
+    public class TerminalV2 : MonoBehaviour
     {
         [SerializeField] protected Sprite spriteDenied;
         [SerializeField] protected Sprite spriteOpen;
 
         private SpriteRenderer spriteRenderer;
-        private ISensor<Player> playerSensor;
+        private ISensorV2<Player> playerSensor;
 
         protected virtual void Awake()
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            playerSensor = GetComponent<Sensor>().For<Player>();
+            playerSensor = GetComponent<SensorV2>().For<Player>();
 
             spriteRenderer.sprite = spriteDenied;
         }

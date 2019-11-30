@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
     // Author : Mathieu Boutet
+    [Obsolete("The old sensor is deprecated. Use " + nameof(DeadlyTrapV2) + " instead.")]
     public class DeadlyTrap : MonoBehaviour
     {
         private ISensor<Player> playerSensor;

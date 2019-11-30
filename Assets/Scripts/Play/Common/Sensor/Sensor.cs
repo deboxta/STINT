@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Game
 {
+    [Obsolete("The old sensor is deprecated. Use " + nameof(ISensorV2<T>) + " instead.")]
     public interface ISensor<out T>
     {
         event SensorEventHandler<T> OnSensedObject;
@@ -14,6 +15,7 @@ namespace Game
         IReadOnlyList<T> SensedObjects { get; }
     }
 
+    [Obsolete("The old sensor is deprecated. Use " + nameof(SensorV2) + " instead.")]
     public sealed class Sensor : MonoBehaviour, ISensor<GameObject>
     {
         [SerializeField] private Shape shape = Shape.Circle;
@@ -175,6 +177,7 @@ namespace Game
         }
     }
 
+    [Obsolete("The old sensor is deprecated. Use " + nameof(SensorV2<T>) + " instead.")]
     [SuppressMessage("ReSharper", "DelegateSubtraction")]
     public sealed class Sensor<T> : ISensor<T>
     {
