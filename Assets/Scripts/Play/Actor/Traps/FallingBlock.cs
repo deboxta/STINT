@@ -1,6 +1,7 @@
 using System;
 using Harmony;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game
 {
@@ -8,15 +9,13 @@ namespace Game
     public class FallingBlock : MonoBehaviour, IFreezable
     {
         [SerializeField] private float fallSpeed = 0.2f;
-        [SerializeField] private float startingDistance = 10f;
+        [FormerlySerializedAs("startingDistance")] [SerializeField] private float startingDistanceFromGround = 10f;
 
         private BoxCollider2D sensorBoxCollider2D;
         private BoxCollider2D blockBoxCollider2D;
         private Sensor sensor;
         private ISensor<Player> playerSensor;
-        private bool wasKinematicBeforeFreeze;
         private bool isFalling;
-        private bool isGrounded;
         private float playerSize;
 
         public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
@@ -27,32 +26,30 @@ namespace Game
             playerSensor = GetComponentInChildren<Sensor>().For<Player>();
             sensor = GetComponentInChildren<Sensor>();
             isFalling = false;
-            isGrounded = false;
         }
 
         private void Start()
         {
+            //Anthony Bérubé
             playerSize = Finder.Player.Size;
+            
             sensor.transform.localPosition = new Vector3(sensor.transform.localPosition.x,
-                -startingDistance / 2, 0);
+                -startingDistanceFromGround / 2, 0);
             sensorBoxCollider2D = transform.Find(R.S.GameObject.Sensor).GetComponent<BoxCollider2D>();
-            sensorBoxCollider2D.size = new Vector2(blockBoxCollider2D.size.x, startingDistance);
-            transform.position = new Vector3(transform.position.x, transform.position.y + startingDistance,
+            sensorBoxCollider2D.size = new Vector2(blockBoxCollider2D.size.x, startingDistanceFromGround);
+            transform.position = new Vector3(transform.position.x, transform.position.y + startingDistanceFromGround,
                 transform.position.z);
         }
 
         private void FixedUpdate()
         {
-            if (!isGrounded && isFalling && !IsFrozen)
-            {
+            //Anthony Bérubé
+            if (isFalling && !IsFrozen)
                 Fall();
-            }
 
             if (playerSensor.SensedObjects.Count > 0)
-            {
-                if (startingDistance < playerSize)
+                if (startingDistanceFromGround < playerSize)
                     playerSensor.SensedObjects[0].Die();
-            }
         }
 
         private void OnEnable()
@@ -67,15 +64,15 @@ namespace Game
 
         private void Fall()
         {
+            //Anthony Bérubé
             transform.position -= new Vector3(0, fallSpeed, 0);
             sensorBoxCollider2D.size = new Vector2(sensorBoxCollider2D.size.x, sensorBoxCollider2D.size.y - fallSpeed);
             sensor.transform.position = new Vector3(sensor.transform.position.x, sensor.transform.position.y + fallSpeed / 2, sensor.transform.position.z);
-            if (Math.Abs(startingDistance) > fallSpeed)
-            {
-                startingDistance -= fallSpeed;
-            }
+            
+            if (Math.Abs(startingDistanceFromGround) > fallSpeed)
+                startingDistanceFromGround -= fallSpeed;
             else
-                isGrounded = true;
+                isFalling = false;
         }
 
         private void OnPlayerSensed(Player player)

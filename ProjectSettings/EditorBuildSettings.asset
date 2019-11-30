@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/PersonalScenes/Anthony/Level1.unity
+    guid: 1f0a2d20a394ff643a8f8cc907ffc01f
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
