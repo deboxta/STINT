@@ -408,12 +408,12 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[0]
-      value: Main_menu
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[1]
-      value: Level1
+      value: Chapter3
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -424,11 +424,6 @@ PrefabInstance:
         type: 3}
       propertyPath: scenes.Array.data[3]
       value: EndGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 5062081907815295385, guid: a3bc7e5b9c935ab4a99841241ec089aa,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3bc7e5b9c935ab4a99841241ec089aa, type: 3}
@@ -566,12 +561,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 43.445198
+      value: 17.1
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.641169
+      value: 23.1
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
@@ -636,7 +631,7 @@ PrefabInstance:
     - target: {fileID: 5471836936692775130, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: orthographic size
-      value: 16
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d7702ac5d2d474ab8284c14fe1f59e, type: 3}
@@ -650,7 +645,12 @@ PrefabInstance:
     - target: {fileID: 5673422481078157294, guid: 02dee30cf720db249a4cd29ea33dca96,
         type: 3}
       propertyPath: m_Name
-      value: Audio Source
+      value: AudioSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673422481078157294, guid: 02dee30cf720db249a4cd29ea33dca96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5673422481078157288, guid: 02dee30cf720db249a4cd29ea33dca96,
         type: 3}

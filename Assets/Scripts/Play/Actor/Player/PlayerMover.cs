@@ -10,6 +10,8 @@ namespace Game
     //Author : Anthony Bérubé
     public class PlayerMover : MonoBehaviour
     {
+        public event PlayerJumpEventHandler OnPlayerJump;
+        
         [Header("Abilities to Activate")]
         [SerializeField] private bool hasBoots;
         
@@ -35,7 +37,7 @@ namespace Game
         [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private float wallDistance = 1.11f;
         [SerializeField] private float movementPenalty = 2;
-        
+
         //Raycasts position for ground and wall
         [Header("Player surroundings")]
         [SerializeField] private Transform groundCheck; 
@@ -44,10 +46,14 @@ namespace Game
         private int layersToJump;
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
-        private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
         private PlayerAnimator playerAnimator;
         
+        private Rigidbody2D rigidBody2D;
+
+        public float? YVelocityToLerp { get; set; }
+        public float YVelocityLerpTValue { get; set; }
+
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
@@ -79,13 +85,23 @@ namespace Game
             CheckIfCanJump();
             CheckIfWallSliding();
             CheckSurroundings();
-            
+
+            float newYVelocity = rigidBody2D.velocity.y;
             //Author : Anthony Bérubé
-            //Player fall faster for more realistic physic
+            //Player fall faster for more realistic physics
             if (rigidBody2D.velocity.y < 0)
-                rigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+//                RigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
+            {
+                newYVelocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier;
+            }
+
+            if (YVelocityToLerp != null)
+            {
+                newYVelocity = Mathf.Lerp(newYVelocity, (float) YVelocityToLerp, YVelocityLerpTValue);
+            }
+            rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, newYVelocity);
         }
-        
+
         //Author : Jeammy Côté
         private void CheckSurroundings()
         {
@@ -116,7 +132,7 @@ namespace Game
                 transform1.right * transform1.localScale.x, 
                 wallDistance, 
                 layersToJump);
-            
+
             if (wallHit)
             {
                 isTouchingWall = true;
@@ -129,7 +145,7 @@ namespace Game
                 isTouchingWall = false;
             }
         }
-        
+
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
@@ -151,9 +167,10 @@ namespace Game
                         playerAnimator.OnMoving(velocity.x);
                 }
             }
+
             //WallSlide
             if (hasBoots)
-                if(isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
+                if (isWallSliding && rigidBody2D.velocity.y < -wallSlideSpeed)
                     rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, -wallSlideSpeed);
         }
 
@@ -170,6 +187,7 @@ namespace Game
                 else*/
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, playerMovementForce.y);
                 playerAnimator.OnJumping();
+                NotifyPlayerJump();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
@@ -178,7 +196,7 @@ namespace Game
                 playerAnimator.OnJumping();
             }
         }
-        
+
         //Author : Jeammy Côté
         private void WallJump()
         {
@@ -188,20 +206,23 @@ namespace Game
                 isWallJumping = true;
                 numberOfJumpsLeft--;
                 Vector2 forceToAdd;
-                
+
                 if (wallHit)
                 {
-                    //Add pushing force for wall jump with velocity of the moving wall.
+                    //Add pushing force for wall jump with velocity of the wall.
                     rigidBody2D.velocity = Vector2.zero;
                     var velocity = wallHit.rigidbody.velocity;
                     forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y +55);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
-                
+
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;
                 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * playerMovementForce.x, playerMovementForce.y );
                 rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
+
+                
+                NotifyPlayerJump();
                 
                 Finder.Player.FlipPlayer();
                 StartCoroutine(StopPlayerMoves());
@@ -226,7 +247,7 @@ namespace Game
                 playerAnimator.OnStopWallSliding();
             }
         }
-        
+
         //Author : Jeammy Côté
         //Check the number of jumps left
         private void CheckIfCanJump()
@@ -236,10 +257,11 @@ namespace Game
 
             if (numberOfJumpsLeft <= 0)
                 canJump = false;
+
             else if (numberOfJumpsLeft > 0)
                 canJump = true;
         }
-        
+
         //Author : Jeammy Côté
         public void ResetNumberOfJumpsLeft()
         {
@@ -247,7 +269,7 @@ namespace Game
             if (!isGrounded)
                 isWallJumping = true;
         }
-        
+
         //Author : Anthony Bérubé
         public void Fall()
         {
@@ -260,20 +282,25 @@ namespace Game
             playerMovementForce.x /= movementPenalty;
             playerMovementForce.y /= movementPenalty;
         }
-        
+
         //Author : Anthony Bérubé
         public void ResetSpeed()
         {
             playerMovementForce.x *= movementPenalty;
             playerMovementForce.y *= movementPenalty;
         }
-        
+
         //Author : Jeammy Côté
         private IEnumerator StopPlayerMoves()
         {
             canPlayerMove = false;
             yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
             canPlayerMove = true;
+        }
+        
+        private void NotifyPlayerJump() 
+        { 
+            if (OnPlayerJump != null) OnPlayerJump();
         }
 
 #if UNITY_EDITOR
@@ -289,6 +316,8 @@ namespace Game
                 Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
             }
         }
-#endif     
+#endif   
+        
+        public delegate void PlayerJumpEventHandler();
     }
 }

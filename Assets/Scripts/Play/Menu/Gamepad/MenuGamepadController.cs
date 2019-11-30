@@ -103,9 +103,9 @@ namespace Game
             else
             {
                 if (gamePadState.ThumbSticks.Left.Y < 0) 
-                    UIExtenssions.SelectedButton?.SelectDown();
+                    UIExtensions.SelectedButton?.SelectDown();
                 else if (gamePadState.ThumbSticks.Right.Y > 0)
-                    UIExtenssions.SelectedButton?.SelectUp();
+                    UIExtensions.SelectedButton?.SelectUp();
                 else if (gamePadState.Buttons.B == ButtonState.Pressed)
                     isReturnButtonPressed = true;
 
@@ -119,14 +119,14 @@ namespace Game
                     isFirstButtonPressed = true;
 
                 if (isFirstButtonPressed)
-                    UIExtenssions.SelectedButton?.Click();
+                    UIExtensions.SelectedButton?.Click();
 
                 if (isReturnButtonPressed)
                 {
                     if (isreturnButtonNotNull)
                     {
                         returnButton.Select();
-                        UIExtenssions.SelectedButton?.Click();
+                        UIExtensions.SelectedButton?.Click();
                     }
                 }
             }

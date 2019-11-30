@@ -22,6 +22,7 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         private Dispatcher dispatcher;
 
+        public PlayerMover PlayerMover { get; set; }
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
@@ -40,7 +41,7 @@ namespace Game
 
         private float size;
         public float Size => size;
-        
+
         private void Awake()
         {
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
@@ -50,7 +51,7 @@ namespace Game
             hands = GetComponentInChildren<Hands>();
             sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
-            playerMover = GetComponent<PlayerMover>();
+            PlayerMover = GetComponent<PlayerMover>();
             playerInput = GetComponent<PlayerInput>();
             boxCollider2D = transform.Find(R.S.GameObject.Collider).GetComponent<BoxCollider2D>();
             rigidBody2D = GetComponent<Rigidbody2D>();
@@ -105,7 +106,7 @@ namespace Game
         //Author : Sébastien Arsenault
         private void DeactivateComponentsWhenDead()
         {
-            playerMover.enabled = false;
+            PlayerMover.enabled = false;
             playerInput.enabled = false;
             boxCollider2D.enabled = false;
             rigidBody2D.isKinematic = true;
@@ -137,20 +138,20 @@ namespace Game
         {
             hands.Drop();
             
-            playerMover.ResetSpeed();
+            PlayerMover.ResetSpeed();
             Finder.PlayerAnimator.OnBoxThrow();
         }
         
         //Author : Jeammy Côté
         public void CollectPowerUp()
         {
-            playerMover.ResetNumberOfJumpsLeft();
+            PlayerMover.ResetNumberOfJumpsLeft();
         }
         
         //Author : Jeammy Côté
         public void CollectBoots()
         {
-            playerMover.HasBoots = true;
+            PlayerMover.HasBoots = true;
         }
 #if UNITY_EDITOR
         //Author : Jeammy Côté
