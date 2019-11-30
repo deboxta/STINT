@@ -408,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[0]
-      value: Main_menu
+      value: Chapter3
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
