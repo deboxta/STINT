@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SecretRoom : MonoBehaviour
     {
         private ISensor<Player> playerSensor;

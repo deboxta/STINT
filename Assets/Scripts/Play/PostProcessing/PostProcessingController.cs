@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class PostProcessingController : MonoBehaviour
     {
         [SerializeField] private float fadeSpeed = 0.025f;
@@ -119,31 +120,28 @@ namespace Game
 
         private IEnumerator FocusOut()
         {
-            depthOfField.focusDistance.value -= fadeBy;
-            yield  return new WaitForSeconds(fadeSpeed);
-            if (depthOfField.focusDistance.value >= 1)
+            while (depthOfField.focusDistance.value >= 1)
             {
-                yield return FocusOut();
+                depthOfField.focusDistance.value -= fadeBy;
+                yield  return new WaitForSeconds(fadeSpeed);
             }
         }
 
         private IEnumerator ChromaticWarningOn()
         {
-            if (chromaticAberration.intensity.value < 1f)
+            while (chromaticAberration.intensity.value < 1f)
             {
                 chromaticAberration.intensity.value += 0.05f;
                 yield return new WaitForSeconds(0.025f);
-                yield return ChromaticWarningOn();
             }
         }
 
         private IEnumerator ChromaticWarningOff()
         {
-            if (chromaticAberration.intensity.value > 0f)
+            while (chromaticAberration.intensity.value > 0f)
             {
                 chromaticAberration.intensity.value -= 0.05f;
                 yield return new WaitForSeconds(0.025f);
-                yield return ChromaticWarningOff();
             }
         }
     }
