@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Harmony;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XInputDotNetPure;
 
 namespace Game
@@ -9,6 +10,8 @@ namespace Game
     //Author : Anthony Bérubé
     public class PlayerMover : MonoBehaviour
     {
+        public event PlayerJumpEventHandler OnPlayerJump;
+        
         [Header("Abilities to Activate")]
         [SerializeField] private bool hasBoots;
         
@@ -19,20 +22,19 @@ namespace Game
         [SerializeField] private bool isWallSliding;
         [SerializeField] private bool isWallJumping;
         [SerializeField] private bool canJump;
-        [SerializeField] private bool playerCanControlMoves;
+        [SerializeField] private bool canPlayerMove;
         [SerializeField] private int numberOfJumpsLeft;
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
-        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
+        [SerializeField] private float timeBeforePlayerCanControlMovesWhenWallJumping = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
         [SerializeField] private float gravityMultiplier = 5f;
         [SerializeField] private int fallGravityMultiplier = 10;
-        [SerializeField] private float xSpeed = 10f;
-        [SerializeField] private float yForce = 15f;
-        [SerializeField] private float groundCheckRadius = 1.11f;
+        [SerializeField] private Vector2 playerMovementForce = new Vector2(15f, 17f);
+        [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private float wallDistance = 1.11f;
         [SerializeField] private float movementPenalty = 2;
 
@@ -80,7 +82,7 @@ namespace Game
 
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
-            playerCanControlMoves = true;
+            canPlayerMove = true;
             playerAnimator = Finder.PlayerAnimator;
         }
 
@@ -135,10 +137,11 @@ namespace Game
 
         private void CheckIfIsTouchingWall()
         {
+            var transform1 = transform;
             wallHit = Physics2D.Raycast(
-                wallCheck.position,
-                transform.right * transform.localScale.x,
-                wallDistance,
+                wallCheck.position, 
+                transform1.right * transform1.localScale.x, 
+                wallDistance, 
                 layersToJump);
 
             if (wallHit)
@@ -157,7 +160,7 @@ namespace Game
         //Author : Jeammy Côté
         public void Move(Vector2 direction)
         {
-            if ((direction != Vector2.zero || !isWallJumping) && playerCanControlMoves)
+            if ((direction != Vector2.zero || !isWallJumping) && canPlayerMove)
             {
                 if (!isWallSliding || isWallJumping)
                 {
@@ -165,9 +168,9 @@ namespace Game
                     var velocity = rigidBody2D.velocity;
                     //Author : Yannick Cote
                     if (isGravityNotNull && gravity.isActiveAndEnabled)
-                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
+                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, playerMovementForce.x);
                     else
-                        velocity.x = direction.x * xSpeed;
+                        velocity.x = direction.x * playerMovementForce.x;
                     rigidBody2D.velocity = velocity;
                     
                     //Author : Jeammy Côté
@@ -193,16 +196,16 @@ namespace Game
             {
                 //Author : Yannick Cote
                 if (isGravityNotNull && gravity.isActiveAndEnabled)
-                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(playerMovementForce.y));
                 else
-                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, yForce);
-                playerAnimator.OnJumping();
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, playerMovementForce.y);
+                NotifyPlayerJump();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
             {
                 WallJump();
-                playerAnimator.OnJumping();
+                NotifyPlayerJump();
             }
         }
 
@@ -222,17 +225,19 @@ namespace Game
                 {
                     //Add pushing force for wall jump with velocity of the wall.
                     rigidBody2D.velocity = Vector2.zero;
-                    forceToAdd =
-                        new Vector2(wallHit.rigidbody.velocity.x * wallJumpForce * wallJumpDirection.x * xSpeed,
-                                    yForce);
+                    var velocity = wallHit.rigidbody.velocity;
+                    forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
 
                 //Add pushing force for wall jump
                 rigidBody2D.velocity = Vector2.zero;
-                forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * xSpeed, yForce);
+                forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * playerMovementForce.x, playerMovementForce.y );
                 rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
 
+                
+                NotifyPlayerJump();
+                
                 Finder.Player.FlipPlayer();
                 StartCoroutine(StopPlayerMoves());
             }
@@ -288,23 +293,28 @@ namespace Game
         //Author : Anthony Bérubé
         public void Slowed()
         {
-            xSpeed /= movementPenalty;
-            yForce /= movementPenalty;
+            playerMovementForce.x /= movementPenalty;
+            playerMovementForce.y /= movementPenalty;
         }
 
         //Author : Anthony Bérubé
         public void ResetSpeed()
         {
-            xSpeed *= movementPenalty;
-            yForce *= movementPenalty;
+            playerMovementForce.x *= movementPenalty;
+            playerMovementForce.y *= movementPenalty;
         }
 
         //Author : Jeammy Côté
         private IEnumerator StopPlayerMoves()
         {
-            playerCanControlMoves = false;
-            yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
-            playerCanControlMoves = true;
+            canPlayerMove = false;
+            yield return new WaitForSeconds(timeBeforePlayerCanControlMovesWhenWallJumping);
+            canPlayerMove = true;
+        }
+        
+        private void NotifyPlayerJump() 
+        { 
+            if (OnPlayerJump != null) OnPlayerJump();
         }
 
 #if UNITY_EDITOR
@@ -314,11 +324,14 @@ namespace Game
             Gizmos.color = Color.red;
             if (wallCheck != null && groundCheck != null)
             {
-                Gizmos.DrawLine(wallCheck.position,
-                                wallCheck.position + wallDistance * transform.localScale.x * transform.right);
-                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+                var position = wallCheck.position;
+                var transform1 = transform;
+                Gizmos.DrawLine(position, position + wallDistance * transform1.localScale.x * transform1.right);
+                Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
             }
         }
-#endif
+#endif   
+        
+        public delegate void PlayerJumpEventHandler();
     }
 }

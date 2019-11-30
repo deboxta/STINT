@@ -1,26 +1,24 @@
 ﻿using Harmony;
-using UnityEngine;
 
 namespace Game
 {
     //Author : Sébastien Arsenault
-    public class TerminalDialogue : Terminal
+    public class TerminalLevelCompletedV2 : TerminalV2
     {
-        [SerializeField] private string[] texts;
-        private HudDialog hudDialog;
+        private LevelCompletedEventChannel levelCompletedEventChannel;
         
         protected override void Awake()
         {
             base.Awake();
-
-            hudDialog = Finder.HudDialog;
+            
+            levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
         }
 
         protected override void OnPlayerSensed(Player player)
         {
             base.OnPlayerSensed(player);
             
-            hudDialog.StartDisplaying(texts);
+            levelCompletedEventChannel.NotifyLevelCompleted();
         }
     }
 }

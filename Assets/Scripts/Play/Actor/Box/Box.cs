@@ -50,7 +50,7 @@ namespace Game
             timelineChangedEventChannel.OnTimelineChanged -= OnTimelineChange;
         }
 
-        private void DeActivateComponents()
+        private void Hide()
         {
             rigidbody2D.simulated = false;
             boxCollider2D.enabled = false;
@@ -58,7 +58,7 @@ namespace Game
             stimuli.enabled = false;
         }
 
-        private void ActivateComponents()
+        private void Show()
         {
             rigidbody2D.simulated = true;
             boxCollider2D.enabled = true;
@@ -69,9 +69,9 @@ namespace Game
         private void OnTimelineChange()
         {
             if (timelineController.CurrentTimeline != timeOfBox)
-                DeActivateComponents();
+                Hide();
             else
-                ActivateComponents();
+                Show();
 
             BoxParadoxRelationPosition();
         }
@@ -80,21 +80,26 @@ namespace Game
         {
             if (boxFutureReference != null)
             {
-                if (Math.Abs(Position.x - positionPastBox.x) >= 0.1 ||
-                    Math.Abs(Position.y - positionPastBox.y) >= 0.1)
+                if (PastBoxMoved())
                     boxFutureReference.Position = Position;
 
                 positionPastBox = Position;
             }
         }
 
-        public void Grabbed()
+        private bool PastBoxMoved()
+        {
+            return Math.Abs(Position.x - positionPastBox.x) >= 0.2 ||
+                   Math.Abs(Position.y - positionPastBox.y) >= 0.2;
+        }
+
+        public void Grab()
         {
             rigidbody2D.simulated = false;
             transform.localPosition = Vector3.zero;
         }
 
-        public void Throwed(bool isLookingRight)
+        public void Throw(bool isLookingRight)
         {
             transform.parent = originalParent;
             rigidbody2D.simulated = true;
@@ -104,7 +109,7 @@ namespace Game
                 rigidbody2D.velocity = new Vector2(-throwedForceX, throwedForceUp);
         }
 
-        public void Dropped()
+        public void Drop()
         {
             transform.parent = originalParent;
             rigidbody2D.simulated = true;

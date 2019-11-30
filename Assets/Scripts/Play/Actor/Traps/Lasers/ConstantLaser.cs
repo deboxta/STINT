@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    // Legacy
     // Author : Mathieu Boutet
     public class ConstantLaser : Laser
     {

@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
     //Author : Sébastien Arsenault
+    [Obsolete("The old sensor is deprecated. Use " + nameof(TerminalV2) + " instead.")]
     public class Terminal : MonoBehaviour
     {
         [SerializeField] protected Sprite spriteDenied;
