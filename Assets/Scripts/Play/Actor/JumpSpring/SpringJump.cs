@@ -1,5 +1,4 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
 namespace Game
@@ -47,11 +46,11 @@ namespace Game
             {
                 GameObject objectToSpringJump = hitLeft.transform.gameObject;
                 if (objectToSpringJump)
-                    SpringPlayer(objectToSpringJump);
+                    SpringObject(objectToSpringJump);
             }
         }
 
-        private void SpringPlayer(GameObject gameObject)
+        private void SpringObject(GameObject gameObject)
         {
             Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
             rigidbody.velocity = new Vector2(x: rigidbody.velocity.x, springForce);

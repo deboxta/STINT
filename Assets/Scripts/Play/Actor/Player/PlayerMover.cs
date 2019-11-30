@@ -27,7 +27,7 @@ namespace Game
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
-        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
+        [SerializeField] private float timeBeforePlayerCanControlMovesWhenWallJumping = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
@@ -48,7 +48,6 @@ namespace Game
         private GamePadState gamePadState;
         private RaycastHit2D wallHit;
         private PlayerAnimator playerAnimator;
-        
         private Rigidbody2D rigidBody2D;
 
         public float? YVelocityToLerp { get; set; }
@@ -186,14 +185,13 @@ namespace Game
                     rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
                 else*/
                 rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, playerMovementForce.y);
-                playerAnimator.OnJumping();
                 NotifyPlayerJump();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
             {
                 WallJump();
-                playerAnimator.OnJumping();
+                NotifyPlayerJump();
             }
         }
 
@@ -212,7 +210,7 @@ namespace Game
                     //Add pushing force for wall jump with velocity of the wall.
                     rigidBody2D.velocity = Vector2.zero;
                     var velocity = wallHit.rigidbody.velocity;
-                    forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y +55);
+                    forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
 
@@ -294,7 +292,7 @@ namespace Game
         private IEnumerator StopPlayerMoves()
         {
             canPlayerMove = false;
-            yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
+            yield return new WaitForSeconds(timeBeforePlayerCanControlMovesWhenWallJumping);
             canPlayerMove = true;
         }
         
