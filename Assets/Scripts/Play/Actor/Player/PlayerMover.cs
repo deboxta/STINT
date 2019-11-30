@@ -47,7 +47,6 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         private RaycastHit2D wallHit;
         private PlayerAnimator playerAnimator;
-        //private Gravity gravity;
         
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
