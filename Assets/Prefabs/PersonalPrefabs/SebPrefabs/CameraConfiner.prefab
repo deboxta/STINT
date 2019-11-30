@@ -129,4 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067b4b8ade9a45ef95098463cdba13a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShakeActive: 1
+  amplitude: 1
+  frequency: 1
   cinemachineVirtualCamera: {fileID: 0}
+  zoomValue: 0

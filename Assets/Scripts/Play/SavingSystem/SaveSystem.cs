@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Yannick Cote
     [Findable(R.S.Tag.MainController)]
 
     public class SaveSystem : MonoBehaviour
@@ -18,13 +17,16 @@ namespace Game
         private Dispatcher dispatcher;
         private const string SAVE_FOLDER_NAME = "Saves/";
         private const string SAVE_FILE_EXT = ".binary";
+        private bool isGameSaved;
 
         public int NbOfSaves => nbOfSaves;
-        
+        public bool IsGameSaved => isGameSaved;
+
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
+            isGameSaved = false;
         }
 
         public List<DataCollector> GetSaves()
@@ -77,6 +79,8 @@ namespace Game
             localData = dispatcher.DataCollector;
             
             formatter.Serialize(saveFile, localData);
+
+            isGameSaved = true;
             
             saveFile.Close();
         }

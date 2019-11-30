@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Cinemachine;
+using Harmony;
 using UnityEngine;
 
 namespace Game
@@ -12,10 +13,13 @@ namespace Game
         [SerializeField] [Range(1, 100)] private float minSpeed = 5f;
 
         private ISensor<Player> playerSensor;
+        private SaveSystem saveSystem;
 
         private void Awake()
         {
             playerSensor = GetComponent<Sensor>().For<Player>();
+            //Author : Yannick Cote
+            saveSystem = Finder.SaveSystem;
         }
 
         private void OnEnable()
@@ -85,6 +89,8 @@ namespace Game
             sensedPlayerRigidbody2D.isKinematic = false;
             sensedPlayer.GetComponent<PlayerInput>().enabled = true;
             
+            //Author : Yannick Cote (For a save after the player has passed a room)
+            saveSystem.SaveGame();
         }
     }
 }

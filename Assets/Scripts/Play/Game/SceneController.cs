@@ -17,6 +17,7 @@ namespace Game
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
         private NewGameLoadedEventChannel newGameLoadedEventChannel;
+        private SaveSystem saveSystem;
         private Scenes scenes;
         private int currentScene;
         private Dispatcher dispatcher;
@@ -31,6 +32,7 @@ namespace Game
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
             newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
+            saveSystem = Finder.SaveSystem;
             scenes = GetComponentInChildren<Scenes>();
             
             currentScene = startingScene;
@@ -111,9 +113,19 @@ namespace Game
         {
             yield return new WaitForSeconds(waitingTime);
             yield return UnloadGame();
-            yield return LoadGame();
+            //By Yannick Cote
+            if (dispatcher.DataCollector.ActiveScene != null)
+            {
+                currentLevel = dispatcher.DataCollector.ActiveScene.Value;
+                yield return LoadGame();
+                savedSceneLoadedEventChannel.NotifySavedDataLoaded();
+            }
+            else
+            {
+                yield return LoadGame();
+            }
         }
-        
+
         //By Yannick Cote
         public void ReturnToMainMenu()
         {
