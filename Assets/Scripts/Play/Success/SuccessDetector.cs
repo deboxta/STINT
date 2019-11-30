@@ -2,30 +2,36 @@
 using System.Collections;
 using Harmony;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SuccessDetector : MonoBehaviour
     {
         private Dispatcher dispatcher;
+        
         private FirstDeathSuccess firstDeathSuccess;
         private WonGameSuccess wonGameSuccess;
         private WonWithoutDyingSuccess wonWithoutDyingSuccess;
         private SaveNamedBenSuccess saveNamedBenSuccess;
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
-        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SuccessUnlockedEventChannel successUnlockedEventChannel;
+        private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
+        private NewGameLoadedEventChannel newGameLoadedEventChannel;
 
         private void Awake()
         {
             dispatcher = Finder.Dispatcher;
-            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             successUnlockedEventChannel = Finder.SuccessUnlockedEventChannel;
+            savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
+            newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
         }
 
         private void OnEnable()
         {
+            newGameLoadedEventChannel.OnNewGameLoaded += OnNewGameLoaded;
             savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
         }
 
@@ -51,17 +57,25 @@ namespace Game
             {
                 secretRoomFoundSuccess.OnSecretRoomFound -= OnSecretRoomFoundDetected;
             }
+            
             savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
-        }
-
-        private void OnSavedDataLoaded()
-        {
-            CheckAlreadyUnlockedSuccess();
+            
+            newGameLoadedEventChannel.OnNewGameLoaded -= OnNewGameLoaded;
         }
 
         private void OnSuccessUnlocked(string successName)
         {
             successUnlockedEventChannel.NotifySuccessUnlocked(successName);
+        }
+
+        private void OnNewGameLoaded()
+        {
+            CheckAlreadyUnlockedSuccess();
+        }
+
+        private void OnSavedDataLoaded()
+        {
+            CheckAlreadyUnlockedSuccess();
         }
 
         private void OnSecretRoomFoundDetected()

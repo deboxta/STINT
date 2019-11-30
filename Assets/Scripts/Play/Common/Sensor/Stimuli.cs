@@ -1,8 +1,10 @@
 ﻿using System;
+using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    [ObsoleteAttribute("The old sensor is deprecated. Use " + nameof(StimuliV2) + " instead.")]
     public sealed class Stimuli : MonoBehaviour
     {
         [SerializeField] private Shape shape = Shape.Circle;
@@ -43,7 +45,7 @@ namespace Game
 
         private void SetSensorLayer()
         {
-            gameObject.layer = LayerMask.NameToLayer("Sensor");
+            gameObject.layer = LayerMask.NameToLayer(R.S.Layer.Sensor);
         }
 
         private void NotifyDestroyed()

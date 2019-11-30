@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1446803545286953973}
   - component: {fileID: 1446803545286953974}
   - component: {fileID: 7305174324261234428}
+  - component: {fileID: 1353937790820382622}
   m_Layer: 9
   m_Name: Box
   m_TagString: Untagged
@@ -81,7 +82,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &7305174324261234428
 MonoBehaviour:
@@ -99,6 +100,17 @@ MonoBehaviour:
   boxFutureReference: {fileID: 0}
   throwedForceUp: 40
   throwedForceX: 25
+--- !u!210 &1353937790820382622
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446803545286953975}
+  m_Enabled: 1
+  m_SortingLayerID: -1409249481
+  m_SortingLayer: 3
+  m_SortingOrder: 0
 --- !u!1 &1446803545484102166
 GameObject:
   m_ObjectHideFlags: 0

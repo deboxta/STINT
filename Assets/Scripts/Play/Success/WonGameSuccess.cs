@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class WonGameSuccess : MonoBehaviour, ISuccess
     {
         public event GameWonSuccessEventHandler OnGameWonSuccess;

@@ -28,8 +28,10 @@ namespace Game
 
         private IEnumerator Start()
         {
+            //This is use because it the end of the game the success detector need to know that the player won the game
             gameWonEventChannel.NotifyGameWon();
             
+            //Certain necessary components might not be initialize at this point so we need to wait for one update
             yield return null;
             
             var textRectTransform = text.rectTransform;

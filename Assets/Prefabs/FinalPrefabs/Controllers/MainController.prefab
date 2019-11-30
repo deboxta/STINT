@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 450831425154879390}
   - component: {fileID: 7366872951164378045}
+  - component: {fileID: 4659416782741405355}
   - component: {fileID: 8434718536069152611}
-  - component: {fileID: 3260249929845761192}
+  - component: {fileID: 5062081907815295385}
   - component: {fileID: 5656073382414011744}
   - component: {fileID: 5439996729442061647}
   - component: {fileID: 9087834356088241826}
@@ -24,6 +25,8 @@ GameObject:
   - component: {fileID: 3362042674876263002}
   - component: {fileID: 8289969843270812983}
   - component: {fileID: 8795547452572929310}
+  - component: {fileID: 1687549173264235112}
+  - component: {fileID: 250532413530501389}
   m_Layer: 0
   m_Name: MainController
   m_TagString: MainController
@@ -58,6 +61,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d3d35e6fc440aa7f83534408baa72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedDeltaTime: 0.02
+--- !u!114 &4659416782741405355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450831425154879389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d01f6928687445da6f0828acdb7e9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwableObjectPrefab: {fileID: 3719239548657916306, guid: 3c11fa7dfd38e6c4aa5ec7d3acc6ffd0,
+    type: 3}
 --- !u!114 &8434718536069152611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589976d2cd6843c5aa0bc79d127599f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3260249929845761192
+  startingScene: 0
+  waitingTime: 1.5
+--- !u!114 &5062081907815295385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,6 +246,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e606587a6c4b35a582109a0184be2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1687549173264235112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450831425154879389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a67b677f14a3497ce878c58da6f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &250532413530501389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450831425154879389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0b30c7c8644b36809441d3efbca283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4894642334801565849
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,4 +313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e6e0e1a29543bfa275096316b6b25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenes: []
+  scenes:
+  - Main_menu
+  - Level1
+  - Level2
+  - Chapter3
+  - Chapter4
+  - Chapter5
+  - Endgame

@@ -7,7 +7,7 @@ namespace Game
     //Author : Jeammy Côté
     public class PowerUp : MonoBehaviour, ICollectible
     {
-        [SerializeField] private float PowerUpRespawnDelay = 2;
+        [SerializeField] private float powerUpRespawnDelay = 2;
         
         private GameObject collectable;
         
@@ -31,9 +31,9 @@ namespace Game
             StartCoroutine(PowerUpSpawnTime());
         }
 
-        IEnumerator PowerUpSpawnTime()
+        private IEnumerator PowerUpSpawnTime()
         {
-            yield return new WaitForSeconds(PowerUpRespawnDelay);
+            yield return new WaitForSeconds(powerUpRespawnDelay);
             collectable.SetActive(true);
         }
     }

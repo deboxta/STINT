@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class TextSuccess : MonoBehaviour
     {
         [SerializeField] private float displayTime = 5f;

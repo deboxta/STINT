@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
 //Author : Yannick Cote
+//TODO (GOLD) : SEPARATE THIS CLASS IN TWO (ONE FOR THE PAUSE MENU AND ONE FOR THE MENU)
 namespace Game
 {
     public class MenuGamepadController : MonoBehaviour
@@ -98,14 +99,14 @@ namespace Game
             
             if (isbodyNotNull && !body.activeSelf)
             {
-                if (gamePadState.Buttons.Start == ButtonState.Pressed && sceneController.CurrentLevel != 0) Pause();
+                if (gamePadState.Buttons.Start == ButtonState.Pressed && sceneController.CurrentScene != 0) Pause();
             }
             else
             {
                 if (gamePadState.ThumbSticks.Left.Y < 0) 
-                    UIExtenssions.SelectedButton?.SelectDown();
+                    UIExtensions.SelectedButton?.SelectDown();
                 else if (gamePadState.ThumbSticks.Right.Y > 0)
-                    UIExtenssions.SelectedButton?.SelectUp();
+                    UIExtensions.SelectedButton?.SelectUp();
                 else if (gamePadState.Buttons.B == ButtonState.Pressed)
                     isReturnButtonPressed = true;
 
@@ -119,14 +120,14 @@ namespace Game
                     isFirstButtonPressed = true;
 
                 if (isFirstButtonPressed)
-                    UIExtenssions.SelectedButton?.Click();
+                    UIExtensions.SelectedButton?.Click();
 
                 if (isReturnButtonPressed)
                 {
                     if (isreturnButtonNotNull)
                     {
                         returnButton.Select();
-                        UIExtenssions.SelectedButton?.Click();
+                        UIExtensions.SelectedButton?.Click();
                     }
                 }
             }

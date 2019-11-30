@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Harmony;
 using UnityEngine;
 
@@ -12,9 +13,15 @@ namespace Game
         [SerializeField] private bool changeStateAtInterval = false;
         [SerializeField] private float changeStateDelay = 5;
         [SerializeField] private float initialChangeStateDelay = 2;
+        [SerializeField] private float warningDuration = 1f;
+        
+        private float timeLeftBeforeWarning;
+        private float timeLeftUntilTimeFreezeChange;
         
         private bool isFrozen;
+        private bool isWarning;
         private TimeFreezeEventChannel timeFreezeEventChannel;
+        private TimeFreezeWarningEventChannel timeFreezeWarningEventChannel;
 
         public bool IsFrozen
         {
@@ -32,17 +39,15 @@ namespace Game
         private void Awake()
         {
             timeFreezeEventChannel = Finder.TimeFreezeEventChannel;
+            timeFreezeWarningEventChannel = Finder.TimeFreezeWarningEventChannel;
+            timeLeftBeforeWarning = initialChangeStateDelay;
+            timeLeftUntilTimeFreezeChange = warningDuration;
         }
 
         private void Start()
         {
             isFrozen = startFrozen;
-        }
-
-        private void OnEnable()
-        {
-            if (changeStateAtInterval)
-                StartCoroutine(WaitForInitialDelay());
+            isWarning = false;
         }
 
         public void Reset()
@@ -53,21 +58,37 @@ namespace Game
         public void SwitchState()
         {
             IsFrozen = !IsFrozen;
-        }
-        
-        private IEnumerator WaitForInitialDelay()
-        {
-            yield return new WaitForSeconds(initialChangeStateDelay);
-            SwitchState();
-            StartCoroutine(SwitchStateAtInterval());
+            isWarning = false;
+            timeLeftBeforeWarning = changeStateDelay;
+            timeLeftUntilTimeFreezeChange = warningDuration;
         }
 
-        private IEnumerator SwitchStateAtInterval()
+        // Author : Sébastien Arsenault
+        private void Update()
         {
-            while (true)
+            if (changeStateAtInterval)
             {
-                yield return new WaitForSeconds(changeStateDelay);
-                SwitchState();
+                if (timeLeftBeforeWarning >= 0f)
+                {
+                    timeLeftBeforeWarning -= Time.deltaTime;
+                }
+                else
+                {
+                    if (!isWarning)
+                    {
+                        timeFreezeWarningEventChannel.NotifyTimeFreezeWarning();
+                        isWarning = true;
+                    }
+
+                    if (timeLeftUntilTimeFreezeChange >= 0f)
+                    {
+                        timeLeftUntilTimeFreezeChange -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        SwitchState();
+                    }
+                }
             }
         }
     }

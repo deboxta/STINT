@@ -2,20 +2,22 @@
 
 namespace Game
 {
+    //Author : Yannick Cote
     [Serializable]
     public class DataCollector
     {
-        private int activeScene;
+        private int? activeScene;
         private float positionX, positionY;
         private int nbDeath;
         private string name;
+        private int cameraConfinerIndex;
         private bool firstDeath;
         private bool wonGame;
         private bool wonWithoutDying;
         private bool saveNamedBen;
         private bool secretRoomFound;
 
-        public int ActiveScene
+        public int? ActiveScene
         {
             get => activeScene;
             set => activeScene = value;
@@ -43,6 +45,12 @@ namespace Game
         {
             get => name;
             set => name = value;
+        }
+
+        public int CameraConfinerIndex
+        {
+            get => cameraConfinerIndex;
+            set => cameraConfinerIndex = value;
         }
         
         public bool FirstDeath

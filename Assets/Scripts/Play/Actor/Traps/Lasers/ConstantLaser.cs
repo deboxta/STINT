@@ -2,13 +2,14 @@
 
 namespace Game
 {
+    // Legacy
     // Author : Mathieu Boutet
     public class ConstantLaser : Laser
     {
         private void Update()
         {
-            laserBeam.SetPosition(0, LaserBeamStartPosition);
-            laserBeam.SetPosition(1, LaserBeamEndPosition);
+            laserBeamLineRenderer.SetPosition(0, LaserBeamStartPosition);
+            laserBeamLineRenderer.SetPosition(1, LaserBeamEndPosition);
         }
 
         protected override void FixedUpdate()
