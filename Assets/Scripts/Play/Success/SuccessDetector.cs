@@ -10,6 +10,7 @@ namespace Game
     public class SuccessDetector : MonoBehaviour
     {
         private Dispatcher dispatcher;
+        
         private FirstDeathSuccess firstDeathSuccess;
         private WonGameSuccess wonGameSuccess;
         private WonWithoutDyingSuccess wonWithoutDyingSuccess;
@@ -17,7 +18,6 @@ namespace Game
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
         private SuccessUnlockedEventChannel successUnlockedEventChannel;
-
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private NewGameLoadedEventChannel newGameLoadedEventChannel;
 
