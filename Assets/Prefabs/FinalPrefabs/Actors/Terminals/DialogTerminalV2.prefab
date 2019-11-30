@@ -89,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6777180142599973053}
-  - component: {fileID: 6777180142599973054}
+  - component: {fileID: 1387073613284912089}
   - component: {fileID: 1941102756}
   - component: {fileID: 1941102755}
   m_Layer: 0
@@ -114,7 +114,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6777180142599973054
+--- !u!114 &1387073613284912089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,17 +123,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6777180142599973050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68569325b74e4a56ad2e6df0a5fc4043, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f2ed8283db145fb9b30fc21e75b379b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteDenied: {fileID: 21300000, guid: 076bd9dddcb73784482a300082489e96, type: 3}
   spriteOpen: {fileID: 21300000, guid: 800b388f261595f4e8e76956e6372532, type: 3}
-  texts:
-  - 'Allo pelekofwfkldl;ehbbrk w E ER HHRTHRTH4HFGHUKKU56H DRG ER '
-  - hw; FHWEF HWHLFKJEFhioergnW G G4G G AERGER GFRGERG GEAG
-  - tjepthojejr rgejwpeofskvier ef
-  - eofiw;f NKSR Le WEFG WG YJ67J DGAGAET4E
-  - ' wHE GJWE. ;WHEF '
+  texts: []
 --- !u!61 &1941102756
 BoxCollider2D:
   m_ObjectHideFlags: 0

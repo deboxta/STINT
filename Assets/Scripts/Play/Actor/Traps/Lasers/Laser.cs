@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
+    // Legacy
     // Author : Mathieu Boutet
     public abstract class Laser : MonoBehaviour
     {
