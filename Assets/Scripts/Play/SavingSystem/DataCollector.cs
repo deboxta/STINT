@@ -2,6 +2,7 @@
 
 namespace Game
 {
+    //Author : Yannick Cote
     [Serializable]
     public class DataCollector
     {

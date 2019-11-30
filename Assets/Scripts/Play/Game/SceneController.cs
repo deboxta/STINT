@@ -120,6 +120,7 @@ namespace Game
         {
             yield return new WaitForSeconds(1.5f);
             yield return UnloadGame();
+            //By Yannick Cote
             if (dispatcher.DataCollector.ActiveScene != null)
             {
                 currentLevel = dispatcher.DataCollector.ActiveScene.Value;

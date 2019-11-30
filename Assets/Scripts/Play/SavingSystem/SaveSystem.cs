@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Yannick Cote
     [Findable(R.S.Tag.MainController)]
 
     public class SaveSystem : MonoBehaviour

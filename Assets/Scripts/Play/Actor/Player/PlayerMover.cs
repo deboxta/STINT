@@ -67,8 +67,8 @@ namespace Game
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
 
+            //by Yannick Cote
             GameObject gravityObject = GameObject.FindWithTag(R.S.Tag.GravityObject);
-
             if (gravityObject != null)
                 gravity = gravityObject.GetComponentInChildren<Gravity>();
             isGravityNotNull = gravity != null;
@@ -129,6 +129,7 @@ namespace Game
                 if (!wasGrounded)
                 {
                     playerAnimator.OnLanding();
+                    //by Yannick Cote
                     if (isGravityNotNull && gravity.isActiveAndEnabled)
                         gravity.DeactivatePointEffector(false);
                 }
@@ -188,6 +189,7 @@ namespace Game
         //Author : Jeammy Côté
         public void Jump()
         {
+            //By Yannick Cote
             if (isGravityNotNull && gravity.isActiveAndEnabled)
                 gravity.DeactivatePointEffector(true);
             //Normal jump
@@ -212,6 +214,7 @@ namespace Game
         //Author : Jeammy Côté
         private void WallJump()
         {
+            //By Yannick Cote
             if (isGravityNotNull && gravity.isActiveAndEnabled)
                 gravity.DeactivatePointEffector(true);
             if (hasBoots)

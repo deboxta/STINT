@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Yannick Cote
     public class Gravity : MonoBehaviour
     {
         [Header("Dependencies")]
@@ -90,7 +91,6 @@ namespace Game
             return xSpeed;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (raycastIsTriggered)

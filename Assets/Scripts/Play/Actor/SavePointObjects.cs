@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    //Author : Yannick Cote
     public class SavePointObjects : MonoBehaviour
     {
         [Header("Images")] 
