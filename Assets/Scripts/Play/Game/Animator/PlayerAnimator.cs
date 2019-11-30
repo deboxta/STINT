@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Harmony;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     [Findable(R.S.Tag.Player)]
     public class PlayerAnimator : MonoBehaviour
     {
@@ -22,7 +21,7 @@ namespace Game
         private SpriteRenderer playerSpriteRenderer;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
-        private float movingThreshold = 0.01f;
+        private float movingAnimationThreshold = 0.01f;
         private bool coroutineIsRunning;
         
         private void Awake()
@@ -66,7 +65,7 @@ namespace Game
 
         public void OnMoving(float speed)
         {
-            bool isMoving = Mathf.Abs(speed) > movingThreshold;
+            bool isMoving = Mathf.Abs(speed) > movingAnimationThreshold;
             animator.SetBool(IS_WALKING,isMoving);
         }
 
