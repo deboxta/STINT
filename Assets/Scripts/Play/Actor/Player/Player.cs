@@ -16,7 +16,6 @@ namespace Game
         private ISensor<Box> boxSensor;
         private Hands hands;
         private Vitals vitals;
-        private PlayerMover playerMover;
         private PlayerInput playerInput;
         private BoxCollider2D boxCollider2D;
         private Rigidbody2D rigidBody2D;
@@ -121,7 +120,7 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(SensedBox);
-                playerMover.Slowed();
+                PlayerMover.Slowed();
                 Finder.PlayerAnimator.OnGrabBox();
             }
         }
@@ -130,7 +129,7 @@ namespace Game
         {
             hands.Throw(IsLookingRight);
             
-            playerMover.ResetSpeed();
+            PlayerMover.ResetSpeed();
             Finder.PlayerAnimator.OnBoxThrow();
         }
         
