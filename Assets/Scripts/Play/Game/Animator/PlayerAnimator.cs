@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Harmony;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace Game
 {
+    //Author : Jeammy Côté
     [Findable(R.S.Tag.Player)]
     public class PlayerAnimator : MonoBehaviour
     {
@@ -22,7 +21,8 @@ namespace Game
         private SpriteRenderer playerSpriteRenderer;
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
-        private float movingThreshold = 0.01f;
+        private PlayerMover playerMover;
+        private float movingAnimationThreshold = 0.01f;
         private bool coroutineIsRunning;
         
         private void Awake()
@@ -30,12 +30,14 @@ namespace Game
             playerSpriteRenderer = Finder.Player.GetComponentInChildren<SpriteRenderer>();
             playerDeathEventChannel = Finder.PlayerDeathEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
+            playerMover = GetComponentInParent<PlayerMover>();
         }
 
         private void OnEnable()
         {
             playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
             levelCompletedEventChannel.OnLevelCompleted += OnButtonPressing;
+            playerMover.OnPlayerJump += OnPlayerJump;
         }
 
         private void OnDisable()
@@ -44,7 +46,7 @@ namespace Game
             levelCompletedEventChannel.OnLevelCompleted -= OnButtonPressing;
         }
 
-        public void OnJumping()
+        public void OnPlayerJump()
         {
             animator.SetBool(IS_JUMPING, true);
         }
@@ -66,7 +68,7 @@ namespace Game
 
         public void OnMoving(float speed)
         {
-            bool isMoving = Mathf.Abs(speed) > movingThreshold;
+            bool isMoving = Mathf.Abs(speed) > movingAnimationThreshold;
             animator.SetBool(IS_WALKING,isMoving);
         }
 
@@ -82,7 +84,7 @@ namespace Game
 
         public void WallJumpWarningAnimation()
         {
-            if (!coroutineIsRunning){}
+            if (!coroutineIsRunning)
                 StartCoroutine(WallJumpWarningTimeLaps());
         }
 
