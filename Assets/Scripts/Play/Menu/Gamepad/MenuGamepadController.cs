@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
 //Author : Yannick Cote
+//TODO (GOLD) : SEPARATE THIS CLASS IN TWO (ONE FOR THE PAUSE MENU AND ONE FOR THE MENU)
 namespace Game
 {
     public class MenuGamepadController : MonoBehaviour

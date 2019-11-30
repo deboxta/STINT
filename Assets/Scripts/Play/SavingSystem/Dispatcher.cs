@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using Harmony;
+﻿using Harmony;
 using UnityEngine;
 
 namespace Game
 {
+    //Author Yannick Cote
     [Findable(R.S.Tag.MainController)]
     public class Dispatcher : MonoBehaviour
     {
