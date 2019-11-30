@@ -27,7 +27,7 @@ namespace Game
         
         //serializeFields for optimisation and control over moves of the player
         [Header("Player variables")]
-        [SerializeField] private float timeBeforePlayerCanControlMoves = 0.10f;
+        [SerializeField] private float timeBeforePlayerCanControlMovesWhenWallJumping = 0.10f;
         [SerializeField] private int numberOfJumps = 3;
         [SerializeField] private float wallJumpForce = 5;
         [SerializeField] private float wallSlideSpeed = 2f;
@@ -47,6 +47,8 @@ namespace Game
         private Vector2 wallJumpDirection;
         private GamePadState gamePadState;
         private RaycastHit2D wallHit;
+        private Gravity gravity;
+        private bool isGravityNotNull;
         private PlayerAnimator playerAnimator;
         
         private Rigidbody2D rigidBody2D;
@@ -64,8 +66,13 @@ namespace Game
         {
             wallJumpDirection.Normalize();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            //gravity = GameObject.FindWithTag(R.S.Tag.GravityObject).GetComponentInChildren<Gravity>();
-            
+
+            //by Yannick Cote
+            GameObject gravityObject = GameObject.FindWithTag(R.S.Tag.GravityObject);
+            if (gravityObject != null)
+                gravity = gravityObject.GetComponentInChildren<Gravity>();
+            isGravityNotNull = gravity != null;
+
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
             //Author : Sébastien Arsenault
@@ -120,7 +127,12 @@ namespace Game
             {
                 isWallJumping = false;
                 if (!wasGrounded)
+                {
                     playerAnimator.OnLanding();
+                    //by Yannick Cote
+                    if (isGravityNotNull && gravity.isActiveAndEnabled)
+                        gravity.DeactivatePointEffector(false);
+                }
             }
         }
 
@@ -156,9 +168,9 @@ namespace Game
                     //Author : Anthony Bérubé
                     var velocity = rigidBody2D.velocity;
                     //Author : Yannick Cote
-                    /*if (gravity != null)
-                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, xSpeed);
-                    else*/
+                    if (isGravityNotNull && gravity.isActiveAndEnabled)
+                        velocity.x = direction.x * gravity.CalculateForceToApplyX(direction, playerMovementForce.x);
+                    else
                         velocity.x = direction.x * playerMovementForce.x;
                     rigidBody2D.velocity = velocity;
                     
@@ -177,29 +189,34 @@ namespace Game
         //Author : Jeammy Côté
         public void Jump()
         {
+            //By Yannick Cote
+            if (isGravityNotNull && gravity.isActiveAndEnabled)
+                gravity.DeactivatePointEffector(true);
             //Normal jump
             if (canJump && !isWallSliding && isGrounded)
                 //Author : Anthony Bérubé
             {
                 //Author : Yannick Cote
-                /*if (gravity != null)
-                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(yForce));
-                else*/
-                rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, playerMovementForce.y);
-                playerAnimator.OnJumping();
+                if (isGravityNotNull && gravity.isActiveAndEnabled)
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, gravity.CalculateForceToApplyY(playerMovementForce.y));
+                else
+                    rigidBody2D.velocity = new Vector2(x: rigidBody2D.velocity.x, playerMovementForce.y);
                 NotifyPlayerJump();
             }
             //Wall jump
             else if (canJump && (isWallSliding || isTouchingWall) && !isGrounded)
             {
                 WallJump();
-                playerAnimator.OnJumping();
+                NotifyPlayerJump();
             }
         }
 
         //Author : Jeammy Côté
         private void WallJump()
         {
+            //By Yannick Cote
+            if (isGravityNotNull && gravity.isActiveAndEnabled)
+                gravity.DeactivatePointEffector(true);
             if (hasBoots)
             {
                 isWallSliding = false;
@@ -212,7 +229,7 @@ namespace Game
                     //Add pushing force for wall jump with velocity of the wall.
                     rigidBody2D.velocity = Vector2.zero;
                     var velocity = wallHit.rigidbody.velocity;
-                    forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y +55);
+                    forceToAdd = new Vector2(velocity.x * wallJumpForce * wallJumpDirection.x * playerMovementForce.x, velocity.x * wallJumpForce * playerMovementForce.y);
                     rigidBody2D.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
 
@@ -294,7 +311,7 @@ namespace Game
         private IEnumerator StopPlayerMoves()
         {
             canPlayerMove = false;
-            yield return new WaitForSeconds(timeBeforePlayerCanControlMoves);
+            yield return new WaitForSeconds(timeBeforePlayerCanControlMovesWhenWallJumping);
             canPlayerMove = true;
         }
         

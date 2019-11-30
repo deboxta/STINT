@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 1687549173264235112}
   - component: {fileID: 250532413530501389}
   m_Layer: 0
-  m_Name: M_MainController
+  m_Name: MainController
   m_TagString: MainController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589976d2cd6843c5aa0bc79d127599f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingScene: 0
+  waitingTime: 1.5
 --- !u!114 &5062081907815295385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,4 +313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e6e0e1a29543bfa275096316b6b25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenes: []
+  scenes:
+  - Main_menu
+  - Level1
+  - Level2
+  - Chapter3
+  - Chapter4
+  - Chapter5
+  - Endgame

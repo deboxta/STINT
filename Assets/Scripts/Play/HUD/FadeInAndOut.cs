@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class FadeInAndOut : MonoBehaviour
     {
         [SerializeField] private float fadeSpeed = 0.025f;
@@ -59,25 +60,23 @@ namespace Game
         {
             var imageColor = image.color;
             
-            imageColor[3] = imageColor[3] - fadeBy ;
-            image.color = imageColor;
-            if (imageColor.a >= 0)
+            while (imageColor.a >= 0)
             {
+                imageColor[3] = imageColor[3] - fadeBy ;
+                image.color = imageColor;
                 yield return new WaitForSeconds(fadeSpeed);
-                yield return FadeIn();
             }
         }
 
         private IEnumerator FadeOut()
         {
             var imageColor = image.color;
-            
-            imageColor[3] = fadeBy + imageColor[3];
-            image.color = imageColor;
-            if (imageColor.a <= 1)
+
+            while (imageColor.a <= 1)
             {
+                imageColor[3] = fadeBy + imageColor[3];
+                image.color = imageColor;
                 yield return new WaitForSeconds(fadeSpeed);
-                yield return FadeOut();
             }
         }
     }

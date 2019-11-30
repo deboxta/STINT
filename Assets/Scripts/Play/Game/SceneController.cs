@@ -9,21 +9,20 @@ namespace Game
     [Findable(R.S.Tag.MainController)]
     public class SceneController : MonoBehaviour
     {
-        private const int STARTING_LEVEL = 0;
+        [SerializeField] private int startingScene = 0;
+        [SerializeField] private float waitingTime = 1.5f;
         
         private PlayerDeathEventChannel playerDeathEventChannel;
         private LevelCompletedEventChannel levelCompletedEventChannel;
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
         private NewGameLoadedEventChannel newGameLoadedEventChannel;
+        private SaveSystem saveSystem;
         private Scenes scenes;
-        private int currentLevel;
+        private int currentScene;
         private Dispatcher dispatcher;
 
-        public int CurrentLevel
-        {
-            get => currentLevel;
-        }
+        public int CurrentScene => currentScene;
 
         private void Awake()
         {
@@ -33,46 +32,45 @@ namespace Game
             savedDataLoadedEventChannel = Finder.SavedDataLoadedEventChannel;
             savedSceneLoadedEventChannel = Finder.SavedSceneLoadedEventChannel;
             newGameLoadedEventChannel = Finder.NewGameLoadedEventChannel;
+            saveSystem = Finder.SaveSystem;
             scenes = GetComponentInChildren<Scenes>();
             
-            currentLevel = STARTING_LEVEL;
+            currentScene = startingScene;
         }
         
         private void Start()
         {
-            if (!SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)).isLoaded)
+            if (!SceneManager.GetSceneByName(scenes.GetSceneName(currentScene)).isLoaded)
                 StartCoroutine(LoadGame());
             else
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
-            }
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentScene)));
         }
         
         private void OnEnable()
         {
-            playerDeathEventChannel.OnPlayerDeath += PlayerDeath;
-            levelCompletedEventChannel.OnLevelCompleted += LevelCompleted;
-            savedDataLoadedEventChannel.OnSavedDataLoaded += SavedDataLoaded;
+            playerDeathEventChannel.OnPlayerDeath += OnPlayerDeath;
+            levelCompletedEventChannel.OnLevelCompleted += OnLevelCompleted;
+            savedDataLoadedEventChannel.OnSavedDataLoaded += OnSavedDataLoaded;
         }
 
         private void OnDisable()
         {
-            playerDeathEventChannel.OnPlayerDeath -= PlayerDeath;
-            levelCompletedEventChannel.OnLevelCompleted -= LevelCompleted;
-            savedDataLoadedEventChannel.OnSavedDataLoaded -= SavedDataLoaded;
+            playerDeathEventChannel.OnPlayerDeath -= OnPlayerDeath;
+            levelCompletedEventChannel.OnLevelCompleted -= OnLevelCompleted;
+            savedDataLoadedEventChannel.OnSavedDataLoaded -= OnSavedDataLoaded;
         }
 
-        private void PlayerDeath()
+        private void OnPlayerDeath()
         {
             StartCoroutine(RestartLevel());
         }
         
-        private void LevelCompleted()
+        private void OnLevelCompleted()
         {
             StartCoroutine(NextLevel());
         }
         //By Yannick Cote
-        private void SavedDataLoaded()
+        private void OnSavedDataLoaded()
         {
             StartCoroutine(LoadSavedScene());
         }
@@ -80,22 +78,20 @@ namespace Game
         private IEnumerator LoadSavedScene()
         {
             yield return UnloadGame();
-            currentLevel = dispatcher.DataCollector.ActiveScene;
+            currentScene = dispatcher.DataCollector.ActiveScene.Value;
             yield return LoadGame();
             savedSceneLoadedEventChannel.NotifySavedDataLoaded();
         }
 
         private IEnumerator NextLevel()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(waitingTime);
             yield return UnloadGame();
             
-            if (currentLevel == 0)
-            {
+            if (currentScene == 0)
                 newGameLoadedEventChannel.NotifyNewGameLoaded();
-            }
 
-            currentLevel++;
+            currentScene++;
 
             yield return LoadGame();
 
@@ -103,23 +99,33 @@ namespace Game
 
         private IEnumerator LoadGame()
         {
-            yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentLevel), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(scenes.GetSceneName(currentScene), LoadSceneMode.Additive);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(scenes.GetSceneName(currentScene)));
         }
 
         private IEnumerator UnloadGame()
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(scenes.GetSceneName(currentLevel)));
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(scenes.GetSceneName(currentScene)));
         }
 
         private IEnumerator RestartLevel()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(waitingTime);
             yield return UnloadGame();
-            yield return LoadGame();
+            //By Yannick Cote
+            if (dispatcher.DataCollector.ActiveScene != null)
+            {
+                currentScene = dispatcher.DataCollector.ActiveScene.Value;
+                yield return LoadGame();
+                savedSceneLoadedEventChannel.NotifySavedDataLoaded();
+            }
+            else
+            {
+                yield return LoadGame();
+            }
         }
-        
+
         //By Yannick Cote
         public void ReturnToMainMenu()
         {
@@ -130,7 +136,7 @@ namespace Game
         private IEnumerator MenuReturn()
         {
             yield return UnloadGame();
-            currentLevel = 0;
+            currentScene = 0;
             yield return LoadGame();
         }
     }

@@ -7,6 +7,7 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace Game
 {
+    //Author : Yannick Cote
     public class NewButtonController : MonoBehaviour
     {
         [SerializeField] private GameObject newButton;
