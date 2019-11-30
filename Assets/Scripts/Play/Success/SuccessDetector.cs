@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class SuccessDetector : MonoBehaviour
     {
         private Dispatcher dispatcher;
+        
         private FirstDeathSuccess firstDeathSuccess;
         private WonGameSuccess wonGameSuccess;
         private WonWithoutDyingSuccess wonWithoutDyingSuccess;
@@ -16,7 +18,6 @@ namespace Game
         private SecretRoomFoundSuccess secretRoomFoundSuccess;
 
         private SuccessUnlockedEventChannel successUnlockedEventChannel;
-
         private SavedDataLoadedEventChannel savedDataLoadedEventChannel;
         private NewGameLoadedEventChannel newGameLoadedEventChannel;
 

@@ -99,7 +99,7 @@ namespace Game
             
             if (isbodyNotNull && !body.activeSelf)
             {
-                if (gamePadState.Buttons.Start == ButtonState.Pressed && sceneController.CurrentLevel != 0) Pause();
+                if (gamePadState.Buttons.Start == ButtonState.Pressed && sceneController.CurrentScene != 0) Pause();
             }
             else
             {

@@ -62,45 +62,32 @@ namespace Game
             timeLeftBeforeWarning = changeStateDelay;
             timeLeftUntilTimeFreezeChange = warningDuration;
         }
-        
-        private IEnumerator WaitForInitialDelay()
-        {
-            yield return new WaitForSeconds(initialChangeStateDelay);
-            SwitchState();
-            StartCoroutine(SwitchStateAtInterval());
-        }
-
-        private IEnumerator SwitchStateAtInterval()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(changeStateDelay);
-                SwitchState();
-            }
-        }
 
         // Author : Sébastien Arsenault
         private void Update()
         {
-            if (timeLeftBeforeWarning >= 0f)
+            if (changeStateAtInterval)
             {
-                timeLeftBeforeWarning -= Time.deltaTime;
-            }
-            else
-            {
-                if (!isWarning)
+                if (timeLeftBeforeWarning >= 0f)
                 {
-                    timeFreezeWarningEventChannel.NotifyTimeFreezeWarning();
-                    isWarning = true;
-                }
-
-                if (timeLeftUntilTimeFreezeChange >= 0f)
-                {
-                    timeLeftUntilTimeFreezeChange -= Time.deltaTime;
+                    timeLeftBeforeWarning -= Time.deltaTime;
                 }
                 else
                 {
-                    SwitchState();
+                    if (!isWarning)
+                    {
+                        timeFreezeWarningEventChannel.NotifyTimeFreezeWarning();
+                        isWarning = true;
+                    }
+
+                    if (timeLeftUntilTimeFreezeChange >= 0f)
+                    {
+                        timeLeftUntilTimeFreezeChange -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        SwitchState();
+                    }
                 }
             }
         }

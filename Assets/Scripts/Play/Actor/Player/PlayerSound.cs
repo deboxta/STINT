@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    //Author : Anthony Bérubé
+    //Author : Sébastien Arsenault
     public class PlayerSound : MonoBehaviour
     {
         [SerializeField] private AudioClip deathAudioClip;

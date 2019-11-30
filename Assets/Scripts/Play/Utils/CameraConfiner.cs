@@ -10,6 +10,7 @@ using Object = System.Object;
 
 namespace Game
 {
+    //Author : Sébastien Arsenault
     public class CameraConfiner : MonoBehaviour
     {
         [HideInInspector]
