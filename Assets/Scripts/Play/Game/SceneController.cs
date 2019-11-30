@@ -78,7 +78,7 @@ namespace Game
         private IEnumerator LoadSavedScene()
         {
             yield return UnloadGame();
-            currentScene = dispatcher.DataCollector.ActiveScene;
+            currentScene = dispatcher.DataCollector.ActiveScene.Value;
             yield return LoadGame();
             savedSceneLoadedEventChannel.NotifySavedDataLoaded();
         }
@@ -116,7 +116,7 @@ namespace Game
             //By Yannick Cote
             if (dispatcher.DataCollector.ActiveScene != null)
             {
-                currentLevel = dispatcher.DataCollector.ActiveScene.Value;
+                currentScene = dispatcher.DataCollector.ActiveScene.Value;
                 yield return LoadGame();
                 savedSceneLoadedEventChannel.NotifySavedDataLoaded();
             }
