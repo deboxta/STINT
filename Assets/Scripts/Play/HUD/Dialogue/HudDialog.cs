@@ -11,61 +11,47 @@ namespace Game
     {
         [SerializeField] private float delayBetweenCharacters = 0.1f;
         [SerializeField] private float delayBetweenTexts = 3f;
-        
-        private string[] texts;
+
         private TextMeshProUGUI textMesh;
-        private int characterIndex;
         private int textIndex;
         private string displayedText;
-        
+
         private void Awake()
         {
             textMesh = GetComponentInChildren<TextMeshProUGUI>();
             displayedText = "";
-            characterIndex = 0;
             textIndex = 0;
         }
 
         public void StartDisplaying(string[] textsToDisplay)
         {
-            //All coroutine needs to stop or it create
+            //All coroutine needs to stop or it create bugs
             StopAllCoroutines();
 
-            texts = textsToDisplay;
-            
             displayedText = "";
             textIndex = 0;
-            characterIndex = 0;
-                
-            StartCoroutine(DisplayOneCharacter());
+
+            StartCoroutine(DisplayText(textsToDisplay));
         }
 
-        private IEnumerator DisplayOneCharacter()
+        private IEnumerator DisplayText(string[] textsToDisplay)
         {
-            if (textIndex < texts.Length)
+            foreach (var text in textsToDisplay)
             {
-                if (characterIndex < texts[textIndex].Length + 1)
+                foreach (var character in textsToDisplay[textIndex])
                 {
-                    displayedText = texts[textIndex].Substring(0, characterIndex);
+                    displayedText += character;
                     textMesh.text = displayedText;
-                    characterIndex++;
-                    
+
                     yield return new WaitForSeconds(delayBetweenCharacters);
                 }
-                else
-                {
-                    textIndex++;
-                    characterIndex = 0;
-                    
-                    yield return new WaitForSeconds(delayBetweenTexts);
-                }
+
+                textIndex++;
+
+                yield return new WaitForSeconds(delayBetweenTexts);
             }
-            else
-            {
-                textMesh.text = "";
-                yield break;
-            }
-            yield return DisplayOneCharacter();
+            
+            textMesh.text = "";
         }
     }
 }
