@@ -13,7 +13,6 @@ namespace Game
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private TilemapRenderer tileMapRenderer;
         private Rigidbody2D rigidBody2D;
-        private CompositeCollider2D compositeCollider2D;
         private TilemapCollider2D tileMapCollider2D;
 
         private bool ignoreFirstTimelineChanged;
@@ -23,7 +22,6 @@ namespace Game
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
             tileMapRenderer = GetComponent<TilemapRenderer>();
             rigidBody2D = GetComponent<Rigidbody2D>();
-            compositeCollider2D = GetComponent<CompositeCollider2D>();
             tileMapCollider2D = GetComponent<TilemapCollider2D>();
             
             Deactivate();
@@ -33,28 +31,28 @@ namespace Game
 
         private void OnEnable()
         {
+            Deactivate();
             timelineChangedEventChannel.OnTimelineChanged += OnTimelineChangedEventChannel;
         }
         
         private void OnDisable()
         {
             timelineChangedEventChannel.OnTimelineChanged -= OnTimelineChangedEventChannel;
+            Deactivate();
         }
 
         private void Deactivate()
         {
             tileMapRenderer.enabled = false;
             rigidBody2D.simulated = false;
-            compositeCollider2D.isTrigger = true;
-            tileMapCollider2D.isTrigger = true;
+            tileMapCollider2D.enabled = false;
         }
         
         private void Activate()
         {
             tileMapRenderer.enabled = true;
             rigidBody2D.simulated = true;
-            compositeCollider2D.isTrigger = false;
-            tileMapCollider2D.isTrigger = false;
+            tileMapCollider2D.enabled = true;
         }
 
         private IEnumerator Appear()
