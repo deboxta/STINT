@@ -22,7 +22,7 @@ namespace Game
         private Rigidbody2D rigidBody2D;
         private Dispatcher dispatcher;
 
-        public PlayerMover PlayerMover { get; set; }
+        public PlayerMover PlayerMover { get; private set; }
         public Hands Hands => hands;
         public Vitals Vitals => vitals;
         public bool IsDead { get; set; }
@@ -121,7 +121,7 @@ namespace Game
             {
                 //Grabs the box
                 hands.Grab(SensedBox);
-                playerMover.Slowed();
+                PlayerMover.Slowed();
                 Finder.PlayerAnimator.OnGrabBox();
             }
         }
@@ -130,7 +130,7 @@ namespace Game
         {
             hands.Throw(IsLookingRight);
             
-            playerMover.ResetSpeed();
+            PlayerMover.ResetSpeed();
             Finder.PlayerAnimator.OnBoxThrow();
         }
         
