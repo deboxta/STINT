@@ -12,7 +12,7 @@ namespace Game
         protected bool isBodyNotNull;
         protected bool isReturnButtonNotNull;
         protected bool isReturnButtonPressed;
-        private bool isFirstButtonPressed;
+        protected bool isFirstButtonPressed;
 
                 
         protected virtual void Start()

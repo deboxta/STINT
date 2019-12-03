@@ -16,12 +16,13 @@ namespace Game
         [SerializeField] private GameObject body = null;
         
         private SceneController sceneController;
-        
-        private MenuPageChangedEventChannel menuPageChangedEventChannel;
+
+        private PauseMenuActionEventChannel pauseMenuActionEventChannel;
         private Button firstButton;
 
         private void Awake()
         {
+            pauseMenuActionEventChannel = Finder.PauseMenuActionEventChannel;
             firstButton = body.GetComponentInChildren<Button>();
             body.SetActive(false);
             
@@ -32,7 +33,6 @@ namespace Game
         {
             isBodyNotNull = body != null;
             isFirstButtonNotNull = firstButton != null;
-            //SelectFirstButton(firstButton);
             base.Start();
         }
 
@@ -42,16 +42,19 @@ namespace Game
             if (isBodyNotNull && !body.activeSelf)
             {
                 if (gamePadState.Buttons.Start == ButtonState.Pressed && SceneManager.GetActiveScene().name != SceneUtility.GetScenePathByBuildIndex(5)) Pause();
-            }            firstButton = body.GetComponentInChildren<Button>();
+            }
 
+            if (isFirstButtonPressed)
+                pauseMenuActionEventChannel.NotifyPauseMenuAction();
         }
         
         [UsedImplicitly]
         public void Pause()
         {
+            Time.timeScale = 0;
+            pauseMenuActionEventChannel.NotifyPauseMenuAction();
             EventSystem.current.SetSelectedGameObject(null);
             body.SetActive(true);
-            Time.timeScale = 0;
             SelectFirstButton(firstButton);
         }
         
