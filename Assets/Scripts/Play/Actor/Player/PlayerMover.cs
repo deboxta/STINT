@@ -97,11 +97,11 @@ namespace Game
             //Author : Anthony Bérubé
             //Player fall faster for more realistic physics
             if (rigidBody2D.velocity.y < 0)
+//                RigidBody2D.velocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier * Vector2.up;
             {
                 newYVelocity += Time.fixedDeltaTime * Physics2D.gravity.y * gravityMultiplier;
             }
 
-            // Author : Mathieu Boutet
             if (YVelocityToLerp != null)
             {
                 newYVelocity = Mathf.Lerp(newYVelocity, (float) YVelocityToLerp, YVelocityLerpTValue);

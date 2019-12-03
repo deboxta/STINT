@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6589510860134628462}
   - component: {fileID: 4860130458955322391}
   - component: {fileID: 8241520018865989966}
-  - component: {fileID: 806478151074877613}
   m_Layer: 0
   m_Name: VirtualCamera
   m_TagString: Untagged
@@ -117,18 +116,6 @@ MonoBehaviour:
   m_FocusTracksTarget: 0
   m_FocusOffset: 0
   m_Profile: {fileID: 11400000, guid: 89eadab848047e043a18069b32020f1c, type: 2}
---- !u!114 &806478151074877613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2336518926875734325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcac24b5e46f4ee4cb13c0e50f57a99f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2336518927891006397
 GameObject:
   m_ObjectHideFlags: 0

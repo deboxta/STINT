@@ -46,7 +46,6 @@ namespace Game
                     yield return new WaitForSeconds(delayBetweenCharacters);
                 }
 
-                displayedText = "";
                 textIndex++;
 
                 yield return new WaitForSeconds(delayBetweenTexts);

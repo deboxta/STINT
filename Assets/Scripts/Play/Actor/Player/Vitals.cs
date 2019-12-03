@@ -48,7 +48,7 @@ namespace Game
             {
                 if (isActiveSanity)
                     healthLeft -= Time.deltaTime;
-                else if (healthLeft < MaxMentalHealth)
+                else
                     healthLeft += Time.deltaTime;
             }
         }
