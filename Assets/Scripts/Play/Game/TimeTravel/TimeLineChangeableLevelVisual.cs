@@ -56,12 +56,28 @@ namespace Game
         {
             tilemapCollider2D.enabled = true;
             tilemap.color = originalColor;
+            DisableDeathZoneColliders(true);
         }
 
         private void DisableCollider()
         {
             tilemapCollider2D.enabled = false;
             tilemap.color = ghostColor;
+            DisableDeathZoneColliders(false);
+        }
+
+        //disable colliders responsible for the player death when he change timeline in wall position.
+        private void DisableDeathZoneColliders(bool active)
+        {
+            GameObject[] childrens = this.Children();
+
+            foreach (var children in childrens)
+            {
+                if (children.CompareTag(R.S.Tag.DeathZone))
+                {
+                    children.SetActive(active);
+                }
+            }
         }
     }
 }
