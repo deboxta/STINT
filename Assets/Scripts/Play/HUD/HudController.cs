@@ -1,4 +1,6 @@
-﻿using Harmony;
+﻿using System;
+using System.Collections;
+using Harmony;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,16 +16,22 @@ namespace Game
         [Header("Text fields")]
         [SerializeField] private Text primary = null;
         [SerializeField] private Text secondary = null;
+        
+        [Header("Shade of text fields")]
+        [SerializeField] private Text primaryShade;
+        [SerializeField] private Text secondaryShade;
 
         [Header("Years of level")]
         [SerializeField] private string primaryYear = "1990";
         [SerializeField] private string secondaryYear = "1990";
-    
+        
         private TimelineChangedEventChannel timelineChangedEventChannel;
         private Player player;
         private TimelineController timelineController;
 
-        private const int BIG_FONT_SIZE = 32;
+        
+
+        private const int BIG_FONT_SIZE = 25;
         private const int SMALL_FONT_SIZE = 16;
         
         private void Awake()
@@ -31,6 +39,14 @@ namespace Game
             timelineController = Finder.TimelineController;
             player = Finder.Player;
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
+        }
+
+        private void Start()
+        {
+            primary.text = primaryYear;
+            primaryShade.text = primaryYear;
+            secondary.text = secondaryYear;
+            secondaryShade.text = secondaryYear;
         }
 
         private void OnEnable()
@@ -54,17 +70,21 @@ namespace Game
             {
                 case Timeline.Primary:
                     
-                    primary.text = primaryYear;
+                    //primary.text = primaryYear;
                     primary.fontSize = BIG_FONT_SIZE;
-                    secondary.text = secondaryYear;
+                    primaryShade.fontSize = BIG_FONT_SIZE;
+                    //secondary.text = secondaryYear;
                     secondary.fontSize = SMALL_FONT_SIZE;
+                    secondaryShade.fontSize = SMALL_FONT_SIZE;
                     break;
                 case Timeline.Secondary:
                     
-                    primary.text = secondaryYear;
+                    //primary.text = secondaryYear;
                     primary.fontSize = SMALL_FONT_SIZE;
-                    secondary.text = primaryYear;
+                    primaryShade.fontSize = SMALL_FONT_SIZE;
+                    //secondary.text = primaryYear;
                     secondary.fontSize = BIG_FONT_SIZE;
+                    secondaryShade.fontSize = BIG_FONT_SIZE;
                     break;
             }
         }
