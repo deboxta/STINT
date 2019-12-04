@@ -5558,7 +5558,7 @@ PrefabInstance:
     - target: {fileID: 1068499648031710627, guid: 5d62d4f32f8e7084b95fb5d6d49ccf70,
         type: 3}
       propertyPath: springForce
-      value: 35
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1068499648031710625, guid: 5d62d4f32f8e7084b95fb5d6d49ccf70,
         type: 3}
@@ -8792,6 +8792,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hasBoots
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 308609901384526596, guid: 43a401b213aa2e84093c8824469128d1,
+        type: 3}
+      propertyPath: playerMovementForce.y
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1295453769084325749, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
