@@ -75,11 +75,17 @@ namespace Game
         private void SavedSceneLoaded()
         {
             StartCoroutine(ChangePosition());
+            StartCoroutine(ChangeBoots());
         }
 
         private IEnumerator ChangePosition()
         {
             yield return transform.position = new Vector3(dispatcher.DataCollector.PositionX,dispatcher.DataCollector.PositionY);
+        }
+
+        private IEnumerator ChangeBoots()
+        {
+            yield return PlayerMover.HasBoots = dispatcher.DataCollector.Boots;
         }
 
         //Author : Jeammy Côté

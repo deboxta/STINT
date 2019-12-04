@@ -59,6 +59,7 @@ namespace Game
         //If player has obtained the capacity of wall jumping by collecting the boots
         public bool HasBoots
         {
+            get => hasBoots;
             set => hasBoots = value;
         }
 

@@ -8,6 +8,7 @@ namespace Game
     {
         private int? activeScene;
         private float positionX, positionY;
+        private bool boots;
         private int nbDeath;
         private string name;
         private int cameraConfinerIndex;
@@ -35,6 +36,12 @@ namespace Game
             set => positionY = value;
         }
 
+        public bool Boots
+        {
+            get => boots;
+            set => boots = value;
+        }
+
         public int NbDeath
         {
             get => nbDeath;
@@ -47,12 +54,6 @@ namespace Game
             set => name = value;
         }
 
-        public int CameraConfinerIndex
-        {
-            get => cameraConfinerIndex;
-            set => cameraConfinerIndex = value;
-        }
-        
         public bool FirstDeath
         {
             get => firstDeath;
