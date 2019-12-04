@@ -3820,6 +3820,11 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 737367913}
+    - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
+        type: 3}
+      propertyPath: zoomValue
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c780366d58c75499cf5511100e4e60, type: 3}
 --- !u!114 &737367913 stripped
@@ -5134,6 +5139,11 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 737367913}
+    - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
+        type: 3}
+      propertyPath: zoomValue
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c780366d58c75499cf5511100e4e60, type: 3}
 --- !u!1 &941007970
@@ -6206,6 +6216,11 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 308609901384526596, guid: 43a401b213aa2e84093c8824469128d1,
+        type: 3}
+      propertyPath: playerMovementForce.y
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 403383710981523352, guid: 43a401b213aa2e84093c8824469128d1,
         type: 3}
       propertyPath: m_SortingLayer
@@ -7120,6 +7135,11 @@ PrefabInstance:
     - target: {fileID: 3335593473986361020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335593475322764020, guid: 7d253f9b4bea2f0449410b58bb766c1e,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3335593473986360999, guid: 7d253f9b4bea2f0449410b58bb766c1e,
@@ -7577,6 +7597,11 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 737367913}
+    - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
+        type: 3}
+      propertyPath: zoomValue
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c780366d58c75499cf5511100e4e60, type: 3}
 --- !u!4 &1444820078 stripped
@@ -15964,6 +15989,11 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 737367913}
+    - target: {fileID: 5331497738966932167, guid: 81c780366d58c75499cf5511100e4e60,
+        type: 3}
+      propertyPath: zoomValue
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81c780366d58c75499cf5511100e4e60, type: 3}
 --- !u!1001 &2002811740
