@@ -27,14 +27,12 @@ namespace Game
 
         private void OnEnable()
         {
-            if (menuPageChangedEventChannel != null)
-                menuPageChangedEventChannel.OnPageChanged += PageChanged;
+            menuPageChangedEventChannel.OnPageChanged += PageChanged;
         }
 
         private void OnDisable()
         {
-            if (menuPageChangedEventChannel != null)
-                menuPageChangedEventChannel.OnPageChanged -= PageChanged;
+            menuPageChangedEventChannel.OnPageChanged -= PageChanged;
         }
 
         private void PageChanged()

@@ -33,15 +33,15 @@ namespace Game
             
             else if (gamePadState.ThumbSticks.Right.Y > 0)
                 UIExtensions.SelectedButton?.SelectUp();
-
+            
             else if (gamePadState.Buttons.A == ButtonState.Released)
                 isFirstButtonPressed = false;
 
-            else if (gamePadState.Buttons.A == ButtonState.Pressed)
+            else if (gamePadState.Buttons.A == ButtonState.Pressed && !isFirstButtonPressed)
+            {
                 isFirstButtonPressed = true;
-
-            if (isFirstButtonPressed)
                 UIExtensions.SelectedButton?.Click();
+            }
             
         }
     }
