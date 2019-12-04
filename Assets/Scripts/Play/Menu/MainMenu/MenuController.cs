@@ -1,8 +1,10 @@
-﻿using Harmony;
+﻿using System;
+using Harmony;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using Button = UnityEngine.UIElements.Button;
 
 //Author : Yannick Cote
 namespace Game
@@ -20,6 +22,10 @@ namespace Game
         private SaveSystem saveSystem;
         private Dispatcher dispatcher;
         private GameObject saveToDelete;
+        private MainController mainController;
+        private bool isActivePageCreateGameFile;
+        
+        private const string NULL_TEXT_INPUT = "";
 
         public GameObject ActivePage => activePage;
         
@@ -28,11 +34,13 @@ namespace Game
             menuPageChangedEventChannel = Finder.MenuPageChangedEventChannel;
             levelCompletedEventChannel = Finder.LevelCompletedEventChannel;
 
+            mainController = Finder.MainController;
             dispatcher = Finder.Dispatcher;
             saveSystem = Finder.SaveSystem;
             activePage = firstPage;
+            isActivePageCreateGameFile = false;
         }
-
+        
         [UsedImplicitly]
         public void DeleteSave()
         {
@@ -60,7 +68,7 @@ namespace Game
         [UsedImplicitly]
         public void CreateNewGameFile(InputField fileName)
         {
-            if (fileName.text != null)
+            if (fileName.text != NULL_TEXT_INPUT)
             {
                 dispatcher.DataCollector.Name = fileName.text;
                 levelCompletedEventChannel.NotifyLevelCompleted();
@@ -72,29 +80,18 @@ namespace Game
         {
             saveSystem.SaveGame();
         }
-        
-        [UsedImplicitly]
-        public void ClosePopup()
-        {
-            popupWindow.SetActive(false);
-        }
-        
+
         [UsedImplicitly]
         public void OpenPopup(GameObject saveToDelete)
         {
             this.saveToDelete = saveToDelete;
-            popupWindow.SetActive(true);
+            SetPage(popupWindow);
         }
         
-        //TODO: Should be called in maincontroller when maincontroller is implemented
         [UsedImplicitly]
         public void ExitGame()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            mainController.ExitGame();
         }
     }
 }
