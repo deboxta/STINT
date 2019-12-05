@@ -423,7 +423,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[1]
-      value: Chapter5
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -586,12 +586,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 144.39899
+      value: -8.79768
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 68
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
@@ -656,7 +656,27 @@ PrefabInstance:
     - target: {fileID: 5471836936692775130, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471836936692775128, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351160155081918993, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
+        type: 3}
+      propertyPath: antialiasingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351160155081918993, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
+        type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351160155081918993, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
+        type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d7702ac5d2d474ab8284c14fe1f59e, type: 3}
