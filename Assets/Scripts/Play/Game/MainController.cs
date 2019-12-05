@@ -1,5 +1,6 @@
 ﻿using System;
 using Harmony;
+using JetBrains.Annotations;
 using UnityEngine;
 using Object = System.Object;
 
@@ -19,6 +20,16 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.KeypadMinus))
                 Time.timeScale /= 2;
             Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
+#endif
+        }
+        
+        [UsedImplicitly]
+        public void ExitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
 #endif
         }
     }

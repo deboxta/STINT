@@ -430,7 +430,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4256037153546632505}
+      - m_Target: {fileID: 0}
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 4256037153546632506}
   - component: {fileID: 4256037153546632507}
   - component: {fileID: 4256037153546632504}
-  - component: {fileID: 4256037153546632505}
+  - component: {fileID: 465727479857212875}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4256037153546632505
+--- !u!114 &465727479857212875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -550,10 +550,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4256037153546632486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e2a792dbd1a5242b2c81d6e66b9443, type: 3}
+  m_Script: {fileID: 11500000, guid: 05a505a77fcd41e7ab64c6b80e4df375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainMenu: 0
   body: {fileID: 4256037152869765486}
 --- !u!1 &4256037153550053783
 GameObject:
@@ -673,7 +672,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4256037153546632505}
+      - m_Target: {fileID: 0}
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
