@@ -70,19 +70,17 @@ namespace Game
             {
                 case Timeline.Primary:
                     
-                    //primary.text = primaryYear;
                     primary.fontSize = BIG_FONT_SIZE;
                     primaryShade.fontSize = BIG_FONT_SIZE;
-                    //secondary.text = secondaryYear;
+
                     secondary.fontSize = SMALL_FONT_SIZE;
                     secondaryShade.fontSize = SMALL_FONT_SIZE;
                     break;
                 case Timeline.Secondary:
                     
-                    //primary.text = secondaryYear;
                     primary.fontSize = SMALL_FONT_SIZE;
                     primaryShade.fontSize = SMALL_FONT_SIZE;
-                    //secondary.text = primaryYear;
+
                     secondary.fontSize = BIG_FONT_SIZE;
                     secondaryShade.fontSize = BIG_FONT_SIZE;
                     break;
