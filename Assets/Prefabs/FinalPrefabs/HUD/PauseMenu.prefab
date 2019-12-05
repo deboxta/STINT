@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 3335593473986360992}
   - component: {fileID: 3335593473986360993}
   - component: {fileID: 3335593473986360994}
-  - component: {fileID: 3335593473986360995}
   - component: {fileID: 3358447271581863838}
+  - component: {fileID: 1304101973368365828}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -179,20 +179,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3335593473986360995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3335593473986361020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e2a792dbd1a5242b2c81d6e66b9443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMainMenu: 0
-  body: {fileID: 3335593475322764020}
 --- !u!114 &3358447271581863838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +193,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPage: {fileID: 0}
   popupWindow: {fileID: 0}
+--- !u!114 &1304101973368365828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335593473986361020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a505a77fcd41e7ab64c6b80e4df375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3335593475322764020}
 --- !u!1 &3335593473987623437
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +238,7 @@ RectTransform:
   m_Children:
   - {fileID: 3335593475826844039}
   m_Father: {fileID: 3335593475322764027}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -325,7 +324,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3335593473986360995}
+      - m_Target: {fileID: 1304101973368365828}
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -444,7 +443,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3335593475322764027}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -523,7 +522,7 @@ RectTransform:
   m_Children:
   - {fileID: 3335593474150824016}
   m_Father: {fileID: 3335593475322764027}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -609,7 +608,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3335593473986360995}
+      - m_Target: {fileID: 1304101973368365828}
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -726,10 +725,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3335593474185567417}
   - {fileID: 3335593474928924872}
   - {fileID: 4615577835182623068}
   - {fileID: 3335593473987623537}
+  - {fileID: 3335593474185567417}
   m_Father: {fileID: 3335593473986360999}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1042,7 +1041,7 @@ RectTransform:
   m_Children:
   - {fileID: 7814035252617126511}
   m_Father: {fileID: 3335593475322764027}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
