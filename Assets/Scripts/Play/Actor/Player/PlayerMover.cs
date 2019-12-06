@@ -50,7 +50,6 @@ namespace Game
         private Gravity gravity;
         private bool isGravityNotNull;
         private PlayerAnimator playerAnimator;
-        
         private Rigidbody2D rigidBody2D;
 
         public float? YVelocityToLerp { get; set; }
@@ -148,6 +147,7 @@ namespace Game
 
             if (wallHit)
             {
+                isWallJumping = false;
                 isTouchingWall = true;
                 wallJumpDirection = wallHit.normal;
                 if (!canJump)
@@ -256,8 +256,8 @@ namespace Game
                 
                 if (!isWallJumping)
                     playerAnimator.OnLanding();
-                
-                playerAnimator.OnWallSliding();
+                if (HasBoots)
+                    playerAnimator.OnWallSliding();
             }
             else
             {
@@ -315,7 +315,7 @@ namespace Game
             yield return new WaitForSeconds(timeBeforePlayerCanControlMovesWhenWallJumping);
             canPlayerMove = true;
         }
-        
+
         private void NotifyPlayerJump() 
         { 
             if (OnPlayerJump != null) OnPlayerJump();
