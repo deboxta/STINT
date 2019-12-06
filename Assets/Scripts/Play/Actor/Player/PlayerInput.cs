@@ -23,6 +23,8 @@ namespace Game
         private bool isChangeTimelineKeyReleased;
         private bool rtButtonUnpressed;
         private bool isPauseMenuOpen;
+        private bool canPressJump;
+        private float delayRegisteringJumpInput = 0.25f;
 
         private PauseMenuActionEventChannel pauseMenuActionEventChannel;
 
@@ -35,6 +37,7 @@ namespace Game
             freezeTimeIsClicked = false;
             canChangeTimeline = true;
             rtButtonUnpressed = true;
+            canPressJump = true;
         }
 
         private void OnEnable()
@@ -53,6 +56,7 @@ namespace Game
             {
                 case true:
                     isPauseMenuOpen = false;
+                    StartCoroutine(DelayBeforeGameRegisterJumpInputAfterPause());
                     break;
                 case false:
                     isPauseMenuOpen = true;
@@ -63,7 +67,7 @@ namespace Game
         private void Update()
         {
             gamePadState = GamePad.GetState(PlayerIndex.One);
-
+        
             if (!isPauseMenuOpen)
             {
                 var direction = Vector2.zero;
@@ -89,9 +93,10 @@ namespace Game
 
                 playerMover.Move(direction);
 
+                
                 //Jump
                 if ((Input.GetKeyDown(KeyCode.Space) || gamePadState.Buttons.A == ButtonState.Pressed) &&
-                    !jumpButtonIsPressed)
+                    !jumpButtonIsPressed && canPressJump)
                 {
                     playerMover.Jump();
                     jumpButtonIsPressed = true;
@@ -159,6 +164,13 @@ namespace Game
             canChangeTimeline = false;
             yield return new WaitForSeconds(timeBeforePlayerCanTimeChange);
             canChangeTimeline = true;
+        }
+
+        private IEnumerator DelayBeforeGameRegisterJumpInputAfterPause()
+        {
+            canPressJump = false;
+            yield return new WaitForSeconds(delayRegisteringJumpInput);
+            canPressJump = true;
         }
     }
 }
