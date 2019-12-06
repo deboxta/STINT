@@ -124,7 +124,7 @@ namespace Game
             isGrounded = false;
             
             Vector3 groundCheckPosition = groundCheck.position;
-            isGrounded = Physics2D.OverlapBox(groundCheckPosition, new Vector2(2f, 0.2f), 0f, layersToHit);
+            isGrounded = Physics2D.OverlapBox(groundCheckPosition, new Vector2(2f, 0.2f), 0f, layersToJump);
             if (isGrounded)
             {
                 isWallJumping = false;
