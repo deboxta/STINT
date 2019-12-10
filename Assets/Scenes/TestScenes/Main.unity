@@ -398,7 +398,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.size
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -423,17 +423,17 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[0]
-      value: Level2
+      value: Main_menu
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[1]
-      value: Chapter3
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[2]
-      value: EndGame
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -443,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[4]
-      value: EndGame
+      value: Chapter4
       objectReference: {fileID: 0}
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
@@ -453,7 +453,7 @@ PrefabInstance:
     - target: {fileID: 9121506100151385926, guid: a3bc7e5b9c935ab4a99841241ec089aa,
         type: 3}
       propertyPath: scenes.Array.data[6]
-      value: Endgame
+      value: EndGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3bc7e5b9c935ab4a99841241ec089aa, type: 3}
@@ -591,12 +591,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.300137
+      value: 148.1601
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
@@ -661,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 5471836936692775130, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: orthographic size
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775128, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
