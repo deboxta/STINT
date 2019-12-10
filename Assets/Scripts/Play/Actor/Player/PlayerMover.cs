@@ -34,7 +34,6 @@ namespace Game
         [SerializeField] private float gravityMultiplier = 5f;
         [SerializeField] private int fallGravityMultiplier = 10;
         [SerializeField] private Vector2 playerMovementForce = new Vector2(15f, 17f);
-        [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private float wallDistance = 1.11f;
         [SerializeField] private float movementPenalty = 2;
 
@@ -124,7 +123,7 @@ namespace Game
             isGrounded = false;
             
             Vector3 groundCheckPosition = groundCheck.position;
-            isGrounded = Physics2D.OverlapBox(groundCheckPosition, new Vector2(2f, 0.2f), 0f, layersToJump);
+            isGrounded = Physics2D.OverlapBox(groundCheckPosition, new Vector2(2.1f, 0.2f), 0f, layersToJump);
             if (isGrounded)
             {
                 isWallJumping = false;
@@ -333,7 +332,7 @@ namespace Game
                 var position = wallCheck.position;
                 var transform1 = transform;
                 Gizmos.DrawLine(position, position + wallDistance * transform1.localScale.x * transform1.right);
-                Gizmos.DrawWireCube(groundCheck.position, new Vector3(2f, 0.2f));
+                Gizmos.DrawWireCube(groundCheck.position, new Vector3(2.1f, 0.2f));
             }
         }
 #endif   
