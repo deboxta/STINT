@@ -12,7 +12,7 @@ namespace Game
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        private SensorNewCollider sensorNewCollider;
+        private Sensor sensor;
         private ISensor<Box> boxSensor;
         private Hands hands;
         private Vitals vitals;
@@ -29,7 +29,8 @@ namespace Game
         public bool IsLookingRight
         {
             get => transform.localScale.x >= 0;
-            set => transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * (value ? 1 : -1), transform.localScale.y);
+            set => transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * (value ? 1 : -1),
+                                                      transform.localScale.y);
         }
         
         public bool IsHoldingBox => hands.IsHoldingBox;
@@ -48,7 +49,7 @@ namespace Game
             dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
-            sensorNewCollider = GetComponentInChildren<SensorNewCollider>();
+            sensor = GetComponentInChildren<Sensor>();
             vitals = GetComponentInChildren<Vitals>();
             PlayerMover = GetComponent<PlayerMover>();
             playerInput = GetComponent<PlayerInput>();
@@ -59,7 +60,7 @@ namespace Game
             IsDead = false;
             size = boxCollider2D.bounds.size.y;
             
-            boxSensor = sensorNewCollider.For<Box>();
+            boxSensor = sensor.For<Box>();
         }
 
         private void OnEnable()
