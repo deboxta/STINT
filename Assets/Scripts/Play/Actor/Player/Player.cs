@@ -12,7 +12,7 @@ namespace Game
     {
         private PlayerDeathEventChannel playerDeathEventChannel;
         private SavedSceneLoadedEventChannel savedSceneLoadedEventChannel;
-        private Sensor sensor;
+        private SensorNewCollider sensorNewCollider;
         private ISensor<Box> boxSensor;
         private Hands hands;
         private Vitals vitals;
@@ -48,7 +48,7 @@ namespace Game
             dispatcher = Finder.Dispatcher;
 
             hands = GetComponentInChildren<Hands>();
-            sensor = GetComponentInChildren<Sensor>();
+            sensorNewCollider = GetComponentInChildren<SensorNewCollider>();
             vitals = GetComponentInChildren<Vitals>();
             PlayerMover = GetComponent<PlayerMover>();
             playerInput = GetComponent<PlayerInput>();
@@ -59,7 +59,7 @@ namespace Game
             IsDead = false;
             size = boxCollider2D.bounds.size.y;
             
-            boxSensor = sensor.For<Box>();
+            boxSensor = sensorNewCollider.For<Box>();
         }
 
         private void OnEnable()

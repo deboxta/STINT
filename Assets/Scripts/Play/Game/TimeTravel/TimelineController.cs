@@ -29,10 +29,6 @@ namespace Game
         {
             CurrentTimeline = Timeline.Primary;
         }
-        public void ResetTimeline()
-        {
-            CurrentTimeline = Timeline.Primary;
-        }
 
         public void SwitchTimeline()
         {
