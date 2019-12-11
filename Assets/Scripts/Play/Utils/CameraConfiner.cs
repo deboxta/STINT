@@ -26,6 +26,8 @@ namespace Game
         private CompositeCollider2D compositeCollider2D;
         private NoiseController noiseController;
         private bool isPlayerInConfiner;
+        private float defaultOrthographicValue;
+        private const float ZERO_VALUE = 0;
 
         public bool IsShakeActive
         {
@@ -37,6 +39,7 @@ namespace Game
         {
             compositeCollider2D = GetComponent<CompositeCollider2D>();
             noiseController = cinemachineVirtualCamera.GetComponent<NoiseController>();
+            defaultOrthographicValue = cinemachineVirtualCamera.m_Lens.OrthographicSize;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -54,10 +57,9 @@ namespace Game
                 
                 //Author : Yannick Cote
                 //Adjust the zoom of the cam
-                if (zoomValue != 0)
-                    cinemachineVirtualCamera.m_Lens.OrthographicSize = zoomValue;
-                else
-                    zoomValue = cinemachineVirtualCamera.m_Lens.OrthographicSize;
+                if (zoomValue == ZERO_VALUE)
+                    zoomValue = defaultOrthographicValue;
+                cinemachineVirtualCamera.m_Lens.OrthographicSize = zoomValue;
             }
         }
 
@@ -76,7 +78,7 @@ namespace Game
                 noiseController.SetNoiseSettings(primaryAmplitude,primaryFrequency, secondaryAmplitude, secondaryFrequency);
             }
             else if (!isShakeActive)
-                noiseController.SetNoiseSettings(0,0,0,0);
+                noiseController.SetNoiseSettings(ZERO_VALUE,ZERO_VALUE,ZERO_VALUE,ZERO_VALUE);
         }
     }
     
