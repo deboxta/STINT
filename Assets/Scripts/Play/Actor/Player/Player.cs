@@ -29,7 +29,8 @@ namespace Game
         public bool IsLookingRight
         {
             get => transform.localScale.x >= 0;
-            set => transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * (value ? 1 : -1), transform.localScale.y);
+            set => transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x) * (value ? 1 : -1),
+                                                      transform.localScale.y);
         }
         
         public bool IsHoldingBox => hands.IsHoldingBox;

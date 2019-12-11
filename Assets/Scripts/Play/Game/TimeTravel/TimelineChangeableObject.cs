@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using System;
+using Harmony;
 using UnityEngine;
 
 namespace Game
@@ -14,7 +15,10 @@ namespace Game
         private void Awake()
         {
             timelineChangedEventChannel = Finder.TimelineChangedEventChannel;
-            
+            // Needs to be subscribed at the beginning and never unsubscribed
+            // because the state has to update even when the object is disabled
+            timelineChangedEventChannel.OnTimelineChanged += TimelineChanged;
+
             GameObject[] children = this.Children();
 
             foreach (var child in children)
@@ -31,12 +35,7 @@ namespace Game
             }
         }
 
-        private void OnEnable()
-        {
-            timelineChangedEventChannel.OnTimelineChanged += TimelineChanged;
-        }
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             timelineChangedEventChannel.OnTimelineChanged -= TimelineChanged;
         }
