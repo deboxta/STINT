@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PersonalScenes/Yannick/Chapter5.unity
     guid: be172f5f57553944599605dd574380dd
+  - enabled: 1
+    path: Assets/Scenes/PersonalScenes/Sebastien/EndGame.unity
+    guid: fb533f2aa92455e44b242cacddee75ef
   m_configObjects: {}
