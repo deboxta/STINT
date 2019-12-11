@@ -321,6 +321,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4772536186493196814, guid: a27269c06174495469e084f8c482956d,
+        type: 3}
+      propertyPath: fadeBy
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a27269c06174495469e084f8c482956d, type: 3}
 --- !u!1001 &450831425202996420
@@ -591,12 +596,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.66076
+      value: 148.12122
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.161162
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775129, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
@@ -661,7 +666,12 @@ PrefabInstance:
     - target: {fileID: 5471836936692775130, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
       propertyPath: orthographic size
-      value: 16
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471836936692775130, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 32295
       objectReference: {fileID: 0}
     - target: {fileID: 5471836936692775128, guid: 77d7702ac5d2d474ab8284c14fe1f59e,
         type: 3}
