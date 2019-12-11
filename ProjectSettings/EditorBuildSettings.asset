@@ -17,15 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PersonalScenes/Jeammy/Chapter3.unity
     guid: fd94e84b0c89f0546bf5bd75a3bea8f7
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/PersonalScenes/Anthony/Level1.unity
     guid: 1f0a2d20a394ff643a8f8cc907ffc01f
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/PersonalScenes/Yannick/Chapter5.unity
     guid: be172f5f57553944599605dd574380dd
