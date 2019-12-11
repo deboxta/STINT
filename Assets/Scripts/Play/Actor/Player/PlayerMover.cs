@@ -146,8 +146,8 @@ namespace Game
                 transform1.right * transform1.localScale.x, 
                 wallDistance, 
                 layersToJump);
-
-            if (wallHit)
+            
+            if (wallHit && !wallHit.transform.gameObject.CompareTag(R.S.Tag.NoWallJump))
             {
                 isWallJumping = false;
                 isTouchingWall = true;

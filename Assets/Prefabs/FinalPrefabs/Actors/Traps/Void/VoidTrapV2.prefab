@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1512990140856407511}
   - component: {fileID: 8739870240142286205}
   m_Layer: 8
-  m_Name: M_VoidTrapV2
+  m_Name: VoidTrapV2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3051839251390921939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5bb99e1570345149a901233e374cdb0, type: 3}
+  m_Script: {fileID: 11500000, guid: b1abfc6c267748fdbae59c36b1ee87ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &1512990140856407511

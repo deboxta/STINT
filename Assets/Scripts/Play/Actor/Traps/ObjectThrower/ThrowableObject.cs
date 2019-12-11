@@ -14,7 +14,7 @@ namespace Game
         private FreezableWaitForSeconds waitForRemoveObjectDelay;
         private BoxCollider2D boxCollider2D;
 
-        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
+        private static bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
         public Rigidbody2D Rigidbody2D { get; private set; }
         public ObjectThrower Thrower { get; set; }
 

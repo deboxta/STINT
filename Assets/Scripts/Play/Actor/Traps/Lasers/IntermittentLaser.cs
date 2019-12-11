@@ -17,7 +17,7 @@ namespace Game
         private FreezableWaitForSeconds waitForChangeFiringStateDelay;
         private bool firing;
 
-        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
+        private static bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private bool Firing
         {

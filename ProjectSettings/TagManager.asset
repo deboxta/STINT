@@ -18,6 +18,7 @@ TagManager:
   - ReturnButton
   - LaserGoThrough
   - GravityObject
+  - NoWallJump
   layers:
   - Default
   - TransparentFX
@@ -69,4 +70,7 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 2691102679
+    locked: 0
+  - name: FrontProps
+    uniqueID: 916962417
     locked: 0
