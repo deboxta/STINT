@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PersonalScenes/Yannick/Main_menu.unity
     guid: f67b20a20d1e40043b7425cc7126ffeb
   - enabled: 1
+    path: Assets/Scenes/PersonalScenes/Anthony/Tutorial.unity
+    guid: fc79e5830590d524ba31e0e5b78e5751
+  - enabled: 1
     path: Assets/Scenes/PersonalScenes/Anthony/Level1.unity
     guid: 1f0a2d20a394ff643a8f8cc907ffc01f
   - enabled: 1
