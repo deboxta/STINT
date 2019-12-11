@@ -27,7 +27,7 @@ namespace Game
 
         public void GetData()
         {
-            player = Finder.Player;//GameObject.FindWithTag(R.S.Tag.Player).GetComponent<Player>();
+            player = Finder.Player;
             dataCollector.PositionX = GetPlayer().Item1;
             dataCollector.PositionY = GetPlayer().Item2;
             dataCollector.Boots = player.PlayerMover.HasBoots;
