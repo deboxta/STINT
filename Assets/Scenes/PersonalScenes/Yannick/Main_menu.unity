@@ -3096,7 +3096,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2905cd7c95086b94789c7d81cba5705b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bced604645427a848baff1fc87071e75, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3663,7 +3663,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This game was made possible by
+  m_Text: 'This game was made by
 
 
 
@@ -3673,7 +3673,7 @@ MonoBehaviour:
     Anthony Berube
 
 
-    Mathieu Boudet
+    Mathieu Boutet
 
 
     Jeammy Cote
@@ -7633,7 +7633,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This game was made possible by
+  m_Text: 'This game was made by
 
 
 
@@ -7643,7 +7643,7 @@ MonoBehaviour:
     Anthony Berube
 
 
-    Mathieu Boudet
+    Mathieu Boutet
 
 
     Jeammy Cote
@@ -8667,7 +8667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1771608588
 MonoBehaviour:
   m_ObjectHideFlags: 0

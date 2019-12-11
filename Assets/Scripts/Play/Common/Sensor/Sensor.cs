@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Harmony;
 using UnityEngine;
 
 namespace Game
 {
-    [Obsolete("The old sensor is deprecated. Use " + nameof(ISensorV2<T>) + " instead.")]
     public interface ISensor<out T>
     {
         event SensorEventHandler<T> OnSensedObject;
@@ -14,16 +12,11 @@ namespace Game
 
         IReadOnlyList<T> SensedObjects { get; }
     }
-
-    [Obsolete("The old sensor is deprecated. Use " + nameof(SensorV2) + " instead.")]
-    public sealed class Sensor : MonoBehaviour, ISensor<GameObject>
+    
+    public abstract class Sensor : MonoBehaviour, ISensor<GameObject>
     {
-        [SerializeField] private Shape shape = Shape.Circle;
-        [SerializeField] [Range(1, 100)] private float xSize = 10;
-        [SerializeField] [Range(1, 100)] private float ySize = 10;
-
         private Transform parentTransform;
-        private new Collider2D collider2D;
+        protected new Collider2D collider2D;
         private readonly List<GameObject> sensedObjects;
         private ulong dirtyFlag;
 
@@ -39,11 +32,14 @@ namespace Game
             dirtyFlag = ulong.MinValue;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             parentTransform = transform.parent;
 
-            CreateCollider();
+            //Needed to be able to detect something when moved. DO NOT REMOVE THIS!!!!!!!!
+            gameObject.AddComponent<Rigidbody2D>().isKinematic = true;
+            
+            InitCollider();
             SetSensorLayer();
         }
 
@@ -122,27 +118,7 @@ namespace Game
             return new Sensor<T>(this);
         }
 
-        private void CreateCollider()
-        {
-            switch (shape)
-            {
-                case Shape.Square:
-                    var squareCollider = gameObject.AddComponent<BoxCollider2D>();
-                    squareCollider.size = new Vector2(xSize, ySize);
-                    collider2D = squareCollider;
-                    break;
-                case Shape.Circle:
-                    var circleCollider = gameObject.AddComponent<CircleCollider2D>();
-                    circleCollider.radius = xSize / 2;
-                    collider2D = circleCollider;
-                    break;
-                default:
-                    throw new Exception("Unknown shape named \"" + shape + "\".");
-            }
-
-            //Needed to be able to detect something when moved. DO NOT REMOVE THIS!!!!!!!!
-            gameObject.AddComponent<Rigidbody2D>().isKinematic = true;
-        }
+        protected abstract void InitCollider();
 
         private void SetSensorLayer()
         {
@@ -169,15 +145,8 @@ namespace Game
         {
             if (OnUnsensedObject != null) OnUnsensedObject(otherObject);
         }
-
-        private enum Shape
-        {
-            Square,
-            Circle
-        }
     }
-
-    [Obsolete("The old sensor is deprecated. Use " + nameof(SensorV2<T>) + " instead.")]
+    
     [SuppressMessage("ReSharper", "DelegateSubtraction")]
     public sealed class Sensor<T> : ISensor<T>
     {

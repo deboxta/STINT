@@ -17,7 +17,7 @@ namespace Game
         private float currentOffset;
         private int nbActiveSegments;
 
-        public bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
+        private static bool IsFrozen => Finder.TimeFreezeController.IsFrozen;
 
         private bool PlayerIsTouchingSegment
         {

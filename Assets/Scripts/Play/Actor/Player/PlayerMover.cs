@@ -34,7 +34,6 @@ namespace Game
         [SerializeField] private float gravityMultiplier = 5f;
         [SerializeField] private int fallGravityMultiplier = 10;
         [SerializeField] private Vector2 playerMovementForce = new Vector2(15f, 17f);
-        [SerializeField] private float groundCheckRadius = 1.11f; 
         [SerializeField] private float wallDistance = 1.11f;
         [SerializeField] private float movementPenalty = 2;
 
@@ -76,9 +75,11 @@ namespace Game
             //https://answers.unity.com/questions/416919/making-raycast-ignore-multiple-layers.html
             //To add a layer do : LayersToHit = |= (1 << LayerMask.NameToLayer(LayerName));
             //Author : Sébastien Arsenault
-            layersToJump = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
+            layersToJump = LayerMask.GetMask(R.S.Layer.Floor, R.S.Layer.OneWay, R.S.Layer.MovablePlatform);
+            /*layersToJump = (1 << LayerMask.NameToLayer(R.S.Layer.Floor));
             layersToJump |= (1 << LayerMask.NameToLayer(R.S.Layer.OneWay));
-            layersToJump |= (1 << LayerMask.NameToLayer(R.S.Layer.MovablePlatform));
+            layersToJump |= (1 << LayerMask.NameToLayer(R.S.Layer.MovablePlatform));*/
+            //layersToJump = LayerMask.NameToLayer(R.S.Layer.Floor); 
 
             groundCheck = transform.Find("GroundCheck");
             wallCheck = transform.Find("WallCheck");
@@ -122,7 +123,7 @@ namespace Game
             isGrounded = false;
             
             Vector3 groundCheckPosition = groundCheck.position;
-            isGrounded = Physics2D.OverlapCircle(groundCheckPosition, groundCheckRadius, layersToJump);
+            isGrounded = Physics2D.OverlapBox(groundCheckPosition, new Vector2(2.1f, 0.2f), 0f, layersToJump);
             if (isGrounded)
             {
                 isWallJumping = false;
@@ -144,8 +145,8 @@ namespace Game
                 transform1.right * transform1.localScale.x, 
                 wallDistance, 
                 layersToJump);
-
-            if (wallHit)
+            
+            if (wallHit && !wallHit.transform.gameObject.CompareTag(R.S.Tag.NoWallJump))
             {
                 isWallJumping = false;
                 isTouchingWall = true;
@@ -331,7 +332,7 @@ namespace Game
                 var position = wallCheck.position;
                 var transform1 = transform;
                 Gizmos.DrawLine(position, position + wallDistance * transform1.localScale.x * transform1.right);
-                Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
+                Gizmos.DrawWireCube(groundCheck.position, new Vector3(2.1f, 0.2f));
             }
         }
 #endif   
