@@ -251,7 +251,6 @@ MonoBehaviour:
   gravityMultiplier: 5
   fallGravityMultiplier: 5
   playerMovementForce: {x: 15, y: 17}
-  groundCheckRadius: 1.07
   wallDistance: 1.23
   movementPenalty: 2
   groundCheck: {fileID: 9062234428917781900}
