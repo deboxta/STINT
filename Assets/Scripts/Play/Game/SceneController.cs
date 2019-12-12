@@ -94,7 +94,7 @@ namespace Game
             currentScene++;
 
             yield return LoadGame();
-            if (currentScene != 0 && currentScene != 6)
+            if (currentScene != 0 && currentScene != 7)
                 saveSystem.SaveGame();
         }
 
