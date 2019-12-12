@@ -44,7 +44,7 @@ namespace Game
             int blockingObjectIndex = -1;
             if (NbRaycastHits > 0)
             {
-                if (/*RaycastHits[0].transform.parent != null && RaycastHits[0].transform.parent.CompareTag(R.S.Tag.Player)*/ RaycastHits[0].collider.attachedRigidbody.CompareTag(R.S.Tag.Player))
+                if (RaycastHits[0].collider.attachedRigidbody.CompareTag(R.S.Tag.Player))
                 {
                     CastTouchesPlayer = true;
                     for (int i = 1; i < NbRaycastHits; i++)
