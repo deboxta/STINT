@@ -73,7 +73,7 @@ namespace Game
 #if UNITY_EDITOR
             colliderContactPoints = other.contacts;
 #endif
-            if (!IsFrozen && other.transform.CompareTag(R.S.Tag.Player))
+            if (!IsFrozen&& other.transform.parent != null && other.transform.parent.CompareTag(R.S.Tag.Player))
             {
                 Finder.Player.PlayerMover.YVelocityToLerp = Rigidbody2D.velocity.y;
 
@@ -88,7 +88,7 @@ namespace Game
 #if UNITY_EDITOR
             colliderContactPoints = null;
 #endif
-            if (!IsFrozen && other.transform.CompareTag(R.S.Tag.Player))
+            if (!IsFrozen && other.transform.parent != null && other.transform.CompareTag(R.S.Tag.Player))
             {
                 Finder.Player.PlayerMover.YVelocityToLerp = null;
             }

@@ -87,7 +87,7 @@ namespace Game
             playerAnimator = Finder.PlayerAnimator;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             //Author : Jeammy Côté
             CheckIfCanJump();

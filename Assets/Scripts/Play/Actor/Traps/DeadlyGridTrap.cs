@@ -9,7 +9,7 @@ namespace Game
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.transform.CompareTag(R.S.Tag.Player))
+            if (other.transform.parent != null && other.transform.CompareTag(R.S.Tag.Player))
             {
                 Finder.Player.Die();
             }

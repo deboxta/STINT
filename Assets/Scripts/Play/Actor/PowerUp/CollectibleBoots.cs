@@ -10,7 +10,7 @@ namespace Game
             var otherParent = other.Parent();
             if (otherParent != null) 
             {
-                if (otherParent.CompareTag(R.S.Tag.Player))
+                if (other.transform.parent != null && otherParent.CompareTag(R.S.Tag.Player))
                 {
                     Finder.Player.CollectBoots();
                     var wallJumpBoots = GetComponentInParent<WallJumpBoots>();
