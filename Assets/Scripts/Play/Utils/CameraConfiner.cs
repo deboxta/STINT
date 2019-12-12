@@ -47,7 +47,7 @@ namespace Game
             
             var cinemachineConfiner = cinemachineVirtualCamera.GetComponent<CinemachineConfiner>();
 
-            if (other.transform.CompareTag(R.S.Tag.Player))
+            if (other.transform.parent != null && other.transform.parent.CompareTag(R.S.Tag.Player))
             {
                 isPlayerInConfiner = true;
                 cinemachineConfiner.m_BoundingShape2D = compositeCollider2D;
@@ -65,7 +65,7 @@ namespace Game
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.transform.CompareTag(R.S.Tag.Player))
+            if (other.transform.parent != null && other.transform.parent.CompareTag(R.S.Tag.Player))
                 isPlayerInConfiner = false;
         }
 

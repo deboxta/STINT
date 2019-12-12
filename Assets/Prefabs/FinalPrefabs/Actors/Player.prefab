@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 308609900899969834}
   m_Layer: 12
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,7 +449,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2898758650144207652}
-  - component: {fileID: 7001274689054947901}
+  - component: {fileID: 7723347983564174793}
+  - component: {fileID: 9081498692415791135}
   m_Layer: 0
   m_Name: GrabSensor
   m_TagString: Untagged
@@ -471,7 +472,33 @@ Transform:
   m_Father: {fileID: 308609901384526595}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7001274689054947901
+--- !u!61 &7723347983564174793
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874216591978281443}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.7, y: 3}
+  m_EdgeRadius: 0
+--- !u!114 &9081498692415791135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -480,12 +507,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5874216591978281443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c810fe1177419ab323a6cbd26c92ff, type: 3}
+  m_Script: {fileID: 11500000, guid: b2e0ce2d50024afc9d2260f4c0fe2fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 0
-  xSize: 2.4
-  ySize: 3
 --- !u!1 &8122630466803514657
 GameObject:
   m_ObjectHideFlags: 0
