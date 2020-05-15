@@ -1,5 +1,7 @@
 # STINT
 
+Projet réalisé en coopération dans le cours Synthèse 420-V51-SF 2019
+
 Synopsis : Aleksander Gregovski un concierge travaillant dans un laboratoire expérimental soviétique se retrouve plongé dans une situation tendue alors que son lieu de travail typiquement russe devient le centre d’une expérimentation qui tourne mal... Prisonnier du temps, il devra retrouver son chemin à travers les époques avant de perdre le contrôle.
 
 
