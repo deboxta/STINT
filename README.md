@@ -1,7 +1,7 @@
-# Jeu - Projet de départ
+# STINT
 
 ```
-À faire : Écrire une courte description du projet ici. Remplacer le titre de ce document par le nom de votre jeu.
+Synopsis : Aleksander Gregovski un concierge travaillant dans un laboratoire expérimental soviétique se retrouve plongé dans une situation tendue alors que son lieu de travail typiquement russe devient le centre d’une expérimentation qui tourne mal... Prisonnier du temps, il devra retrouver son chemin à travers les époques avant de perdre le contrôle.
 
 ```
 
@@ -110,12 +110,11 @@ Inscrivez aussi, en détail, ce sur quoi chaque membre de l'équipe a principale
 * **Benjamin Lemelin** - *Programmeur*
   * Extensions sur le moteur Unity pour la recherche d'objets et de composants. Générateur de constantes. Gestionnaire de
     chargement des scènes.
-* **Prénom Nom** - *Programmeur*
-* **Prénom Nom** - *Programmeur*
-* **Prénom Nom** - *Programmeur*
-* **Prénom Nom** - *Programmeur*
-* **Prénom Nom** - *Concepteur sonore*
-* **Prénom Nom** - *Artiste 2D et Artiste UI*
+* **Prénom Nom** - *Yannick Côté*
+* **Prénom Nom** - *Jeammy Côté*
+* **Prénom Nom** - *Anthony Bérubé*
+* **Prénom Nom** - *Sébastien Arseneault*
+* **Prénom Nom** - *Mathieu Boutet*
 
 ## Remierciements
 
