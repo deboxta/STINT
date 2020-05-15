@@ -1,9 +1,7 @@
 # STINT
 
-```
 Synopsis : Aleksander Gregovski un concierge travaillant dans un laboratoire expérimental soviétique se retrouve plongé dans une situation tendue alors que son lieu de travail typiquement russe devient le centre d’une expérimentation qui tourne mal... Prisonnier du temps, il devra retrouver son chemin à travers les époques avant de perdre le contrôle.
 
-```
 
 ```
 À faire : Mettre à jour les liens dans ce document vers votre dépôt. 
